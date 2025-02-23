@@ -1,0 +1,159 @@
+@CHARSET "UTF-8";
+
+#drawTable table {
+	width: 100%;
+}
+
+#drawTable .page_info {
+	width: 386px;
+}
+
+#drawTable .page_info .record {
+	margin-left: 1px;
+}
+
+#drawTable .page_info .page_count {
+	margin-left: 1px;
+}
+
+#drawTable .page_info .page_control {
+	margin-right: 1px;
+}
+
+.bet_panel table .empty {
+	 
+}
+
+.table_ball .ballname {
+}
+
+.table_ball .name {
+	width: 39px;
+}
+
+.table_ball .odds,.table_ds .odds {
+	width: 79px;
+}
+
+.table_ball .ballodds {
+	width: 79px;
+}
+
+.table_ts .name {
+	background: white;
+	
+}
+.table_ts .odds {
+	background: white;
+	width: 80px;
+}
+.table_ts .name span {
+	float: left;
+}
+
+.table_ts1 .name div {
+	width: 59px;
+	margin: 0 auto;
+	clear: both;
+	float: none;
+}
+
+.table_ball .name span,#drawInfo .balls b {
+	background: url("img/ball/ball_4.gif") no-repeat;
+	display: inline-block;
+	width: 27px;
+	height: 27px;
+	font-size: 0px;
+	text-indent: -99999px;
+	margin: 3px 1px;
+}
+
+.tsname div{
+	display: inline-block; 
+}
+ 
+.table_ts_dpqs .name{
+	width: 88px;
+}
+
+.table_ball .name .b1,#drawInfo .balls .b1 {
+	background-position: 0 0;
+}
+
+.table_ball .name .b2,#drawInfo .balls .b2 {
+	background-position: 0 -27px;
+}
+
+.table_ball .name .b3,#drawInfo .balls .b3 {
+	background-position: 0 -54px;
+}
+
+.table_ball .name .b4,#drawInfo .balls .b4 {
+	background-position: 0 -81px;
+}
+
+.table_ball .name .b5,#drawInfo .balls .b5 {
+	background-position: 0 -108px;
+}
+
+.table_ball .name .b6,#drawInfo .balls .b6 {
+	background-position: 0 -135px;
+}
+
+.bet_panel .panel_yxx {
+	background: url("img/ball/yxx.gif") no-repeat top left;
+	width: 755px;
+	_width: 776px;
+	height: 425px;
+	padding: 1px;
+}
+
+.panel_yxx a {
+	display: block;
+	float: left;
+	text-indent: -9999px;
+	font-size: 0;
+	width: 230px;
+	height: 191px;
+	margin: 11px 10px;
+}
+
+.panel_yxx a:hover {
+	background: url("img/ball/k1.gif");
+}
+
+.panel_yxx a:active {
+	background: url("img/ball/k2.gif");
+}
+
+.P_yxx .table_ball .name span,.P_yxx #drawInfo .balls b {
+	background: url("img/ball/ball_4y.gif") no-repeat;
+	width: 36px;
+	height: 36px;
+}
+
+
+.P_yxx .table_ball .name .b2,.P_yxx #drawInfo .balls .b2 {
+	background-position: 0 -36px;
+}
+
+.P_yxx .table_ball .name .b3,.P_yxx #drawInfo .balls .b3 {
+	background-position: 0 -72px;
+}
+
+.P_yxx .table_ball .name .b4,.P_yxx #drawInfo .balls .b4 {
+	background-position: 0 -108px;
+}
+
+.P_yxx .table_ball .name .b5,.P_yxx #drawInfo .balls .b5 {
+	background-position: 0 -144px;
+}
+
+.P_yxx .table_ball .name .b6,.P_yxx #drawInfo .balls .b6 {
+	background-position: 0 -180px;
+}
+
+.P_yxx .lottery_info .name,.P_yxx .lottery_info .money,.P_yxx #drawInfo {
+	height: 30px;
+	line-height: 30px;
+}

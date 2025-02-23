@@ -1,0 +1,44 @@
+<html class="uk-notouch">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>管理后台</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,minimum-scale=1,user-scalable=no">
+        <script type="text/javascript" src="__STATIC__/xz/admin/jquery-1.11.3.min.js"></script>
+        <link rel="stylesheet" href="__STATIC__/xz/layui/css/layui.css">
+        <script src="__STATIC__/xz/layui/layui.js"></script>
+        <script type="text/javascript">
+            function alertErr(title) {
+    			layer.msg(title, {icon: 5,offset: '50%'});
+    		}
+    		
+    		function alertSuc(title) {
+    			layer.msg(title, {icon: 1,offset: '50%'});
+    		}
+    
+    		function putAjax(url, data, callback, callback2) {
+    		    var loadindex = layer.load(1,{offset: '50%'});
+    			$.ajax({
+    				type: "POST",
+    				url: url,
+    				dataType: "json",
+    				data: data,
+    				cache: false,
+    				success: function(data) {
+    					if (callback && typeof callback === 'function') {
+    						callback(data);
+    					}
+    				},
+    				error: function() {
+    					if (callback2 && typeof callback2 === 'function') {
+    						callback2();
+    					}
+    					alertErr("请求失败，请重试！");
+    				},
+    				complete: function() {
+    				    layer.close(loadindex);
+    				}
+    			});
+    		}
+        </script>
+    </head>
+    <body>

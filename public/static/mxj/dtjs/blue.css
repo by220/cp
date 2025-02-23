@@ -1,0 +1,884 @@
+/* 验证码 */
+.passcode {
+    cursor: pointer;
+}
+
+/* 登录框 */
+.login-panel {
+    width:450px;
+    margin:180px auto;
+    margin-right:180px;
+
+    color:white;
+    background:#000;
+    color:#fff;
+    background-color:rgba(0, 0, 0, 0.4)
+}
+
+@media screen and (max-width: 767px) {
+    .login-panel {
+        width:450px;
+        margin:180px auto;
+
+        color:white;
+        background:#000;
+        color:#fff;
+        background-color:rgba(0, 0, 0, 0.4)
+    }
+}
+
+
+.login-panel .form-label {
+    color: white;
+    font-weight: bolder;
+}
+
+/* 侧边栏 */
+#lhc-aside {
+    height: 100%;
+    position: absolute;
+    width: 190px;
+    z-index: 10;
+    top: 100px;
+}
+
+@media screen and (max-width: 767px) {
+    #lhc-aside {
+        width: 90px;
+    }
+}
+
+@media ( min-width : 768px) and (max-width: 1100px) {
+    #lhc-aside {
+        width: 120px;
+    }
+}
+
+
+/* 侧边的表格不要太多间隙 */
+#quick-order table td, #userinfo table td {
+    padding: 0;
+}
+
+/* 快速下注指针换手指 */
+#quick-order table td {
+    cursor: pointer;
+}
+
+.quick-table-no-border td:hover {background-color: #ccff00;}
+
+#userinfo .panel-header {padding: 0;}
+#userinfo .panel-body {padding:4px;background-color: #d1eafd;}
+#userinfo table.table-bg td {background-color: #d1eafd;}
+
+/* 右边内容 */
+#lhc-content {
+    margin: 5px 0 0 200px;
+    position: inherit;
+    /*background-color: #f0f4fd;*/
+    /*background-color: #fffdef;*/
+
+    background-color: #e0f5ff;
+}
+
+
+.agent-content .panel {
+    background-color: #e0f5ff;
+}
+
+
+@media screen and (max-width: 767px) {
+    #lhc-content {
+        margin: 5px 0 0 100px;
+    }
+
+    #userinfo table tr td {font-size: 10px;}
+}
+
+@media ( min-width : 768px) and (max-width: 1100px) {
+    #lhc-content {
+        margin: 5px 0 0 130px;
+    }
+    #userinfo table tr td {font-size: 10px;}
+}
+
+
+/* 输入框 */
+input.size-XS, select.size-XS {width:30px;}
+input.size-MINI, select.size-MINI {width: 60px;}
+input.size-XSS, select.size-XSS {width:40px; height:20px; font-size: 12px;}
+
+@media screen and (max-width: 767px) {
+    table input.size-MINI, select.size-MINI {width: 32px; font-size: 8px; padding: 0;}
+    input.size-XS, select.size-XS {width:10px;}
+    input.size-MINI, select.size-MINI {width: 32px; font-size: 8px; padding: 0;}
+}
+
+@media screen and (max-width: 767px) {
+    .input-text.size-MINI, .btn.size-MINI {
+        font-size: 10px;
+        height: 23px;
+        padding: 0;
+    }
+}
+
+input.size-MID, select.size-MID {width:200px;}
+
+select.size-MEDIUM {width: 100px;}
+
+/* 球号 */
+
+div.ball {
+    height: 26px;
+    font-weight: bold;
+    cursor: default;
+    width: 26px;
+    line-height: 26px;
+    margin: 0 auto;
+    font-size: 13px;
+    color:#fff;
+}
+
+@media screen and (max-width: 767px) {
+    div.ball {
+        height: 18px;
+        font-weight: bold;
+        cursor: default;
+        width: 18px;
+        line-height: 18px;
+        margin: 0 auto;
+        font-size: 8px;
+    }
+}
+
+@media ( min-width : 768px) and (max-width: 1100px) {
+    div.ball {
+        height: 22px;
+        font-weight: bold;
+        cursor: default;
+        width: 22px;
+        line-height: 22px;
+        margin: 0 auto;
+        font-size: 10px;
+    }
+
+}
+
+
+div.dvNoB{background:url('../retro/images/ball.png') no-repeat center top;}
+div.dvNoR{background:url('../retro/images/ball.png') no-repeat center center;}
+div.dvNoG{background:url('../retro/images/ball.png') no-repeat center bottom;}
+
+
+.ballB{color:blue;}
+.ballR{color:red;}
+.ballG{color:green;}
+
+div.ball b {
+    display: block;
+    text-align: center;
+}
+
+/* 表格内容居中 */
+table.text-c tr th, table.text-c tr td{
+    text-align: center;
+    word-break: keep-all;
+    white-space: nowrap;
+}
+
+/* Tabbar */
+.tabBar span.current a {color:#fff;}
+.tabBar span a:hover {text-decoration: none;}
+
+/* 自定义文本颜色 */
+.text-red {color: #cc0000;}
+.text-green {color: green;}
+.text-blue {color:#0000cc;}
+.text-R {color: #cc0000;}
+.text-G {color: green;}
+.text-B {color:#0000cc;}
+.text-yellow {color:#ffff00;}
+.text-white {color:#ffffff;}
+.text-orange {color:#FFD700;}
+
+/* 自定义背景颜色 */
+.bg-yellow {background-color: #ffff00;}
+.bg-red {background-color: #ffaaaa;}
+.table-striped tbody > tr.bg-red:nth-child(odd) > td,
+.table-striped tbody > tr.bg-red:nth-child(odd) > th{background-color:#ffaaaa}
+.bg-blue {background-color: #aaaaff;}
+.bg-green {background-color: #aaffaa;}
+.bg-1 { background-color: #f0f4fd; }
+.bg-yellow-light {background-color: #ffe588;}
+.bg-blue-light {background-color: #66ddff;}
+.bg-gray {background-color: #c0c0c0;}
+.bg-yellow-mini {background-color: #fbeed5;}
+
+.bg-lan {background-color: blue}
+.bg-lv {background-color: green;}
+.bg-huang {background-color: orange;}
+.bg-hong {background-color: red;}
+/* 自定义边框 */
+.bk-gray { border: 1px solid #eee; }
+
+/* 单个赔率单注 */
+.quick-single-items {cursor:pointer;}
+
+.quick-single-items:hover {background-color: #cccc77;}
+
+/* 子选项卡 */
+.sub_tab {background-color: #efefef;}
+.sub_tab li {
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+.sub_tab li a:hover {text-decoration: none;}
+.sub_tab li.active {background: #fff;}
+
+/* 组合列表 */
+.group-item {
+    display: block;
+    border:1px solid black;
+    padding: 5px;
+    margin: 5px;
+    float: left;
+    background-color: #a6cbcc;
+}
+
+/*导航条风格-黑色*/
+.navbar-blue {
+    background: #8ea3ff url('../images/site/top-bg.png');
+    border-bottom: #134f79 1px solid;
+    -moz-box-shadow: 0 0 4px #6ea6b6;
+    -webkit-box-shadow: 0 0 4px #577bb6;
+    box-shadow: 0 0 4px #577bb6
+}
+
+@media screen and (max-width: 767px) {
+    .navbar-blue {
+        background: #6a80ff;
+        border-bottom: #134f79 1px solid;
+        -moz-box-shadow: 0 0 4px #6ea6b6;
+        -webkit-box-shadow: 0 0 4px #577bb6;
+        box-shadow: 0 0 4px #577bb6
+    }
+}
+
+.navbar-blue .logo{ color: #fff }
+.navbar-blue .navbar-logo-m{color: #eee}
+.navbar-blue .navbar-nav ul li,
+.navbar-blue .navbar-nav ul li > a{ color:#fff}
+.navbar-blue .navbar-nav ul li > a:hover,
+.navbar-blue .navbar-nav ul li.current > a{color:rgb(0, 66, 124)}
+.navbar-blue .navbar-userbar{ color: #fff}
+@media (max-width: 767px) {
+  .navbar-blue .navbar-nav ul li{border: solid 1px #222}
+  .navbar-blue .navbar-nav ul li > a:hover,
+  .navbar-blue .navbar-nav ul li.current > a{ background: #777}
+}
+
+/* 表格文字加粗加大 */
+.table-font-bold tr td {font-size: 13px; font-weight: normal; padding: 1px;}
+.table-font-bold tr td small {font-weight: normal;}
+.table tr td label {font-weight: bolder;}
+.table tr td span {font-weight: normal; font-size: 13px;}
+
+@media ( max-width : 767px) {
+    .table tr td span {font-weight: normal; font-size: 8px;}
+    .table-font-bold tr td {font-size: 8px; font-weight: bold; padding: 0px;}
+    .table tr td span {font-weight: normal; font-size: 8px;}
+}
+
+@media ( min-width : 768px) and (max-width: 1100px) {
+    .table tr td span {font-weight: normal; font-size: 14px;}
+    .table-font-bold tr td {font-size: 14px; font-weight: bold; padding: 0px;}
+    .table tr td span {font-weight: normal; font-size: 14px;}
+
+    /*#tema-form table.table tr td span {font-weight: normal; font-size: 10px;}*/
+    /*#tema-form table.table-font-bold tr td {font-size: 10px; font-weight: bold; padding: 0px;}*/
+    /*#tema-form table.table tr td span {font-weight: normal; font-size: 10px;}*/
+}
+
+/* 管理员子菜单 */
+.sub-menu {
+    background-color: rgb(239, 247, 254);
+    font-size: 16px;
+}
+
+.sub-menu ul {
+    padding-right: 20px;
+}
+
+.sub-menu ul li {
+    height: 40px;
+    line-height: 40px;
+}
+
+.sub-menu .time {
+    line-height: 40px;
+    padding-left: 20px;
+}
+
+.sub-menu .current {
+    font-weight: bold;
+}
+
+.no-bottom {
+    border: none;
+    box-shadow: none;
+}
+
+/* 管理主体 */
+
+/* 弹出层 */
+#element_to_pop_up { display:none; background-color: honeydew;}
+
+/* 赔率 */
+.table-odds i { cursor: pointer; }
+
+
+table.table-odds input.size-MINI {width: 50px;}
+
+/* 统计选项卡 */
+div.statistics_tab {
+    margin: 0 auto;
+    border:1px solid #00aabb;
+    color: black;
+}
+
+div.statistics_tab td {
+    font-size: 14px;
+}
+
+div.statistics_tab table.table tr td.current {
+    background-color: #ccff00;
+}
+
+div.statistics_tab td a {
+    text-decoration: none;
+    display: block;
+}
+
+div.statistics_tab td a:hover {
+    text-decoration: none;
+    display: block;
+}
+
+div.statistics_tab strong {
+    color: blue;
+    font-weight: bold;
+}
+div.statistics_tab table.table tr td {padding:4px;margin: 0;line-height: 15px;border:1px solid black;background-color: #46a1bf;width:100px;}
+div.statistics_tab table.table tr td span { font-size: 13px;font-weight: bold;}
+div.statistics_tab table.table tr td a div.row {margin-left: 0px;margin-right: 0px;}
+
+/*捕获动作*/
+.buhuo {color: blue;}
+
+/*彩盘监控*/
+.monitor_btn1 {
+    background-image: url("../images/nbk.jpg");
+    border: 1px solid #dec035;
+    padding: 0 10px;
+}
+.monitor_btn2 {
+    background-image: url("../images/nbk2.jpg");
+    border: 1px solid #dec035;
+    padding: 0 10px;
+}
+
+input.btn.size-mini {
+    font-size: 10px;
+    height: 16px;
+    width: 20px;
+    line-height: 1.42857;
+    padding:0;
+}
+
+.pours {cursor:pointer;}
+.table tr td span.odds {cursor:pointer; font-weight: bolder;}
+div.odds {cursor:pointer;font-weight: bold;font-size: 14px;}
+.single-transfer {cursor:pointer;}
+.lianma-item {cursor:pointer;}
+
+.table {}
+.table tr th, .table-bordered tr th, .table-hover tbody tr th {background-color: #e9f5ff;}
+
+.lianma_waidiao_tabs {display:none;}
+
+#lianma_waidiao table td {font-size: 15px;}
+#lianma_waidiao.table th, .table td {padding: 1px;}
+
+@media screen and (max-width: 767px) {
+    #lianma_waidiao.table th, .table td {padding: 0px;}
+}
+
+.type-items {cursor:pointer;}
+.type-items.active {background-color: #6ea6b6;}
+
+#master_content div.panel-header {display: none;}
+#master_content div.panel-body {padding:5px; background-color: #d1eafd;}
+#master_content {background-color: #d1eafd;}
+
+#siderbar {
+	position: absolute;
+	top: 65px;
+	bottom: 0;
+	left: 0;
+	padding-top: 10px;
+	width: 150px;
+	z-index: 99;
+    text-align: center;
+}
+
+#right-content {
+    position: absolute;
+    top: 65px;
+    right: 0;
+    bottom: 0;
+    left: 150px;
+    z-index: 1;
+    background-color: #fff;
+}
+
+.siderbar-menu li {
+    border: 1px solid #0b3e6f;
+    width: 100px;
+    margin: 0 auto;
+    padding: 3px;
+}
+
+.siderbar-menu li.current {
+    background-color: #0b3e6f;
+}
+
+.siderbar-menu li.current a {
+    color: #fff;
+}
+
+.siderbar-menu li a {
+    text-decoration: none;
+    font-size: 14px;
+}
+
+input.size-LEN100, select.size-LEN100 {width: 100px;}
+input.size-LEN80, select.size-LEN80 {width: 80px;}
+
+#default_odds_submenu li {
+    border:1px solid #ccc;
+    padding: 5px;
+    background-color: #3695d7;
+}
+#default_odds_submenu li.current {background: #6fa0ff;}
+.pr-0 {padding-right: 0;}
+
+.permissions label {
+    padding: 5px;
+    display: block;
+    float: left;
+    width: 200px;
+}
+.f-15 {
+    font-size: 15px;
+}
+
+.f-b {
+    font-weight: bolder;
+}
+
+#lianma_waidiao table.padding-table tr td {padding: 5px; font-size: 15px;}
+#lianma_waidiao table.padding-table tr td label {display: block; font-size: 15px;}
+
+ul.mynav {
+    width:100%;
+    height:25px;
+    text-align:center;
+    color:#003366;
+    background-color: #124e7c;
+    font-size: 13px;
+}
+ul.mynav li {
+    display:inline-block;
+    *display:inline; /*IE7*/
+    *zoom:1; /*IE7*/
+    color:white;
+    width: 60px;
+    border: 1px solid #333333;
+}
+
+
+ul.mynav li a {
+    color:#fff;
+}
+
+ul.mynav li.current {
+    background-color: #0077b3;
+}
+ul.mynav li.logo {
+    border:none;
+    font-weight: bolder;
+    color:#000000;
+    font-size: 16px;
+    width: 100px;
+}
+
+.mymarquee {font-size:16px; color: #fffdef;}
+
+select.select {
+    height:25px;
+}
+
+table.table-report tr th, table.table-report tr td {
+    background-color: #f1f1f1;
+}
+
+table.table-report tr th.titleCompany1, table.table-report tr td.titleCompany1 {
+    background-color: #cffffa;
+}
+
+table.table-report tr th.titleCompany2, table.table-report tr td.titleCompany2 {
+    background-color: #fff7cf;
+}
+
+table.table-report tr th.titleCompany3, table.table-report tr td.titleCompany3 {
+    background-color: #e9cfff;
+}
+
+table.table-report tr th.txtCompany1, table.table-report tr td.txtCompany1 {
+    background-color: #90fef3;
+}
+
+table.table-report tr th.txtCompany2, table.table-report tr td.txtCompany2 {
+    background-color: #ffea81;
+}
+
+table.table-report tr th.txtCompany3, table.table-report tr td.txtCompany3 {
+    background-color: #e1beff;
+}
+
+.gt2-color {
+    background-color: #bd8903;
+}
+
+.gt1-color {
+    background-color: #f0c633;
+}
+
+
+@media screen and (max-width: 767px) {
+    .mymarquee {
+        width:100px;
+    }
+}
+
+.unit-lianma {
+    border: 1px solid #b2b2b2;
+    text-align: center;
+}
+.unit-lianma a {
+    display: block;
+}
+
+
+.table tr td label {
+    display: block;
+    cursor: pointer;
+    padding: 1px;
+}
+
+.table tr td label:hover {
+    opacity: 0.5;
+    color: red;
+}
+
+@media screen and (max-width: 1024px) {
+    .nav ul li > a {
+        padding: 0 2px;
+    }
+
+}
+
+#progressbar {
+    width: 960px;
+    margin: 30px auto;
+    text-align: center;
+}
+
+table.table-report tr:hover td {
+    background: #ccff00;
+}
+
+table.table-hover tr:hover td {
+    background: #ccff00;
+}
+
+label.icheck {
+    display: inline-block;
+}
+label.icheck input, label.icheck img {
+    visibility: hidden;
+}
+
+label.icheck input {
+    width:0;
+    height:0;
+    position: absolute;
+}
+
+@media screen and (max-width: 1024px) {
+    label.icheck img  {
+        width:15px;
+    }
+
+}
+
+.transparent_class {
+    /* Required for IE 5, 6, 7 */
+    /* ...or something to trigger hasLayout, like zoom: 1; */
+    /* older safari/Chrome browsers */
+    -webkit-opacity: 0.3;
+    /* Netscape and Older than Firefox 0.9 */
+    -moz-opacity: 0.3;
+    /* Safari 1.x (pre WebKit!) 老式khtml内核的Safari浏览器*/
+    -khtml-opacity: 0.3;
+    /* IE9 + etc...modern browsers */
+    opacity: .3;
+    /* IE 4-9 */
+    filter:alpha(opacity=30);
+    /*This works in IE 8 & 9 too*/
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+    /*IE4-IE9*/
+    filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+}
+
+#top-header {
+    background: url(../images/top_bg_blue.gif) repeat-x;
+}
+
+#top-header #logo {
+    background: url(../images/top_wall.gif) no-repeat;
+    height:56px;
+}
+
+#top-header #logo h1 {
+    color:red;
+    line-height: 30px;
+    padding-left: 20px;
+    font-family: Serif;
+    font-weight: bolder;
+    width:200px;
+    font-size: 30px;
+}
+
+#top-header #navbar {
+    background: #124e7c;
+    height:35px;
+}
+
+
+
+#top-small-menu li {
+    background-color: #d1eafd;
+    height:24px;
+    border:1px solid #003157;
+    width: 60px;
+    text-align: center;
+}
+
+@media ( max-width : 600px) {
+    #top-small-menu li {
+        background-color: #d1eafd;
+        height:14px;
+        border:1px solid #003157;
+        width: 38px;
+        text-align: center;
+    }
+
+    #top-header #logo h1 {
+        color:red;
+        font-size: 16px;
+        line-height: 22px;
+        padding-left: 20px;
+        font-family: Serif;
+        font-weight: bolder;
+        width:40px;
+    }
+}
+
+@media (min-width: 600px) and (max-width : 767px) {
+    #top-small-menu li {
+        background-color: #d1eafd;
+        height:14px;
+        border:1px solid #003157;
+        width: 40px;
+        text-align: center;
+    }
+
+    /*.marquee-container {*/
+        /*display: none;*/
+    /*}*/
+
+    #top-header #logo h1 {
+        color:red;
+        font-size: 14px;
+        line-height: 22px;
+        padding-left: 20px;
+        font-family: Serif;
+        font-weight: bolder;
+        width:50px;
+    }
+}
+
+@media ( min-width : 768px) and (max-width: 1100px) {
+    #top-small-menu li {
+        background-color: #d1eafd;
+        height:18px;
+        border:1px solid #003157;
+        width: 50px;
+        text-align: center;
+    }
+
+    #top-header #logo h1 {
+        color:white;
+        line-height: 22px;
+        padding-left: 20px;
+        font-family: Serif;
+        font-weight: bolder;
+        width:100px;
+    }
+
+}
+
+
+.navbar-nav ul li {
+    border:1px solid #0a001f;
+    background-color: #00427c;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+
+@media screen and (max-width: 800px) {
+    .navbar-nav ul li, .navbar-nav ul li > a {
+        font-size: 8px;
+    }
+}
+
+.navbar-nav ul li a { color: #fffdef; font-weight: bolder;}
+.navbar-nav ul li.current a { color: #0e76a8;}
+
+#skin-list {width:100px;}
+
+#skin-list li {
+    border: 1px solid black;
+    width: 10px;
+    height: 10px;
+}
+
+#skin-list li a {
+    width: 10px;
+    height: 10px;
+    display: block;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+    #skin-list li {
+        width: 5px;
+        height: 5px;
+    }
+
+    #skin-list li a {
+        width: 5px;
+        height: 5px;
+        display: block;
+        cursor: pointer;
+    }
+}
+
+.panel-primary > .panel-header.panel-style {
+    background-color: #A7D1F7;color: #0a001f;
+}
+
+.tabBar span.current{background-color: #5ebdff;}
+.panel-primary>.panel-header{border-color:#0e76a8;background-color:#1ebbda;color:#fff}
+
+#master_content table.table thead tr, table.table-bg thead th {
+    background-color: #1ebbda;
+}
+
+#master_content table.table {
+    border-collapse: collapse;
+}
+
+#master_content table.table thead tr th {
+    color: #000;
+}
+
+#master_content table.table-bordered th, #master_content table.table-bordered td {
+    border: 1px solid black;
+
+}
+
+#master_content table.table-border th, #master_content table.table-border td {
+    border: 1px solid black;
+}
+
+
+.bg-info {background-color: #0e76a8;}
+#content-box .panel-body table {background-color: #d0eaff;}
+.agent-content {font-size:13px;}
+.agent-content th, .agent-content td, .agent-content button, .agent-content input, .agent-content select, .agent-content textarea {
+    font-size: 13px;
+}
+
+.agent-content input[type=checkbox] {
+    font-size: 14px;
+    zoom:110%;
+
+}
+#master_content .panel {background-color: #d0eaff;}
+.breakcumb {background-color: #c4e0f7;}
+
+input.odds-modify {font-size: 10px;}
+input.odds-modify:hover {background-color: #ff9956; cursor: pointer; color:#FFFFFF;}
+
+
+.right-panel {
+    border: 1px solid #ccc;
+    width: 300px;
+    height: 10px;
+    background-color: #fff;
+    position: fixed;
+    z-index: 100;
+    opacity: 0.8;
+}
+
+.right-panel h1 {
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    background-color: #ffb7b3;
+    line-height: 20px;
+    height: 20px;
+    cursor: pointer;
+    padding-right: 5px;
+}
+
+.right-panel ul {
+    padding: 0px;
+    overflow: scroll;
+    height: 200px;
+    display: none;
+    width: 50%;
+}
+
+.right-panel ul li {
+    font-size: 13px;
+    height: 20px;
+    line-height: 20px;
+}
+
+#top-small-menu li.logout:hover {background-color: red;}
+#top-small-menu li.logout:hover a {color:#fff;}

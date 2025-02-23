@@ -1,0 +1,137 @@
+@CHARSET "UTF-8";
+
+a {
+	color: blue;
+}
+
+.control .button {
+	margin-top: 7px;
+}
+
+.main .top_info .area {
+	margin-left: 45%;
+}
+
+.main .panel tbody th {
+	height: 36px;
+}
+
+.panel .lottery select, .panel .lottery select option {
+	color: red;
+}
+
+.panel #date {
+	margin-right: 15px;
+}
+
+.panel .remark div {
+	color: #2836f4;
+	line-height: 28px;
+}
+
+.panel #date input {
+	width: 80px;
+	cursor: pointer;
+}
+
+.panel .unsettled {
+	color: #2836f4;
+}
+
+.date .btn {
+	padding: 0 1px;
+	height: 21px;
+	color: #555;
+}
+
+.date .today {
+	color: #2836f4;
+}
+
+.data_footer {
+	text-align: center;
+	font-weight: bold;
+}
+
+.data_footer #result {
+	color: red;
+}
+
+.data_footer #dividend {
+	color: #2836f4;
+}
+
+.data_footer #ppay {
+	color: #299a26;
+}
+
+.back_table {
+	width: 596px;
+	margin: 15px auto 0 auto;
+}
+
+.report tfoot th {
+	text-align: right;
+	padding-right: 5px;
+	font-weight: normal;
+}
+
+.report thead .realAmount {
+	font-weight: bold;
+	color: #344b50;
+}
+
+.report td {
+	text-align: right;
+	height: 21px;
+}
+
+.report .dividend {
+	background: #f2edf8;
+}
+
+.report .checked {
+	background: #d0f0ff;
+}
+
+.report .checked .dividend, .report .hover .dividend {
+	background: transparent;
+}
+
+.report .count, .report .name {
+	text-align: center;
+}
+
+.report .parent {
+	background: #EDF7E8;
+}
+
+.report .hover .parent {
+	background: none;
+}
+
+.report .share_result {
+	font-weight: bold;
+}
+
+.note {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.more_detail {
+	text-align: center;
+}
+
+.data_table1 {
+	margin-top: 15px;
+}
+
+.self {
+	/*font-weight: bolder;*/
+	
+}
+
+.backup_url {
+	color: red;
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"[
+	<!ENTITY E2 'stroke:none;opacity:1;fill:rgb(255,255,255);'>
+	<!ENTITY E1 'text-rendering:auto;shape-rendering:auto;'>
+	<!ENTITY E3 'stroke:none;font-size:9pt;fill:rgb(0,0,0);font-weight:bolder;baseline-shift:-86&#37;;font-family:宋体;opacity:1;'>
+]>
+<svg height="65" width="280" id="SvgGdi_output" xmlns="http://www.w3.org/2000/svg">
+  <rect id="background" height="100%" style="fill:rgb(255,255,255);" width="100%" y="0" x="0" />
+  <g style="&E1;" id="root_group">
+    <g id="11437827_BeginContainer">
+      <rect id="11437828" height="65" style="&E2;" width="280" y="0" x="0" />
+      <text id="11437829" style="&E3;" transform="matrix(1 0 0 1 0 0 ) " x="2" y="2">-----------</text>
+      <text id="11437831" style="&E3;" transform="matrix(1 0 0 1 0 0 ) " x="2" y="10">30877738结果:06,15,10,03,07,18,08,02 =&gt; 2, 双, 小</text>
+      <text id="11437833" style="&E3;" transform="matrix(1 0 0 1 0 0 ) " x="2" y="24">获胜名单:</text>
+      <text id="11437835" style="&E3;" transform="matrix(1 0 0 1 0 0 ) " x="10" y="38">-----------</text>
+      <text id="11437837" style="&E3;" transform="matrix(1 0 0 1 0 0 ) " x="10" y="50">时间:2021/10/23 18:04:07</text>
+    </g>
+  </g>
+  <defs id="clips_hatches_and_gradients" />
+</svg>

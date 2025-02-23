@@ -1,0 +1,127 @@
+{include file='public/head'}
+
+<div class="uk-container uk-container-center  uk-margin-large-top">
+    <div class="uk-panel uk-panel-box uk-panel-box-primary">
+        <div class="uk-grid" style="margin-left: 0;margin-top: 10px;">
+            {if $Think.session.user_uid == '1'}
+            <button class="layui-btn layui-btn-sm layui-btn-normal" id="add">添加</button>
+            {/if}
+            <button class="layui-btn layui-btn-sm" id="refresh">刷新</button>
+            <div class="uk-width-1-1" style="overflow: auto;padding: 0;">
+                <div id="table" lay-filter="table"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file='public/js'}
+
+<script type="text/html" id="barDemo">
+  {if $Think.session.user_uid == '1'}
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+  {/if}
+  
+  {{#  if(d.auth > 2){ }}
+  {{#  } }}
+</script>
+
+    <script>
+    //一般直接写在一个js文件中
+    layui.use(['layer', 'form', 'table'], function(){
+      var layer = layui.layer
+      ,form = layui.form
+      ,table = layui.table;
+      
+      var tableIndex = table.render({
+        elem: '#table'
+        ,url: "{:url('users/GetUserList')}" //数据接口
+        ,page: true //开启分页
+        ,loading: true
+        ,limit: 30
+        ,height: 'full-220'
+        ,width: '100%'
+        ,cols: [[ //表头
+          {field: 'UserName', title: '用户名', width:80,fixed: 'left'}
+          ,{field: 'time', title: '失效日期', width:110} 
+        //   ,{field: 'pidName', title: '上级用户', width:110}
+          ,{field: 'score', title: '积分', width:130}
+          ,{field: 'txtStatus', title: '状态', width:80}
+          ,{field: 'txtOnline', title: '在线'}
+          {if $Think.session.user_uid == '1'}
+          ,{field: 'txtFeidan', title: '开启飞单', width:110}
+          ,{field: 'wpName', title: '网盘', width:80}
+          ,{field: 'wpType', title: '盘口', width:80}
+          ,{field: 'feidanname', title: '飞单账号', width:110}
+          ,{field: 'feidanpwd', title: '飞单密码', width:110}
+          ,{field: 'txtFeidanonline', title: '网盘状态', width:110}
+          ,{field: 'feidanmoney', title: '网盘余额', width:110}
+          ,{field: 'feidanbetting', title: '网盘下注', width:110}
+          ,{width:120, align:'center', toolbar: '#barDemo', title: '操作'} 
+          {/if}
+        ]]
+      });
+      
+      $('#add').on('click', function(data){
+          showForm('');
+      });
+      
+      $('#refresh').on('click', function(data){
+        refresh();
+      });
+      
+      
+      function refresh() {
+        tableIndex.reload({
+			page: {curr: 1}
+		});
+      }
+      
+      function showForm(id) {
+        var index = layer.open({
+            title: id?'编辑':'添加',
+            type: 2,
+            shade: 0.2,
+            maxmin:true,
+            shadeClose: true,
+            content: "{:url('sub/addEdit')}?id="+id,
+            success: function(layero, index){
+                layer.full(index);
+            },
+            end: function(index, layero){ 
+              refresh(); 
+            }  
+        });
+        $(window).on("resize", function () {
+            layer.full(index);
+        });
+      }
+      
+      table.on('tool(table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+          var data = obj.data; //获得当前行数据
+          var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+          var tr = obj.tr; //获得当前行 tr 的DOM对象
+         
+          if(layEvent === 'del'){ //删除
+            layer.confirm("确定将[" + data.UserName + "]删除么?", function(index){
+                putAjax("{:url('users/userDel')}", {"dlUserName":data.UserName}, function(res) {
+                    refresh();
+    				alertSuc('成功！');
+                });
+              obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+              layer.close(index);
+            });
+          } else if(layEvent === 'edit'){ //编辑
+            showForm(data.id);
+            
+            //同步更新缓存对应的值
+            obj.update({
+              username: '123'
+              ,title: 'xxx'
+            });
+          }
+        });
+
+    });
+    </script> 
+</body></html>

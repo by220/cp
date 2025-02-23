@@ -1,0 +1,15 @@
+@charset "utf-8";
+/* CSS Document */
+body{font-size:12px;}
+.top{height:105px;float:left;margin:0px;width:100%}
+.topleft{width:200px;height:80px;float:left;margin:0px;line-height:80px;text-align:center;} 
+.topleft h1{height:80px;line-height:80px;}
+.topright{width:796px;height:80px;float:left;margin:0px;clear:right}
+.topbanner{width:100%;float:left;height:28px;text-align:left;font-size:12px;}
+.topbanner input{font-size:11px;}
+.topmenu{width:100%;text-align:left;height:52px;margin:0px;float:left;padding:0px;background:#F6D401;color:#fff;border-collapse:collapse;}
+.topmenu li{margin:0px;float:left;width:60px;height:22px;line-height:22px;text-align:center;cursor:pointer;font-weight:bold;font-size:12px;border:1px solid  #960;border-top:1px solid  #960;margin-top:1px;overflow:hidden}
+
+.topmenu li:hover{background:#E3EBFD}
+.message{width:99%;height:21px;float:left;line-height:21px;clear:both;margin:0px;}
+.time label{color:#000}

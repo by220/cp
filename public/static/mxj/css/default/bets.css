@@ -1,0 +1,92 @@
+@CHARSET "UTF-8";
+
+.main5 .data_table tbody td {
+	text-align: center;
+}
+
+.main5 .info_table tbody td {
+	text-align: left;
+}
+
+.main5 .data_table .drawNumber {
+	color: #299a26;
+}
+
+.main5 .data_table .text {
+	color: #2836f4;
+}
+
+.main5 .data_table .odds {
+	color: red;
+	font-weight: bold;
+	font-family: Verdana, Arial, Sans;
+}
+
+.main5 .data_table .money {
+	text-align: right;
+}
+
+.main5 .data_table thead .result {
+	color: red;
+}
+
+.main5 .data_table .dividend span,.main5 .top_info .bet_date select {
+	color: #2836f4;
+}
+
+.main5 .data_table .color {
+	color: #2836f4;
+	font-weight: bold;
+}
+
+.main5 .data_table .minus {
+	color: red;
+}
+
+.main5 .data_table .back,.main5 .data_table .share span {
+	font-weight: bold;
+}
+
+.main5 .top_info .bet_date {
+	color: #2836f4;
+	font-weight: bold;
+	float: left;
+	margin-right: 15px;
+}
+
+.main5 .note {
+	text-align: center;
+	color: #2836f4;
+	font-weight: bold;
+}
+
+.main5 .top_info .input {
+	width: 100px;
+	height: 18px;
+}
+
+.main5 .top_info .submit {
+	padding: 0;
+	margin: 0;
+	height: 22px;
+	width: 38px;
+}
+
+.main5 .data_table .cancelled {
+	text-decoration: line-through;
+}
+
+.main5 .data_table .dividend .cancelled {
+	text-decoration: none;
+	color: red;
+}
+
+.main5 .data_table .restore {
+	color: red;
+}
+
+.main5 .data_table tfoot th {
+	height: 26px;
+	text-align: right;
+	padding-right: 5px;
+}

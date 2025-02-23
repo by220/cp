@@ -1,0 +1,662 @@
+     button {
+         cursor:pointer;
+        -webkit-border-radius:5px;
+        -moz-border-radius: 5px;
+        border-radius: 10px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+        -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+        text-shadow: 0 1px 1px rgba(0,0,0,.3);
+        box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    }
+.myTuo {
+    background: red;
+    color: yellow;
+}
+.myHide{display:none;}
+.myShow{display:inline;}
+.red {
+    color: red;
+}
+    .redbg {
+        background :red;
+        color:#fff;
+    }
+    #codelogin{
+        display:none;
+        width:300px;
+        height:350px;
+        border:1px solid #000;
+        position:absolute;
+        top:30px;
+        left:10px;
+        background:#fff;
+        z-index:1000;
+        border-radius:10px;
+    }
+    #codelogin .logininp{
+        position:absolute;
+        top:5px;
+        left:5px;
+        width:290px;
+        height:290px;
+        background:#fbfbfb;
+    }
+    #codelogin .logininp input{
+        width:150px;
+    }
+
+    .selBtn{background-color:cadetblue;color:yellow;}
+    #codelogin .logininp button.loginwxbtn{
+        width:80px;
+        height:40px;
+        position:absolute;
+        top:22px;
+        right:5px;
+    }
+        #codelogin .wxsendsmscodeval {
+        width:60px!important;
+        }
+        #codelogin .wxsendsmscode{
+        display:none;
+        }
+        #codelogin .logininp .wxmsg {
+        color:red;
+        word-wrap: break-word;
+        width:100%;
+        height:130px;
+        }
+    
+    #codelogin .logininp b{
+        color:red;
+    }
+    #codelogin .smdl {
+        padding:5px;
+    }
+    #codelogin .ewm {
+        text-align:center;
+    }
+    #codelogin img{
+        width:290px;
+        height:290px;
+        margin:5px auto;
+    }
+    #wangpan{
+        border:1px solid #000;
+        position:absolute;
+        right:5px;
+        bottom:5px;
+        height:100px;
+        padding:5px;
+        width:560px;
+        border-radius:10px;
+    }
+    .functions{
+        border:1px solid #000;
+        padding:5px;
+    }
+    .functions label{
+        cursor:pointer;
+    }
+    input.inpchangeval {
+        width:40px;
+        text-align:center;
+        color:#fff;
+    }
+    input.inpchangeval.change {
+        background:darkorange;
+    }
+    input.inpchangeval.ok {
+        background:#0f5717;
+    }
+    .wangpanselect label{
+        cursor:pointer;
+    }
+    #wangpan .yzm s {
+        position:absolute;
+        display:block;
+        top:0px;
+        left:65px;
+        width:90px;
+        height:20px;
+        background:#f2f2f2;
+    }
+    #wangpan .yzm s img{
+        display:block;
+        cursor:pointer;
+        width:90px;
+        height:20px;
+    }
+    #wangpan .yzm input{
+        width:60px;
+        margin-left:165px!important;
+    }
+    #xiazhuban{
+        border:1px solid #000;
+        position:absolute;
+        left:10px;
+        bottom:5px;
+        height:400px;
+        width:300px;
+        border-radius:10px;
+        background:#fbfbfb;
+    }
+    #xiazhuban .xiazhutitle{
+        margin:5px;
+    }
+    #xiazhubanlist{
+        border:1px solid #000;
+        height:335px;
+        overflow-y:scroll;
+        padding:0px;
+    }
+    #xiazhubanlist {
+        padding:0 5px;
+        background:#fff;
+    }
+    #xiazhubanlist div b.status0 {
+        color:#d5f3f7;
+    }
+    #xiazhubanlist div b.status1 {
+        color:darkorange;
+        cursor:pointer;
+    }
+    #xiazhubanlist div b.status2 {
+        color:green;
+    }
+    #xiazhubanlist div b.status3 {
+        color:red;
+        cursor:pointer;
+    }
+    #xiazhubanlist div.se {
+        background:#f5f5f5;
+    }
+    #xiazhubanlist div:hover {
+        background:#d5f3f7!important;
+    }
+    #xiazhubanlist div{
+        position:relative;
+    }
+    #xiazhubanlist div s{
+        position:absolute;
+        color:red;
+        top:0px;
+        right:0px;
+        cursor:pointer;
+        text-decoration:none;
+        font-weight:bold;
+    }
+    #dangqianzhuqi{
+        font-size:12px;
+    }
+    #selectqun{
+        display:none;
+        width:300px;
+        border:1px solid #000;
+        overflow-y:hidden;
+        position:absolute;
+        top:30px;
+        left:10px;
+        background:#fff;
+        z-index:100;
+        border-radius: 10px;
+    }
+    #selectqun .tit{
+        color:red;
+    }
+    #selectqun .changewx {
+        position:absolute;
+        top:0px;
+        right:0px;
+        text-align:right;
+    }
+    #selectqun .tit.sed{
+        color:#000!important;
+    }
+    #selectqun #nowqun {
+        height:30px;
+        line-height:30px;
+        overflow:hidden;
+        padding-left:5px;
+        background:#fbfbfb;
+    }
+    #selectqun #nowqun span{
+        color:green;
+    }
+    #selectqunlist{
+        margin-top:5px;
+        height:230px;
+        overflow-y:scroll;
+    }
+    #refquninfo{
+        margin:5px;
+    }
+    #selectqunlist div{
+        background:#f2f2f2;
+        text-align:center;
+        font-size:16px;
+        cursor:pointer;
+    }
+    #selectqunlist div.sele{
+        background:#0f5717!important;
+        color:#fff!important;
+    }
+    #selectqunlist div:hover{
+        background:#808080;
+        color:#fff;
+    }
+    .topframe{
+        width:900px;
+        height:800px;
+        border:2px solid #000;
+        margin:2px auto;
+        position:relative;
+        border-radius: 10px;
+        background:#fefefe;
+    }
+    #kaipanstatus{
+        visibility:hidden;
+    }
+    .kaipanstatustit {
+        color: red;
+    }
+    .kaipanstatustit.sed{
+        color:#000!important;
+    }
+    .shangxiafentit.sed{
+        color:red!important;
+    }
+    .scoremm {
+    position: absolute;
+    right: 200px;
+    top: 5px;
+    z-index: 1;
+}
+
+    .tophead{
+        padding:5px;
+        position:relative;
+    }
+    .topheadmenu {
+        position:absolute;
+        right:5px;
+        top:5px;
+        z-index:1;
+    }
+    .topheadmenu span {
+        font-weight:bold;
+        color:darkgreen;
+        cursor:pointer;
+    }
+    .divchangepwd {
+        position:absolute;
+        right:5px;
+        top:0;
+        border:1px solid #000;
+        border-radius: 10px;
+        padding:0 10px;
+        z-index:2;
+        background:#fff;
+        display:none;
+    }
+    .divchangepwd input {
+        width:50px;
+    }
+    .rightframe{
+        position:absolute;
+        right:5px;
+        top:30px;
+        width:570px;
+        border:1px solid #000;
+        border-radius:10px;
+    }
+    .right_top{
+        padding:5px;
+        position:relative;
+    }
+    .yuliufengpan input {
+        width:40px;
+        text-align:center;
+        color:#fff;
+    }
+    .yuliufengpan input.change {
+        background:darkorange;
+    }
+    .yuliufengpan input.err {
+        background:red;
+    }
+    .yuliufengpan input.ok {
+        background:#0f5717;
+    }
+
+    .peilv{
+        padding:2px 0 0 5px;
+        position:absolute;
+        background:#fff;
+        top:2px;
+        right:290px;
+        border:1px solid #000;
+        height:30px;
+        width:135px;
+        line-height:30px;
+        border-radius:10px;
+    }
+    .peilv input {
+        width:45px;
+        text-align:center;
+        color:#fff;
+    }
+    .peilv input.change {
+        background:darkorange;
+    }
+    .peilv input.err {
+        background:red;
+    }
+    .peilv input.ok {
+        background:#0f5717;
+    }
+
+.fanshuiSet {
+    padding: 2px 0 0 5px;
+    position: absolute;
+    top: 2px;
+    right: 135px;
+    border: 1px solid #000;
+    height: 30px;
+    width: 135px;
+    line-height: 30px;
+    border-radius: 10px;
+}
+
+    .fanshuiSet input {
+        width: 45px;
+        text-align: center;
+        color: #fff;
+    }
+
+        .fanshuiSet input.change {
+            background: darkorange;
+        }
+
+        .fanshuiSet input.err {
+            background: red;
+        }
+
+        .fanshuiSet input.ok {
+            background: #0f5717;
+        }
+    #selefocus{
+        position:absolute;
+        background:#fff;
+        border:none;
+        right:3px;
+        display:block;
+        width:1px;
+        height:0px;
+        top:3px;
+        z-index:1;
+    }
+
+    .dingwei{
+        padding:2px 0 0 5px;
+        position:absolute;
+        top:2px;
+        right:10px;
+        background:#fff;
+        border:1px solid #000;
+        height:30px;
+        width:260px;
+        z-index:100;
+        border-radius:10px;
+    }
+    .dingwei-ul{
+        position:absolute;
+        top:2px;
+        left:50px;
+        border:1px solid #000;
+        width:160px;
+        height:25px;
+    }
+    .dwtitle{
+        line-height:30px;
+    }
+    .dingwei button{
+        position:absolute;
+        top:1px;
+        right:1px;
+    }
+    .dingwei.change li {
+        cursor:pointer;
+    }
+    .dingwei-ul li{
+        display:block;
+        text-align:center;
+        background:#f2f2f2;
+        line-height:25px;
+        width:18px;
+        height:25px;
+        border:1px solid #000;
+    }
+    .dingwei-ul li.se {
+        background:#0f5717!important;
+        color:#fff;
+    }
+    .dingwei.change li:hover {
+        text-align:center;
+        background:#31a924;
+        color:#fff;
+    }
+    .jifen{
+        position:relative;
+        padding:5px;
+        border:1px solid #000;
+        height:330px;
+        border-radius:0 0 10px 10px;
+    }
+    .jifenleftlist{
+        padding:5px;
+        position:absolute;
+        bottom:5px;
+        left:5px;
+        border:1px solid #000;
+        width:280px;
+        height:280px;
+        overflow-y:scroll;
+        border-radius:0 0 0 10px;
+    }
+    .jifenleftlist i{
+        position:absolute;
+        background:#f2f2f2;
+        left:0px;
+        color:darkblue;
+        background-color:navajowhite;
+        display:none;
+    }
+    .jifenleftlist i.t,.jifenleftlist i.h{
+        display:inline!important;
+    }
+
+    .jifenleftlist i.t{
+        display:inline!important;
+        background:darkblue!important;
+        color:#fff;
+    }
+    .jifenleftlist i:hover {
+        color:darkorange;
+    }
+    .jifenleftlist u{
+        position:absolute;
+        background:#f2f2f2;
+        left:18px;
+        color:green;
+        display:none;
+    }
+    .jifenleftlist u.t,.jifenleftlist u.h{
+        display:inline!important;
+    }
+    .jifenleftlist u.t{
+        display:inline!important;
+        background:green!important;
+        color:#fff;
+    }
+    .jifenleftlist u:hover {
+        color:darkorange;
+    }
+    .jifenleftlist s{
+     color:red;
+     margin-left:20px;
+    }
+    .jifenleftlist div{
+        text-align:right;
+        position:relative;
+    }
+    .jifenleftlist span {
+        margin-right:10px;
+    }
+    .jifenright{
+        position:absolute;
+        padding:5px;
+        width:245px;
+        height:280px;
+        bottom:5px;
+        right:5px;
+        border:1px solid #000;
+        border-radius: 0 0 10px 0;
+    }
+    .jifenright .headimg {
+        position:absolute;
+        width:64px;
+        height:64px;
+        right:5px;
+        top:110px;
+        border:1px solid #000;
+        border-radius:4px;
+        cursor:pointer;
+    }
+
+.myheadimg {
+    position:relative;
+    width: 64px;
+    height: 64px;
+    right: -5px;
+    top: 5px;
+    border: 1px solid #000;
+    border-radius: 4px;
+}
+
+    .jifenright .create_user {
+        position:absolute;
+        right:5px;
+        top:5px;
+    }
+        .jifenright .create_real {
+            position: absolute;
+            right: 75px;
+            top: 5px;
+        }
+    .jifenright div{
+        margin-bottom:5px;
+    }
+    .jifenleftlist .se {
+        background:#f5f5f5;
+    }
+    .jifenleftlist div:hover {
+        background:#d5f3f7!important;
+    }
+    .jifenmessage{
+        color:red;
+    }
+    .jifenleftlist div {
+        cursor:pointer;
+    }
+    .sxf{
+        padding:5px;
+        border:1px solid #000;
+        height:180px;
+    }
+    .sxf .sxftitle{
+        font-weight:bold;
+    }
+    .sxf .sxflist {
+        border:1px solid #000;
+        height:87%;
+        overflow-y:scroll;
+    }
+    .sxf .sxflist .sxfitem {
+        position:relative;
+        height:30px;
+        line-height:30px;
+    }
+    .sxf .sxflist .sxfitem.se {
+        background:#f5f5f5;
+    }
+    
+    .sxf .sxflist .sxfitem:hover {
+        background:#d5f3f7;
+    }
+    .sxf .sxflist .content{
+        display:block;
+        padding-left:10px;
+    }
+    .sxf .sxflist .sxfitem i{
+        font-weight:bold;
+        color:darkblue;
+        display:none;
+        top:0px;
+        left:0px;
+    }
+    .sxf .sxflist .sxfitem.tuo i{
+        display:inline!important;
+    }
+    .sxf .sxflist .sxfbtns{
+        position:absolute;
+        top:0px;
+        right:0px;
+        width:120px;
+    }
+    .sxf .sxflist .sxfbtns span{
+        display:block;
+        position:absolute;
+        width:30px;
+        top:2px;
+        height:20px;
+        line-height:20px;
+        padding:2px 5px;
+        cursor:pointer;
+        background:#fff;
+        z-index:10;
+    }
+    .sxf .sxflist .sxfbtns span.ty {
+        background:#c9efb5;
+        color:#000;
+        left:0px;
+        border:1px solid #000;
+    }
+    .sxf .sxflist .sxfbtns span.ld {
+        display:none;
+        background:#fff;
+        color:#000;  
+        opacity: 0.5;   
+        top:0px;
+        width:99px;
+        height:28px;
+        left:0px;
+        cursor:default;
+        z-index:20;
+        filter:alpha(opacity=1);   
+        -moz-opacity:0.01;   
+        -khtml-opacity: 0.01; 
+    }
+    .sxf .sxflist .sxfbtns span.ty:hover {
+        background:#31a924;
+        color:#fff;
+    }
+    .sxf .sxflist .sxfbtns span.qx {
+        background:#f2f2f2;
+        color:#000;
+        left:60px;
+        border:1px solid #000;
+    }
+    .sxf .sxflist .sxfbtns span.qx:hover {
+        background:#808080;
+        color:#fff;
+    }

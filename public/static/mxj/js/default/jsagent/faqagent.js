@@ -1,0 +1,1 @@
+function myready(){   $("span").hide();   $("a").click(function(){       var title="<h2 style='clear:both;width:100%;line-height:30px;text-align:center;'>"+$(this).html()+"</h2>";	   var content = $(this).parent().find("span").html();	   $("#content").html(title+content);   });}

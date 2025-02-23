@@ -1,0 +1,41 @@
+.account-info{
+	margin-top: 20px;
+	margin-left: 25px;
+}
+
+.memberheader {
+	height: 140px;
+	border-bottom: 1px solid #cdcdcd;
+	position: relative;
+}
+
+.balancevalue {
+	margin: 6px 0 0 40px;	
+}
+
+
+.membersubnavi {
+	position: absolute;
+	top: 95px;
+	right: 0;
+	/*width: 425px;*/
+}
+
+.subnavi {
+	padding: 0 20px;
+	float: left;
+	font-size: 17px;
+}
+
+.subnavi a {
+	color: #777f89;	
+}
+.subnaviarrow {
+	margin-top: 5px;
+	
+	background-image: url(./img/subnaviarrow.jpg);
+	background-position: top center;
+	height: 20px;
+	background-repeat:no-repeat;
+}
+

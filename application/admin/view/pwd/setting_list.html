@@ -1,0 +1,82 @@
+{include file='public/head'}
+
+<div class="uk-container uk-container-center  uk-margin-large-top">
+    <div class="uk-grid">
+        <div class="uk-width-1-1">
+            <div class="uk-panel uk-panel-box uk-panel-box-primary">
+                <form class="layui-form" action="">
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">旧密码</label>
+                    <div class="layui-input-block">
+                      <input type="password" name="oldPwd" placeholder="请输入旧密码" autocomplete="off" class="layui-input">
+                    </div>
+                  </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">新密码</label>
+                    <div class="layui-input-block">
+                      <input type="password" name="newPwd" placeholder="请输入新密码" autocomplete="off" class="layui-input">
+                    </div>
+                  </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">确认密码</label>
+                    <div class="layui-input-block">
+                      <input type="password" name="rePwd" placeholder="请再次输入新密码" autocomplete="off" class="layui-input">
+                    </div>
+                  </div>
+                  {if $Think.session.user_uid == '1'}
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">登录账号</label>
+                    <div class="layui-input-block">
+                      <input type="text" name="name" placeholder="如修改请输入" autocomplete="off" class="layui-input">
+                    </div>
+                  </div>
+                  {/if}
+                  <div class="layui-form-item">
+                    <div class="layui-input-block">
+                      <button class="layui-btn" lay-submit lay-filter="formDemo">提交</button>
+                    </div>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file='public/js'}
+
+<script>
+    layui.use(['form','layer'], function(){
+      var form = layui.form,
+        layer = layui.layer;
+  
+      //监听提交
+      form.on('submit(formDemo)', function(data){
+        SubmitModifyPwd(data.field);
+        return false;
+      });
+    });
+</script>
+
+<script type="text/javascript">
+    //修改密码
+    function SubmitModifyPwd(data) {
+        putAjax("{:url('pwd/ModifyPwd')}", data, function(data) {
+            if (data.message == 1) {
+                alertSuc("修改成功, 请重新登录!");
+                setTimeout(function () {
+                    //跳转
+                    $.ajax({
+                        type: "POST",
+                        url: "{:url('Login/Logout')}",
+                        success: function (data) {
+                            location.href = "{:url('Login/Index')}";
+                        }
+                    });
+                }, 1500);
+            }
+            else { alertErr(data.message); }
+        });
+    }
+</script>
+
+</body></html>

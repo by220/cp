@@ -1,0 +1,167 @@
+
+.stepswithdraw {
+	height: 95px;
+	position: relative;
+}
+
+.addbankcard {
+	margin-top: 35px;		
+}
+
+.subcontent2 {
+	padding-top: 35px;
+    min-height: 425px;
+    /*border: 2px solid #93BDEE;*/
+    border-top: 1px solid #93BDEE;
+}
+
+.withdrawtitle {
+	font-size: 18px;
+	font-weight:bold;
+	margin-top: 30px;
+	margin-left: 30px;
+}
+
+.formpanel {
+	width: 565px;
+	margin: 0 auto;	
+}
+
+.wd-row {
+	margin: 10px 100px;	
+}
+.wd-col1 {
+	padding-top: 4px;
+	float:left;
+	width: 110px;
+	min-height: 10px;
+	text-align: right;	
+}
+
+.wd-col2 {
+	float:left;
+	width: 238px;
+	margin-left: 5px;
+}
+
+.submitbtn2 {
+	color: #fff;
+	padding: 7px 50px;
+	cursor:pointer;
+	font-size: 18px;
+	background: #39a9ff; /* Old browsers */
+	background: -moz-linear-gradient(top,  #39a9ff 0%, #38a7fe 51%, #288af1 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#39a9ff), color-stop(51%,#38a7fe), color-stop(100%,#288af1)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #39a9ff 0%,#38a7fe 51%,#288af1 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #39a9ff 0%,#38a7fe 51%,#288af1 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #39a9ff 0%,#38a7fe 51%,#288af1 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #39a9ff 0%,#38a7fe 51%,#288af1 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#39a9ff', endColorstr='#288af1',GradientType=0 ); /* IE6-9 */
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+
+}
+
+.logo-th-2 {
+    margin: 0 auto;
+    width: 48px;
+    height: 48px;
+    background-position: 0 0;
+    display: block;
+    background-image: url(./img/warning.png);
+}
+
+
+.button{
+	display: block;
+    width: 152px;
+    height: 36px;
+    font-size: 14px;
+    line-height: 35px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.th-btn {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.wd-col2 select,.setting-table select {
+    padding: 5px 0;
+    -webkit-padding-end: 20px;
+    border: 1px solid #CCC;
+    color: #999;
+    -webkit-border-radius: 2px;
+    -webkit-box-shadow: 0 -1px 0 0 #CCC;
+    -moz-border-radius: 2px;
+    -moz-box-shadow: 0 -1px 0 0 #CCC;
+    -o-border-radius: 2px;
+    -o-box-shadow: 0 -1px 0 0 #CCC;
+    -ms-border-radius: 2px;
+    -ms-box-shadow: 0 -1px 0 0 #CCC;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px 0 #E8E8E8 inset;
+    -webkit-appearance: none;
+    background: url(./img/dropdown_logo_2.png) no-repeat right #FFF;
+}
+
+#bankCode {
+	padding-left: 2px;
+	font-size: 14px;
+    width: 172px;
+    height: 28px;
+    color: #999;
+}
+
+.wd-btn{
+	margin-left: 115px;
+}
+
+.radio-bank-2 {
+    margin-bottom: 1px;
+    width: 230px;
+    height: 46px;
+    border: 1px solid #dcdcdc;
+    float: left;
+}
+
+.radio-bank-2 .radio {
+    padding: 7px 12px 0 12px;
+}
+
+.radio-bank-2 .radio, .radio-bank-2 .radio-label {
+    margin-top: 9px;
+    float: left;
+    cursor: pointer;
+    color: #333;
+}
+
+.radio-bank-2 .radio-label span {
+    float: left;
+    line-height: 30px;
+}
+
+.radio-bank-2 .name {
+    margin-left: 10px;
+    width: 60px;
+}
+
+.radio-bank-2 .tail {
+    margin-left: 10px;
+}
+
+.logo-ICBC-3, .logo-CCB-3, .logo-ABC-3, .logo-BOC-3, .logo-CMBC-3, .logo-CMB-3, .logo-CMSB-3, .logo-GDB-3 {
+    display: block;
+    width: 24px;
+    height: 30px;
+    background: url(./img/bankimg.png);
+}
+.logo-ICBC-3 { background-position: 0 -540px; }
+.logo-ABC-3 { background-position: 0 -590px; }
+.logo-CCB-3 { background-position: 0 -640px; }
+.logo-CMBC-3 { background-position: 0 -690px; }
+.logo-CMB-3 { background-position: 0 -690px; }
+.logo-CMSB-3 { background-position: -50px -590px; }
+.logo-BOC-3 { background-position: 0 -486px; }

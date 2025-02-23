@@ -1,0 +1,81 @@
+{include file='public/layer'}
+
+<div class="layui-form layuimini-form" style="margin-top:20px;">
+    <div class="layui-form-item">
+        <label class="layui-form-label required">网盘名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" lay-verify="required" lay-reqtext="网盘名称不能为空" placeholder="请输入" value="{$info?$info['name']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">网盘键名</label>
+        <div class="layui-input-block">
+            <input type="text" name="code" lay-verify="required" lay-reqtext="网盘键名不能为空" placeholder="请输入" value="{$info?$info['code']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">网盘链接</label>
+        <div class="layui-input-block">
+            <input type="text" name="websiteUrl" lay-verify="required" lay-reqtext="网盘链接不能为空" placeholder="请输入" value="{$info?$info['websiteUrl']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">搜索码</label>
+        <div class="layui-input-block">
+            <input type="text" name="searchCode" placeholder="需要请输入" value="{$info?$info['searchCode']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">接口密钥</label>
+        <div class="layui-input-block">
+            <input type="text" name="apiKey" placeholder="需要请输入" value="{$info?$info['apiKey']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">接口版本</label>
+        <div class="layui-input-block">
+            <input type="text" name="apiVersion" placeholder="需要请输入" value="{$info?$info['apiVersion']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">状态</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="status" value="1"{if $info && $info['status']==1} checked=""{/if} lay-skin="switch" lay-text="开通|关闭">
+        </div>
+    </div>
+    <input type="hidden" name="id" id="id" value="{$info?$info['id']:''}" />
+
+    <div class="layui-form-item" style="margin-bottom:50px;">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.use(['form','laydate','layer'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            laydate = layui.laydate;
+            
+        laydate.render({
+            elem: '#test1' //指定元素
+        });
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            putAjax("{:url('index/Setwp')}", data.field, function(res) {
+                if (res.status == 1) {
+                    alertSuc(res.message);
+                    var iframeIndex = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(iframeIndex);
+                }
+                else { alertErr(res.message); }
+            });
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

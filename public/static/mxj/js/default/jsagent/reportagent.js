@@ -1,0 +1,1 @@
+function myready(){   $(".btn3 btnf").click(function(){	   var content=$("#content").html();						        $.ajax({type:'POST',url:mulu + 'report.php',data:'xtype=sendreport&content='+content,success:function(m){	        if(Number(m)==1){			   window.location.href=window.location.href;			}	   }});   });   $("label").addClass('red');}

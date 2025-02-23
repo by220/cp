@@ -1,0 +1,86 @@
+@charset "utf-8";
+/* CSS Document */
+
+@CHARSET "UTF-8";
+
+#date {
+	width: 80px;
+}
+
+#drawInfo table {
+	width: auto;
+	margin: 0 auto;
+}
+
+#drawInfo td {
+	padding: 0 0px;
+	text-align: center;
+	height: 27px;
+}
+
+.page_info {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  background: #eeeeee;
+  text-shadow: 1px 1px 0 white;
+  margin: 2px auto;
+}
+
+#drawInfo .period,#drawInfo .drawTime {
+	padding: 0 3px;
+}
+
+#drawInfo .other {
+	color: black;
+	width: 35px;
+}
+
+#drawInfo .other1 {
+	color: black;
+	width: 34px;
+}
+
+#drawInfo .others{
+	font-weight: bold;
+}
+
+#drawInfo .other2 {
+	padding: 0 2px;
+}
+
+#drawInfo .DX,#drawInfo .DS,#drawInfo .LH {
+	width: 30px;
+}
+
+#drawInfo .GDX_D,#drawInfo .GDS_S,#drawInfo .GLH_L,#drawInfo .GWDX_D,#drawInfo .GQHH_Q,#drawInfo .GDSH_S,#drawInfo .Gyxx1,#drawInfo .Gyxx6
+,#drawInfo .GLHT_L,#drawInfo .GZIH_H,#drawInfo .GZDS_S,#drawInfo .GZDX_D,#drawInfo .GHDS_S,#drawInfo .GHDX_D,#drawInfo .G7SB_R
+	{
+	color: red;
+}
+
+#drawInfo .GTIE,#drawInfo .GLH_T,#drawInfo .GDX_N,#drawInfo .GQHH_T,#drawInfo .GDSH_T,#drawInfo .G7SB_G {
+	color: #2836f4;
+}
+
+#drawInfo .Gyxx3,#drawInfo .Gyxx4,#drawInfo .GLHT_T,#drawInfo .G7SB_B {
+	color: #2836f4;
+}
+
+#drawInfo .GQHH_H,#drawInfo .GDSH_D {
+	color: black;
+}
+
+#drawInfo .Gyxx2,#drawInfo .Gyxx5 {
+	color: #22BD1E;
+}
+
+
+#drawInfo thead .strong {
+	font-weight: bold;
+}
+
+#drawInfo .empty {
+	color: #2836f4;
+	font-weight: bold;
+}

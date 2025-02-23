@@ -1,0 +1,118 @@
+{include file='public/head'}
+
+<div class="uk-container uk-container-center  uk-margin-large-top">
+    <div class="uk-panel uk-panel-box uk-panel-box-primary">
+        <h4>日志</h4>
+        <div class="uk-grid">
+            <div class="uk-width-1-1">
+                <form class="uk-form">
+                    <table style="float:left;">
+                        <tbody>
+                            <tr>
+                                <td>名称:</td>
+                                <td>
+                                    <input id="name" type="text" placeholder="请输入">
+                                </td>
+                                <td>期号:</td>
+                                <td>
+                                    <input id="qh" type="text" placeholder="请输入">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="margin-left: 10px;margin-top: 3px;float:left;">
+                        <a class="uk-button uk-button-info" href="javascript:;" id="btn2">搜索</a>
+                        <a class="uk-button uk-button-primary" href="javascript:;" id="btn1">刷新列表</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="uk-grid" style="width:100%;padding-left:0;margin-left: 0;">
+            <div class="uk-width-1-1" style="overflow: auto;padding: 0;">
+                <div id="table"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //刷新列表
+    function RefreshList(data) {
+        $.ajax({
+            type: "GET",
+            url: "{:url('changed/GetLogList')}",
+            dataType: "json",
+            data: data,
+            //成功返回之后调用的函数
+            success: function (data) {
+                $("#table").jqxDataTable('clear');
+                $(data.data).each(function (index) {
+                    var val = data.data[index];
+                    $("#table").jqxDataTable('addRow', null, {
+                        "user_id": val.user_id,
+                        "ip": val.ip,
+                        "username": val.username,
+                        "loginTime": val.loginTime,
+                        "id": val.id,
+                        "qh": val.qh,
+                        "m": val.jine
+                    });
+                });
+                //刷新
+                $("#table").jqxDataTable('refresh');
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+                UIkit.notify("请求失败，请重试!", { status: 'danger', pos: 'top-center', timeout: 1000 });
+            }
+        });
+    }
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //初始化表格
+        $("#table").jqxDataTable(
+        {
+            altRows: true,
+            sortable: true,
+            editable: false,
+            autoRowHeight: true,
+            selectionMode: 'singleRow',
+            theme: 'bootstrap',
+            columns: [
+                { text: '账号', dataField: 'user_id', width: 160 },
+                { text: '登录IP', dataField: 'ip', width: 160 },
+                { text: '输出', dataField: 'username', width: 260 },
+                { text: '时间', dataField: 'loginTime', width: 260 },
+                { text: '期号', dataField: 'qh'},
+                { text: '金额', dataField: 'm'}
+            ]
+        });
+
+        RefreshList({'qh':'','name':''});
+
+        $("#btn1").bind("click", function () {
+            $('#name').val('');
+            $('#qh').val('');
+            RefreshList({'qh':'','name':''});
+        });
+
+        $("#btn2").bind("click", function () {
+            if (!$('#name').val()&&!$('#qh').val()) {
+                UIkit.notify("请输入搜索信息!", { status: 'info', pos: 'top-center', timeout: 1000 });
+                return false;
+            }
+            var data = {
+                'qh': $('#qh').val(),
+                'name': $('#name').val()
+            }
+            RefreshList(data);
+        });
+    });
+</script>
+
+{include file='public/js'}
+</body></html>

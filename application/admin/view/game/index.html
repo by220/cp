@@ -1,0 +1,139 @@
+{include file='public/head'}
+
+<div class="uk-container uk-container-center  uk-margin-large-top">
+    <div class="uk-panel uk-panel-box uk-panel-box-primary">
+        <div class="uk-grid" style="margin-left: 0;margin-top: 10px;">
+            <button class="layui-btn layui-btn-sm layui-btn-normal" id="add">添加</button>
+            <button class="layui-btn layui-btn-sm" id="refresh">刷新</button>
+            <div class="uk-width-1-1" style="overflow: auto;padding: 0;">
+                <div id="table" lay-filter="table"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file='public/js'}
+
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script type="text/html" id="statusTpl">
+  <input type="checkbox" name="status" value="{{d.status}}" uid="{{d.id}}" lay-skin="switch" lay-text="开|关" lay-filter="statusSwitch" {{ d.status ? 'checked' : '' }}>
+</script>
+
+<script>
+    //一般直接写在一个js文件中
+    layui.use(['layer', 'form', 'table'], function(){
+      var layer = layui.layer
+      ,form = layui.form
+      ,table = layui.table;
+      
+      var tableIndex = table.render({
+        elem: '#table'
+        ,url: "{:url('game/GetGameList')}" //数据接口
+        ,page: true //开启分页
+        ,loading: true
+        ,limit: 30
+        ,height: 'full-220'
+        ,cols: [[ //表头
+          {field: 'name', title: '彩种名称', width:160}
+          ,{field: 'gameType', title: '彩种键名', width:110}
+          ,{field: 'jsType', title: '开奖球号', width:110}
+          ,{field: 'dataUrl', title: '采集链接', width:500}
+          ,{field: 'txtStatus', title: '状态', width:90, templet: '#statusTpl'}
+          ,{field: 'sort', title: '排序', width:80}
+          ,{field: 'jsj', title: '算法', width:80}
+          ,{field: 'wf', title: '玩法前缀', width:110}
+          ,{field: 'select', title: '是否切换', width:110}
+          ,{field: 'te', title: '显示特', width:110}
+          ,{field: 'key', title: '显示键盘', width:110}
+          ,{field: 'createTime', title: '添加时间', width:160}
+          ,{field: 'updateTime', title: '更新时间', width:160}
+          ,{align:'center', toolbar: '#barDemo', title: '操作', width:160} 
+        ]]
+      });
+      
+      $('#add').on('click', function(data){
+          showForm('');
+      });
+      
+      $('#refresh').on('click', function(data){
+        refresh();
+      });
+      
+        form.on('switch(statusSwitch)', function(data){
+            var elem = data.elem;
+            var status = elem.checked ? 1 : 0;
+            putAjax("{:url('game/Setwp')}", {"id":data.elem.attributes['uid'].nodeValue, status:status}, function(res) {
+    			alertSuc('成功！');
+            });
+        });
+      
+      function refresh() {
+        // table.reload('table', {
+        //   url: "{:url('game/GetGameList')}"
+        //   ,where: {} //设定异步数据接口的额外参数
+        // });
+        
+        tableIndex.reload({
+          where: { //设定异步数据接口的额外参数，任意设
+            aaaaaa: 'xxx'
+            ,bbb: 'yyy'
+            //…
+          }
+          ,page: {
+            curr: 1 //重新从第 1 页开始
+          }
+        });
+      }
+      
+      function showForm(id) {
+        var index = layer.open({
+            title: id?'编辑':'添加',
+            type: 2,
+            shade: 0.2,
+            maxmin:true,
+            shadeClose: true,
+            content: "{:url('game/addEdit')}?id="+id,
+            success: function(layero, index){
+                layer.full(index);
+            },
+            end: function(index, layero){ 
+              refresh(); 
+            }  
+        });
+        $(window).on("resize", function () {
+            layer.full(index);
+        });
+      }
+      
+      table.on('tool(table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+          var data = obj.data; //获得当前行数据
+          var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+          var tr = obj.tr; //获得当前行 tr 的DOM对象
+         
+           if(layEvent === 'del'){ //删除
+            layer.confirm("确定将[" + data.name + "]删除么?", function(index){
+                putAjax("{:url('game/gameDel')}", {"id":data.id}, function(res) {
+                    refresh();
+    				alertSuc('成功！');
+                });
+              obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+              layer.close(index);
+            });
+          } else if(layEvent === 'edit'){ //编辑
+            showForm(data.id);
+            
+            //同步更新缓存对应的值
+            obj.update({
+              username: '123'
+              ,title: 'xxx'
+            });
+          }
+        });
+
+    });
+    </script>
+</body></html>

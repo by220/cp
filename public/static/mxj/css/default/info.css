@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+
+.main .layout,.main .layout .panel {
+	border: none;
+	padding: 0;
+	vertical-align: top;
+}
+
+.data_table tbody th {
+	background: #F2F2F2;
+}
+
+.user_info tbody th {
+	width: 18%;
+	text-align: right;
+}
+
+.user_info tbody tr {
+	height: 28px;
+	line-height: 28px;
+}
+
+.user_info tbody td {
+	padding-left: 5px;
+}
+
+.param_table .data_table tbody th {
+	height: 24px;
+	width: 22%;
+}

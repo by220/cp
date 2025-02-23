@@ -1,0 +1,178 @@
+@charset "utf-8";
+/* CSS Document */
+@CHARSET "UTF-8";
+
+#drawTable table {
+	width: 100%;
+}
+
+#drawTable .page_info {
+	width: 590px;
+}
+
+.table_ball .name {
+	width: 27px;
+}
+
+.table_zh .name {
+  width: 60px;
+}
+
+.table_zh .odds {
+  width: 65px;
+}
+
+.table_lm .name {
+  width: 20px;
+}
+
+.split_panel .odds {
+  width: 50px;
+}
+
+.split_panel .name {
+	width: 27px;
+}
+
+.split_panel table {
+	float: left;
+	width: 150px;
+	margin: 10px 1px 0 0;
+}
+
+.split_panel .amount {
+  width: 54px;
+}
+
+.table_ball .amount {
+  width: 64px;
+}
+
+.chkType a {
+	background: url("../img/ball/red/tab1.png") no-repeat scroll 0 -33px
+		rgba(0, 0, 0, 0);
+	color: #FFFFFF;
+	display: inline-block;
+	height: 33px;
+	line-height: 25px;
+	margin: 5px 0 0 5px;
+	text-decoration: none;
+	width: 66px;
+}
+
+.chkType .on {
+	background: url("../img/ball/red/tab1.png") no-repeat scroll 0 0
+		rgba(0, 0, 0, 0);
+	color: #FFFFFF;
+	font-weight: 700;
+}
+
+.table_ball .name span,#drawInfo .balls b {
+	background: url("img/ball/ball_1.png") no-repeat;
+	display: inline-block;
+	width: 27px;
+	height: 27px;
+	font-size: 0px;
+	text-indent: -99999px;
+	margin-top: 4px;
+	
+}
+
+.table_ball .name .b01,#drawInfo .balls .b01 {
+	background-position: 0 0;
+}
+
+.table_ball .name .b02,#drawInfo .balls .b02 {
+	background-position: 0 -27px;
+}
+
+.table_ball .name .b03,#drawInfo .balls .b03 {
+	background-position: 0 -54px;
+}
+
+.table_ball .name .b04,#drawInfo .balls .b04 {
+	background-position: 0 -81px;
+}
+
+.table_ball .name .b05,#drawInfo .balls .b05 {
+	background-position: 0 -108px;
+}
+
+.table_ball .name .b06,#drawInfo .balls .b06 {
+	background-position: 0 -135px;
+}
+
+.table_ball .name .b07,#drawInfo .balls .b07 {
+	background-position: 0 -162px;
+}
+
+.table_ball .name .b08,#drawInfo .balls .b08 {
+	background-position: 0 -189px;
+}
+
+.table_ball .name .b09,#drawInfo .balls .b09 {
+	background-position: 0 -216px;
+}
+
+.table_ball .name .b10,#drawInfo .balls .b10 {
+	background-position: 0 -243px;
+}
+
+.table_ball .name .b11,#drawInfo .balls .b11 {
+	background-position: 0 -270px;
+}
+
+.split_panel table .name span,#drawInfo .balls b {
+	background: url("img/ball/ball_1.png") no-repeat;
+	display: inline-block;
+	width: 27px;
+	height: 27px;
+	font-size: 0px;
+	text-indent: -99999px;
+	  margin-top: 4px;
+}
+
+.split_panel table .name .b01,#drawInfo .balls .b01 {
+	background-position: 0 0;
+}
+
+.split_panel table .name .b02,#drawInfo .balls .b02 {
+	background-position: 0 -27px;
+}
+
+.split_panel table .name .b03,#drawInfo .balls .b03 {
+	background-position: 0 -54px;
+}
+
+.split_panel table .name .b04,#drawInfo .balls .b04 {
+	background-position: 0 -81px;
+}
+
+.split_panel table .name .b05,#drawInfo .balls .b05 {
+	background-position: 0 -108px;
+}
+
+.split_panel table .name .b06,#drawInfo .balls .b06 {
+	background-position: 0 -135px;
+}
+
+.split_panel table .name .b07,#drawInfo .balls .b07 {
+	background-position: 0 -162px;
+}
+
+.split_panel table .name .b08,#drawInfo .balls .b08 {
+	background-position: 0 -189px;
+}
+
+.split_panel table .name .b09,#drawInfo .balls .b09 {
+	background-position: 0 -216px;
+}
+
+.split_panel table .name .b10,#drawInfo .balls .b10 {
+	background-position: 0 -243px;
+}
+
+.split_panel table .name .b11,#drawInfo .balls .b11 {
+	background-position: 0 -270px;
+}
+

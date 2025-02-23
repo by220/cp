@@ -1,0 +1,174 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px; 
+	margin-bottom: 0px;
+	background-color: #fff;/*
+	background-image:url(../imgaes/macFFBgHack.png);*/
+	padding:0px;
+	font-size:13px;
+	font-family: 'Microsoft Yahei',Tahoma,'Simsun';
+	color:#000; 
+}
+input{padding:1px;}
+input.button{overflow:visible;padding:0 .25em;}
+input{overflow:visible;padding:0 .25em;}
+
+table{backgroun:#fff}
+
+.h100{height:100%}
+.w100{width:100%}
+
+.bred{background:red;}
+.bbai{background:#fff;}
+.bhei{background:#000;}
+.bover{background:#ebf5fe}
+.byellow{background:yellow;}
+.bc{background:#B6FEF3}
+
+.b1{background:#6FF;font-weight:bold}
+.b2{background:#96F;font-weight:bold}
+.b3{font-weight:bold}
+.b0{font-weight:bold}
+
+.orange{color:#F60}
+.yellow{color:yellow;}
+.red{color:#D50000}
+.hong{color:#FBC4D9}
+.bai{color:#fff;}
+.hei{color:#000;}
+.blue{color:blue;}
+.lv{color:green;}
+.chu{font-weight:bold;}
+.left{text-align:left;}
+.right{text-align:right;}
+.center{text-align:center}
+.even{background:#E2EFFA}
+/*.over{background:#FEE7FD}*/
+.over{background:#FFFFB9}
+.click{background:#C9F}
+img{cursor:pointer}
+
+UL,LI {
+	LIST-STYLE-TYPE: none
+}
+
+h1,h2,h3,h4,h5,h6{margin:0px;}
+/*#bccfde*/
+/*input.btns{width:30px;height:22px;background:#FFCC66;text-align:center;margin-top:3px;cursor:pointer;border:none;COLOR:#000;FONT-WEIGHT:bold;}
+input.btn1 btnf{width:46px;height:22px;background:#FFCC66;text-align:center;margin-right:1px;margin-top:3px;cursor:pointer;border:none;padding:0px;COLOR:#000;FONT-WEIGHT:bold;}
+input.btn2 btnf{width:46px;height:22px;background:#FFCC66;text-align:center;margin-right:1px;margin-top:3px;cursor:pointer;border:none;padding:0px;COLOR:#000;FONT-WEIGHT:bold;}
+input.btn3 btnf{width:62px;height:22px;background:#FFCC66;text-align:center;margin-right:1px;margin-top:3px;cursor:pointer;border:none;padding:0px;COLOR:#000;FONT-WEIGHT:bold;}
+input.btn7 btnf{width:80px;height:22px;background:#FFCC66;text-align:center;margin-right:1px;margin-top:3px;cursor:pointer;border:none;padding:0px;COLOR:#000;FONT-WEIGHT:bold;}
+input.btn9 btnf{width:120px;height:22px;background:#FFCC66;text-align:center;margin-right:1px;margin-top:3px;cursor:pointer;border:none;padding:0px;COLOR:#000;FONT-WEIGHT:bold;}
+input.btn8{width:55px;height:22px;background:#FFCC66;text-align:center;margin-right:1px;margin-top:3px;cursor:pointer;border:none;padding:0px;COLOR:#000;FONT-WEIGHT:bold;}*/
+
+/*.btnf {
+	
+	position:relative;
+	display:inline-block;
+	color:#000;
+	cursor:pointer;
+	border-left:1px solid #999;
+	border-top:1px solid #999;
+	border-right:1px solid #555;
+	border-bottom:1px solid #555;
+	-webkit-border-radius:5px;
+   	-moz-border-radius:5px;
+   	border-radius:5px;
+	background:url(../images/buttonbg.png) repeat-x center #FFF;
+	font-size:13px;
+	height:25px;
+	line-height:25px;
+	padding-left:5px;
+	padding-right:5px;
+}*/
+.btnf {
+   border:0; margin:0; font-size:11px; padding:3px 6px; margin-right:1px;font-weight:bold;color:#555;border:none;background:#eeeddd
+}
+.btnf:hover { background:#0063e3; color:#fff}
+
+.star, .nostar {
+    background: url("../images/start.gif") repeat scroll 0 0 transparent;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+.star {
+    background-position: 0 -5px;
+}
+.nostar {
+    background-position: -20px -5px;
+}
+.star1 {
+    background-position: -40px -5px;
+}
+.star2 {
+    background-position: -60px -5px;
+}
+
+.tinfo{border-collapse: collapse;border-top:1px solid  #D9D9FF;border-right:1px solid  #D9D9FF ;
+word-break: break-all;}
+.tinfo td{border:1px solid #D9D9FF;text-align:center;border-top:none;height:20px;}
+.tinfo th{border:1px solid #D9D9FF;text-align:center;height:20px;background:#F9FAF1;}/*#FEE7FA*/
+
+.einfo{border-collapse: collapse;border-top:1px solid  #bccfde;border-right:1px solid #bccfde;}
+.einfo td{border:1px solid #bccfde;text-align:center;border-top:none;height:20px;}
+.einfo th{border:1px solid #bccfde;text-align:center;height:20px;background:#F9FAF1;}/*#FEE7FA*/
+
+/*
+.tinfo{border-collapse: collapse;border-top:1px solid  #d8d8d8;border-right:1px solid #d8d8d8;}
+.tinfo td{border:1px solid #d8d8d8;text-align:center;border-top:none;height:20px;}
+.tinfo th{border:1px solid #d8d8d8;text-align:center;height:20px;background:#013b65;color:#fff;}
+
+.einfo{border-collapse: collapse;border-top:1px solid  #bccfde;border-right:1px solid #bccfde;}
+.einfo td{border:1px solid #bccfde;text-align:center;border-top:none;height:20px;}
+.einfo th{border:1px solid #bccfde;text-align:center;height:20px;background:#ebf5fe;}*/
+
+
+.wd100{width:100%}
+
+a{cursor:pointer}
+a:hover {
+    font-size: 12px;
+    color: #993333 ;
+    text-decoration: none !important;
+}
+a:link {
+    font-size: 12px;
+    color: #003366 ;
+    text-decoration: underline;
+}
+a:visited {
+	font-size: 12px;
+	color: #003366;
+	text-decoration: underline;
+}
+
+a.page{ border:solid 1px #9aafe5; margin-right:2px;font-size:12px; padding:0px 2px;font-weight:bold;margin-top:5px;}
+a.page:hover{background:#2e6ab1; color:#FFFFFF; }
+
+input.btn5 btnf0{width:50px;height:22px;background:#bccfde;text-align:center;margin-right:1px;margin-top:3px;cursor:pointer;border:none;}
+
+input.btn80{width:80px;height:22px;background:#bccfde;text-align:center;margin-right:1px;margin-top:3px;cursor:pointer;border:none;}
+
+input.btn1 btnf20{width:120px;height:22px;background:#bccfde;text-align:center;margin-right:1px;margin-top:3px;cursor:pointer;border:none;}
+
+.intext{width:70px;}
+.tcenter{text-align:center}
+
+.xbody1{width:994px;float:left;margin:0px;margin-left:2px;}
+
+.xbody2{width:1260px;float:left;margin:0px;margin-left:2px;}
+
+.xbody3{width:1420px;float:left;margin:0px;margin-left:2px;}
+
+.txt1{width:60px;}
+.txt2{width:90px;}
+.txt3{width:120px;}
+.txt5{width:280px;}
+.button{FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF', endColorStr='#C1D3DC', gradientType='0');
+	COLOR:#333333;FONT-FAMILY:verdana;FONT-SIZE:12px;height:18px;text-align:center;vertical-align:bottom;cursor:hand;
+	border: 1px solid #999999; margin-left:0px; margin-right:0px;border-bottom:none;cursor: hand;margin:0px;}

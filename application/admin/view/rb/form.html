@@ -1,0 +1,260 @@
+{include file='public/layer'}
+
+<div class="layui-form layuimini-form" style="margin-top:20px;">
+    <div class="layui-form-item">
+        <label class="layui-form-label required">用户名</label>
+        <div class="layui-input-block">
+            <input type="text" name="UserName" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="请输入用户名" value="{$info?$info['UserName']:''}" class="layui-input">
+            {if !$info}
+            <span style="color:red;margin-top:10px;display:block;">注意：批量添加用逗号隔开，默认密码为123456!</span>
+            {/if}
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">密码</label>
+        <div class="layui-input-block">
+            <input type="password" name="password" placeholder="需要请输入密码" value="" class="layui-input">
+            {if !$info}
+            <span style="color:red;margin-top:10px;display:block;">默认密码为123456!</span>
+            {/if}
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">积分</label>
+        <div class="layui-input-block">
+            <input type="number" name="score" placeholder="请输入初始积分"{if $info} readonly=""{/if} value="{$info?$info['score']:''}" class="layui-input">
+        </div>
+    </div>
+    {if $info}
+    <div class="layui-form-item">
+        <label class="layui-form-label required">上分</label>
+        <div class="layui-input-block">
+            <input type="number" name="up" placeholder="请输入" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">下分</label>
+        <div class="layui-input-block">
+            <input type="number" name="down" placeholder="请输入" class="layui-input">
+        </div>
+    </div>
+    {/if}
+    <div class="layui-form-item">
+        <label class="layui-form-label required">彩种</label>
+        <div class="layui-input-block">
+            {volist name="game" id="vo" }
+            <input type="checkbox" name="game{$vo.gameType}" title="{$vo.name}"{if $info && in_array($vo.gameType,$info['gameArr'])} checked=""{/if}>
+            {/volist}
+        </div>
+    </div>
+    {if $Think.session.user_uid == '1'}
+    <div class="layui-form-item">
+        <label class="layui-form-label required">托数量</label>
+        <div class="layui-input-block">
+            <input type="number" name="tuoNum" placeholder="请输入数量" value="{$info?$info['tuoNum']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">子账号</label>
+        <div class="layui-input-block">
+            <select name="uid" lay-verify="required">
+                <option value=""></option>
+                {volist name="cate_list" id="vo" }
+                <option value="{$vo.UserName}"{if $info && $info['uid']==$vo.UserName} selected=""{/if}>{$vo.UserName}</option>
+                {/volist}
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">开通追</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="zhui" value="1"{if $info && $info['zhui']==1} checked=""{/if} lay-skin="switch" lay-text="开通|关闭">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">机器人权限</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="xiugai" value="1"{if $info && $info['xiugai']==1} checked=""{/if} lay-skin="switch" lay-text="开通|关闭">
+        </div>
+    </div>
+    {if $Think.session.user_uid == '1'}
+    <div class="layui-form-item">
+        <label class="layui-form-label required">失效时间</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" id="test1" value="{$info?$info['time']:''}" name="time">
+        </div>
+    </div>
+    {/if}
+    {if $info}
+    {if $info['online']==1}
+    <div class="layui-form-item">
+        <label class="layui-form-label required">在线</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="online" value="1" checked="" lay-skin="switch" lay-text="在线|下线">
+        </div>
+    </div>
+    {/if}
+    <div class="layui-form-item">
+        <label class="layui-form-label required">封盘</label>
+        <div class="layui-input-block">
+            <input type="number" name="fengpan" placeholder="请输入" value="{$info?$info['fengpan']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">取消</label>
+        <div class="layui-input-block">
+            <input type="number" name="cancel" placeholder="请输入" value="{$info?$info['cancel']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">返水</label>
+        <div class="layui-input-block">
+            <input type="number" name="FanShui" placeholder="请输入" value="{$info?$info['FanShui']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">赔率</label>
+        <div class="layui-input-block">
+            <input type="number" name="PeiLv" placeholder="请输入" value="{$info?$info['PeiLv']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">特码返水</label>
+        <div class="layui-input-block">
+            <input type="number" name="teFanshui" placeholder="请输入" value="{$info?$info['teFanshui']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">特码赔率</label>
+        <div class="layui-input-block">
+            <input type="number" name="tePeilv" placeholder="请输入" value="{$info?$info['tePeilv']:''}" class="layui-input">
+        </div>
+    </div>
+    <!--<div class="layui-form-item">-->
+    <!--    <label class="layui-form-label required">特限额</label>-->
+    <!--    <div class="layui-input-block">-->
+    <!--        <input type="number" name="t" placeholder="请输入" value="{$info?$info['t']:''}" class="layui-input">-->
+    <!--    </div>-->
+    <!--</div>-->
+    <!--<div class="layui-form-item">-->
+    <!--    <label class="layui-form-label required">普通限额</label>-->
+    <!--    <div class="layui-input-block">-->
+    <!--        <input type="number" name="pt" placeholder="请输入" value="{$info?$info['pt']:''}" class="layui-input">-->
+    <!--    </div>-->
+    <!--</div>-->
+    <div class="layui-form-item">
+        <label class="layui-form-label required">单场总限额</label>
+        <div class="layui-input-block">
+            <input type="number" name="total" placeholder="请输入" value="{$info?$info['total']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">正限额</label>
+        <div class="layui-input-block">
+            <input type="number" name="zheng" placeholder="请输入" value="{$info?$info['zheng']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">角限额</label>
+        <div class="layui-input-block">
+            <input type="number" name="jiao" placeholder="请输入" value="{$info?$info['jiao']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">念限额</label>
+        <div class="layui-input-block">
+            <input type="number" name="nian" placeholder="请输入" value="{$info?$info['nian']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">通限额</label>
+        <div class="layui-input-block">
+            <input type="number" name="tong" placeholder="请输入" value="{$info?$info['tong']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">车限额</label>
+        <div class="layui-input-block">
+            <input type="number" name="che" placeholder="请输入" value="{$info?$info['che']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">单码限额</label>
+        <div class="layui-input-block">
+            <input type="number" name="te" placeholder="请输入" value="{$info?$info['te']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">单双限额</label>
+        <div class="layui-input-block">
+            <input type="number" name="danshuang" placeholder="请输入" value="{$info?$info['danshuang']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">大小限额</label>
+        <div class="layui-input-block">
+            <input type="number" name="daxiao" placeholder="请输入" value="{$info?$info['daxiao']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">番限额</label>
+        <div class="layui-input-block">
+            <input type="number" name="fan" placeholder="请输入" value="{$info?$info['fan']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">加限额</label>
+        <div class="layui-input-block">
+            <input type="number" name="jia" placeholder="请输入" value="{$info?$info['jia']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">最高注额</label>
+        <div class="layui-input-block">
+            <input type="number" name="zuigao" placeholder="请输入" value="{$info?$info['zuigao']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">最小注额</label>
+        <div class="layui-input-block">
+            <input type="number" name="zuidi" placeholder="请输入" value="{$info?$info['zuidi']:''}" class="layui-input">
+        </div>
+    </div>
+    {/if}
+    {/if}
+    <input type="hidden" name="id" id="id" value="{$info?$info['id']:''}" />
+
+    <div class="layui-form-item" style="margin-bottom:150px;">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.use(['form','laydate','layer'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            laydate = layui.laydate;
+            
+        laydate.render({
+            elem: '#test1' //指定元素
+        });
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            putAjax("{:url('rb/addRobot')}", data.field, function(res) {
+                if (res.status == 1) {
+                    alertSuc(res.message);
+                    var iframeIndex = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(iframeIndex);
+                }
+                else { alertErr(res.message); }
+            });
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

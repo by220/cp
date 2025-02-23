@@ -1,0 +1,669 @@
+{include file='public/head'}
+
+<style type="text/css" media="all">
+	.color {
+		background: #e21919;
+		width: 24px;
+		height: 24px;
+		display: block;
+		line-height: 24px;
+		text-align: center;
+		border: 1px solid #000;
+		font-weight: bolder;
+		font-size: 16px !important;
+		color: #fff !important;
+	}
+
+	.color5 {
+		background: #fff !important;
+	}
+
+	.color1 {
+		background: #2f69d6 !important;
+	}
+
+	.color2 {
+		background: #25a25e !important;
+	}
+
+	.color3 {
+		background: #e4c614 !important;
+	}
+
+	th {
+		font-size: 26px;
+		padding: 2px;
+		width: 18px;
+		height: 18px;
+		border: 1px solid #aaa;
+	}
+
+	td {
+		border: 1px solid #aaa;
+		background: #fff;
+	}
+
+	td span {
+		background: red;
+		width: 28px;
+		height: 28px;
+		font-size: 20px;
+		display: block;
+		line-height: 29px;
+		text-align: center;
+		border: 1px solid #000;
+		color: #fff;
+		font-weight: bolder;
+		margin: 3px auto;
+	}
+
+	.di {
+		font-size: 20px;
+		margin-left: 35px;
+		color: #333;
+	}
+
+	.kaipan {
+		font-size: 30px;
+		color: red;
+	}
+
+	.card {
+		background: #fff;
+		width: 100%;
+		margin-top: 15px;
+		box-sizing: border-box;
+		/*max-width: 535px;*/
+		padding: 20px;
+	}
+
+	.fannum {
+		background: red;
+		color: #fff;
+		font-size: 36px;
+		line-height: 70px;
+		font-weight: bolder;
+		width: 90px;
+		text-align: center;
+		margin-right: 35px;
+	}
+
+	.time {
+		font-size: 22px;
+		color: #333;
+		width: 300px;
+	}
+
+	.head {
+		display: flex;
+		justify-content: space-around;
+		background: #3cb6e6;
+		line-height: 48px;
+		width: 450px;
+	}
+
+	.head span {
+		font-size: 24px;
+		color: #fff;
+		width: 70px;
+		text-align: center;
+	}
+
+	.head span:nth-child(3) {
+		width: 210px;
+	}
+
+	.head span:nth-child(4) {
+		width: 70px;
+	}
+
+	.kai span {
+		border-radius: 50px;
+		border: 1px solid #128ad4;
+		width: 40px;
+		height: 40px;
+		display: inline-block;
+		text-align: center;
+		font-size: 20px;
+		line-height: 40px;
+		font-weight: bolder;
+		margin-right: 0;
+		color: #222;
+	}
+
+	.kai span.hong {
+		border: 1px solid red;
+		border: 1px solid red;
+	}
+
+	.table {
+		background: #fff;
+		display: inline-block;
+		width: 100%;
+		padding: 8px;
+		box-sizing: border-box;
+		padding-top: 15px;
+	}
+
+	.card2 {
+		width: 100%;
+		/*max-width: 535px;*/
+		margin-top: 15px;
+	}
+
+	.head,
+	.list {
+		width: 100%;
+	}
+
+	table {
+		border: 1px solid #aaa;
+		width: 100%;
+	}
+
+	.kai {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 20px;
+	}
+
+	.one {
+		display: flex;
+		justify-content: space-around;
+		background: #fff;
+		align-items: center;
+		width: 100%;
+		line-height: 35px;
+		box-sizing: border-box;
+	}
+
+	.one span {
+		font-size: 16px;
+		color: #222;
+	}
+
+	.kailist span {
+		border-radius: 50px;
+		border: 2px solid #5ca6d4;
+		width: 25px;
+		height: 25px;
+		display: inline-block;
+		text-align: center;
+		font-size: 14px;
+		line-height: 25px;
+		margin-right: 8px;
+		color: #222;
+		font-weight: bold;
+	}
+
+	.kailist span.hong {
+		border: 2px solid #d65555;
+		border: 2px solid red;
+	}
+
+	.kailist {
+		font-size: 24px;
+		color: #333;
+		display: flex;
+		align-items: center;
+	}
+
+	.three {
+		font-size: 16px;
+		color: #fff;
+		display: flex;
+		align-items: center;
+	}
+
+	.da {
+		color: #000 !important;
+		font-weight: bolder;
+		margin-left: 6px;
+		font-size: 16px !important;
+		width: 25px;
+		text-align: center;
+	}
+
+	.dan {
+		color: #000 !important;
+		font-weight: bolder;
+		margin-left: 6px;
+		font-size: 16px !important;
+		width: 25px;
+		text-align: center;
+	}
+
+	tr {
+		background: #eee;
+	}
+	
+	.fan_box {
+		height: 75px;
+		display: flex;
+		align-items: center;
+		margin: 8px 0;
+		position: relative;
+		justify-content:space-between;
+	}
+
+	@media all and (max-width: 567px) {
+		.di {
+			font-size: 18px;
+			margin-left: 35px;
+			color: #333;
+		}
+
+		.kaipan {
+			font-size: 24px;
+			color: red;
+		}
+
+		.card {
+			background: #fff;
+			width: 100%;
+			margin-top: 15px;
+			box-sizing: border-box;
+			max-width: 535px;
+			padding: 15px;
+		}
+
+		.fannum {
+			background: red;
+			color: #fff;
+			font-size: 38px;
+			line-height: 70px;
+			font-weight: bolder;
+			width: 110px;
+			text-align: center;
+			margin-left: 0;
+			/*position: absolute;*/
+			right: 0;
+		}
+
+		.time {
+			font-size: 16px;
+			color: #333;
+		}
+
+		.head {
+			display: flex;
+			justify-content: space-around;
+			background: #3cb6e6;
+			line-height: 30px;
+			width: 450px;
+		}
+
+		.head span {
+			font-size: 16px;
+			color: #fff;
+		}
+
+		.kai {
+			text-align: left;
+			display: flex;
+			align-items: center;
+			justify-content: space-around;
+		}
+
+		.kai span {
+			border-radius: 50px;
+			border: 1px solid #128ad4;
+			width: 30px;
+			height: 30px;
+			display: inline-block;
+			text-align: center;
+			font-size: 18px;
+			line-height: 30px;
+			font-weight: bolder;
+			margin-right: 0;
+			color: #222;
+		}
+
+		.table {
+			background: #fff;
+			display: inline-block;
+			width: 100%;
+			padding: 0;
+			box-sizing: border-box;
+			padding-top: 8px;
+		}
+
+		.head,
+		.list {
+			width: 100%;
+		}
+
+		table {
+			border: 1px solid #aaa;
+			width: 100%;
+		}
+
+		.uk-panel-box {
+			padding: 8px;
+		}
+
+		th {
+			font-size: 16px;
+			padding: 2px;
+			width: 18px;
+			height: 18px;
+			border: 1px solid #aaa;
+		}
+
+		td {
+			border: 1px solid #aaa;
+		}
+
+		td span {
+			background: red;
+			width: 18px;
+			height: 18px;
+			font-size: 14px;
+			display: block;
+			line-height: 18px;
+			text-align: center;
+			border: none;
+			color: #fff;
+			font-weight: bolder;
+			margin: 1px auto;
+		}
+
+		.one {
+			display: flex;
+			justify-content: space-around;
+			background: #fff;
+			align-items: center;
+			width: 100%;
+			line-height: 24px;
+		}
+
+		.one span {
+			font-size: 12px;
+			color: #333;
+		}
+
+		.kailist span {
+			border-radius: 50px;
+			border: 1px solid #5ca6d4;
+			width: 16px;
+			height: 16px;
+			display: inline-block;
+			text-align: center;
+			font-size: 14px;
+			line-height: 17px;
+			margin-right: 3px;
+			color: #222;
+			font-family: serif;
+		}
+
+		.kailist span.hong {
+			border: 1px solid #d65555;
+			border: 1px solid red;
+		}
+
+		.kailist {
+			font-size: 24px;
+			color: #333;
+			display: flex;
+			align-items: center;
+		}
+
+		.three {
+			font-size: 16px;
+			color: #fff;
+			display: flex;
+			align-items: center;
+		}
+
+		.da {
+			color: #888 !important;
+			font-weight: bolder;
+			margin-left: 5px;
+			font-size: 12px !important;
+			width: auto;
+		}
+
+		.dan {
+			color: #888 !important;
+			font-weight: bolder;
+			margin-left: 2px;
+			font-size: 12px !important;
+			width: auto;
+		}
+
+		.color {
+			width: 16px;
+			height: 16px;
+			display: block;
+			line-height: 16px;
+			text-align: center;
+			border: none;
+			font-weight: bolder;
+			font-size: 12px !important;
+			color: #fff !important;
+		}
+
+		.fan_box {
+			height: 75px;
+		}
+	}
+</style>
+
+<div class="uk-container uk-container-center  uk-margin-large-top">
+	<div class="uk-grid">
+		<div class="uk-width-1-1">
+			<div class="uk-panel uk-panel-box uk-panel-box-primary">
+				<form class="layui-form" action="">
+					<div class="layui-block">
+						<select name="type" lay-filter="changeGame">
+							<option value=""></option>
+							{volist name="game" id="vo" }
+							<option value="{$vo.gameType}" {if $gameType==$vo.gameType} selected="" {/if}>{$vo.name}
+							</option>
+							{/volist}
+						</select>
+					</div>
+				</form>
+				<div class="uk-grid">
+					<div class="uk-width-1-1">
+						<h4 style="margin-top: 25px;">上期开奖结果:</h4>
+						<div class="card">
+							<div style="display: flex;align-items: center;">
+								<span class="kaipan">开盘结果</span>
+								<span class="di">第<span class="qi"></span>期</span>
+							</div>
+							<div class="fan_box">
+								<span class="time"></span>
+								<span class="fannum"><span class="fan"></span>番</span>
+							</div>
+							<div class="kai">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="uk-grid">
+					<div class="uk-width-1-1">
+						<h4>历史开奖结果:</h4>
+						<div class="card2">
+							<div class="head">
+								<span>期数</span>
+								<span>时间</span>
+								<span>结果</span>
+								<span>番</span>
+							</div>
+							<div class="list">
+							</div>
+							<div class="table">
+								<table border="1" cellspacing="0">
+									<tr>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th>路</th>
+										<th>字</th>
+										<th>图</th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+									</tr>
+									<tbody class="lu">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--<img id="hisImg" style="display:none;" src="__STATIC__/xz/admin/2b3fc9689877482b96f3ff7d7dd5fab6.svg">-->
+			</div>
+		</div>
+	</div>
+</div>
+
+{include file='public/js'}
+
+<script type="text/javascript">
+	var qihao = '';
+	var qihao5 = '';
+	layui.use(['form', 'layer'], function() {
+		var form = layui.form,
+			layer = layui.layer;
+		//监听提交
+		form.on('select(changeGame)', function(data) {
+			ReloadHisImage(data.value);
+		});
+	});
+	$(document).ready(function() {
+		ReloadHisImage("{$gameType}");
+	});
+
+	function ReloadHisImage(type) {
+		$.ajax({
+			type: "GET",
+			url: "{:url('index/GetOpenHis')}",
+			data: {
+				'type': type
+			},
+			dataType: "json",
+			success: function(data) {
+				pushCode(data.message, type);
+			}
+		});
+	}
+
+	function getSum(kj) {
+		var CodeArr = kj['Code'].split(','),
+			sum = 0;
+		for (var i in CodeArr) {
+			if (kj['type'] == 8) {
+				sum = Number(CodeArr[i]);
+			} else {
+				if (i < 3) {
+					sum += Number(CodeArr[i]);
+				}
+			}
+		}
+		return sum;
+	}
+
+	function getCum(kj) {
+		var CodeArr = kj['Code'].split(','),
+			sum = 0;
+		for (var i in CodeArr) {
+			sum += Number(CodeArr[i]);
+		}
+		return sum;
+	}
+
+	function getFan(kj) {
+		return getSum(kj) % 4 == 0 ? 4 : getSum(kj) % 4;
+	}
+
+	function getLonghu(kj) {
+		var CodeArr = kj['Code'].split(',');
+		return CodeArr[0] > CodeArr[4] ? '龙' : '虎';
+	}
+
+	function pushCode(list, tar) {
+		var lastQi = list[0];
+		var lastCode = lastQi['Code'].split(',');
+		$('.list').empty();
+		$('.lu').empty();
+		var html = '';
+		var lu = '';
+		$(".time").html(lastQi['dtOpen']);
+		$(".qi").html(lastQi['QiHao']);
+		if (tar != '75') {
+			$(".fan").html(getFan(lastQi));
+		} else {
+			$(".fan").html(getLonghu(lastQi));
+		}
+		$('.kai').empty();
+		for (var i = 0; i < lastCode.length; i++) {
+			if (i < lastCode.length - 1) {
+				$('.kai').append('<span>' + lastCode[i] + '</span>');
+			} else {
+				$('.kai').append('<span class="' + (tar == '75' ? '' : 'hong') + '">' + lastCode[i] + '</span>');
+			}
+		}
+		if (tar == '75') {
+			$('.kai').append('<span style="border:none;">=</span>');
+			$('.kai').append('<span>' + getSum(lastQi) + '</span>');
+		}
+		for (var j = 0; j < list.length; j++) {
+			if (j < 15) {
+				var time = list[j]['dtOpen'].split(' ');
+				var bor = (j == 0 ? 'border:2px solid #ec5d5d;' : '');
+				html += '<div class="one" style="' + bor + '"><span>' + list[j]['QiHao'].substr(-4) + '</span><span>' +
+					time[1] + '</span><span class="kailist">';
+				var list2 = list[j]['Code'].split(',');
+				for (var i = 0; i < list2.length; i++) {
+					if (i < list2.length - 1) {
+						html += '<span>' + list2[i] + '</span>';
+					} else {
+						html += '<span>' + list2[i] + '</span>';
+					}
+				}
+				if (tar != '75') {
+					html += '<span style="border:none;width: auto;">=</span>';
+					html += '<span class="hong">' + getCum(list[j]) + '</span>';
+				}
+				var fan = getFan(list[j]);
+				var dan = getSum(list[j]) % 2 == 1 ? '单' : '双';
+				if (list[j]['type'] == 5) {
+					var da = getSum(list[j]) >= 10 ? '大' : (getSum(list[j]) == 23 ? '和' : '小');
+				} else {
+					var da = getSum(list[j]) >= 10 ? '大' : '小';
+				}
+				html += '</span><span class="three"><span class="color color' + fan + '" ' + (tar == '75' ?
+						'style="display:none;"' : '') + '>' + fan + '</span><span class="da">' + (tar == '75' ? getSum(
+						list[j]) : da) + '</span><span class="dan">' + (tar == '75' ? getLonghu(list[j]) : dan) +
+					'</span></span></div>';
+			}
+		}
+		list.reverse();
+		var len = Math.round(list.length / 12);
+		for (var i = 0; i < (len + 1); i++) {
+			lu += '<tr>';
+			for (var j = (i * 12); j < list.length; j++) {
+				if (j < (i + 1) * 12) {
+					if (list[j]['Code'] == '') {
+						lu += '<td><span class="color5"></span></td>';
+					} else {
+						var list2 = list[j]['Code'].split(',');
+						var fan = getFan(list[j]);
+						lu += '<td><span class="color' + fan + '">' + fan + '</span></td>';
+					}
+				}
+			}
+			lu += '</tr>';
+		}
+		$('.list').append(html);
+		$('.lu').append(lu);
+	}
+</script>
+
+</body>
+</html>

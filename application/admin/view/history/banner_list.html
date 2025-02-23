@@ -1,0 +1,156 @@
+{include file='public/head'}
+
+<div class="uk-container uk-container-center uk-margin-large-top">
+	<div class="uk-grid">
+		<div class="uk-width-1-1">
+			<div class="uk-panel uk-panel-box uk-panel-box-primary" style="padding:5px;">
+				<form class="layui-form" action="">
+					<div class="layui-inline">
+						<input type="text" name="qihao" placeholder="请输入期号" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-input-inline">
+						<button class="layui-btn layui-btn-sm" lay-submit lay-filter="formDemo">查询</button>
+					</div>
+					<div class="layui-inline">
+						<select name="type" lay-filter="changeGame">
+							<option value=""></option>
+							{volist name="game" id="vo" }
+							<option value="{$vo.gameType}" {if $gameType==$vo.gameType} selected="" {/if}>{$vo.name}
+							</option>
+							{/volist}
+						</select>
+					</div>
+				</form>
+				<div class="uk-grid uk-margin-large-top">
+					<div class="uk-width-1-1">
+						<div id="myResult" style="color:red;font-size:14px;"></div>
+					</div>
+				</div>
+				<div class="uk-margin-large-top">
+					<div id="table" lay-filter="table"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{include file='public/js'}
+
+<script type="text/html" id="barDemo">
+    {if $Think.session.user_uid == '1'}
+	<a class="layui-btn layui-btn-xs" lay-event="edit">投注记录</a>
+	{{# if(d.js == 0){ }}
+	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">结算</a>
+	{{# } }}
+	{/if}
+</script>
+
+<script>
+	var arr = {},
+	    tableIndex = null,
+		type = "{$gameType}";
+	layui.use(['layer', 'form', 'table'], function() {
+		var layer = layui.layer,
+			form = layui.form,
+			table = layui.table;
+			
+		tableIndex = table.render({
+			elem: '#table',
+			url: "{:url('history/GetOpenHistoryList')}",
+			where: {type: type},
+			page: true,
+			loading: true,
+			limit: 30,
+			height: 'full-220',
+			cols: [[
+                {field: 'gameName', title: '彩种名称', width:160}
+                ,{field: 'QiHao', title: '期号', width:160}
+                ,{field: 'Code', title: '开奖球号', width:260}
+                ,{field: 'dtOpen', title: '开奖时间', width:260}
+                ,{field: 'txtStatus', title: '是否结算', width:160}
+                ,{field: 'count', title: '下注数量', width:160}
+                ,{align:'center', toolbar: '#barDemo', title: '操作', width:260} 
+			]]
+		});
+      
+        function showForm(id) {
+            var index = layer.open({
+                title: '记录',
+                type: 2,
+                shade: 0.2,
+                maxmin:true,
+                shadeClose: true,
+                area: ['380px', '600px'],
+                offset: '100px',
+                content: "{:url('history/record')}?id="+id+"&type=xz",
+                success: function(layero, index){
+                    layer.full(index);
+                },
+                end: function(index, layero){ 
+                    // refresh(); 
+                }  
+            });
+        }
+		
+		table.on('tool(table)', function(obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+			var data = obj.data; //获得当前行数据
+			var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+			var tr = obj.tr; //获得当前行 tr 的DOM对象
+			if (layEvent === 'del') { //删除
+			    arr = data;
+				jiesuan();
+			} else if (layEvent === 'edit') { //编辑
+				showForm(data.id);
+			}
+		});
+
+		form.on('submit(formDemo)', function(data) {
+			QueryResult(data.field);
+			return false;
+		});
+
+		form.on('select(changeGame)', function(data) {
+		    type = data.value;
+			refresh();
+		});
+		
+    	//查询指定期
+    	function QueryResult(data) {
+    		if (data.qihao == "") {
+    			alertSuc("请输入要查询的期号!");
+    			return false;
+    		}
+    		putAjax("{:url('history/GetSpecifyQiResult')}", data, function(data) {
+    		    arr = data.info;
+    			if (data.status == 1) {
+    				var str = data.info.js == 0 ? '<button class="layui-btn layui-btn-sm layui-btn-danger" style="margin-left: 8px;" onClick="jiesuan()">结算</button>' : '';
+    				$("#myResult").html(data.data + str);
+    			} else {
+    				alertErr("查询失败，请检查期号是否正确!");
+    			}
+    		});
+    	}
+	});
+
+	function refresh() {
+		tableIndex.reload({
+			where: {type: type},
+			page: {curr: 1}
+		});
+	}
+      
+    function jiesuan() {
+        layer.confirm("确定将[" + arr.QiHao + "]进行手动结算吗?", function(index) {
+			putAjax("{:url('history/getJiesuan')}", {
+				"id": arr.id
+			}, function(res) {
+				refresh();
+				alertSuc('已结算！');
+			});
+			layer.close(index);
+		});
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,584 @@
+@CHARSET "UTF-8";
+
+.top_info .title {
+	color: #386399;
+}
+
+.top_info #gameName {
+	margin: 0 10px;
+	color: #eb6100;
+	font-weight: bold;
+}
+
+.top_info #cdClose {
+	color: red;
+	font-weight: bold;
+}
+
+.top_info #cdDraw {
+	color: #097c25;
+	font-weight: bold;
+}
+
+.top_info .bresult {
+	color: red;
+	margin-left: 15px;
+	margin-right: 10px;
+	font-weight: bold;
+}
+
+.top_info .period {
+	float: left;
+}
+
+#drawInfo {
+	float: left;
+	text-align: right;
+	margin-right: 15px;
+	height: 32px;
+	line-height: 32px;
+}
+
+#drawInfo .draw_number {
+	font-weight: bold;
+	color: #386399;
+}
+
+#drawInfo .draw_number span {
+	color: #344b50;
+}
+
+#drawInfo ul {
+	float: right;
+	margin: 0 0 0 5px;
+	padding: 0;
+	list-style: none;
+	overflow: hidden;
+}
+
+#drawInfo li, #drawInfo li * {
+	float: left;
+}
+
+#drawInfo .balls i {
+	font-style: normal;
+	margin: 0 3px 0 1px;
+}
+
+.top_info .op, .top_info #btnRefresh, .top_info #refreshInteval {
+	float: left;
+}
+
+.top_info select, .top_info input {
+	margin-top: 6px;
+}
+
+.top_info #cdRefresh {
+	float: left;
+	width: 57px;
+	text-align: right;
+	margin-right: 2px;
+	color: black;
+	font-size: 12px;
+}
+
+.top_info #cdRefresh span {
+	color: #2836f4;
+}
+
+.top_info #cdRefresh input {
+	padding: 0;
+	color: #555;
+}
+
+#totals .data_table {
+	width: auto;
+	margin: 5px auto;
+}
+
+#totals .data_table th {
+	padding: 0 10px;
+}
+
+#totals a {
+	color: blue;
+}
+
+.main {
+	padding-bottom: 80px
+}
+
+.main .data_table td, .main .data_table th {
+	padding: 0;
+	text-align: center;
+}
+
+.main .data_table thead th, .data_table .head th {
+	height: 25px;
+	text-align: center;
+}
+
+.data_table .foot {
+	background: white;
+}
+
+.data .item th {
+	background: #F2F2F2;
+	width: 14%;
+}
+
+.data_table .amount a {
+	color: #299a26;
+}
+
+.data_table .risk {
+	line-height: normal;
+}
+
+.data_table .risk a {
+	color: #555;
+}
+
+.data_table .risk .high {
+	color: red;
+}
+
+.data_table .risk div, .data_table .odds div {
+	height: 18px;
+	line-height: 18px;
+}
+
+.data_table .risk div span {
+	float: left;
+	display: inline-block;
+	background: url("images/k3t.png");
+	width: 29px;
+	height: 16px;
+	font-size: 0;
+	text-indent: -9999px;
+	margin-top: 1px;
+}
+
+.data_table .risk div .t2 {
+	background-position: center;
+}
+
+.data_table .risk div .t3 {
+	background-position: bottom;
+}
+
+.data_table .ball th, .data_table .item .odds {
+	color: #2836f4;
+	font-size: 15px;
+	font-family: Arial, Helvetica, Verdana, Geneva, sans-serif;
+	font-weight: bold;
+}
+
+.data_table .item .uptodate {
+	color: red;
+}
+
+.data .foot_total {
+	text-align: center;
+}
+
+.data .game_total {
+	text-align: left;
+	margin-left: 15px;
+	margin-top: 25px;
+}
+
+.lt_BJPK10 .game_total {
+	margin-top: 100px;
+}
+
+.main .total {
+	color: #339166;
+	font-weight: bold;
+	font-family: "宋体";
+}
+
+.data_table .foot span {
+	font-weight: bold;
+}
+
+.data .max_risk {
+	color: red;
+	font-weight: bold;
+}
+
+.data .min_risk {
+	font-weight: bold;
+}
+
+.type_total a, .type_total a:hover {
+	color: #344b50;
+	text-decoration: none;
+}
+
+.dp_table td {
+	width: 1%;
+}
+
+.type_total a span {
+	color: #2836f4;
+}
+
+.layout .panel {
+	padding: 0 1px;
+}
+
+.layout .type_total, .layout .type_total table {
+	width: 110px;
+	font-family: "宋体";
+}
+
+.layout .type_total td {
+	background: #fff3f3;
+	text-align: left;
+}
+
+.layout #yilou, .layout #yilou table {
+	width: 50px;
+}
+
+.layout #yilou th {
+	border-left: none;
+	color: #2836f4;
+}
+
+.layout #yilou .head th {
+	color: #555;
+}
+
+#yilou .max {
+	color: red;
+}
+
+.layout #changlong, .layout #changlong table {
+	width: 135px
+}
+
+.layout #changlong thead th {
+	font-weight: bold;
+}
+
+.layout #changlong tbody th {
+	width: 88px;
+	background: #fff3f3;
+	text-align: left;
+	padding-left: 3px;
+	color: #2836f4;
+	font-weight: normal;
+}
+
+.layout #changlong tbody td {
+	width: 35px;
+	color: red;
+}
+
+.layout .nt thead th {
+	border-top: none;
+}
+
+.layout #historyResult {
+	width: 185px;
+}
+
+#historyResult table {
+	width: auto;
+}
+
+#historyResult .period {
+	padding: 0 4px;
+}
+
+#historyResult .other {
+	width: 30px;
+}
+
+#historyResult .tie {
+	color: #299a26;
+}
+
+#historyResult .D {
+	color: red;
+}
+
+.period_close .data .item td, .period_close .data .item th {
+	background: #eee;
+}
+
+.control .input {
+	width: 100px;
+}
+
+#backPanel .title {
+	text-align: center;
+	color: black;
+}
+
+#backPanel .input {
+	width: 65px;
+	margin-top: 2px;
+}
+
+#backPanel span {
+	padding: 0 5px;
+}
+
+#backPanel label {
+	display: block;
+	float: left;
+	width: 45px;
+	text-align: center;
+	border-right: 1px solid #b9c2cb;
+}
+
+#backPanel div {
+	clear: both;
+	height: 24px;
+	line-height: 24px;
+	border-bottom: 1px solid #b9c2cb;
+}
+
+#backPanel .bottom {
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	border-bottom: none;
+}
+
+#backPanel .odds {
+	color: #2836f4;
+}
+
+.lt_PK10 .layout .type_total td {
+	height: 27px;
+	padding-left: 3px;
+	background: #fff3f3;
+}
+
+.lt_KLSF .table_zh, .lt_KL8 .table_zh, .lt_3D .table_zh {
+	width: 650px;
+	margin: 0 auto;
+}
+
+.lt_KLSF .data_table .ball19 th, .lt_KLSF .data_table .ball20 th, #yilou .b19 th, #yilou .b20 th {
+	color: red;
+}
+
+.lt_PK10 .data_table .ball1 th {
+	color: #90926a;
+}
+
+.lt_PK10 .data_table .ball2 th {
+	color: #3a84c1;
+}
+
+.lt_PK10 .data_table .ball3 th {
+	color: #0e111a;
+}
+
+.lt_PK10 .data_table .ball4 th {
+	color: #db7e31;
+}
+
+.lt_PK10 .data_table .ball5 th {
+	color: #4bc2c0;
+}
+
+.lt_PK10 .data_table .ball6 th {
+	color: #210569;
+}
+
+.lt_PK10 .data_table .ball7 th {
+	color: #616370;
+}
+
+.lt_PK10 .data_table .ball8 th {
+	color: #be0d17;
+}
+
+.lt_PK10 .data_table .ball9 th {
+	color: #82454a;
+}
+
+.lt_PK10 .data_table .ball10 th {
+	color: #206538;
+}
+
+.lt_KL8 .data_table .ball th {
+	color: #7044b6;
+}
+
+.main .data_footer .note {
+	font-weight: bold;
+}
+
+.main .data_footer input {
+	margin-top: 5px;
+}
+
+.data_table .subhead {
+	background: #F2F2F2;
+}
+
+#detailName {
+	color: red;
+	font-weight: bold;
+}
+
+#details {
+	background: white;
+}
+
+#details .data_table .quickamount {
+	width: 70px;
+}
+
+#details .data_table .quickamount input {
+	width: 68px;
+}
+
+#details .data_table .quickresult {
+	width: 70px;
+}
+
+#details .data_table .op {
+	width: 35px;
+}
+
+.tab {
+	width: 100%;
+	margin: 0 0 0 0;
+	margin-top: 5px;
+	padding: 0;
+}
+
+.tab li {
+	margin: 0 8px;
+}
+
+.tab_title02 {
+	height: 29px;
+	line-height: 29px;
+	background: url(images/blue/tab_bg02.gif) repeat-x left -93px;
+}
+
+.tab_title02 a {
+	display: block;
+	width: 98px;
+	height: 29px;
+	font-size: 13px;
+	color: #7d7d7d;
+	background: url(images/blue/tab_bg02.gif) no-repeat left -29px;
+	text-shadow: 1px 1px 0 white;
+	margin: 0 5px 0 0;
+	text-align: center;
+	float: left;
+	text-decoration: none;
+}
+
+.tab_title02 a:hover, .tab_title02 a.selected {
+	color: #1554BE;
+	/*font-weight:bold;*/
+	background: url(images/blue/tab_bg02.gif) no-repeat left top;
+}
+
+.chooes a {
+	padding: 0px 6px;
+	border: 1px solid #CCC;
+	background: #FFF;
+}
+
+.oddsCtl {
+	width: 19px;
+	height: 20px;
+}
+
+.oc0 {
+	background: url("images/icons/add.gif");
+	float: left;
+}
+
+.oc1 {
+	background: url("images/icons/sub.gif");
+	float: right;
+}
+
+#oddsSetting {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	overflow: hidden;
+	background: #eee;
+	padding: 2px 0;
+}
+
+#oddsSetting .oddsControl span {
+	float: left;
+	display: block;
+}
+
+#oddsSetting .oddsCtl {
+	margin-top: 2px;
+}
+
+#oddsSetting div {
+	margin-left: 20px;
+	float: left;
+}
+
+#oddsSetting .buttons {
+	clear: both;
+}
+
+#oddsSetting .buttons a {
+	display: inline-block;
+	margin: 1px 3px;
+	line-height: 18px;
+	height: 18px;
+	padding: 0;
+	border: 1px solid #666;
+	width: 35px;
+	color: #333;
+	text-align: center;
+}
+
+#oddsSetting .buttons .red {
+	color: red;
+}
+
+#oddsSetting .buttons .blue {
+	color: #2836f4;
+}
+
+#oddsSetting .buttons .green {
+	color: rgb(37, 200, 45);
+}
+
+.sortable {
+	cursor: auto;
+}
+
+.list tbody tr:nth-child(even) {
+	/*background-color: white;*/
+	
+}
+
+.data_table .selected, .data_table .selected th {
+	background: #ffc214
+}
+
+#inputodds .input_text {
+	width: 100px;
+}
+
+#quickBetbackPopPanel td {
+	text-align: center;
+}
+
+#quickBetbackPopPanel .input {
+	width: 50px;
+}

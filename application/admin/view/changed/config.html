@@ -1,0 +1,150 @@
+{include file='public/head'}
+
+<div class="uk-container-center uk-margin-large-top">
+        <form class="layui-form" action="">
+          <div class="layui-form-item">
+            <label class="layui-form-label">时间</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="test1" name="time">
+            </div>
+            <div class="layui-input-inline">
+              <button class="layui-btn" lay-submit lay-filter="clear">清空数据</button>
+            </div>
+          </div>
+        </form>
+        <form class="layui-form" action="">
+          <div class="layui-form-item">
+            <label class="layui-form-label">群聊标题</label>
+            <div class="layui-input-block">
+              <input type="text" name="title" placeholder="请输入标题" value="{$info?$info['title']:''}" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">声音1</label>
+            <div class="layui-input-inline">
+              <button class="layui-btn" lay-submit lay-filter="mp3">选择文件</button>
+                <input type="file" name="mp3_1" id="mp3_1" value="{$info?$info['mp3_1']:''}" accept="audio/mp3" onchange="upload1(this)" style="display:none;" />
+            </div>
+            <div class="layui-form-mid layui-word-aux" style="padding: 0 !important;">
+                <audio src="{$info?$info['mp3_1']:''}" id="ad_1" controls="" style="display: block !important;height:40px;"></audio>
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">声音2</label>
+            <div class="layui-input-inline">
+              <button class="layui-btn" lay-submit lay-filter="mp32">选择文件</button>
+                <input type="file" name="mp3_2" id="mp3_2" value="{$info?$info['mp3_2']:''}" accept="audio/mp3" onchange="upload1(this)" style="display:none;" />
+            </div>
+            <div class="layui-form-mid layui-word-aux" style="padding: 0 !important;">
+                <audio src="{$info?$info['mp3_2']:''}" id="ad_2" controls="" style="display: block !important;height:40px;"></audio>
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">公告</label>
+            <div class="layui-input-block">
+              <textarea name="gd" placeholder="请输入" class="layui-textarea">{$info?$info['gd']:''}</textarea>
+            </div>
+          </div>
+         <!-- <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">域名链接</label>
+            <div class="layui-input-block">
+              <textarea name="yuming" placeholder="请输入" class="layui-textarea">{$info?$info['yuming']:''}</textarea>
+            </div>
+          </div>-->
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">群聊警告</label>
+            <div class="layui-input-block">
+              <textarea name="errMsg" placeholder="请输入" class="layui-textarea">{$info?$info['errMsg']:''}</textarea>
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">信息</label>
+            <div class="layui-input-block">
+              <textarea id="demo" style="display: none;">{$info?$info['rbMsg']:''}</textarea>
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button class="layui-btn" lay-submit lay-filter="formDemo">保存</button>
+            </div>
+          </div>
+        </form>
+    </div>
+</div>
+ 
+<script>
+    layui.use(['form','laydate','layer','layedit'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            laydate = layui.laydate,
+            layedit = layui.layedit;
+        
+        var editIndex = layedit.build('demo'); //建立编辑器
+            
+        laydate.render({
+            elem: '#test1' //指定元素
+        });
+      
+      //监听提交
+      form.on('submit(formDemo)', function(data){
+        data.field.rbMsg = layedit.getContent(editIndex);
+        putAjax("{:url('changed/setConfig')}",data.field,function (data) {
+            alertSuc("保存成功!");
+        });
+        console.log(layedit.getContent(editIndex));
+        return false;
+      });
+      form.on('submit(clear)', function(data){
+        var val = data.field.time;
+        if (val == "") {
+            alertErr("您没有选择时间");
+            return false;
+        }
+        if(confirm('确定要清空`'+val+'`之前的数据吗？')==true){
+            putAjax("{:url('index/clearData')}",{time:val},function (data) {
+                alertSuc("成功!");
+            });
+        }
+        return false;
+      });
+      form.on('submit(mp3)', function(data){
+        $('#mp3_1').click();
+        return false;
+      });
+      form.on('submit(mp32)', function(data){
+        $('#mp3_2').click();
+        return false;
+      });
+    });
+
+    function upload1(_this) {
+        let filelist = _this.files;
+        let fd = new FormData();
+        fd.append("image", filelist[0]);
+        upload(fd,'mp3_1','ad_1');
+    }
+    
+    function upload2(_this) {
+        let filelist = _this.files;
+        let fd = new FormData();
+        fd.append("image", filelist[0]);
+        upload(fd,'mp3_2','ad_2');
+    }
+    
+    function upload(fd,type,ad) {
+        fd.append("type", type);
+        $.ajax({
+            type: "POST",
+            url: "{:url('changed/changeMp3')}", //这个PHP代码还是上面那个
+            data: fd,
+            processData : false,
+            contentType : false,
+            success: function(res){
+                $("#"+ad).attr("src", res);
+            }
+        });
+    }
+</script>
+
+{include file='public/js'}
+</body></html>

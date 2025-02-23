@@ -1,0 +1,129 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px; 
+	margin-bottom: 0px;
+	background-color: #fff;/*
+	background-image:url(../imgaes/macFFBgHack.png);*/
+	padding:0px;
+	font-size:12px;
+	font-family: 'Microsoft Yahei',Tahoma,'Simsun';
+	color:#000; 
+}
+
+table{backgroun:#fff}
+
+.h100{height:100%}
+.w100{width:100%}
+
+.bred{background:red;}
+.bbai{background:#fff;}
+.bhei{background:#000;}
+.bover{background:#ebf5fe}
+.byellow{background:yellow;}
+.bc{background:#B6FEF3}
+
+.b1{background:#6FF;font-weight:bold}
+.b2{background:#FF6;font-weight:bold}
+.b3{background:#96F;font-weight:bold}
+
+.yellow{color:yellow;}
+.red{color:red;}
+.hong{color:#FBC4D9}
+.bai{color:#fff;}
+.hei{color:#000;}
+.blue{color:blue;}
+.lv{color:green;}
+.chu{font-weight:bold;}
+.left{text-align:left;}
+.right{text-align:right;}
+.center{text-align:center}
+.even{background:#E2EFFA}
+/*.over{background:#FEE7FD}*/
+.over{background:#FFFFB9}
+.click{background:#6CF}
+img{cursor:pointer}
+
+UL,LI {
+	LIST-STYLE-TYPE: none
+}
+
+h1,h2,h3,h4,h5,h6{margin:0px;}
+/*#bccfde*/
+input.btns{width:30px;FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF', endColorStr='#C1D3DC', gradientType='0');
+	COLOR:#333333;FONT-FAMILY:verdana;FONT-SIZE:12px;height:18px;text-align:center;vertical-align:middle;cursor:hand;
+	border: 1px solid #999999; margin-left:0px; margin-right:0px;border-bottom:none;cursor: hand;margin:0px;}
+input.btn1 btnf{width:46px;FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF', endColorStr='#C1D3DC', gradientType='0');
+	COLOR:#333333;FONT-FAMILY:verdana;FONT-SIZE:12px;height:18px;text-align:center;vertical-align:middle;cursor:hand;
+	border: 1px solid #999999; margin-left:0px; margin-right:0px;border-bottom:none;cursor: hand;margin:0px;}
+input.btn2 btnf{width:46px;FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF', endColorStr='#C1D3DC', gradientType='0');
+	COLOR:#333333;FONT-FAMILY:verdana;FONT-SIZE:12px;height:18px;text-align:center;vertical-align:middle;cursor:hand;
+	border: 1px solid #999999; margin-left:0px; margin-right:0px;border-bottom:none;cursor: hand;margin:0px;}
+input.btn3 btnf{width:62px;FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF', endColorStr='#C1D3DC', gradientType='0');
+	COLOR:#333333;FONT-FAMILY:verdana;FONT-SIZE:12px;height:18px;text-align:center;vertical-align:middle;cursor:hand;
+	border: 1px solid #999999; margin-left:0px; margin-right:0px;border-bottom:none;cursor: hand;margin:0px;}
+input.btn7 btnf{width:80px;FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF', endColorStr='#C1D3DC', gradientType='0');
+	COLOR:#333333;FONT-FAMILY:verdana;FONT-SIZE:12px;height:18px;text-align:center;vertical-align:middle;cursor:hand;
+	border: 1px solid #999999; margin-left:0px; margin-right:0px;border-bottom:none;cursor: hand;margin:0px;}
+input.btn9 btnf{width:120px;FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF', endColorStr='#C1D3DC', gradientType='0');
+	COLOR:#333333;FONT-FAMILY:verdana;FONT-SIZE:12px;height:18px;text-align:center;vertical-align:middle;cursor:hand;
+	border: 1px solid #999999; margin-left:0px; margin-right:0px;border-bottom:none;cursor: hand;margin:0px;}
+input.btn8{width:55px;FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF', endColorStr='#C1D3DC', gradientType='0');
+	COLOR:#333333;FONT-FAMILY:verdana;FONT-SIZE:12px;height:18px;text-align:center;vertical-align:middle;cursor:hand;
+	border: 1px solid #999999; margin-left:0px; margin-right:0px;border-bottom:none;cursor: hand;margin:0px;}
+
+.tinfo{border-collapse: collapse;border-top:1px solid  #bccfde;border-right:1px solid #bccfde;}
+.tinfo td{border:1px solid #bccfde;text-align:center;border-top:none;height:20px;}
+.tinfo th{border:1px solid #bccfde;text-align:center;height:20px;background:#ebf5fe;}/*#FEE7FA*/
+
+.einfo{border-collapse: collapse;border-top:1px solid  #bccfde;border-right:1px solid #bccfde;}
+.einfo td{border:1px solid #bccfde;text-align:center;border-top:none;height:20px;}
+.einfo th{border:1px solid #bccfde;text-align:center;height:20px;background:#ebf5fe;}/*#FEE7FA*/
+
+.wd100{width:100%}
+
+a{cursor:pointer}
+a:link {
+color:#030;
+text-decoration: none;
+}
+
+a:visited {
+color:#000;
+text-decoration: none;
+}
+
+a:hover {
+color:#F60;
+text-decoration: underline;
+}
+
+input.btn5 btnf0{width:50px;FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF', endColorStr='#C1D3DC', gradientType='0');
+	COLOR:#333333;FONT-FAMILY:verdana;FONT-SIZE:12px;height:18px;text-align:center;vertical-align:middle;cursor:hand;
+	border: 1px solid #999999; margin-left:0px; margin-right:0px;border-bottom:none;cursor: hand;margin:0px;}
+
+input.btn80{width:80px;FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF', endColorStr='#C1D3DC', gradientType='0');
+	COLOR:#333333;FONT-FAMILY:verdana;FONT-SIZE:12px;height:18px;text-align:center;vertical-align:middle;cursor:hand;
+	border: 1px solid #999999; margin-left:0px; margin-right:0px;border-bottom:none;cursor: hand;margin:0px;}
+
+input.btn1 btnf20{width:120px;FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF', endColorStr='#C1D3DC', gradientType='0');
+	COLOR:#333333;FONT-FAMILY:verdana;FONT-SIZE:12px;height:18px;text-align:center;vertical-align:middle;cursor:hand;
+	border: 1px solid #999999; margin-left:0px; margin-right:0px;border-bottom:none;cursor: hand;margin:0px;}
+
+.intext{width:70px;}
+.tcenter{text-align:center}
+
+.xbody1{width:994px;float:left;margin:0px;margin-left:2px;}
+
+.xbody2{width:1260px;float:left;margin:0px;margin-left:2px;}
+
+.xbody3{width:1420px;float:left;margin:0px;margin-left:2px;}
+
+.txt1{width:60px;}
+.txt2{width:90px;}
+.txt3{width:120px;}
+.button{FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#FFFFFF', endColorStr='#C1D3DC', gradientType='0');
+	COLOR:#333333;FONT-FAMILY:verdana;FONT-SIZE:12px;height:18px;text-align:center;vertical-align:middle;cursor:hand;
+	border: 1px solid #999999; margin-left:0px; margin-right:0px;border-bottom:none;cursor: hand;margin:0px;}

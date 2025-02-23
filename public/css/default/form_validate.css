@@ -1,0 +1,17 @@
+em.error {
+	background: url("./img/unchecked.gif") no-repeat 0px 0px;
+	margin-left: 3px;
+	padding-left: 16px;
+	color: red;
+}
+
+em.success {
+	background: url("./img/checked.gif") no-repeat 0px 0px;
+	margin-left: 3px;
+	padding-left: 16px;
+	color: blue;
+}
+
+input.error {
+	border: 1px dotted red;
+}

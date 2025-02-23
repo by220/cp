@@ -1,0 +1,374 @@
+<html class="uk-notouch">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>子账号后台 - 统计</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+    <link rel="stylesheet" href="__STATIC__/xz/admin/jqx.base.css" type="text/css">
+    <link rel="stylesheet" href="__STATIC__/xz/admin/jqx.bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="__STATIC__/xz/admin/uikit.gradient.min.css">
+    <link rel="stylesheet" href="__STATIC__/xz/admin/notify.min.css">
+    <style type="text/css">
+        * {
+            -webkit-touch-callout: none;
+        }
+        
+        .body {
+            font-size: 16px;
+        }
+
+        .target {
+            font-size: 16px;
+        }
+
+        .mingxi {
+        }
+
+        .LeftScore {
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .tshow {
+            font-size: 16px;
+        }
+
+
+        .thide {
+            font-size: 16px;
+        }
+
+        .Cmd {
+            color: black;
+            font-size: 16px;
+            background-color: yellow;
+        }
+
+        .DownScore {
+            color: white;
+            background-color: green;
+        }
+
+        .UpScore {
+            color: white;
+            background-color: red;
+        }
+
+        .mingxiHide {
+            display: none;
+        }
+
+        .ToHide {
+            display: none;
+        }
+
+        .ToShow {
+            display: block;
+        }
+
+		.dates span {
+			margin-left: 10px;
+			cursor: pointer;
+			position: relative;
+		}
+
+		.dates span.sele:after {
+			border-bottom: 3px solid #ee0a24;
+			position: absolute;
+			content: '';
+			width: 40px;
+			left: 50%;
+			transform: translateX(-50%);
+			bottom: 0;
+		}
+
+        .infoitem {
+            border-radius: 4px;
+            border: 1px solid #000;
+            background: #dff4ff;
+            margin: 2px;
+            padding: 5px;
+        }
+
+        .infoitem.sele {
+            border: 2px solid orange;
+        }
+
+        .liu {
+            border: 2px solid orange;
+        }
+
+        .infoitem.is_excep {
+            background: red;
+            color: #fff;
+        }
+
+        .infoitem.is_excep .infoitem_row {
+            background: #fcc9c9 !important;
+            color: #000000 !important;
+        }
+
+        .infoitem.is_excep .all_fanshui {
+            color: #ffffff !important;
+        }
+
+        .infoitem.is_tuo {
+            background: #b2b2de;
+        }
+
+        .infolist .item_top span {
+            font-weight: bold;
+            margin: 2px;
+        }
+
+        .infolist .infoitem_row {
+            position: relative;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #000;
+        }
+
+        .infoitem_row.type1 {
+            background: #efefef;
+        }
+
+        .infolist .infoitem_row span {
+            margin-right: 10px;
+        }
+
+        .infolist .infoitem_row span.tuo {
+            position: absolute;
+            top: -3px;
+            left: 67px;
+            background: darkblue;
+            display: block;
+            width: 20px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .infolist .infoitem_row .rowcontent {
+            padding: 2px;
+            background: #808080;
+            color: #fff;
+        }
+
+        .infolist .infoitem_row .rowcontent.sf {
+            background: red;
+            color: #fff;
+        }
+
+        .infolist .infoitem_row .rowcontent.xf {
+            background: green;
+            color: #fff;
+        }
+
+        .infolist .infoitem_row .fanshui {
+            color: red;
+            font-size: 14px;
+        }
+
+        .infolist .infoitem_row .rowchange.win {
+            color: red;
+        }
+
+        .infolist .infoitem_row .rowchange.lose {
+            color: green;
+        }
+
+        .infolist .infoitem_row .rowscore {
+            font-weight: bold;
+        }
+
+        .infolist .profit_loss.changescore:before {
+            content: '改分';
+            color: #ffffff;
+            background: red;
+            font-weight: bold;
+        }
+
+        .infolist .all_fanshui {
+            color: red;
+            display: none;
+            font-weight: bold;
+        }
+
+        .item_detail {
+        }
+
+        .tt1 {
+            margin-top: 5px;
+            font-size: 16px;
+        }
+        .green{
+            background-color: green !important;
+        }
+        .red{
+            background-color: red !important;
+        }
+    
+        .jqx-popup-bootstrap {
+            position: fixed !important;
+            left: 50% !important;
+            transform: translateX(-50%);
+            z-index: 999 !important;
+        }
+        
+        .jqx-window-modal {
+            z-index: 99 !important;
+        }
+    </style>
+    <script type="text/javascript" src="__STATIC__/xz/admin/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/uikit.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/html2canvas.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/jqxcore.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/jqxdata.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/jqxbuttons.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/jqxdatatable.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/jqxnotification.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/jqxwindow.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/jqxinput.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/jqxlistbox.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/jqxpanel.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/jqxtree.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/jqxexpander.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/jqxsplitter.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/uikit.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/notify.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/html2canvas.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+		function alertErr(title) {
+			UIkit.notify(title, {
+				status: 'danger',
+				pos: 'top-center',
+				timeout: 2000
+			});
+		}
+		
+		function alertSuc(title) {
+			UIkit.notify(title, {
+				status: 'info',
+				pos: 'top-center',
+				timeout: 2000
+			});
+		}
+
+		function putAjax(url, data, callback, callback2) {
+			$.ajax({
+				type: "POST",
+				url: url,
+				dataType: "json",
+				data: data,
+				cache: false,
+				success: function(data) {
+					if (callback && typeof callback === 'function') {
+						callback(data);
+					}
+				},
+				error: function() {
+					if (callback2 && typeof callback2 === 'function') {
+						callback2();
+					}
+					alertErr("请求失败，请重试！");
+				}
+			});
+		}
+    </script>
+</head>
+<body>
+
+<div class="uk-container uk-container-center">
+    <div style="margin:10px;">
+        <a class="uk-button uk-button-primary" id="btn2" onclick="history.go(-1)">返回</a>
+    </div>
+    <div class="uk-grid">
+        <div class="uk-width-1-1" style="display:flex;align-items: center;">
+            <button class="uk-button uk-button-large uk-button-primary" id="btnS0">{:getTimeList4()}</button>&nbsp;&nbsp;&nbsp;
+            <button class="uk-button uk-button-large uk-button-primary" id="btnS1">{:getTimeList3()}</button>&nbsp;&nbsp;&nbsp;
+            <button class="uk-button uk-button-large uk-button-primary" id="btnS2">{:getTimeList2()}</button>&nbsp;&nbsp;&nbsp;
+            <button class="uk-button uk-button-large uk-button-primary" id="btnS3" style="margin-right: 25px;">{:getTimeList()}</button>
+            总改金额：<span id="total" style="color:red;"></span>&nbsp;&nbsp;元
+        </div>
+    </div>
+    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-margin-top">
+        <div class="uk-grid">
+            <div class="uk-width-1-1">
+                <div id="table"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //刷新列表
+    function RefreshList(day) {
+        putAjax("{:url('gd/GetUnCalculate')}",
+            {
+                "timeType": 1,
+                "day": day
+            },function (data) {
+            $("#table").jqxDataTable('clear');
+            var total = 0;
+            $(data.data).each(function (index) {
+                var val = data.data[index];
+                total += Number(val.totalYing);
+                $("#table").jqxDataTable('addRow', null, {
+                    "BelongOperator": val.BelongOperator,
+                    "wxid": val.name,
+                    "NickName": val.wid,
+                    "qihao": val.qihao,
+                    "dtGenerate": val.dtGenerate,
+                    "score": val.score,
+                    "afterScore": val.afterScore,
+                    "totalYing":  "<span style='color:red'>" + val.totalYing + "</span>",
+                    "cmd": "<span style='color:blue'>" + val.text + "</span>",
+                    "id": val.id
+                });
+            });
+            //刷新
+            $("#total").text(total);
+            $("#table").jqxDataTable('refresh');
+        })
+    }
+    
+    $(document).ready(function () {
+        //初始化表格
+        $("#table").jqxDataTable(
+            {
+                altRows: true,
+                sortable: true,
+                editable: false,
+                autoRowHeight: true,
+
+                selectionMode: 'singleRow',
+                theme: 'bootstrap',
+                columns: [
+                    // { text: '所属机器人', dataField: 'BelongOperator', width: 150 },
+                    // { text: 'wxid', dataField: 'wxid', width: 230 },
+                    // { text: 'score', dataField: 'score', width: 230 },
+                    { text: '昵称', dataField: 'NickName'},
+                    { text: '期号', dataField: 'qihao', width: 180 },
+                    { text: '投注时间', dataField: 'dtGenerate', width: 180 },
+                    { text: '指令', dataField: 'cmd'},
+                    { text: '改前', dataField: 'afterScore'},
+                    { text: '改后', dataField: 'score'},
+                    { text: '相差', dataField: 'totalYing'}
+                ]
+            });
+
+        RefreshList("{:getTimeList()}");
+
+        $("#btnS0").bind("click touchend", function () { RefreshList("{:getTimeList4()}") });
+        $("#btnS1").bind("click touchend", function () { RefreshList("{:getTimeList3()}") });
+        $("#btnS2").bind("click touchend", function () { RefreshList("{:getTimeList2()}") });
+        $("#btnS3").bind("click touchend", function () { RefreshList("{:getTimeList()}") });
+    });
+</script>
+
+{include file='public/js'}
+</body></html>

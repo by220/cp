@@ -1,0 +1,638 @@
+{include file='public/layer'}
+    <style type="text/css">
+        * {
+            -webkit-touch-callout: none;
+        }
+        
+        .body {
+            font-size: 16px;
+        }
+
+        .target {
+            font-size: 16px;
+        }
+
+        .mingxi {
+        }
+
+        .LeftScore {
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .tshow {
+            font-size: 16px;
+        }
+
+
+        .thide {
+            font-size: 16px;
+        }
+
+        .Cmd {
+            color: black;
+            font-size: 16px;
+            background-color: yellow;
+        }
+
+        .DownScore {
+            color: white;
+            background-color: green;
+        }
+
+        .UpScore {
+            color: white;
+            background-color: red;
+        }
+
+        .mingxiHide {
+            display: none;
+        }
+
+        .ToHide {
+            display: none;
+        }
+
+        .ToShow {
+            display: block;
+        }
+
+		.dates span,
+		.types span {
+			margin-left: 10px;
+			cursor: pointer;
+			position: relative;
+		}
+
+		.dates span.sele:after,
+		.types span.sele:after {
+			border-bottom: 3px solid #ee0a24;
+			position: absolute;
+			content: '';
+			width: 40px;
+			left: 50%;
+			transform: translateX(-50%);
+			bottom: 0;
+		}
+
+		.types span.sele:after {
+			border-bottom: 3px solid #0af;
+		}
+
+        .infoitem {
+            border-radius: 4px;
+            border: 1px solid #000;
+            background: #dff4ff;
+            margin: 2px;
+            padding: 5px;
+        }
+
+        .infoitem.sele {
+            border: 2px solid orange;
+        }
+
+        .liu {
+            border: 2px solid orange;
+        }
+
+        .infoitem.is_excep {
+            background: red;
+            color: #fff;
+        }
+
+        .infoitem.is_excep .infoitem_row {
+            background: #fcc9c9 !important;
+            color: #000000 !important;
+        }
+
+        .infoitem.is_excep .all_fanshui {
+            color: #ffffff !important;
+        }
+
+        .infoitem.is_tuo {
+            background: #b2b2de;
+        }
+
+        .infolist .item_top span {
+            font-weight: bold;
+            margin: 2px;
+        }
+
+        .infolist .infoitem_row {
+            position: relative;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #000;
+        }
+
+        .infoitem_row.type1 {
+            background: #efefef;
+        }
+
+        .infolist .infoitem_row span {
+            margin-right: 10px;
+        }
+
+        .infolist .infoitem_row span.tuo {
+            position: absolute;
+            top: -3px;
+            left: 67px;
+            background: darkblue;
+            display: block;
+            width: 20px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .infolist .infoitem_row .rowcontent {
+            padding: 2px;
+            background: #808080;
+            color: #fff;
+        }
+
+        .infolist .infoitem_row .rowcontent.sf {
+            background: red;
+            color: #fff;
+        }
+
+        .infolist .infoitem_row .rowcontent.xf {
+            background: green;
+            color: #fff;
+        }
+
+        .infolist .infoitem_row .fanshui {
+            color: red;
+            font-size: 14px;
+        }
+
+        .infolist .infoitem_row .rowchange.win {
+            color: red;
+        }
+
+        .infolist .infoitem_row .rowchange.lose {
+            color: green;
+        }
+
+        .infolist .infoitem_row .rowscore {
+            font-weight: bold;
+        }
+
+        .infolist .profit_loss.changescore:before {
+            content: '改分';
+            color: #ffffff;
+            background: red;
+            font-weight: bold;
+        }
+
+        .infolist .all_fanshui {
+            color: red;
+            display: none;
+            font-weight: bold;
+        }
+
+        .item_detail {
+        }
+
+        .tt1 {
+            margin-top: 5px;
+            font-size: 16px;
+        }
+        .green{
+            background-color: green !important;
+        }
+        .red{
+            background-color: red !important;
+        }
+    </style>
+{if $Request.param.type == 'fd'}
+<div style="font-size:15px;height: 40px;background: #fff;line-height: 35px;display:none;">
+    <span id="day1_0">{:getTimeList5()}</span>
+    <span id="day1_1">{:getTimeList4()}</span>
+    <span id="day1_2">{:getTimeList3()}</span>
+    <span id="day1_3">{:getTimeList2()}</span>
+    <span id="day0_0">{:getTimeList4()}</span>
+    <span id="day0_1">{:getTimeList3()}</span>
+    <span id="day0_2">{:getTimeList2()}</span>
+    <span id="day0_3">{:getTimeList()}</span>
+</div>
+<div style="width:100%;font-size:15px;height: 40px;background: #fff;line-height: 35px;">
+    <div class="dates" style="font-size:15px;display: flex;justify-content: space-around;">
+        <span id="day0">{:getTimeList4()}</span>
+        <span id="day1">{:getTimeList3()}</span>
+        <span id="day22">{:getTimeList2()}</span>
+        <span id="day3" class="sele">{:getTimeList()}</span>
+    </div>
+</div>
+<div style="width:100%;font-size:15px;height: 40px;background: #fff;line-height: 35px;">
+    <div class="types" style="font-size:15px;display: flex;justify-content: space-around;">
+        <span id="wait" t='0'>未飞单</span>
+        <span id="succ" t='2' class="sele">已飞单</span>
+        <span id="fail" t='3'>飞单失败</span>
+    </div>
+</div>
+{elseif $Request.param.type == 'xzs'/}
+{else/}
+<div style="font-size:15px;height: 40px;background: #fff;line-height: 35px;display:none;">
+    <span id="day1_0">{:getTimeList5()}</span>
+    <span id="day1_1">{:getTimeList4()}</span>
+    <span id="day1_2">{:getTimeList3()}</span>
+    <span id="day1_3">{:getTimeList2()}</span>
+    <span id="day0_0">{:getTimeList4()}</span>
+    <span id="day0_1">{:getTimeList3()}</span>
+    <span id="day0_2">{:getTimeList2()}</span>
+    <span id="day0_3">{:getTimeList()}</span>
+</div>
+<div style="width:100%;font-size:15px;height: 40px;background: #fff;line-height: 35px;display:none;">
+    <div class="dates" style="font-size:15px;display: flex;justify-content: space-around;">
+        <span id="day0">{:getTimeList4()}</span>
+        <span id="day1">{:getTimeList3()}</span>
+        <span id="day22">{:getTimeList2()}</span>
+        <span id="day3" class="sele">{:getTimeList()}</span>
+    </div>
+</div>
+<div style="width:100%;padding: 5px 8px;box-sizing: border-box;">
+    总反水:<span id="totalFanShui">0</span>，&nbsp;&nbsp;
+    总昨余:<span id="totalZuoYu">0</span>，&nbsp;&nbsp;
+    总流水:<span id="totalRealLiuShui">0</span>，&nbsp;&nbsp;
+    总单边流水:<span id="totalRealYouXiaoLiuShui">0</span>，&nbsp;&nbsp;
+    总双边流水:<span id="totalYouXiaoLiuShuis">0</span>，&nbsp;&nbsp;
+    总盈亏:<span id="totalRealYingKui">0</span>，&nbsp;&nbsp;
+    总上下:<span id="totalUp">0</span><span id="totalDown">0</span>&nbsp;=&nbsp;<span id="totalUpDown">0</span>，&nbsp;&nbsp;
+    未飞单:<span id="flyersWait">0</span>，&nbsp;&nbsp;
+    飞单成功:<span id="flyersSuc">0</span>，&nbsp;&nbsp;
+    飞单失败:<span id="flyersFail">0</span>
+</div>
+<div style="width:100%;">
+    <button id="btnWay11" style="font-size:14px;">当前积分对账</button>&nbsp;&nbsp;&nbsp;&nbsp;<button id="btnTime" style="font-size:14px;">0点一天</button>
+</div>
+{/if}
+
+<div id="way1" style="width:100%;" class="ToShow">
+    <div id="content" style="margin-top:5px;margin-bottom: 50px;" class="infolist"></div>
+</div>
+
+<div id="way2" style="width:100%;" class="ToHide">
+    <div id="content2" style="background-color:rgb(223,244,255);color:black;font-size:16px;">
+    </div>
+</div>
+
+<div id="way3" style="width:100%;" class="ToHide">
+    <div id="content3">
+        <div id="content3_1" style="background-color:red;color:black;font-size:16px;">
+        </div>
+        <hr>
+        <div id="content3_2" style="background-color:white;color:black;font-size:16px;">
+        </div>
+    </div>
+</div>
+
+<div id="way4" style="width:100%;" class="ToHide">
+    <div id="content4" style="background-color:rgb(223,244,255);color:black;font-size:16px;">
+    </div>
+</div>
+
+<div id="way5" style="width:100%;" class="ToHide">
+    <div id="content5" style="background-color:rgb(223,244,255);color:black;font-size:16px;">
+    </div>
+</div>
+
+<script type="text/javascript">
+    layui.use(['layer'], function () {
+        var layer = layui.layer,dayIndex = 3,timeType = 1,rid = '{$Request.param.id}',flytype = 0;
+    
+        function loadings() {
+            // $("#content,#content2,#content4,#content5,#content3_1").html("<span style='color:black;font-size:14px;font-weight:200;background-color:yellow;'>数据正在生成，请稍候...</span>");
+        }
+
+        function GetWay1Data(day) {
+            loadings();
+            putAjax("{:url('history/GetScoreHis2')}", {
+                "day": day,
+                "timeType": timeType,
+                "id": rid,
+                "tid": $('.types span.sele').attr('t'),
+                "type": '{$Request.param.type}'
+            }, function(data) {
+                $("#flyersWait").html(data.flyersWait);
+                $("#flyersSuc").html(data.flyersSuc);
+                $("#flyersFail").html(data.flyersFail);
+                $("#totalRealYingKui").html(data.totalYingKui);
+                $("#totalRealLiuShui").html(data.totalLiuShui);
+                $("#totalRealYouXiaoLiuShui").html(data.totalYouXiaoLiuShui);
+                $("#totalYouXiaoLiuShuis").html(data.totalYouXiaoLiuShuis);
+                $("#totalFanShui").html(parseFloat(data.totalFanShui));
+                $("#totalUp").html(data.totalUp);
+                $("#totalDown").html('-'+data.totalDown);
+                $("#totalUpDown").html(data.totalUpDown);
+                $("#totalZuoYu").html(data.totalZuoYu);
+                $("#content").html("");
+                $(data.detail).each(function (index) {
+                    var val = data.detail[index],tmpDownText = '-'+val.totalDown;
+    				$("#content").html($("#content").html() + '<div class="infoitem" data-wxid=' +
+    					val.wxid + '><div class="item_top">会员ID：<span class="userid">' + val
+    					.wxid + '</span>，昵称：<span class="nickname">' + val.NickName +
+    					'</span></div><div class="all_fanshui" style="display: block;">总返水：' +
+    					parseFloat(val.totalFanShui) + ' </div><div class="profit_loss">昨余:' +
+    					val.ZuoYu + '，&nbsp;&nbsp; 流水: ' + val.totalLiuShui +
+    					'，&nbsp;&nbsp;单边流水: ' + val.totalValidLiuShui + '，&nbsp;&nbsp; 双边流水: ' + val.totalValidLiuShuis + '，&nbsp;&nbsp; 盈亏:' + val.totalYingKui +
+    					',&nbsp;&nbsp;上下:&nbsp;&nbsp;' + val.totalUp + tmpDownText +
+    					'=&nbsp;&nbsp;' + val.totalUpDown + '</div>' + '</div>');
+                });
+                //绑定点击事件
+                $(".infoitem").on("click", function () {
+                    ShowMyChildren($(this));
+                });
+            });
+        }
+    
+    function ShowMyChildren(divclicked) {
+        if (divclicked.children().length == 3) {
+            $("*").removeClass("liu");
+            divclicked.addClass("liu");
+            var wxid = divclicked.attr("data-wxid");
+            var day = $('.dates span.sele').html();
+            putAjax("{:url('history/GetScoreHisDetail')}", {
+                "day": day,
+                "timeType": timeType,
+                "wxid": wxid,
+                "id": rid,
+                "tid": $('.types span.sele').attr('t'),
+                "type": '{$Request.param.type}'
+            }, function(data) {
+                if (data.length > 0) {
+                    var subDiv = '<div class="item_detail">',lastMingXi = null;
+                    $(data).each(function (i) {
+                        var mingxi = data[i],t = mingxi.dttype;
+                        if (t == 0) {
+                            //手动上分
+                            subDiv += '<div class="infoitem_row type2" style="margin-top: 10px; margin-bottom: 10px;"><span class="rowtype">积分操作：</span><span class="rowqi"></span><span class="rowcontent sf">机器人上分+' + parseFloat(mingxi.score) + '</span><br><span class="rowresult" style="display: block;"></span><span class="rowbefore"></span><span class="rowchange win">+' + parseFloat(mingxi.score) + '</span><span class="fanshui"></span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '</span></div>';
+                        } else if (t == 1) {
+                            //手动下分
+                            subDiv += '<div class="infoitem_row type2" style="margin-top: 10px; margin-bottom: 10px;"><span class="rowtype">积分操作：</span><span class="rowqi"></span><span class="rowcontent xf">机器人下分' + parseFloat(mingxi.count) + '</span><br><span class="rowresult" style="display: block;"></span><span class="rowbefore"></span><span class="rowchange lose">' + parseFloat(mingxi.count) + '</span><span class="fanshui"></span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '</span></div>';
+                        } else if (t == 2) {
+                            //请求上分
+                            subDiv += '<div class="infoitem_row type2" style="margin-top: 10px; margin-bottom: 10px;"><span class="rowtype">积分操作：</span><span class="rowqi"></span><span class="rowcontent sf">会员请求上分+' + parseFloat(mingxi.count) + '</span><br><span class="rowresult" style="display: block;"></span><span class="rowbefore"></span><span class="rowchange win">+' + parseFloat(mingxi.count) + '</span><span class="fanshui"></span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '</span></div>';
+                        }
+                        else if (t == 3) {
+                            //请求下分
+                            subDiv += '<div class="infoitem_row type2" style="margin-top: 10px; margin-bottom: 10px;"><span class="rowtype">积分操作：</span><span class="rowqi"></span><span class="rowcontent xf">会员请求下分' + parseFloat(mingxi.count) + '</span><br><span class="rowresult" style="display: block;"></span><span class="rowbefore"></span><span class="rowchange lose">' + parseFloat(mingxi.count) + '</span><span class="fanshui"></span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '</span></div>';
+
+                        } else if (t == 4) {
+                            //删除用户下分
+                            subDiv += '<div class="infoitem_row type2" style="margin-top: 10px; margin-bottom: 10px;"><span class="rowtype">积分操作：</span><span class="rowqi"></span><span class="rowcontent xf">删除会员下分' + parseFloat(mingxi.count) + '</span><br><span class="rowresult" style="display: block;"></span><span class="rowbefore"></span><span class="rowchange lose">' + parseFloat(mingxi.count) + '</span><span class="fanshui"></span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '</span></div>';
+                        } else {
+                            //盈亏变动
+                            var topMargin = '';
+                            if (lastMingXi != null) {
+                                if (lastMingXi.qihao != mingxi.qihao) {
+                                    topMargin = ' style="margin-top: 10px;"';
+                                }
+                            }
+                            lastMingXi = mingxi;
+                            if (mingxi.count > 0) {
+                                subDiv += '<div class="infoitem_row type1" ' + topMargin + '><span class="rowtype">盈亏操作：</span><span class="rowqi">' + mingxi.qihao + '</span><span class="rowcontent">' + mingxi.cmdText + '</span><span class="rowcontent '+mingxi.flyersColor+'">' + mingxi.flyersStatus + '</span><br><span class="rowresult" style="display: block;">' + mingxi.code + '=&gt;' + mingxi.lastResult + '=&gt;' + mingxi.fan + '</span><span class="rowbefore"></span><span class="rowchange win">+' + parseFloat(mingxi.count) + '</span><span class="fanshui">[返水' + mingxi.dtfanshui + ']</span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '&nbsp;<=&nbsp;' + mingxi.dtCmd + '</span></div>';
+                            } else if (mingxi.count == 0) {
+                                var fs = mingxi.ying==1?'[返水' + mingxi.dtfanshui + ']':'';
+                                subDiv += '<div class="infoitem_row type1"' + topMargin + '><span class="rowtype">盈亏操作：</span><span class="rowqi">' + mingxi.qihao + '</span><span class="rowcontent">' + mingxi.cmdText + '</span><span class="rowcontent '+mingxi.flyersColor+'">' + mingxi.flyersStatus + '</span><br><span class="rowresult" style="display: block;">' + mingxi.code + '=&gt;' + mingxi.lastResult + '=&gt;' + mingxi.fan + '</span><span class="rowbefore"></span><span class="rowchange win">' + parseFloat(mingxi.count) + '</span><span class="fanshui">'+fs+'</span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '&nbsp;<=&nbsp;' + mingxi.dtCmd + '</span></div>';
+                            } else {
+                                var fs = mingxi.ying==1?'[返水' + mingxi.dtfanshui + ']':'';
+                                subDiv += '<div class="infoitem_row type1"' + topMargin + '><span class="rowtype">盈亏操作：</span><span class="rowqi">' + mingxi.qihao + '</span><span class="rowcontent">' + mingxi.cmdText + '</span><span class="rowcontent '+mingxi.flyersColor+'">' + mingxi.flyersStatus + '</span><br><span class="rowresult" style="display: block;">' + mingxi.code + '=&gt;' + mingxi.lastResult + '=&gt;' + mingxi.fan + '</span><span class="rowbefore"></span><span class="rowchange lose">' + parseFloat(mingxi.count) + '</span><span class="fanshui">'+fs+'</span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '&nbsp;<=&nbsp;' + mingxi.dtCmd + '</span></div>';
+                            }
+                        }
+
+                    });
+                    subDiv += "</div>";
+                    divclicked.append(subDiv);
+                } else {
+                    var subDiv = "<div><span>暂无明细数据</span></div>";
+                    divclicked.append(subDiv);
+                }
+            });
+        }
+        else {
+            divclicked.children().remove('.item_detail');
+            $("*").removeClass("liu");
+        }
+    }
+
+    function GetWay2Data(day) {
+        loadings();
+        putAjax("{:url('history/GetWay2Data')}", {
+            "day": day,
+            "timeType": timeType,
+            "id": rid,
+            "tid": $('.types span.sele').attr('t'),
+            "type": '{$Request.param.type}'
+        }, function(data) {
+            var sub = "",seq = 0;
+            $("#content2").html("");
+            $(data).each(function (index) {
+                var mingxi = data[index];
+                seq += 1;
+                if (mingxi.type == 0) {
+                    sub += "<div class='tt1'><span style='color:black;'>" + seq + "，</span><span style='color:red;font-weight:bold;'>" + mingxi.des + "</span><span style='color:black;'>【" + mingxi.dt + "】, 会员id：" + mingxi.wxid + "，昵称：" + mingxi.NickName + "</span></div>";
+                } else {
+                    sub += "<div class='tt1'><span style='color:black;'>" + seq + "，</span><span style='color:green;font-weight:bold;'>" + mingxi.des + "</span><span style='color:black;'>【" + mingxi.dt + "】, 会员id：" + mingxi.wxid + "，昵称：" + mingxi.NickName + "</span></div>";
+                }
+            });
+            $("#content2").html($("#content2").html() + sub);
+        });
+    }
+
+    function GetWay3Data(day) {
+        loadings();
+        $("#content3_2").html("");
+        putAjax("{:url('history/GetWay3Data')}", {
+            "day": day,
+            "timeType": timeType,
+            "id": rid,
+            "tid": $('.types span.sele').attr('t'),
+            "type": '{$Request.param.type}'
+        }, function(data) {
+            var sub = "";
+            $("#content3_1").html("");
+            $(data.lstJiLu).each(function (index) {
+                var mingxi = data.lstJiLu[index],submitTxt = mingxi.submitStatus == 0 ? "未报" : "已报";
+                sub += "<div style='margin-top:6px;'><span style='color:black;font-weight:bold;'>" + mingxi.qihao + "：wxid：" + mingxi.dtwxid + ", 昵称：" + mingxi.dtNickName + "，注：" + mingxi.zhuscore + "， 有效：" + mingxi.validscore + "，" + mingxi.result + "</span><span style='color:black;'>" + "，内容：" + mingxi.cmdText + ", 结果：" + mingxi.opencode + "=>" + mingxi.lastcode + "=>" + mingxi.fan + " 【" + mingxi.dtJieSuan + "】入网:" + submitTxt + "</span></div>";
+            });
+            $("#content3_1").html($("#content3_1").html() + sub);
+            var sub2 = "";
+            $(data.lstQiDuiZhang).each(function (index) {
+                var mingxi = data.lstQiDuiZhang[index];
+                sub2 += "<div style='margin-top:6px;'><span style='text-decoration:underline;'>" + mingxi.qihao + "</span>&nbsp;&nbsp;<span style='color:black;font-weight:bold;'>总注:" + mingxi.totalZhu + "，</span><span style='color:black;'>总盈亏：" + mingxi.totalYingKui + "</span></div>";
+            });
+            $("#content3_2").html($("#content3_2").html() + sub2);
+        });
+    }
+
+    function GetWay4Data(day) {
+        loadings();
+        putAjax("{:url('history/GetWay4Data')}", {
+            "day": day,
+            "timeType": timeType,
+            "id": rid,
+            "tid": $('.types span.sele').attr('t'),
+            "type": '{$Request.param.type}'
+        }, function(data) {
+            $("#content4").html("");
+            $("#content4").html("<div>当日您修改反水的流水:</div>");
+            var sub = "",seq = 0;
+            $(data).each(function (index) {
+                var mingxi = data[index];
+                seq += 1;
+                sub += "<div><span style='color:black;font-weight:bold;'>" + seq + "，" + mingxi.dt + " - " + mingxi.msg + "</span></div>";
+            });
+            $("#content4").html($("#content4").html() + sub);
+        });
+    }
+
+    function GetWay5Data(day) {
+        loadings();
+        putAjax("{:url('history/GetWay5Data')}", {
+            "day": day,
+            "timeType": timeType,
+            "id": rid,
+            "tid": $('.types span.sele').attr('t'),
+            "type": '{$Request.param.type}'
+        }, function(data) {
+            $("#content5").html("");
+            $("#content5").html("<div>当日您修改赔率的流水:</div>");
+            var sub = "";
+            var seq = 0;
+            $(data).each(function (index) {
+                var mingxi = data[index];
+                seq += 1;
+                sub += "<div><span style='color:black;font-weight:bold;'>" + seq + "，" + mingxi.dt + " - " + mingxi.msg + "</span></div>";
+            });
+            $("#content5").html($("#content5").html() + sub);
+        });
+    }
+
+    //加载当前积分对账
+    function LoadWay1() {
+        //处理内容的隐藏和显示
+        $("#way1,#way2,#way3,#way4,#way5").addClass("ToHide").removeClass("ToShow");
+        $("#way1").removeClass("ToHide").addClass("ToShow");
+        //加载数据
+        GetWay1Data($(".dates span.sele").html());
+    }
+
+    //加载当前上下对账
+    function LoadWay2() {
+        //处理内容的隐藏和显示
+        $("#way1,#way2,#way3,#way4,#way5").addClass("ToHide").removeClass("ToShow");
+        $("#way2").removeClass("ToHide").addClass("ToShow");
+        //加载数据
+        GetWay2Data($(".dates span.sele").html());
+    }
+
+    //加载当前记录对账
+    function LoadWay3() {
+        //处理内容的隐藏和显示
+        $("#way1,#way2,#way3,#way4,#way5").addClass("ToHide").removeClass("ToShow");
+        $("#way3").removeClass("ToHide").addClass("ToShow");
+        //加载数据
+        GetWay3Data($(".dates span.sele").html());
+    }
+
+    //加载改反水流水
+    function LoadWay4() {
+        //处理内容的隐藏和显示
+        $("#way1,#way2,#way3,#way4,#way5").addClass("ToHide").removeClass("ToShow");
+        $("#way4").removeClass("ToHide").addClass("ToShow");
+        //加载数据
+        GetWay4Data($(".dates span.sele").html());
+    }
+
+    //加载改赔率流水
+    function LoadWay5() {
+        //处理内容的隐藏和显示
+        $("#way1,#way2,#way3,#way4,#way5").addClass("ToHide").removeClass("ToShow");
+        $("#way5").removeClass("ToHide").addClass("ToShow");
+        //加载数据
+        GetWay5Data($(".dates span.sele").html());
+    }
+
+    var nowIndex = 1;//用来切换
+    $(document).ready(function () {
+        $("#day0,#day1,#day22,#day3").on("click", function () {
+            nowIndex = 1;
+            $("#btnWay11").text("当前积分对账");
+            $("#day0,#day1,#day22,#day3").removeClass("sele");
+            $(this).addClass("sele");
+            LoadWay1();
+        });
+
+        //点击按钮
+        $("#btnWay11").on("click", function () {
+            if (nowIndex == 1) {
+                nowIndex = 2;
+                $("#btnWay11").text("当前上下对账");
+                LoadWay2();
+            } else if (nowIndex == 2) {
+                nowIndex = 3;
+                $("#btnWay11").text("当前记录对账");
+                LoadWay3();
+            } else if (nowIndex == 3) {
+                nowIndex = 4;
+                $("#btnWay11").text("当前返水修改流水");
+                LoadWay4();
+            } else if (nowIndex == 4) {
+                nowIndex = 5;
+                $("#btnWay11").text("当前赔率修改流水");
+                LoadWay5();
+            } else if (nowIndex == 5) {
+                nowIndex = 1;
+                $("#btnWay11").text("当前积分对账");
+                LoadWay1();
+            }
+        });
+
+        //切换0点6点
+        $("#btnTime").on("click", function () {
+            if (timeType == 0) {
+                timeType = 1;
+                $("#btnTime").text("6点一天");
+                //将日期设置为6点一天的日期
+                $("#day0").html($("#day1_0").html());
+                $("#day1").html($("#day1_1").html());
+                $("#day22").html($("#day1_2").html());
+                $("#day3").html($("#day1_3").html());
+            } else {
+                timeType = 0;
+                $("#btnTime").text("0点一天");
+                //将日期设置为0点一天的日期
+                $("#day0").html($("#day0_0").html());
+                $("#day1").html($("#day0_1").html());
+                $("#day22").html($("#day0_2").html());
+                $("#day3").html($("#day0_3").html());
+            }
+
+            if (nowIndex == 1) {
+                LoadWay1();
+            } else if (nowIndex == 2) {
+                LoadWay2();
+            } else if (nowIndex == 3) {
+                LoadWay3();
+            } else if (nowIndex == 4) {
+                LoadWay4();
+            } else if (nowIndex == 5) {
+                LoadWay5();
+            }
+        });
+            
+        $("#wait,#succ,#fail").on("click", function () {
+            $("#wait,#succ,#fail").removeClass("sele");
+            $(this).addClass("sele");
+            flytype = $(this).attr('t');
+            LoadWay1();
+        });
+            
+        LoadWay1();
+    });
+    
+    });
+</script>

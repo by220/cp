@@ -1,0 +1,69 @@
+@charset "utf-8";
+.make{background:#F96}
+.mtb{margin-left:2px;margin-top:5px;margin-right:15px;float:left;width:245px;height:320px;}
+.mtb .m{width:49px;height:35px;font-size:10pt;line-height:40px;}
+.mtb .m label{width:35px;height:35px;float:left;display:block;line-height:35px;margin-left:3px;margin-right:3px;padding-left:1px;}
+.ballr{background:url(../imgn/balls.png);background-position:-160px 0}
+.ballb{background:url(../imgn/balls.png);background-position:-82px 0}
+.ballg{background:url(../imgn/balls.png);background-position:-238px 0}
+.ballh{background:url(../imgn/ballsa.png);background-position:0px 0px;color:#333}
+
+.mdiv{float:left;height:320px;margin-right:20px;width:245px;margin-left:2px;margin-top:5px;display:none;}
+.m1tb{width:250px;}
+.m1tb th{width:25px;}
+.m1tb td{width:25px;height:19px;}
+.m1tb .m{font-size:11pt}
+.m1tb .clicks{background:#555}
+.m2tb{width:250px;margin-top:5px;clear:left;}
+.m2tb th{width:25px;}
+.m2tb td{width:25px;height:19px;}
+.m2tb .m{font-size:11pt}
+.m2tb .clicks{background:#555}
+.bottom #con .make .tinfo tr:hover{background:none;}
+
+.res{float:right;margin-right:1px;overflow-x:hidden;overflow-y:scroll;width:400px;height:290px;border:2px solid #cfcfff;margin-top:5px;text-align:center;clear:right}
+.res .wd100{width:383px;}
+.res td{font-size:11pt;width:12.5%}
+.res th{font-size:11pt;width:12.5%}
+.res tr:hover{color:#63F}
+.res .blue{color:#FFF;background:#0A246A}
+.res .tinfo td.cg{width:48px;font-size:9pt}
+.res .tinfo td.je{width:50px;}
+.res .tinfo td.xh{width:35px;font-size:10px;color:red;}
+.res .tinfo td.hm{width:250px;word-break: break-all; word-wrap:break-word;text-align:left;padding-left:3px;}
+.res .tinfo th.cg{width:48px;font-size:9pt}
+.res .tinfo th.je{width:50px;}
+.res .tinfo th.xh{width:35px;font-size:10px;color:red;}
+.res .tinfo th.hm{width:250px;word-break: break-all; word-wrap:break-word;text-align:left;padding-left:3px;}
+
+
+.zttb{float:right;margin-top:5px;width:400px;margin-right:2px;}
+.zttb td,.zttb th{width:25%}
+.zttb .tz{text-align:left;padding-left:5px;}
+.zttb .sumhm{color:red;font-weight:bold;font-size:18px;}
+.zttb .totalzs{color:red;font-weight:bold;font-size:18px;}
+
+.fasttb{float:right;margin-top:5px;width:400px;margin-right:2px;}
+.fasttb td{text-align:left;padding-left:3px;}
+.fasttb .tz label{margin-right:5px;display:block;float:left;height:18px;line-height:18px;cursor:pointer}
+.fasttb .tz label:hover{background:#A2D0FF}
+.fasttb .tz span{margin-left:10px;display:block;float:left;width:20px;height:18px;line-height:18px;}
+
+.exetb{float:right;clear:right;width:400px;height:50px;margin-right:2px;}
+.exetb td{text-align:center;height:100%;line-height:100%}
+.exetb input.b{margin-right:10px;width:70px;margin-top:5px;}
+
+.lastxx{position:absolute;width:600px;background:#fff;display:none}
+.lastxx td{padding-left:3px;text-align:left;}
+.lastxx  .f{width:40px;}
+.lastxx  .s{width:40px;}
+.lastxx  td.t{width:320px;word-break: break-all; word-wrap:break-word;}
+.lastxx  .t2{width:100px;}
+.lastxx a{margin-right:10px;}
+.lastxx tr:hover{color:#F00}
+.last15 td{text-align:left;padding-left:15px;}
+
+.libs {width:700px;}
+.libs .ccon{width:320px;word-break: break-all; word-wrap:break-word;}
+
+.zinfotb label{float:left;margin-left:5px;display:block;clear:both;width:470px;text-align:left;}

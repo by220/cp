@@ -1,0 +1,934 @@
+<html class="uk-notouch"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>机器人后台 - 统计</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+    <link rel="stylesheet" href="__STATIC__/xz/admin/uikit.gradient.min.css">
+    <style type="text/css">
+        .body {
+            font-size: 16px;
+        }
+
+        .target {
+            font-size: 16px;
+        }
+
+        .mingxi {
+        }
+
+        .LeftScore {
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .tshow {
+            font-size: 16px;
+        }
+
+
+        .thide {
+            font-size: 16px;
+        }
+
+        .Cmd {
+            color: black;
+            font-size: 16px;
+            background-color: yellow;
+        }
+
+        .DownScore {
+            color: white;
+            background-color: green;
+        }
+
+        .UpScore {
+            color: white;
+            background-color: red;
+        }
+
+        .mingxiHide {
+            display: none;
+        }
+
+        .ToHide {
+            display: none;
+        }
+
+        .ToShow {
+            display: block;
+        }
+
+        .dates span {
+            margin-left: 20px;
+            cursor: pointer;
+            padding: 4px;
+            line-height: 20px;
+            font-size: 14px;
+            padding-bottom: 12px;
+        }
+
+        .dates span {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .dates span.sele {
+            color: #222;
+            border-bottom: 3px solid #ee0a24;
+        }
+
+        .infoitem {
+            border-radius: 4px;
+            border: 1px solid #000;
+            background: #dff4ff;
+            margin: 2px;
+            padding: 5px;
+        }
+
+        .infoitem.sele {
+            border: 2px solid orange;
+        }
+
+        .liu {
+            border: 2px solid orange;
+        }
+
+        .infoitem.is_excep {
+            background: red;
+            color: #fff;
+        }
+
+        .infoitem.is_excep .infoitem_row {
+            background: #fcc9c9 !important;
+            color: #000000 !important;
+        }
+
+        .infoitem.is_excep .all_fanshui {
+            color: #ffffff !important;
+        }
+
+        .infoitem.is_tuo {
+            background: #b2b2de;
+        }
+
+        .infolist .item_top span {
+            font-weight: bold;
+            margin: 2px;
+        }
+
+        .infolist .infoitem_row {
+            position: relative;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #000;
+        }
+
+        .infoitem_row.type1 {
+            background: #efefef;
+        }
+
+        .infolist .infoitem_row span {
+            margin-right: 10px;
+        }
+
+        .infolist .infoitem_row span.tuo {
+            position: absolute;
+            top: -3px;
+            left: 67px;
+            background: darkblue;
+            display: block;
+            width: 20px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .infolist .infoitem_row .rowcontent {
+            padding: 2px;
+            background: #808080;
+            color: #fff;
+        }
+
+            .infolist .infoitem_row .rowcontent.sf {
+                background: red;
+                color: #fff;
+            }
+
+            .infolist .infoitem_row .rowcontent.xf {
+                background: green;
+                color: #fff;
+            }
+
+        .infolist .infoitem_row .fanshui {
+            color: red;
+            font-size: 14px;
+        }
+
+        .infolist .infoitem_row .rowchange.win {
+            color: red;
+        }
+
+        .infolist .infoitem_row .rowchange.lose {
+            color: green;
+        }
+
+        .infolist .infoitem_row .rowscore {
+            font-weight: bold;
+        }
+
+        .infolist .profit_loss.changescore:before {
+            content: '改分';
+            color: #ffffff;
+            background: red;
+            font-weight: bold;
+        }
+
+        .infolist .all_fanshui {
+            color: red;
+            display: none;
+            font-weight: bold;
+        }
+
+        .item_detail {
+        }
+
+        .tt1 {
+            margin-top: 5px;
+            font-size: 16px;
+        }
+        .green{
+            background-color: green !important;
+        }
+        .red{
+            background-color: red !important;
+        }
+    </style>
+    <script type="text/javascript" src="__STATIC__/xz/admin/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/uikit.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/xz/admin/html2canvas.min.js"></script>
+    <style type="text/css">
+        * {
+            -webkit-touch-callout: none;
+        }
+    </style>
+</head>
+<body style="background-color: rgb(242, 243, 245);">
+    <div style="display:none;">timeout is: 432000</div>
+<div style="padding: 10px;background: #fff;">
+    <!--<a class="uk-button uk-button-primary" id="btn2" onclick="history.go(-1)">返回主界面</a>-->
+    <a class="uk-button uk-button-primary" id="btn2">退出</a>
+</div>
+
+<div style="display:none;font-size:15px;height: 60px;background: #fff;line-height: 54px;">
+    <span id="day1_0">{:getTimeList4()}</span>
+    <span id="day1_1">{:getTimeList3()}</span>
+    <span id="day1_2">{:getTimeList2()}</span>
+    <span id="day1_3">{:getTimeList()}</span>
+
+    <span id="day0_0">{:getTimeList4()}</span>
+    <span id="day0_1">{:getTimeList3()}</span>
+    <span id="day0_2">{:getTimeList2()}</span>
+    <span id="day0_3">{:getTimeList()}</span>
+</div>
+
+<div style="width:100%;font-size:15px;height: 60px;background: #fff;line-height: 54px;">
+    <div class="dates" style="font-size:15px;">
+        <span id="day0">{:getTimeList4()}</span>
+        <span id="day1">{:getTimeList3()}</span>
+        <span id="day2">{:getTimeList2()}</span>
+        <span id="day3" class="sele">{:getTimeList()}</span>
+    </div>
+</div>
+
+<div style="width:100%;padding: 5px;">
+    总反水:<span id="totalFanShui">0</span>&nbsp;&nbsp;
+    总昨余:<span id="totalZuoYu">0</span>&nbsp;&nbsp;
+    总流水:<span id="totalRealLiuShui">0</span>&nbsp;&nbsp;
+	{if $type == 75}
+    总有效流水:<span id="totalRealYouXiaoLiuShui">0</span>&nbsp;&nbsp;
+	{else/}
+    总单边流水:<span id="totalRealYouXiaoLiuShui">0</span>&nbsp;&nbsp;
+    总双边流水:<span id="totalRealYouXiaoLiuShuis">0</span>&nbsp;&nbsp;
+    {/if}
+    总盈亏:<span id="totalRealYingKui">0</span>&nbsp;&nbsp;
+    总上下:<span id="totalUp">0</span><span id="totalDown">0</span>&nbsp;=&nbsp;<span id="totalUpDown">0</span>
+</div>
+    <div style="width:100%;padding: 0 5px;">
+        未飞单:<span id="flyersWait">0</span>&nbsp;&nbsp;
+        飞单成功:<span id="flyersSuc">0</span>&nbsp;&nbsp;
+        飞单失败:<span id="flyersFail">0</span>
+    </div>
+
+<div style="width:100%;padding: 0 5px;">
+    <button id="btnWay1" style="font-size:14px;">当前积分对账</button>&nbsp;&nbsp;&nbsp;&nbsp;<button id="btnTime" style="font-size:14px;">6点一天</button>
+</div>
+
+<div id="way1" style="width:100%;padding: 5px;box-sizing: border-box;" class="ToShow">
+    <div id="content" style="margin-top:5px;" class="infolist"></div>
+</div>
+
+<div id="way2" style="width:100%;" class="ToHide">
+    <div id="content2" style="background-color:rgb(223,244,255);color:black;font-size:16px;">
+
+    </div>
+</div>
+
+<div id="way3" style="width:100%;" class="ToHide">
+    <div id="content3">
+        <div id="content3_1" style="background-color:red;color:black;font-size:16px;">
+
+        </div>
+        <hr>
+        <div id="content3_2" style="background-color:white;color:black;font-size:16px;">
+
+        </div>
+    </div>
+</div>
+
+<div id="way4" style="width:100%;" class="ToHide">
+    <div id="content4" style="background-color:rgb(223,244,255);color:black;font-size:16px;">
+
+    </div>
+</div>
+
+<div id="way5" style="width:100%;" class="ToHide">
+    <div id="content5" style="background-color:rgb(223,244,255);color:black;font-size:16px;">
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    var dayIndex = 3;//天的索引，0，1,2,3
+    var timeType = 1;//0点还是6点一天， 0是0点一天，1是6点一天
+
+    function GetWay1Data(day) {
+        $("#content").html("<span style='color:black;font-size:14px;font-weight:200;background-color:yellow;'>数据正在生成，请稍候...</span>");
+
+        $.ajax({
+            type: "POST",
+            url: "{:url('index/GetScoreHis')}",
+            dataType: "json",
+            data: {
+                "day": day,
+                "timeType": timeType
+            },
+            //成功返回之后调用的函数
+            success: function (data) {
+                //所有会员总计
+                $("#flyersWait").html(data.flyersWait);
+                $("#flyersSuc").html(data.flyersSuc);
+                $("#flyersFail").html(data.flyersFail);
+                $("#totalRealYingKui").html(data.totalYingKui);
+                $("#totalRealLiuShui").html(data.totalLiuShui);
+                $("#totalRealYouXiaoLiuShuis").html(data.totalYouXiaoLiuShuis);
+                $("#totalRealYouXiaoLiuShui").html(data.totalYouXiaoLiuShui);
+                $("#totalFanShui").html(parseFloat(data.totalFanShui));
+                $("#totalUp").html(data.totalUp);
+                $("#totalDown").html('-'+data.totalDown);
+                $("#totalUpDown").html(data.totalUpDown);
+                $("#totalZuoYu").html(data.totalZuoYu);
+                //每个会员输出一个
+                $("#content").html("");
+                $(data.detail).each(function (index) {
+                    var val = data.detail[index];
+                    //将明细加入该用户概况
+                    var tmpDownText = "-0";
+                    // if (val.totalDown < 0) {
+                        tmpDownText = '-'+val.totalDown;
+                    // }
+                    // else {
+                        // tmpDownText = "-0";
+                    // }
+					{if $type==75}
+					val.totalValidLiuShuis = '';
+					{/if}
+                    $("#content").html($("#content").html() + '<div class="infoitem" data-wxid=' + val.wxid + '><div class="item_top">会员ID：<span class="userid">' + val.wxid + '</span>，昵称：<span class="nickname">' + val.NickName + '</span></div><div class="all_fanshui" style="display: block;">总返水：' + parseFloat(val.totalFanShui) + ' </div><div class="profit_loss">昨余:' + val.ZuoYu +'，&nbsp;&nbsp; 流水: ' + val.totalLiuShui + '，&nbsp;&nbsp; {$type==75?"有效":"单边"}流水: ' + val.totalValidLiuShui +  '{$type==75?"":"，&nbsp;&nbsp; 双边流水: "}' + val.totalValidLiuShuis + '，&nbsp;&nbsp; 盈亏:' + val.totalYingKui + ',&nbsp;&nbsp;上下:&nbsp;&nbsp;' + val.totalUp + tmpDownText + '=&nbsp;&nbsp;' + val.totalUpDown + '</div>' + '</div>');
+                });
+
+                //绑定点击事件
+                $(".infoitem").bind("click", function () {
+                    ShowMyChildren($(this));
+                });
+            },
+            //调用出错执行的函数
+            error: function () {
+            }
+        });
+    }
+    
+    function ShowMyChildren(divclicked) {
+        if (divclicked.children().length == 3) {
+            //如果当前该元素的子元素只有3个，也就是没有明细数据，则拉取并显示
+
+            //去掉所有的黄色边框
+            $("*").removeClass("liu");
+
+            //选中自己
+            divclicked.addClass("liu");
+
+            //得到wxid
+            var wxid = divclicked.attr("data-wxid");
+
+            //计算day
+            var day = '';
+            if (dayIndex == 0) {
+                day = $("#day0").html();
+            }
+            else if (dayIndex == 1) {
+                day = $("#day1").html();
+            }
+            else if (dayIndex == 2) {
+                day = $("#day2").html();
+            }
+            else {
+                day = $("#day3").html();
+            }
+
+            //加载明细
+            $.ajax({
+                type: "POST",
+                url: "{:url('index/GetScoreHisDetail')}",
+                dataType: "json",
+                data: {
+                    "day": day,
+                    "timeType": timeType,
+                    "wxid": wxid
+                },
+                //成功返回之后调用的函数
+                success: function (data) {
+                    if (data.length > 0) {
+						//如果该会员明细大于0，则显示
+						var subDiv = '<div class="item_detail">';
+						var lastMingXi = null;
+						$(data).each(function (i) {
+                            var mingxi = data[i];
+                            var t = mingxi.dttype;
+                            if (t == 0) {
+                                //手动上分
+                                subDiv += '<div class="infoitem_row type2" style="margin-top: 10px; margin-bottom: 10px;"><span class="rowtype">积分操作：</span><span class="rowqi"></span><span class="rowcontent sf">机器人上分+' + parseFloat(mingxi.score) + '</span><br><span class="rowresult" style="display: block;"></span><span class="rowbefore"></span><span class="rowchange win">+' + parseFloat(mingxi.score) + '</span><span class="fanshui"></span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '</span></div>';
+                            }
+                            else if (t == 1) {
+                                //手动下分
+                                subDiv += '<div class="infoitem_row type2" style="margin-top: 10px; margin-bottom: 10px;"><span class="rowtype">积分操作：</span><span class="rowqi"></span><span class="rowcontent xf">机器人下分' + parseFloat(mingxi.count) + '</span><br><span class="rowresult" style="display: block;"></span><span class="rowbefore"></span><span class="rowchange lose">' + parseFloat(mingxi.count) + '</span><span class="fanshui"></span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '</span></div>';
+                            }
+                            else if (t == 2) {
+                                //请求上分
+                                subDiv += '<div class="infoitem_row type2" style="margin-top: 10px; margin-bottom: 10px;"><span class="rowtype">积分操作：</span><span class="rowqi"></span><span class="rowcontent sf">会员请求上分+' + parseFloat(mingxi.count) + '</span><br><span class="rowresult" style="display: block;"></span><span class="rowbefore"></span><span class="rowchange win">+' + parseFloat(mingxi.count) + '</span><span class="fanshui"></span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '</span></div>';
+                            }
+                            else if (t == 3) {
+                                //请求下分
+                                subDiv += '<div class="infoitem_row type2" style="margin-top: 10px; margin-bottom: 10px;"><span class="rowtype">积分操作：</span><span class="rowqi"></span><span class="rowcontent xf">会员请求下分' + parseFloat(mingxi.count) + '</span><br><span class="rowresult" style="display: block;"></span><span class="rowbefore"></span><span class="rowchange lose">' + parseFloat(mingxi.count) + '</span><span class="fanshui"></span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '</span></div>';
+
+                            } else if (t == 4) {
+                                //删除用户下分
+                                subDiv += '<div class="infoitem_row type2" style="margin-top: 10px; margin-bottom: 10px;"><span class="rowtype">积分操作：</span><span class="rowqi"></span><span class="rowcontent xf">删除会员下分' + parseFloat(mingxi.count) + '</span><br><span class="rowresult" style="display: block;"></span><span class="rowbefore"></span><span class="rowchange lose">' + parseFloat(mingxi.count) + '</span><span class="fanshui"></span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '</span></div>';
+                            }
+                            else {
+                                //盈亏变动
+                                var topMargin = '';
+                                if (lastMingXi != null) {
+                                    if (lastMingXi.qihao != mingxi.qihao) {
+                                        topMargin = ' style="margin-top: 10px;"';
+                                    }
+                                }
+
+                                lastMingXi = mingxi;
+
+                                if (mingxi.count > 0) {
+                                    subDiv += '<div class="infoitem_row type1" ' + topMargin + '><span class="rowtype">盈亏操作：</span><span class="rowqi">' + mingxi.qihao + '</span><span class="rowcontent">' + mingxi.cmdText + '</span><span class="rowcontent '+mingxi.flyersColor+'">' + mingxi.flyersStatus + '</span><br><span class="rowresult" style="display: block;">' + mingxi.code + '=&gt;' + mingxi.lastResult + '=&gt;' + mingxi.fan + '</span><span class="rowbefore"></span><span class="rowchange win">+' + parseFloat(mingxi.count) + '</span><span class="fanshui">[返水' + mingxi.dtfanshui + ']</span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '&nbsp;<=&nbsp;' + mingxi.dtCmd + '</span></div>';
+                                }
+                                else if (mingxi.count == 0) {
+                                    var fs = mingxi.ying==1?'[返水' + mingxi.dtfanshui + ']':'';
+                                    subDiv += '<div class="infoitem_row type1"' + topMargin + '><span class="rowtype">盈亏操作：</span><span class="rowqi">' + mingxi.qihao + '</span><span class="rowcontent">' + mingxi.cmdText + '</span><span class="rowcontent '+mingxi.flyersColor+'">' + mingxi.flyersStatus + '</span><br><span class="rowresult" style="display: block;">' + mingxi.code + '=&gt;' + mingxi.lastResult + '=&gt;' + mingxi.fan + '</span><span class="rowbefore"></span><span class="rowchange win">' + parseFloat(mingxi.count) + '</span><span class="fanshui">'+fs+'</span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '&nbsp;<=&nbsp;' + mingxi.dtCmd + '</span></div>';
+                                }
+                                else {
+                                    var fs = mingxi.ying==1?'[返水' + mingxi.dtfanshui + ']':'';
+                                    subDiv += '<div class="infoitem_row type1"' + topMargin + '><span class="rowtype">盈亏操作：</span><span class="rowqi">' + mingxi.qihao + '</span><span class="rowcontent">' + mingxi.cmdText + '</span><span class="rowcontent '+mingxi.flyersColor+'">' + mingxi.flyersStatus + '</span><br><span class="rowresult" style="display: block;">' + mingxi.code + '=&gt;' + mingxi.lastResult + '=&gt;' + mingxi.fan + '</span><span class="rowbefore"></span><span class="rowchange lose">' + parseFloat(mingxi.count) + '</span><span class="fanshui">'+fs+'</span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '&nbsp;<=&nbsp;' + mingxi.dtCmd + '</span></div>';
+                                }
+                            }
+
+                        });
+						subDiv += "</div>";
+						divclicked.append(subDiv);
+					} else {
+						var subDiv = "<div><span>暂无明细数据</span></div>";
+						divclicked.append(subDiv);
+					}
+                },
+                //调用出错执行的函数
+                error: function () {
+                    alert('拉取失败，请稍候重试!')
+                }
+            });
+        }
+        else {
+            //如果当前元素个数不是3个，则包含了明细，本次点击关闭
+            //先删除目前的明细
+            divclicked.children().remove('.item_detail');
+            //去掉所有的黄色边框
+            $("*").removeClass("liu");
+        }
+    }
+
+    function GetWay2Data(day) {
+        $("#content2").html("<span style='color:black;font-size:14px;font-weight:200;background-color:yellow;'>数据正在生成，请稍候...</span>");
+        $.ajax({
+            type: "POST",
+            url: "{:url('index/GetWay2Data')}",
+            dataType: "json",
+            data: {
+                "day": day,
+                "timeType": timeType
+            },
+            //成功返回之后调用的函数
+            success: function (data) {
+                var sub = "";
+                var seq = 0;
+                $("#content2").html("");
+                $(data).each(function (index) {
+                    var mingxi = data[index];
+
+                    seq += 1;
+                    if (mingxi.type == 0) {
+                        sub += "<div class='tt1'><span style='color:black;'>" + seq + "，</span><span style='color:red;font-weight:bold;'>" + mingxi.des + "</span><span style='color:black;'>【" + mingxi.dt + "】, 会员id：" + mingxi.wxid + "，昵称：" + mingxi.NickName + "</span></div>";
+                    }
+                    else {
+                        sub += "<div class='tt1'><span style='color:black;'>" + seq + "，</span><span style='color:green;font-weight:bold;'>" + mingxi.des + "</span><span style='color:black;'>【" + mingxi.dt + "】, 会员id：" + mingxi.wxid + "，昵称：" + mingxi.NickName + "</span></div>";
+                    }
+                });
+
+                //将明细加入该用户概况
+                $("#content2").html($("#content2").html() + sub);
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+            }
+        });
+    }
+
+    function GetWay3Data(day) {
+        $("#content3_1").html("<span style='color:black;font-size:14px;font-weight:200;background-color:yellow;'>数据正在生成，请稍候...</span>");
+        $("#content3_2").html("");
+
+        $.ajax({
+            type: "POST",
+            url: "{:url('index/GetWay3Data')}",
+            dataType: "json",
+            data: {
+                "day": day,
+                "timeType": timeType
+            },
+            //成功返回之后调用的函数
+            success: function (data) {
+                var sub = "";
+                $("#content3_1").html("");
+                $("#content3_2").html("");
+                $(data.lstJiLu).each(function (index) {
+                    var mingxi = data.lstJiLu[index];
+                    var submitTxt = mingxi.submitStatus == 0 ? "未报" : "已报";
+					sub +=
+						"<div style='margin-top:6px;'><span style='color:black;font-weight:bold;'>" +
+						mingxi.qihao + "：wxid：" + mingxi.dtwxid + ", 昵称：" + mingxi.dtNickName + "，注：" +
+						mingxi.zhuscore + "， 有效：" + mingxi.validscore + "，" + mingxi.result +
+						"</span><span style='color:black;'>" + "，内容：" + mingxi.cmdText + ", 结果：" + mingxi
+						.opencode + "=>" + mingxi.lastcode + "=>" + mingxi.fan + " 【" + mingxi
+						.dtJieSuan + "】入网:" + submitTxt + "</span></div>";
+                });
+                //将明细加入该用户概况
+                $("#content3_1").html($("#content3_1").html() + sub);
+
+                var sub2 = "";
+                $(data.lstQiDuiZhang).each(function (index) {
+                    var mingxi = data.lstQiDuiZhang[index];
+                    sub2 += "<div style='margin-top:6px;'><span style='text-decoration:underline;'>" + mingxi.qihao + "</span>&nbsp;&nbsp;<span style='color:black;font-weight:bold;'>总注:" + mingxi.totalZhu + "，</span><span style='color:black;'>总盈亏：" + mingxi.totalYingKui + "</span></div>";
+                });
+                //将明细加入该用户概况
+                $("#content3_2").html($("#content3_2").html() + sub2);
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+            }
+        });
+    }
+
+    function GetWay4Data(day) {
+        $("#content4").html("<span style='color:black;font-size:14px;font-weight:200;background-color:yellow;'>数据正在生成，请稍候...</span>");
+
+        $.ajax({
+            type: "POST",
+            url: "{:url('index/GetWay4Data')}",
+            dataType: "json",
+            data: {
+                "day": day,
+                "timeType": timeType
+            },
+            //成功返回之后调用的函数
+            success: function (data) {
+                $("#content4").html("");
+                $("#content4").html("<div>当日您修改反水的流水:</div>");
+                var sub = "";
+                var seq = 0;
+                $(data).each(function (index) {
+                    var mingxi = data[index];
+                    seq += 1;
+                    sub += "<div><span style='color:black;font-weight:bold;'>" + seq + "，" + mingxi.dt + " - " + mingxi.msg + "</span></div>";
+                });
+
+                //将明细加入
+                $("#content4").html($("#content4").html() + sub);
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+            }
+        });
+    }
+
+    function GetWay5Data(day) {
+        $("#content5").html("<span style='color:black;font-size:14px;font-weight:200;background-color:yellow;'>数据正在生成，请稍候...</span>");
+
+        $.ajax({
+            type: "POST",
+            url: "{:url('index/GetWay5Data')}",
+            dataType: "json",
+            data: {
+                "day": day,
+                "timeType": timeType
+            },
+            //成功返回之后调用的函数
+            success: function (data) {
+                $("#content5").html("");
+                $("#content5").html("<div>当日您修改赔率的流水:</div>");
+                var sub = "";
+                var seq = 0;
+                $(data).each(function (index) {
+                    var mingxi = data[index];
+                    seq += 1;
+                    sub += "<div><span style='color:black;font-weight:bold;'>" + seq + "，" + mingxi.dt + " - " + mingxi.msg + "</span></div>";
+                });
+
+                //将明细加入
+                $("#content5").html($("#content5").html() + sub);
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+            }
+        });
+    }
+
+    //加载当前积分对账
+    function LoadWay1() {
+        //处理内容的隐藏和显示
+        $("#way1").removeClass("ToHide").addClass("ToShow");
+        $("#way2").addClass("ToHide").removeClass("ToShow");
+        $("#way3").addClass("ToHide").removeClass("ToShow");
+        $("#way4").addClass("ToHide").removeClass("ToShow");
+        $("#way5").addClass("ToHide").removeClass("ToShow");
+        //加载数据
+        if (dayIndex == 0) {
+            GetWay1Data($("#day0").html());
+        }
+        else if (dayIndex == 1) {
+            GetWay1Data($("#day1").html());
+        }
+        else if (dayIndex == 2) {
+            GetWay1Data($("#day2").html());
+        }
+        else {
+            GetWay1Data($("#day3").html());
+        }
+    }
+
+    //加载当前上下对账
+    function LoadWay2() {
+        //处理内容的隐藏和显示
+        $("#way2").removeClass("ToHide").addClass("ToShow");
+        $("#way1").addClass("ToHide").removeClass("ToShow");
+        $("#way3").addClass("ToHide").removeClass("ToShow");
+        $("#way4").addClass("ToHide").removeClass("ToShow");
+        $("#way5").addClass("ToHide").removeClass("ToShow");
+        //加载数据
+        if (dayIndex == 0) {
+            GetWay2Data($("#day0").html());
+        }
+        else if (dayIndex == 1) {
+            GetWay2Data($("#day1").html());
+        }
+        else if (dayIndex == 2) {
+            GetWay2Data($("#day2").html());
+        }
+        else {
+            GetWay2Data($("#day3").html());
+        }
+    }
+
+    //加载当前记录对账
+    function LoadWay3() {
+        //处理内容的隐藏和显示
+        $("#way3").removeClass("ToHide").addClass("ToShow");
+        $("#way1").addClass("ToHide").removeClass("ToShow");
+        $("#way2").addClass("ToHide").removeClass("ToShow");
+        $("#way4").addClass("ToHide").removeClass("ToShow");
+        $("#way5").addClass("ToHide").removeClass("ToShow");
+
+        //加载数据
+        if (dayIndex == 0) {
+            GetWay3Data($("#day0").html());
+        }
+        else if (dayIndex == 1) {
+            GetWay3Data($("#day1").html());
+        }
+        else if (dayIndex == 2) {
+            GetWay3Data($("#day2").html());
+        }
+        else {
+            GetWay3Data($("#day3").html());
+        }
+    }
+
+    //加载改反水流水
+    function LoadWay4() {
+        //处理内容的隐藏和显示
+        $("#way4").removeClass("ToHide").addClass("ToShow");
+        $("#way1").addClass("ToHide").removeClass("ToShow");
+        $("#way2").addClass("ToHide").removeClass("ToShow");
+        $("#way3").addClass("ToHide").removeClass("ToShow");
+        $("#way5").addClass("ToHide").removeClass("ToShow");
+
+        //加载数据
+        if (dayIndex == 0) {
+            GetWay4Data($("#day0").html());
+        }
+        else if (dayIndex == 1) {
+            GetWay4Data($("#day1").html());
+        }
+        else if (dayIndex == 2) {
+            GetWay4Data($("#day2").html());
+        }
+        else {
+            GetWay4Data($("#day3").html());
+        }
+    }
+
+    //加载改赔率流水
+    function LoadWay5() {
+        //处理内容的隐藏和显示
+        $("#way5").removeClass("ToHide").addClass("ToShow");
+        $("#way1").addClass("ToHide").removeClass("ToShow");
+        $("#way2").addClass("ToHide").removeClass("ToShow");
+        $("#way3").addClass("ToHide").removeClass("ToShow");
+        $("#way4").addClass("ToHide").removeClass("ToShow");
+
+        //加载数据
+        if (dayIndex == 0) {
+            GetWay5Data($("#day0").html());
+        }
+        else if (dayIndex == 1) {
+            GetWay5Data($("#day1").html());
+        }
+        else if (dayIndex == 2) {
+            GetWay5Data($("#day2").html());
+        }
+        else {
+            GetWay5Data($("#day3").html());
+        }
+    }
+</script>
+
+<script type="text/javascript">
+
+    var nowIndex = 1;//用来切换
+    var lastDayIndex = 3;//最近一个被点击的日期的索引，0，1，2，3
+    $(document).ready(function () {
+        $("#day0").bind("click", function () {
+            //选中第一个选项
+            $("#nav li:first").addClass("uk-active");
+            $("#nav li:eq(1)").removeClass("uk-active");
+            $("#nav li:eq(2)").removeClass("uk-active");
+            $("#nav li:eq(3)").removeClass("uk-active");
+            $("#nav li:eq(4)").removeClass("uk-active");
+            //载入数据
+            dayIndex = 0;
+            nowIndex = 1;
+            $("#btnWay1").text("当前积分对账");
+
+            $(this).addClass("sele");
+            if (lastDayIndex == 1) {
+                $("#day1").removeClass("sele");
+            }
+            else if (lastDayIndex == 2) {
+                $("#day2").removeClass("sele");
+            }
+            else if (lastDayIndex == 3) {
+                $("#day3").removeClass("sele");
+            }
+            lastDayIndex = 0;
+
+            LoadWay1();
+
+        });
+        $("#day1").bind("click", function () {
+            //选中第一个选项
+            $("#nav li:first").addClass("uk-active");
+            $("#nav li:eq(1)").removeClass("uk-active");
+            $("#nav li:eq(2)").removeClass("uk-active");
+            $("#nav li:eq(3)").removeClass("uk-active");
+            $("#nav li:eq(4)").removeClass("uk-active");
+            //载入数据
+            dayIndex = 1;
+            nowIndex = 1;
+
+            $(this).addClass("sele");
+            if (lastDayIndex == 0) {
+                $("#day0").removeClass("sele");
+            }
+            else if (lastDayIndex == 2) {
+                $("#day2").removeClass("sele");
+            }
+            else if (lastDayIndex == 3) {
+                $("#day3").removeClass("sele");
+            }
+            lastDayIndex = 1;
+
+            $("#btnWay1").text("当前积分对账");
+            LoadWay1();
+        });
+        $("#day2").bind("click", function () {
+            //选中第一个选项
+            $("#nav li:first").addClass("uk-active");
+            $("#nav li:eq(1)").removeClass("uk-active");
+            $("#nav li:eq(2)").removeClass("uk-active");
+            $("#nav li:eq(3)").removeClass("uk-active");
+            $("#nav li:eq(4)").removeClass("uk-active");
+
+            //载入数据
+            dayIndex = 2;
+            nowIndex = 1;
+
+            $(this).addClass("sele");
+            if (lastDayIndex == 0) {
+                $("#day0").removeClass("sele");
+            }
+            else if (lastDayIndex == 1) {
+                $("#day1").removeClass("sele");
+            }
+            else if (lastDayIndex == 3) {
+                $("#day3").removeClass("sele");
+            }
+            lastDayIndex = 2;
+
+            $("#btnWay1").text("当前积分对账");
+            LoadWay1();
+        });
+        $("#day3").bind("click", function () {
+            //选中第一个选项
+            $("#nav li:first").addClass("uk-active");
+            $("#nav li:eq(1)").removeClass("uk-active");
+            $("#nav li:eq(2)").removeClass("uk-active");
+            $("#nav li:eq(3)").removeClass("uk-active");
+            $("#nav li:eq(4)").removeClass("uk-active");
+
+            //载入数据
+            dayIndex = 3;
+            nowIndex = 1;
+
+            $(this).addClass("sele");
+            if (lastDayIndex == 0) {
+                $("#day0").removeClass("sele");
+            }
+            else if (lastDayIndex == 1) {
+                $("#day1").removeClass("sele");
+            }
+            else if (lastDayIndex == 2) {
+                $("#day2").removeClass("sele");
+            }
+            lastDayIndex = 3;
+
+
+            $("#btnWay1").text("当前积分对账");
+            LoadWay1();
+        });
+
+        //点击按钮
+        $("#btnWay1").bind("click", function () {
+            if (nowIndex == 1) {
+                nowIndex = 2;
+                $("#btnWay1").text("当前上下对账");
+                LoadWay2();
+            }
+            else if (nowIndex == 2) {
+                nowIndex = 3;
+                $("#btnWay1").text("当前记录对账");
+                LoadWay3();
+            }
+            else if (nowIndex == 3) {
+                nowIndex = 4;
+                $("#btnWay1").text("当前返水修改流水");
+                LoadWay4();
+            }
+            else if (nowIndex == 4) {
+                nowIndex = 5;
+                $("#btnWay1").text("当前赔率修改流水");
+                LoadWay5();
+            }
+            else if (nowIndex == 5) {
+                nowIndex = 1;
+                $("#btnWay1").text("当前积分对账");
+                LoadWay1();
+            }
+        });
+
+        //切换0点6点
+        $("#btnTime").bind("click", function () {
+            if (timeType == 0) {
+                timeType = 1;
+                $("#btnTime").text("6点一天");
+
+                //将日期设置为6点一天的日期
+                $("#day0").html($("#day1_0").html());
+                $("#day1").html($("#day1_1").html());
+                $("#day2").html($("#day1_2").html());
+                $("#day3").html($("#day1_3").html());
+            }
+            else {
+                timeType = 0;
+                $("#btnTime").text("0点一天");
+
+                //将日期设置为0点一天的日期
+                $("#day0").html($("#day0_0").html());
+                $("#day1").html($("#day0_1").html());
+                $("#day2").html($("#day0_2").html());
+                $("#day3").html($("#day0_3").html());
+            }
+
+
+            if (nowIndex == 1) {
+                LoadWay1();
+            }
+            else if (nowIndex == 2) {
+                LoadWay2();
+            }
+            else if (nowIndex == 3) {
+                LoadWay3();
+            }
+            else if (nowIndex == 4) {
+                LoadWay4();
+            }
+            else if (nowIndex == 5) {
+                LoadWay5();
+            }
+
+        });
+        
+        $("#btn2").click(function() {
+            location.href = "{:url('Login/Logout2')}";
+        });
+        
+        //载入数据
+        LoadWay1();
+    });
+</script>
+</body></html>

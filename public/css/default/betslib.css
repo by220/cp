@@ -1,0 +1,92 @@
+@CHARSET "UTF-8";
+
+.xxs.data_table tbody td {
+	text-align: center;
+}
+
+.xxs.info_table tbody td {
+	text-align: left;
+}
+
+.xxs.data_table .drawNumber {
+	color: #299a26;
+}
+
+.xxs.data_table .text {
+	color: #2836f4;
+}
+
+.xxs.data_table .odds {
+	color: red;
+	font-weight: bold;
+	font-family: Verdana, Arial, Sans;
+}
+
+.xxs.data_table .money {
+	text-align: right;
+}
+
+.xxs.data_table thead .result {
+	color: red;
+}
+
+.xxs.data_table .dividend span,.xxs.top_info .bet_date select {
+	color: #2836f4;
+}
+
+.xxs.data_table .color {
+	color: #2836f4;
+	font-weight: bold;
+}
+
+.xxs.data_table .minus {
+	color: red;
+}
+
+.xxs.data_table .back,.xxs.data_table .share span {
+	font-weight: bold;
+}
+
+.xxs.top_info .bet_date {
+	color: #2836f4;
+	font-weight: bold;
+	float: left;
+	margin-right: 15px;
+}
+
+.xxs.note {
+	text-align: center;
+	color: #2836f4;
+	font-weight: bold;
+}
+
+.xxs.top_info .input {
+	width: 100px;
+	height: 18px;
+}
+
+.xxs.top_info .submit {
+	padding: 0;
+	margin: 0;
+	height: 22px;
+	width: 38px;
+}
+
+.xxs.data_table .cancelled {
+	text-decoration: line-through;
+}
+
+.xxs.data_table .dividend .cancelled {
+	text-decoration: none;
+	color: red;
+}
+
+.xxs.data_table .restore {
+	color: red;
+}
+
+.xxs.data_table tfoot th {
+	height: 26px;
+	text-align: right;
+	padding-right: 5px;
+}

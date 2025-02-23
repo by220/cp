@@ -1,0 +1,162 @@
+{include file='public/layer'}
+<style>
+    .layui-form-label {
+        width: 120px;
+    }
+    
+    .layui-input-block {
+        margin-left: 150px;
+    }
+</style>
+
+<div class="layui-form layuimini-form" style="margin-top:20px;">
+    <div class="layui-form-item">
+        <label class="layui-form-label required">彩种名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" lay-verify="required" lay-reqtext="彩种名称不能为空" placeholder="请输入" value="{$info?$info['name']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">彩种键名</label>
+        <div class="layui-input-block">
+            <input type="number" name="gameType" lay-verify="required" lay-reqtext="彩种键名不能为空" placeholder="请输入" value="{$info?$info['gameType']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">开奖球号</label>
+        <div class="layui-input-block">
+            <input type="text" name="jsType" placeholder="请输入" value="{$info?$info['jsType']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">采集链接</label>
+        <div class="layui-input-block">
+            <input type="text" name="dataUrl" lay-verify="required" lay-reqtext="彩种键名不能为空" placeholder="请输入" value="{$info?$info['dataUrl']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">A盘特码赔率</label>
+        <div class="layui-input-block">
+            <input type="text" name="peilvate" placeholder="请输入" value="{$info?$info['peilvate']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">大小单双赔率</label>
+        <div class="layui-input-block">
+            <input type="text" name="peilvadx" placeholder="请输入" value="{$info?$info['peilvadx']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">B盘特码赔率</label>
+        <div class="layui-input-block">
+            <input type="text" name="peilvbte" placeholder="请输入" value="{$info?$info['peilvbte']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">大小单双赔率</label>
+        <div class="layui-input-block">
+            <input type="text" name="peilvbdx" placeholder="请输入" value="{$info?$info['peilvbdx']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">C盘特码赔率</label>
+        <div class="layui-input-block">
+            <input type="text" name="peilvcte" placeholder="请输入" value="{$info?$info['peilvcte']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">大小单双赔率</label>
+        <div class="layui-input-block">
+            <input type="text" name="peilvcdx" placeholder="请输入" value="{$info?$info['peilvcdx']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">D盘特码赔率</label>
+        <div class="layui-input-block">
+            <input type="text" name="peilvdte" placeholder="请输入" value="{$info?$info['peilvdte']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">大小单双赔率</label>
+        <div class="layui-input-block">
+            <input type="text" name="peilvddx" placeholder="请输入" value="{$info?$info['peilvddx']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">排序</label>
+        <div class="layui-input-block">
+            <input type="number" name="sort" placeholder="需要请输入" value="{$info?$info['sort']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">算法</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="qiuNum" value="1"{if $info && $info['qiuNum']==1} checked=""{/if} lay-skin="switch" lay-text="相拼|相加">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">玩法前缀</label>
+        <div class="layui-input-block">
+            <input type="text" name="wf" placeholder="需要请输入" value="{$info?$info['wf']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">是否切换</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="hasSelect" value="1"{if $info && $info['hasSelect']==1} checked=""{/if} lay-skin="switch" lay-text="是|否">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">显示特</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="hasTe" value="1"{if $info && $info['hasTe']==1} checked=""{/if} lay-skin="switch" lay-text="显示|隐藏">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">显示键盘</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="hasKey" value="1"{if $info && $info['hasKey']==1} checked=""{/if} lay-skin="switch" lay-text="显示|隐藏">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">状态</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="status" value="1"{if $info && $info['status']==1} checked=""{elseif !$info/} checked=""{else/}{/if} lay-skin="switch" lay-text="开通|关闭">
+        </div>
+    </div>
+    <input type="hidden" name="id" id="id" value="{$info?$info['id']:''}" />
+
+    <div class="layui-form-item" style="margin-bottom:150px;">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.use(['form','laydate','layer'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            laydate = layui.laydate;
+            
+        laydate.render({
+            elem: '#test1' //指定元素
+        });
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            putAjax("{:url('game/Setwp')}", data.field, function(res) {
+                if (res.status == 1) {
+                    alertSuc(res.message);
+                    var iframeIndex = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(iframeIndex);
+                }
+                else { alertErr(res.message); }
+            });
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,2741 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>房间管理</title>
+        <meta name="viewport"
+            content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+        <link rel="stylesheet" href="__STATIC__/xz/admin/main.91f170f9.css">
+        <link rel="stylesheet" href="__STATIC__/xz/admin/el-col.51508d4a.css">
+        <link rel="stylesheet" href="__STATIC__/xz/admin/el-form-item.7731c616.css">
+        <link rel="stylesheet" href="__STATIC__/xz/admin/uikit.gradient.min.css">
+        <link rel="stylesheet" href="__STATIC__/xz/admin/notify.min.css">
+        <link rel="stylesheet" href="__STATIC__/xz/admin/base.css">
+        <link rel="stylesheet" href="__STATIC__/xz/admin/home.css?{:time()}">
+        <script type="text/javascript" src="__STATIC__/xz/admin/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="__STATIC__/xz/admin/uikit.min.js?{:time()}"></script>
+        <script type="text/javascript" src="__STATIC__/xz/admin/notify.min.js"></script>
+        <script type="text/javascript" src="__STATIC__/xz/admin/html5media.min.js"></script>
+        <script type="text/javascript" src="__STATIC__/xz/admin/clipboard.min.js"></script>
+        <script type="text/javascript" src="__STATIC__/xz/admin/jquery.md5.js"></script>
+        <script type="text/javascript" src="__STATIC__/xz/admin/html2canvas.min.js"></script>
+        <script type="text/javascript" src="__STATIC__/js/layer/layer.js"></script>
+        <style type="text/css">
+            .el-dialog__body {
+                padding: 0 !important;
+            }
+            .van-swipe {
+                position: relative;
+                overflow: hidden;
+                transform: translateZ(0);
+                cursor: -webkit-grab;
+                cursor: grab;
+                -webkit-user-select: none;
+                user-select: none
+            }
+
+            .van-swipe__track {
+                display: flex;
+                height: 100%
+            }
+
+            .van-swipe__track--vertical {
+                flex-direction: column
+            }
+
+            .van-swipe__indicators {
+                position: absolute;
+                bottom: var(--van-swipe-indicator-margin);
+                left: 50%;
+                display: flex;
+                transform: translate(-50%)
+            }
+
+            .van-swipe__indicators--vertical {
+                top: 50%;
+                bottom: auto;
+                left: var(--van-swipe-indicator-margin);
+                flex-direction: column;
+                transform: translateY(-50%)
+            }
+
+            .van-swipe__indicators--vertical .van-swipe__indicator:not(:last-child) {
+                margin-bottom: var(--van-swipe-indicator-size)
+            }
+
+            .van-swipe__indicator {
+                width: var(--van-swipe-indicator-size);
+                height: var(--van-swipe-indicator-size);
+                background-color: var(--van-swipe-indicator-inactive-background-color);
+                border-radius: 100%;
+                opacity: var(--van-swipe-indicator-inactive-opacity);
+                transition: opacity var(--van-animation-duration-fast), background-color var(--van-animation-duration-fast)
+            }
+
+            .van-swipe__indicator:not(:last-child) {
+                margin-right: var(--van-swipe-indicator-size)
+            }
+
+            .van-swipe__indicator--active {
+                background-color: var(--van-swipe-indicator-active-background-color);
+                opacity: var(--van-swipe-indicator-active-opacity)
+            }
+
+            :root {
+                --van-tab-text-color: var(--van-gray-7);
+                --van-tab-active-text-color: var(--van-text-color);
+                --van-tab-disabled-text-color: var(--van-text-color-3);
+                --van-tab-font-size: var(--van-font-size-md);
+                --van-tab-line-height: var(--van-line-height-md);
+                --van-tabs-default-color: var(--van-danger-color);
+                --van-tabs-line-height: 44px;
+                --van-tabs-card-height: 30px;
+                --van-tabs-nav-background-color: var(--van-background-color-light);
+                --van-tabs-bottom-bar-width: 40px;
+                --van-tabs-bottom-bar-height: 3px;
+                --van-tabs-bottom-bar-color: var(--van-danger-color);
+                --van-tabs-nav-background-color: #fff;
+            }
+
+            .van-tab {
+                position: relative;
+                display: flex;
+                flex: 1;
+                align-items: center;
+                justify-content: center;
+                box-sizing: border-box;
+                padding: 0 var(--van-padding-base);
+                color: var(--van-tab-text-color);
+                font-size: var(--van-tab-font-size);
+                line-height: var(--van-tab-line-height);
+                cursor: pointer
+            }
+
+            .van-tab--active {
+                color: var(--van-tab-active-text-color);
+                font-weight: var(--van-font-weight-bold)
+            }
+
+            .van-tab--disabled {
+                color: var(--van-tab-disabled-text-color);
+                cursor: not-allowed
+            }
+
+            .van-tab--grow {
+                flex: 1 0 auto;
+                padding: 0 var(--van-padding-sm)
+            }
+
+            .van-tab--shrink {
+                flex: none;
+                padding: 0 var(--van-padding-xs)
+            }
+
+            .van-tab--card {
+                color: var(--van-tabs-default-color);
+                border-right: var(--van-border-width-base) solid var(--van-tabs-default-color)
+            }
+
+            .van-tab--card:last-child {
+                border-right: none
+            }
+
+            .van-tab--card.van-tab--active {
+                color: var(--van-white);
+                background-color: var(--van-tabs-default-color)
+            }
+
+            .van-tab--card--disabled {
+                color: var(--van-tab-disabled-text-color)
+            }
+
+            .van-tab__text--ellipsis {
+                display: -webkit-box;
+                overflow: hidden;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical
+            }
+
+            .van-tabs {
+                position: relative
+            }
+
+            .van-tabs__wrap {
+                overflow: hidden
+            }
+
+            .van-tabs__wrap--page-top {
+                position: fixed
+            }
+
+            .van-tabs__wrap--content-bottom {
+                top: auto;
+                bottom: 0
+            }
+
+            .van-tabs__nav {
+                position: relative;
+                display: flex;
+                background: var(--van-tabs-nav-background-color);
+                -webkit-user-select: none;
+                user-select: none
+            }
+
+            .van-tabs__nav--complete {
+                overflow-x: auto;
+                overflow-y: hidden;
+                -webkit-overflow-scrolling: touch
+            }
+
+            .van-tabs__nav--complete::-webkit-scrollbar {
+                display: none
+            }
+
+            .van-tabs__nav--line {
+                box-sizing: content-box;
+                height: 100%;
+                padding-bottom: 15px
+            }
+
+            .van-tabs__nav--line.van-tabs__nav--shrink,
+            .van-tabs__nav--line.van-tabs__nav--complete {
+                padding-right: var(--van-padding-xs);
+                padding-left: var(--van-padding-xs)
+            }
+
+            .van-tabs__nav--card {
+                box-sizing: border-box;
+                height: var(--van-tabs-card-height);
+                margin: 0 var(--van-padding-md);
+                border: var(--van-border-width-base) solid var(--van-tabs-default-color);
+                border-radius: var(--van-border-radius-sm)
+            }
+
+            .van-tabs__nav--card.van-tabs__nav--shrink {
+                display: inline-flex
+            }
+
+            .van-tabs__line {
+                position: absolute;
+                bottom: 15px;
+                left: 0;
+                z-index: 1;
+                width: var(--van-tabs-bottom-bar-width);
+                height: var(--van-tabs-bottom-bar-height);
+                background: var(--van-tabs-bottom-bar-color);
+                border-radius: var(--van-tabs-bottom-bar-height)
+            }
+
+            .van-tabs__track {
+                position: relative;
+                display: flex;
+                width: 100%;
+                height: 100%;
+                will-change: left
+            }
+
+            .van-tabs__content--animated {
+                overflow: hidden
+            }
+
+            .van-tabs--line .van-tabs__wrap {
+                height: var(--van-tabs-line-height)
+            }
+
+            .van-tabs--card>.van-tabs__wrap {
+                height: var(--van-tabs-card-height)
+            }
+
+            .van-swipe-item {
+                position: relative;
+                flex-shrink: 0;
+                width: 100%;
+                height: 100%
+            }
+
+            .van-tab__panel,
+            .van-tab__panel-wrapper {
+                flex-shrink: 0;
+                box-sizing: border-box;
+                width: 100%
+            }
+
+            .van-tab__panel-wrapper--inactive {
+                height: 0;
+                overflow: visible
+            }
+
+            :root {
+                --van-divider-margin: var(--van-padding-md) 0;
+                --van-divider-text-color: var(--van-text-color-2);
+                --van-divider-font-size: var(--van-font-size-md);
+                --van-divider-line-height: 24px;
+                --van-divider-border-color: var(--van-border-color);
+                --van-divider-content-padding: var(--van-padding-md);
+                --van-divider-content-left-width: 10%;
+                --van-divider-content-right-width: 10%;
+                --van-tabs-bottom-bar-color: red;
+            }
+
+            .van-divider {
+                display: flex;
+                align-items: center;
+                margin: var(--van-divider-margin);
+                color: var(--van-divider-text-color);
+                font-size: var(--van-divider-font-size);
+                line-height: var(--van-divider-line-height);
+                border-color: var(--van-divider-border-color);
+                border-style: solid;
+                border-width: 0
+            }
+
+            .van-divider:before,
+            .van-divider:after {
+                display: block;
+                flex: 1;
+                box-sizing: border-box;
+                height: 1px;
+                border-color: inherit;
+                border-style: inherit;
+                border-width: var(--van-border-width-base) 0 0
+            }
+
+            .van-divider:before {
+                content: ""
+            }
+
+            .van-divider--hairline:before,
+            .van-divider--hairline:after {
+                transform: scaleY(.5)
+            }
+
+            .van-divider--dashed {
+                border-style: dashed
+            }
+
+            .van-divider--content-center:before,
+            .van-divider--content-left:before,
+            .van-divider--content-right:before {
+                margin-right: var(--van-divider-content-padding)
+            }
+
+            .van-divider--content-center:after,
+            .van-divider--content-left:after,
+            .van-divider--content-right:after {
+                margin-left: var(--van-divider-content-padding);
+                content: ""
+            }
+
+            .van-divider--content-left:before {
+                max-width: var(--van-divider-content-left-width)
+            }
+
+            .van-divider--content-right:after {
+                max-width: var(--van-divider-content-right-width)
+            }
+
+            .van-divider {
+                display: flex;
+                align-items: center;
+                margin: var(--van-divider-margin);
+                color: #000;
+                font-size: var(--van-divider-font-size);
+                border-color: gray;
+                border-style: dashed;
+                border-width: 0
+            }
+
+            .black {
+                background-color: yellow;
+                color: black;
+            }
+
+            .fake,
+            .zhui {
+                background-color: rgb(255, 131, 71);
+                color: white;
+                margin-left: 3px;
+                margin-right: 3px;
+            }
+
+            * {
+                -webkit-touch-callout: none;
+            }
+
+            body {
+                padding-right: 0 !important;
+                color: #000;
+                font-size: 14px;
+                font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Segoe UI, Arial, Roboto, PingFang SC, miui, Hiragino Sans GB, Microsoft Yahei, sans-serif;
+            }
+
+            .uk-modal.uk-open {
+                display: flex !important;
+                align-items: center;
+            }
+
+            button {
+                box-shadow: none;
+                background: #ffffff;
+                border: 1px solid #dcdfe6;
+                border-radius: 4px;
+                font-size: 14px;
+                padding: 8px;
+                height: 32px;
+                line-height: 1;
+                color: #606266;
+            }
+
+            .fanshuiSet2,
+            .peilv2 {
+                padding: 2px 0 0 5px;
+                position: absolute;
+                top: 4px;
+                right: 135px;
+                border: 1px solid #000;
+                height: 30px;
+                width: 135px;
+                line-height: 30px;
+                border-radius: 10px;
+            }
+
+            .fanshuiSet2 input.ok,
+            .peilv2 input.ok {
+                background: #0f5717;
+                text-align: center;
+                color: #fff;
+            }
+
+            .peilv,
+            .fanshuiSet,
+            .peilv2,
+            .fanshuiSet2 {
+                /*width: 100px;*/
+                /*position: static;*/
+                /*float: left;*/
+                margin-left: 8px;
+            }
+
+            .fanshuiSet input,
+            .peilv input,
+            .peilv2 input,
+            .fanshuiSet2 input {
+                width: 35px;
+            }
+
+            .jifenleftlist i {
+                position: inherit;
+            }
+
+            .selBtn {
+                background: #409eff;
+                color: #fff;
+            }
+
+            .uk-width-1-3,
+            .uk-width-2-6 {
+                width: 60%;
+                padding-left: 20px;
+                font-size: 12px;
+            }
+
+            .uk-width-2-3,
+            .uk-width-2-6 {
+                width: 33%;
+            }
+
+            #kaipanstatus.sed {
+                color: #909399 !important;
+                border-color: #909399 !important;
+            }
+
+            .el-overlay {
+                position: fixed;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 2000;
+                height: 100%;
+                background-color: #00000080;
+                overflow: auto;
+            }
+
+            .main {
+                display: flex;
+                justify-content: space-around;
+                padding-bottom: 5px;
+            }
+
+            #codelogin,
+            #xiazhuban,
+            .rightframe,
+            #codelogin .logininp {
+                position: inherit;
+            }
+
+            #codelogin .logininp {
+                margin: 5px;
+                height: 275px;
+            }
+
+            #codelogin .logininp b {
+                color: inherit;
+            }
+
+            .alertBox {
+                width: 920px;
+                margin: 4px auto;
+                position: relative;
+            }
+
+            .topframe {
+                width: 920px;
+                height: auto;
+            }
+
+            #codelogin {
+                display: block;
+                height: 285px;
+            }
+
+            #xiazhuban {
+                overflow: hidden;
+                height: calc(100% - 300px);
+                margin-top: 8px;
+            }
+
+            #wangpan {
+                height: auto;
+                width: 565px;
+                position: static;
+                margin-top: 0;
+                border: none;
+            }
+
+            #xiazhubanlist {
+                border: none;
+                border-top: 1px solid #000;
+            }
+
+            .rightframe {
+                width: 590px;
+            }
+
+            .functions {
+                border: none;
+                border-top: 1px solid #000;
+            }
+            
+            #el-id-7854-9 .uk-width-1-3 {
+                width: 45%;
+                text-align: right;
+            }
+            
+            #el-id-7854-9 .uk-width-2-3 {
+                width: 54%;
+            }
+
+            @media all and (max-width: 480px) {
+                .el-dialog {
+                    width: 100% !important;
+                }
+
+                .jifenKuang .el-dialog {
+                    height: 100%;
+                    margin: 0 !important;
+                    /*position: fixed;*/
+                }
+            }
+            
+            .uk-modal-footer {
+                margin: 0 -20px -20px -20px;
+                border-top: none; 
+                background: none; 
+            }
+            
+            .js-modal-confirm {
+                margin-right: 10px;
+            }
+            
+            .layui-layer-title {
+                border-bottom: none; 
+            }
+        </style>
+    </head>
+    <body>
+        <div class="alertBox">
+            <div class="el-alert el-alert--success is-light" role="alert"
+                style="background:#f0f9eb;color:#67c23a;display:flex;align-items: center;padding:8px 16px;border-radius:4px;">
+                <i class="el-icon el-alert__icon"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"
+                        style="width:16px;">
+                        <path fill="currentColor"
+                            d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm-55.808 536.384-99.52-99.584a38.4 38.4 0 1 0-54.336 54.336l126.72 126.72a38.272 38.272 0 0 0 54.336 0l262.4-262.464a38.4 38.4 0 1 0-54.272-54.336L456.192 600.384z">
+                        </path>
+                    </svg></i>
+                <div class="el-alert__content" style="padding: 0 16px;font-size: 13px;"><span class="el-alert__title">
+                        <div>
+                            <p class="gd"></p>
+                        </div>
+                    </span><i class="el-icon el-alert__close-btn closeAlert"
+                        style="position: absolute;top: 12px;right: 10px;"><svg viewBox="0 0 1024 1024"
+                            xmlns="http://www.w3.org/2000/svg" style="width:16px;">
+                            <path fill="currentColor"
+                                d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z">
+                            </path>
+                        </svg></i></div>
+            </div>
+        </div>
+
+        <div class="topframe">
+            <div class="tophead">
+                欢迎您：<b>{$Think.session.user_id2}
+                </b>，机：<b>{$Think.session.rbInfo.tuoNum} </b>，过期时间：<b class="guoqitime"></b>&nbsp;&nbsp; &nbsp;&nbsp; <a
+                    href="javascript:;" id="ExitLink">退出登录</a>
+                <div class="scoremm">剩余积分:<b><span id="leftScore">0</span> </b></div>
+                <div class="topheadmenu"><span>修改密码</span></div>
+            </div>
+
+            <div class="main">
+                <div class="leftBox">
+                    <div id="codelogin">
+                        <!--游戏仅供娱乐，禁用非法用途-->
+                        <!--<div class="loginother" style="position: absolute; top: 90px; display: none;">-->
+                        <!--    <div id="areaHeadImg" style="position:relative;left:90px;"></div>-->
+                        <!--    <div style="position:relative;left:95px;">登录成功!</div>-->
+                        <!--    <div id="areaNickName" style="position:relative;left:60px;"></div>-->
+                        <!--    <div style="position:relative;left:90px;"><button id="changewx">更换微信</button></div>-->
+                        <!--</div>-->
+
+                        <div class="logininp" {$type==75?'style="display:none;"':''}>
+                            <!--<p>聚财提供专业接口报单服务，各大盘口如需合作请联系代理！</p>-->
+                            <!--<p>聚财提供专业接口报单服务，各大盘口如需合作请联系代理！</p>-->
+                            <!--<p>&nbsp;</p>-->
+                            <!--<p style="font-weight: bold;">【澳洲5番摊】【澳洲8番摊】【加拿大番摊】已上线聚财，如需开机请联系代理！</p>-->
+                            <!--<p>&nbsp;</p>-->
+                            <!--<p>聚财机器功能推介</p>-->
+                            <!--<p style="font-weight: bold;">验证码 此功能进连接要输入验证码，降低了V信限制！</p>-->
+                            <!--<p><b>追功能</b> 此功能可自己设定买法，让机器全自动下注或追注 </p>-->
+                        </div>
+                    </div>
+
+                    <div id="xiazhuban">
+                        <div class="xiazhutitle"><b>下注榜：</b><span id="dangqianzhuqi" title=""></span><br><button
+                                class="loginwxbtn selBtn" style="width:75px;"
+                                id="btnShowPuCmd" data-type="0">普(<span></span>)</button>&nbsp;&nbsp;&nbsp;<button class="loginwxbtn"
+                                style="width:75px;"
+                                id="btnShowTuoCmd" data-type="1">托(<span></span>)</button>&nbsp;&nbsp;&nbsp;<button class="loginwxbtn"
+                                style="width:75px;" id="btnShowTuoCmd2" data-type="2">吃单(<span></span>)</button></div>
+                        <div id="xiazhubanlist" style="border-radius: 0 0 10px 10px;height:445px;overflow-y: auto;">
+                        </div>
+                    </div>
+                </div>
+                <div class="rightframe">
+                    <div class="right_top">
+                        <div><span class="kaipanstatustit sed">当前状态：</span><button id="kaipanstatus"
+                                style="visibility: visible;color:#409eff;border-color:#a0cfff;background:#ecf5ff;">开盘</button>
+                        </div>
+                        <div class="peilv" style="top:4px;"><b>赔率：</b><input class="ok" data-type="PeiLv">
+                            <span style="color:blue;right: 80px;top: 10px;margin-left: 5px;" id="changexe">限额</span>
+                        </div>
+                        <input id="selefocus" type="text" readonly="readonly">
+                        <div class="peilv2" style="width:120px;right:150px;{if $type==75}display:none;{/if}"><b>特码赔率：</b><input class="ok" data-type="tePeilv"></div>
+                        <div class="fanshuiSet2" style="width:120px;right:10px;{if $type==75}display:none;{/if}"><b>特码返水：</b><input class="ok" data-type="teFanshui"></div>
+                    </div>
+
+                    <div class="functions" style="border-radius: 10px;border:none;padding:0;">
+                        <div class="functions" style="display:flex;align-items:center;">
+                            <!--<div><label for="hidesuccessmsg"> <input type="checkbox" id="hidesuccessmsg">隐藏下注成功</label></div>-->
+                            <div class="yuliufengpan"><b>预留封盘： </b><input class="ok"
+                                    id="yuliufengpan5" data-type="fengpan">S&nbsp;&nbsp;<b>取消：</b><input class="ok"
+                                    id="edtCancel" data-type="cancel">S&nbsp;&nbsp;
+                                <div class="fanshuiSet"
+                                    style="position: relative;right: inherit;top: inherit;display: inline;border: none;margin-left: 0;">
+                                    <b>返水：</b><input class="ok" data-type="FanShui" style="width:30px;">
+                                </div>
+                                <div class="score"
+                                    style="float: right;display: none;margin-right: 8px;margin-top: 4px;">
+                                    开奖：前三位相加</div>
+                                <div class="score" style="display: flex;float: right;margin-right: 20px;margin-top: 4px;{$type!=75?'display:none;':''}">会员订单：
+                                <div><label for="vip"><input id="vip" type="radio" name="vip" value="1"
+                                            style="width:20px;">是</label> <label for="vipn"><input id="vipn"
+                                            type="radio" name="vip" value="2"
+                                            style="width:20px;">否</label></div>
+                                </div>
+                            </div>
+                            <div style="width: 190px;margin-left: 50px;">
+                                <div class="score" style="display: flex;right: 95px;float:left;{$type==75?'display:none;':''}"><b>流水显示：</b>
+                                    <div><label for="liushui"><input id="liushui" type="radio" name="ls" value="1"
+                                                style="width:20px;">单边</label> <label for="liushuis"><input id="liushuis"
+                                                type="radio" name="ls" value="2"
+                                                style="width:20px;">双边</label></div>
+                                </div>
+                                <div class="score" style="display: flex;right: 95px;float:left;margin-left:0px;{$type==75?'display:none;':''}"><b>倒计时：</b>
+                                    <div><label for="daoji"><input id="daoji" type="radio" name="dj" value="1"
+                                                style="width:20px;">开</label> <label for="daojin"><input id="daojin"
+                                                type="radio" name="dj" value="2"
+                                                style="width:20px;">关</label>
+                                    </div>
+                                </div>
+                                <div class="score" style="display: flex;right: 95px;margin-left:390px;{$type==75?'display:none;':''}display: none;">会员订单：
+                                    <div><label for="vip"><input id="vip" type="radio" name="vip" value="1"
+                                                style="width:20px;">是</label> <label for="vipn"><input id="vipn"
+                                                type="radio" name="vip" value="2"
+                                                style="width:20px;">否</label></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="functions"
+                            style="border-left: 0px; border-right: 0px; border-bottom: 0px; display: flex;{$type==75?'display:none;':''}">
+                            <div> 房间域名： <select id="chatDomains">
+                                </select></div>
+                            <div style="padding-left: 10px; display: flex; line-height: 22px;"> 开放注册： <label
+                                    for="log"><input id="log" type="radio" name="log" value="1"
+                                        style="width:20px;">是</label> <label for="logn"><input id="logn" type="radio"
+                                        name="log" value="2" style="width:20px;">否</label></div>
+                        </div>
+
+                        <div style="padding: 0px 0px 5px 5px;{$type==75?'display:none;':''}"> 登录链接：<a href="" target="_blank" id="groupLoginUrl"
+                                style="color: black; padding-right: 10px;"></a><a href="javascript:;"
+                                class="copyLoginLink">复制链接</a></div>
+
+                        <div class="sxf" style="height:125px;border:none;border-top: 1px solid #000">
+                            <div class="sxftitle" style="display: flex;">
+                                <b class="shangxiafentit red">上下分确认：</b><button id="baojingbtn"
+                                    style="height: 22px;padding: 0 8px;font-size: 12px;margin-bottom: 3px;">测试提示音</button>
+                                <div class="score" style="display: flex;right: 95px;top: 10px;margin-left: 125px;">提示音：
+                                    <div><label for="danbian"><input id="danbian" type="radio" name="ltype" value="1"
+                                                style="width:20px;">声音1</label> <label for="shuangbian"><input
+                                                id="shuangbian" type="radio" name="ltype" value="2"
+                                                style="width:20px;">声音2</label></div>
+                                </div>
+                            </div>
+                            <div class="sxflist" style="height:80%;overflow-y: auto;"></div>
+                        </div>
+
+                        <div class="jifen" style="height:435px;border:none;">
+                            <div class="jifentitle"><b>积分榜：</b><button id="baojingbtn"
+                                    style="display:none;">报警</button><span id="baojingmsg" class="red"></span><button
+                                    class="loginwxbtn selBtn" style="width:75px;"
+                                    id="btnShowPu" data-type="0">普(<span></span>)</button>&nbsp;&nbsp;<button class="loginwxbtn"
+                                    style="width:75px;" id="btnShowTuo" data-type="1">托(<span></span>)</button>&nbsp;&nbsp;<button
+                                    class="refjifen">刷新积分排序</button> &nbsp;&nbsp;<a href="javascript:;" id="jifen"
+                                    target="_self">积分记录</a>&nbsp;&nbsp;<a href="{:url('index/ShowUnCalculated')}"
+                                    target="_self" style="display:none;">未结指令</a></div>
+                            <p style="margin-top: 5px;text-align: right;width: 320px;color: #000;font-weight: bolder;">
+                                合计：<span id="heji"></span></p>
+                            <input name="search" type="text" placeholder="请输入用户昵称" class="search"
+                                style="width: 320px;line-height: 22px;margin-top: 3px;">
+                            <div class="jifenleftlist" style="left:1px;height:calc(100% - 120px);overflow-y: auto;width:320px;"></div>
+                            <div class="jifenright" style="height:calc(100% - 60px);width:235px;">
+                                <img class="headimg" title="点击随机更改头像" src="__STATIC__/xz/admin/defaultheadimg.jpg"
+                                    style="width: 55px;height: 55px;top: 175px;right: 10px;">
+                                <input type="file" name="changeHead" class="myHide" id="changeHead" accept="image/png,image/gif,image/jpg,image/jpeg" value="" onchange="upload(this)" />
+                                <button class="create_real" data-type="0">创建玩家</button>
+                                <button class="create_real" data-type="1" style="right:5px;">创建托</button>
+                                <div style="margin-top: 8px;margin-bottom: 8px;"><b>修改积分</b></div>
+                                <div class="usernumber">会员ID：</div>
+                                <div class="nickname" style="display: flex;">
+                                    昵&nbsp;&nbsp;&nbsp;&nbsp;称：<input id="NickName" style="width: 110px;border: 1px solid #888;border-radius: 5px;"><button
+                                        class="setnick"
+                                        style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">更新</button>
+                                </div>
+                                <div class="nickname userName" style="display: flex;">用户名：<input id="userName"
+                                        style="width: 110px;border: 1px solid #888;border-radius: 5px;"><button class="setname"
+                                        style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">更新</button>
+                                </div>
+                                <div class="nickname userPwd" style="display: flex;">密&nbsp;&nbsp;&nbsp;&nbsp;码：<input id="userPwd"
+                                        style="width: 110px;border: 1px solid #888;border-radius: 5px;"><button class="setpwd"
+                                        style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">更新</button>
+                                </div>
+                                <!--<div class="nickname loginPwd" style="display: flex;">验证码：<input id="loginPwd"-->
+                                <!--        style="width: 110px;border: 1px solid #888;border-radius: 5px;"><button class="setpwd2"-->
+                                <!--        style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">更新</button>-->
+                                <!--</div>-->
+                                <div style="margin-top:10px;">
+                                    <button class="repwd"
+                                        style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">重置密码</button><button
+                                        class="setmanual2 myHide" data-type="1"
+                                        style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">
+                                        吃单</button><button class="setmanual2 myHide" data-type="0"
+                                        style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">不吃</button><button
+                                        class="setblack myHide" data-type="1"
+                                        style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">拉黑</button><button
+                                        class="setblack myHide" data-type="0"
+                                        style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">拉白</button><button
+                                        class="setmanual myHide" data-type="0"
+                                        style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">改手动</button><button
+                                        class="setmanual myHide" data-type="1"
+                                        style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">改自动</button>
+                                </div>
+                                <div class="score">积分：</div>
+                                <div><input name="changejifenval"></div>
+                                <div style="margin-top:0;"><button class="submitjifen"
+                                        style="font-size: 12px;padding: 5px 9px;height: 26px;">上分</button><button
+                                        class="submitjifen2"
+                                        style="font-size: 12px;padding: 5px 9px;height: 26px;margin-left:8px;">下分</button>
+                                    <button class="setzhui myHide" data-type="1"
+                                        style="font-size: 12px;padding: 5px 9px;height: 26px;margin-left:5px;">开通追</button><button
+                                        class="setzhui myHide" data-type="0"
+                                        style="font-size: 12px;padding: 5px 9px;height: 26px;margin-left:5px;">关闭追</button><br><button
+                                        class="copyLink"
+                                        style="font-size: 12px;padding: 5px 9px;height: 26px;margin-top:10px;;margin-left:5px;">复制链接</button><button
+                                        class="getLink"
+                                        style="font-size: 12px;padding: 5px 9px;height: 26px;margin-top:10px;;margin-left:5px;">刷新链接</button><button
+                                        class="getLinkCode"
+                                        style="font-size: 12px;padding: 5px 9px;height: 26px;margin-top:10px;;margin-left:5px;">链接二维码</button>
+                                </div>
+                                <div class="flyers_num" style="display:none;">
+                                    <span>下注范围：</span>
+                                    <select name="flyers_num" id="flyers_num">
+                                        <option value="30-300">30-300</option>
+                                        <option value="300-1000">300-1000</option>
+                                        <option value="1000-3000">1000-3000</option>
+                                        <option value="3000-10000">3000-10000</option>
+                                        <option value="10000-30000">10000-30000</option>
+                                    </select>
+                                </div>
+                                <div id="copylinkArea"
+                                    style="color: #0af;font-size: 12px;word-break: break-all;margin:0;">
+                                </div>
+                                <div class="jifenmessage"></div>
+                            </div>
+                        </div>
+
+                        <div id="wangpan" class="flyers">
+                            <div class="wpList myHide">
+                                <div class="wangpanlogin1" data-id="">
+                                    <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                                        <div class="flyers_url">
+                                            <span>网址：</span>
+                                            <input name="flyers_url" type="text" data-type="flyers_url"
+                                                style="width:150px;">
+                                        </div>
+                                        <div class="flyers_username">
+                                            <span>账号：</span>
+                                            <input name="flyers_username" type="text" data-type="flyers_username"
+                                                style="width:60px;">
+                                        </div>
+                                        <div class="flyers_password">
+                                            <span>密码：</span>
+                                            <input name="flyers_password" type="password" data-type="flyers_password"
+                                                style="width:60px;">
+                                        </div>
+                                        <div class="flyers_type">
+                                            <span>AB盘：</span>
+                                            <select name="flyers_type">
+                                                <option value="a">A盘</option>
+                                                <option value="b">B盘</option>
+                                                <option value="c">C盘</option>
+                                                <option value="d">D盘</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="wpinfo" style="margin-top: 5px;margin-bottom: 5px;">
+                                        状态: <span class="flyers_tips"></span>,
+                                        余额: <span class="pankouMoney"></span>,
+                                        押注: <span class="pankouYa"></span>
+                                    </div>
+                                </div>
+                                <div class="queren flyers_button"
+                                    style="display: flex;flex-direction: row;justify-content: flex-start;margin-top:5px;">
+                                    <button class="save" style="margin-right: 10px">保存</button>
+                                    <button class="login">登录</button>
+                                </div>
+                            </div>
+                            <div class="" style="padding: 10px; height: 55px;">
+                                <div class="el-row"
+                                    style="margin-left: -2.5px; margin-right: -2.5px;align-items:center;">
+                                    <div class="el-col el-col-8 is-guttered"
+                                        style="padding-right: 2.5px;padding-left: 2.5px;align-items: center;display: flex;justify-content: space-between;">
+                                        报网类型: <span class="wptype">无</span> <button class="el-button el-button--small setWp" aria-disabled="false"
+                                            type="button"><span class="">设置账号</span></button></div>
+                                    <div class="el-col el-col-15 is-guttered wpmoney"
+                                        style="padding-right: 2.5px; padding-left: 2.5px;text-align:center;"><button
+                                            class="el-button el-button--success el-button--small login"
+                                            aria-disabled="false" type="button"><span class="">登录</span></button><input
+                                            type="checkbox" id="flyers_auto" checked="true"
+                                            style="margin-left:15px;">自动上报网盘&nbsp;&nbsp;&nbsp;&nbsp;网盘余额:
+                                        <span class="pankouMoney"></span>
+                                    </div>
+                                </div>
+                                <div class="el-row wpinfo"
+                                    style="margin-left: -2.5px; margin-right: -2.5px; padding-top: 5px;align-items:center;">
+                                    <div class="el-col el-col-12 is-guttered"
+                                        style="padding-right: 2.5px; padding-left: 2.5px;align-items: center;display: flex;justify-content: space-between;">
+                                        报网状态: <span class="flyers_tips"></span>
+                                        <label style="float: right; padding-right: 34px;"><input type="checkbox"
+                                                id="flyers_withdraw"> 失败自动退单
+                                        </label>
+                                    </div>
+                                    <div class="el-col el-col-11 is-guttered"
+                                        style="padding-right: 2.5px; padding-left: 2.5px;"> 超时订单: <span
+                                            style="display: inline-block; min-width: 20px;" class="csrecord">0</span>
+                                        押注: <span style="display: inline-block; min-width: 20px;"
+                                            class="pankouYa">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="display:none;position: absolute;border:1px solid #000;width:100px;height:100px;background:#fbfbfb;z-index:99999;top:450px;right:25px;"
+            class="qrBox">
+            <div>
+                <div class="userjifenzj"><img src="" width="100%" /></div>
+            </div>
+        </div>
+
+        <div class="jqx-window-content jqx-window-content-bootstrap jqx-widget-content jqx-widget-content-bootstrap jqx-rc-b jqx-rc-b-bootstrap"
+            style="width: 280px;height: 650px;padding-top: 10px;display:none;position: fixed;top: 75px;right: 20%;background: #fff;box-shadow: 1px 1px 5px #aaa;border-radius: 8px;z-index: 9999;">
+            <div>
+                
+            </div>
+            <div class="uk-grid uk-grid-margin" style="margin-top:10px;">
+                <div class="uk-width-1-1 uk-float-right">
+                    <a class="uk-button uk-button-primary yesbtn" href="javascript:;" style="margin-left: 30px;">确 定</a>
+                    <a class="uk-button uk-button-danger nobtn" href="javascript:;" style="margin-left: 30px;">取 消</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="el-overlay changePwd" style="z-index: 2008; display: none;">
+            <div role="dialog" aria-modal="true" aria-labelledby="el-id-2731-7" aria-describedby="el-id-2731-8"
+                class="el-overlay-dialog">
+                <div class="el-dialog el-dialog--center" style="--el-dialog-width:480px;">
+                    <header class="el-dialog__header"><span role="heading" class="el-dialog__title">更新密码</span><button
+                            aria-label="Close this dialog" class="el-dialog__headerbtn closeKuang" type="button"><i
+                                class="el-icon el-dialog__close"><svg viewBox="0 0 1024 1024"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="currentColor"
+                                        d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z">
+                                    </path>
+                                </svg></i></button></header>
+                    <div id="el-id-2731-8" class="el-dialog__body">
+                        <div style="padding: 20px;">
+                            <form class="el-form el-form--default el-form--label-right">
+                                <div class="el-form-item is-required"><label id="el-id-2731-17" for="el-id-2731-23"
+                                        class="el-form-item__label" style="width: 100px;">旧密码</label>
+                                    <div class="el-form-item__content">
+                                        <div class="el-input el-input--suffix">
+
+                                            <div class="el-input__wrapper">
+                                                <input class="el-input__inner" type="password" tabindex="0"
+                                                    id="oldpwd"><span class="el-input__suffix"><span
+                                                        class="el-input__suffix-inner"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="el-form-item is-required"><label id="el-id-2731-18" for="el-id-2731-24"
+                                        class="el-form-item__label" style="width: 100px;">新密码</label>
+                                    <div class="el-form-item__content">
+                                        <div class="el-input el-input--suffix">
+
+                                            <div class="el-input__wrapper">
+                                                <input class="el-input__inner" type="password" tabindex="0"
+                                                    id="newpwd"><span class="el-input__suffix"><span
+                                                        class="el-input__suffix-inner"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="el-form-item is-required"><label id="el-id-2731-19" for="el-id-2731-25"
+                                        class="el-form-item__label" style="width: 100px;">确认新密码</label>
+                                    <div class="el-form-item__content">
+                                        <div class="el-input el-input--suffix">
+
+                                            <div class="el-input__wrapper">
+                                                <input class="el-input__inner" type="password" tabindex="0"
+                                                    id="renewpwd"><span class="el-input__suffix"><span
+                                                        class="el-input__suffix-inner"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="el-form-item">
+                                    <div class="el-form-item__content" style="margin-left: 100px;">
+                                        <button class="el-button el-button--primary" aria-disabled="false"
+                                            type="button"><span class="changeOk">确认</span></button><button
+                                            class="el-button closeKuang" aria-disabled="false" type="button"><span
+                                                class="">关闭</span></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="el-overlay jifenKuang" style="z-index: 2007; display: none;">
+            <div role="dialog" aria-modal="true" aria-label="积分记录" aria-describedby="el-id-7741-4"
+                class="el-overlay-dialog">
+                <div class="el-dialog el-dialog--center" style="--el-dialog-width:480px;margin-top:40px;">
+                    <header class="el-dialog__header"><span role="heading" class="el-dialog__title">积分记录</span><button
+                            aria-label="Close this dialog" class="el-dialog__headerbtn closeKuang" type="button"><i
+                                class="el-icon el-dialog__close"><svg viewBox="0 0 1024 1024"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="currentColor"
+                                        d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z">
+                                    </path>
+                                </svg></i></button></header>
+                    <div id="el-id-5546-4" class="el-dialog__body" style="padding:0;">
+                        <div style="background-color: rgb(242, 243, 245);">
+                            <div style="padding-top: 0px;">
+                                <div style="font-size: var(--van-font-size-xs); padding-bottom: 10px;">
+                                    <div style="width: 100%;">
+                                        <div class="infolist" style="padding: 0;">
+                                            {include file='index/record'}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="el-overlay wpKuang" style="z-index: 2012; display: none;">
+            <div role="dialog" aria-modal="true" aria-label="网盘账号" aria-describedby="el-id-3182-11"
+                class="el-overlay-dialog">
+                <div class="el-dialog el-dialog--center" style="--el-dialog-width:480px;">
+                    <header class="el-dialog__header"><span role="heading" class="el-dialog__title">网盘账号</span><button
+                            aria-label="Close this dialog" class="el-dialog__headerbtn closeKuang" type="button"><i
+                                class="el-icon el-dialog__close"><svg viewBox="0 0 1024 1024"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="currentColor"
+                                        d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z">
+                                    </path>
+                                </svg></i></button></header>
+                    <div id="el-id-3182-11" class="el-dialog__body">
+                        <form class="el-form el-form--default el-form--label-right"
+                            style="padding-left: 15px; padding-right: 15px;">
+                            <div class="el-form-item is-success is-required"><label id="el-id-3182-22"
+                                    for="el-id-3182-29" class="el-form-item__label" style="width: 100px;">网盘</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-radio-group ml-4" role="radiogroup" aria-labelledby="el-id-3182-22"
+                                        id="el-id-3182-29"></div>
+                                </div>
+                            </div>
+                            <div class="el-form-item is-required fstype myHide"><label id="el-id-3410-63" for="el-id-3410-66" class="el-form-item__label" style="width: 100px;">返水方式</label><div class="el-form-item__content"><div class="el-radio-group ml-4" role="radiogroup" aria-labelledby="el-id-3410-63" id="el-id-3410-66"><label class="el-radio el-radio--large" for="fstype1"><span class="el-radio__input"><input name="fstype" id="fstype1" type="radio" value="1" tabindex="0" checked=""></span><span class="el-radio__label">单边</span></label><label class="el-radio el-radio--large" for="fstype2"><span class="el-radio__input"><input name="fstype" id="fstype2" type="radio" value="2"></span><span class="el-radio__label">双边</span></label></div></div></div>
+                            <div class="el-form-item pankou"><label id="el-id-3182-52" for="el-id-3182-54"
+                                    class="el-form-item__label" style="width: 100px;">盘口</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-radio-group ml-4" role="radiogroup" aria-labelledby="el-id-3182-52"
+                                        id="el-id-3182-54"><label class="el-radio el-radio--large" for="pka"><input
+                                                id="pka" type="radio" name="pktype" value="1" style="width:20px;"><span class="el-radio__label">A</span></label><label
+                                            class="el-radio is-checked el-radio--large" for="pkb"><input id="pkb"
+                                                type="radio" name="pktype" value="2" style="width:20px;"><span
+                                                class="el-radio__label">B</span></label><label
+                                            class="el-radio el-radio--large" for="pkc"><input id="pkc" type="radio"
+                                                name="pktype" value="3" style="width:20px;"><span
+                                                class="el-radio__label">C</span></label><label
+                                            class="el-radio el-radio--large" for="pkd"><input id="pkd" type="radio"
+                                                name="pktype" value="4" style="width:20px;"><span
+                                                class="el-radio__label">D</span></label></div>
+                                </div>
+                            </div>
+                            <div class="el-form-item is-success is-required"><label id="el-id-3182-46" for="wpname"
+                                    class="el-form-item__label" style="width: 100px;">用户名</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input">
+                                        <div class="el-input__wrapper"><input class="el-input__inner" type="type"
+                                                tabindex="0" id="wpname"></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item is-success is-required pwd"><label id="el-id-3182-47" for="wppwd"
+                                    class="el-form-item__label" style="width: 100px;">密码</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input">
+                                        <div class="el-input__wrapper"><input class="el-input__inner" type="type"
+                                                tabindex="0" id="wppwd"></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item is-required sousuo myHide"><label id="el-id-3410-100" for="el-id-3410-103" class="el-form-item__label" style="width: 100px;">搜索码</label><div class="el-form-item__content"><div class="el-input"><div class="el-input__wrapper"><input class="el-input__inner" type="type" autocomplete="off" tabindex="0" id="el-id-3410-103" name="searchCode"></div></div></div></div>
+                        </form>
+                    </div>
+                    <footer class="el-dialog__footer"><span class="dialog-footer"><button class="el-button closeKuang"
+                                aria-disabled="false" type="button"><span class="">取消</span></button><button
+                                class="el-button el-button--primary save" aria-disabled="false" type="button"><span
+                                    class="">确认</span></button></span></footer>
+                </div>
+            </div>
+        </div>
+
+        <div class="el-overlay peilvKuang" style="z-index: 2007; display: none;">
+            <div role="dialog" aria-modal="true" aria-label="限额和赔率" aria-describedby="el-id-7854-9"
+                class="el-overlay-dialog">
+                <div class="el-dialog is-fullscreen el-dialog--center" style="--el-dialog-width:480px;margin-top: 4%;height: auto;">
+                    <header class="el-dialog__header"><span role="heading"
+                            class="el-dialog__title">限额和赔率</span><button
+                            aria-label="Close this dialog" class="el-dialog__headerbtn closeKuang" type="button"><i
+                                class="el-icon el-dialog__close"><svg viewBox="0 0 1024 1024"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="currentColor"
+                                        d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z">
+                                    </path>
+                                </svg></i></button></header>
+                    <div id="el-id-7854-9" class="el-dialog__body" style="padding-top:0;padding-bottom:10;">
+                        <form id="limitForm" style="overflow: hidden;" class="uk-form el-form el-form--small el-form--label-right">
+                            <div class="uk-grid uk-grid-small" data-uk-grid-margin="" style="display:none;">
+                                <div class="uk-width-1-3">特指令单场单玩家限额：<span style="color: red">*</span></div>
+                                <div class="uk-width-2-3">
+                                    <input onkeyup="value=value.replace(/[^0-9]/g,&#39;&#39;)">
+                                </div>
+                            </div>
+                            <div class="uk-grid uk-grid-small" data-uk-grid-margin="" style="display:none;">
+                                <div class="uk-width-1-3">普通指令单场单玩家限额：<span style="color: red">*</span></div>
+                                <div class="uk-width-2-3">
+                                    <input onkeyup="value=value.replace(/[^0-9]/g,&#39;&#39;)">
+                                </div>
+                            </div>
+                            <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
+                                <div class="uk-width-1-3">单场总限额：<span style="color: red">*</span></div>
+                                <div class="uk-width-2-3">
+                                    <input onkeyup="value=value.replace(/[^0-9]/g,&#39;&#39;)">
+                                </div>
+                            </div>
+                            <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
+                                <div class="uk-width-1-3">正限额：<span style="color: red">*</span></div>
+                                <div class="uk-width-2-3">
+                                    <input onkeyup="value=value.replace(/[^0-9]/g,&#39;&#39;)">
+                                </div>
+                            </div>
+                            <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
+                                <div class="uk-width-1-3">角限额：<span style="color: red">*</span></div>
+                                <div class="uk-width-2-3">
+                                    <input onkeyup="value=value.replace(/[^0-9]/g,&#39;&#39;)">
+                                </div>
+                            </div>
+                            <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
+                                <div class="uk-width-1-3">念限额：<span style="color: red">*</span></div>
+                                <div class="uk-width-2-3">
+                                    <input onkeyup="value=value.replace(/[^0-9]/g,&#39;&#39;)">
+                                </div>
+                            </div>
+                            <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
+                                <div class="uk-width-1-3">通限额：<span style="color: red">*</span></div>
+                                <div class="uk-width-2-3">
+                                    <input onkeyup="value=value.replace(/[^0-9]/g,&#39;&#39;)">
+                                </div>
+                            </div>
+                            <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
+                                <div class="uk-width-1-3">车限额：<span style="color: red">*</span></div>
+                                <div class="uk-width-2-3">
+                                    <input onkeyup="value=value.replace(/[^0-9]/g,&#39;&#39;)">
+                                </div>
+                            </div>
+                            <div class="uk-grid uk-grid-small" data-uk-grid-margin="" style="display:none;">
+                                <div class="uk-width-1-3">特码限额：<span style="color: red">*</span></div>
+                                <div class="uk-width-2-3">
+                                    <input onkeyup="value=value.replace(/[^0-9]/g,&#39;&#39;)">
+                                </div>
+                            </div>
+                            <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
+                                <div class="uk-width-1-3">单双限额：<span style="color: red">*</span></div>
+                                <div class="uk-width-2-3">
+                                    <input onkeyup="value=value.replace(/[^0-9]/g,&#39;&#39;)">
+                                </div>
+                            </div>
+                            <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
+                                <div class="uk-width-1-3">大小限额：<span style="color: red">*</span></div>
+                                <div class="uk-width-2-3">
+                                    <input onkeyup="value=value.replace(/[^0-9]/g,&#39;&#39;)">
+                                </div>
+                            </div>
+                            <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
+                                <div class="uk-width-1-3">番限额：<span style="color: red">*</span></div>
+                                <div class="uk-width-2-3">
+                                    <input onkeyup="value=value.replace(/[^0-9]/g,&#39;&#39;)">
+                                </div>
+                            </div>
+                            <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
+                                <div class="uk-width-1-3">加限额：<span style="color: red">*</span></div>
+                                <div class="uk-width-2-3">
+                                    <input onkeyup="value=value.replace(/[^0-9]/g,&#39;&#39;)">
+                                </div>
+                            </div>
+                            <div class="uk-grid uk-grid-small" data-uk-grid-margin="" style="display:none;">
+                                <div class="uk-width-1-3">赔率：<span style="color: red">*</span></div>
+                                <div class="uk-width-2-3">
+                                    <input onkeyup="value=value.replace(/[^0-9]/g,&#39;&#39;)">
+                                </div>
+                            </div>
+                            <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
+                                <div class="uk-width-1-3">玩家最高注额：<span style="color: red">*</span></div>
+                                <div class="uk-width-2-3">
+                                    <input onkeyup="value=value.replace(/[^0-9]/g,&#39;&#39;)">
+                                </div>
+                            </div>
+                            <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
+                                <div class="uk-width-1-3">玩家最小注额：<span style="color: red">*</span></div>
+                                <div class="uk-width-2-3">
+                                    <input onkeyup="value=value.replace(/[^0-9]/g,&#39;&#39;)">
+                                </div>
+                            </div>
+                            <div class="uk-grid uk-grid-small" data-uk-grid-margin="" style="display:none;">
+                                <div class="uk-width-1-3">托下注金额：<span style="color: red">*</span></div>
+                                <div class="uk-width-2-3">
+                                    <input onkeyup="value=value.replace(/[^0-9]/g,&#39;&#39;)">
+                                </div>
+                            </div>
+                        </form>
+                        <form class="el-form el-form--small el-form--label-right"
+                            style="padding-left: 15px; padding-right: 15px;display:none;">
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-17" for="el-id-7854-38" class="el-form-item__label"
+                                    style="width: 150px;">限额模式</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-radio-group" role="radiogroup" aria-labelledby="el-id-7854-17"
+                                        id="el-id-7854-38"><label class="el-radio is-checked el-radio--small"><span
+                                                class="el-radio__input is-checked"><input class="el-radio__original"
+                                                    name="el-id-7854-18" type="radio" value="totalAmount"><span
+                                                    class="el-radio__inner"></span></span><span
+                                                class="el-radio__label">单期总额</span></label><label
+                                            class="el-radio el-radio--small"><span class="el-radio__input"><input
+                                                    class="el-radio__original" name="el-id-7854-18" type="radio"
+                                                    value="singleOddsNoRepeatV2"><span
+                                                    class="el-radio__inner"></span></span><span
+                                                class="el-radio__label">单注总额</span></label></div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-19" for="el-id-7854-39" class="el-form-item__label"
+                                    style="width: 150px;">赔率</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-39"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-20" for="el-id-7854-40" class="el-form-item__label"
+                                    style="width: 150px;">单场单玩家限额</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-40"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-21" for="el-id-7854-41" class="el-form-item__label"
+                                    style="width: 150px;">单码限额</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-41"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-22" for="el-id-7854-42" class="el-form-item__label"
+                                    style="width: 150px;">特指令赔率</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-42"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-23" for="el-id-7854-43" class="el-form-item__label"
+                                    style="width: 150px;">玩家最高注额</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-43"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-24" for="el-id-7854-44" class="el-form-item__label"
+                                    style="width: 150px;">玩家最小注额</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-44"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-25" for="el-id-7854-45" class="el-form-item__label"
+                                    style="width: 150px;">单场总限额</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-45"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-26" for="el-id-7854-46" class="el-form-item__label"
+                                    style="width: 150px;">大单场总限额</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-46"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-27" for="el-id-7854-47" class="el-form-item__label"
+                                    style="width: 150px;">小单场总限额</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-47"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-28" for="el-id-7854-48" class="el-form-item__label"
+                                    style="width: 150px;">单单场总限额</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-48"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-29" for="el-id-7854-49" class="el-form-item__label"
+                                    style="width: 150px;">双单场总限额</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-49"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-30" for="el-id-7854-50" class="el-form-item__label"
+                                    style="width: 150px;">车单场总限额</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-50"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-31" for="el-id-7854-51" class="el-form-item__label"
+                                    style="width: 150px;">念/严单场总限额</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-51"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-32" for="el-id-7854-52" class="el-form-item__label"
+                                    style="width: 150px;">通单场总限额</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-52"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-33" for="el-id-7854-53" class="el-form-item__label"
+                                    style="width: 150px;">加单场总限额</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-53"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-34" for="el-id-7854-54" class="el-form-item__label"
+                                    style="width: 150px;">正/堂单场总限额</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-54"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-35" for="el-id-7854-55" class="el-form-item__label"
+                                    style="width: 150px;">角单场总限额</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-55"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-64" for="el-id-7854-65" class="el-form-item__label"
+                                    style="width: 150px;">特单场总限额</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-65"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="el-form-item el-form-item--small" style="margin-bottom: 5px;"><label
+                                    id="el-id-7854-37" for="el-id-7854-57" class="el-form-item__label"
+                                    style="width: 150px;">番单场总限额</label>
+                                <div class="el-form-item__content">
+                                    <div class="el-input el-input--small">
+                                        <div class="el-input__wrapper"><input
+                                                class="el-input__inner" type="text" autocomplete="off" tabindex="0"
+                                                id="el-id-7854-57"></div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <footer class="el-dialog__footer">
+                        <div class="dialog-footer" style="text-align: center;"><button class="el-button closeKuang"
+                                aria-disabled="false" type="button"><span class="">取消</span></button><button
+                                class="el-button el-button--primary okBtn" aria-disabled="false"
+                                type="button"><span class="">确认</span></button></div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <audio id="sfaudio" style="width:0px;height:0px;" preload="auto">
+                <source id="sxfsysf" src="__STATIC__/xz/admin/861.mp3">
+            </audio>
+            <audio id="xfaudio" style="width:0px;height:0px;" preload="auto">
+                <source id="sxfsyxf" src="__STATIC__/xz/admin/886.mp3">
+            </audio>
+            <audio id="alertaudio" style="width:0px;height:0px;display:none;" preload="auto">
+                <source id="baojing" src="__STATIC__/xz/admin/alert.mp3">
+            </audio>
+        </div>
+
+        <script type="text/javascript">
+            var wxid = null;
+            var memberType = 0;
+            var memberid = '';
+            var mylayer = null;
+            var isFirstLoad = true; //表示是第一次执行覆盖微信名
+            var centerConfig = {
+                kaipanStatus: 0,
+                applyscorelastid: null, //该机器人最新一条上下分请求的id
+                dw: null,
+                nownotesid: null,
+                jifenchangeid: -1,
+                jifenCache: {
+                    "index": 0
+                },
+                changeyuliufengpan: false,
+                yuliufengpan5: 0,
+                changepeilv: false,
+                peilv: -1,
+                changefanshui: false,
+                fanshui: -1,
+                Hold5TimeSeconds: -1,
+                CancelInSecs: -1,
+                changeCancel: false,
+                changeFengpan: false,
+                changexe: false,
+                changecancelcmd: false,
+                cancelcmd: -1,
+                ishidesuccessmsg: false,
+                dicUser: {}, //用户列表每个wxid内容的显示div标签对象
+                ltype: null
+            };
+            //报警
+            var isBaojing = false;
+            var isAjax = false;
+            var baojingmsg = {};
+            var qihao = null;
+            //获取当前代理所有玩家的下注指令列表
+            var cmdType = 0; //0为只显示真实玩家指令，1为只显示托指令,2为全部显示
+            var audio = document.getElementById("sfaudio");
+            var audio2 = document.getElementById("xfaudio");
+            //选定某一个玩家，改变右边的信息框进行编辑
+            var selectChangejifen = null;
+            var fly_id = null;
+            setTimeout(function() {
+                window.location.reload();
+            }, 1000 * 60 * 4);
+            //定义日期格式
+            Date.prototype.pattern = function(fmt) {
+                var o = {
+                    "M+": this.getMonth() + 1, //月份
+                    "d+": this.getDate(), //日
+                    "h+": this.getHours() % 12 == 0 ? 12 : this.getHours() % 12, //小时
+                    "H+": this.getHours(), //小时
+                    "m+": this.getMinutes(), //分
+                    "s+": this.getSeconds(), //秒
+                    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                    "S": this.getMilliseconds() //毫秒
+                };
+                //y年 M月 d日 h12时 H24时 m分 s秒 q季度 S毫秒 E周几
+                var week = {
+                    "0": "/u65e5",
+                    "1": "/u4e00",
+                    "2": "/u4e8c",
+                    "3": "/u4e09",
+                    "4": "/u56db",
+                    "5": "/u4e94",
+                    "6": "/u516d"
+                };
+                if (/(y+)/.test(fmt)) {
+                    fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                }
+                if (/(E+)/.test(fmt)) {
+                    fmt = fmt.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "/u661f/u671f" :
+                        "/u5468") : "") + week[this.getDay() + ""]);
+                }
+                for (var k in o) {
+                    if (new RegExp("(" + k + ")").test(fmt)) {
+                        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" +
+                                o[k])
+                            .length)));
+                    }
+                }
+                return fmt;
+            }
+
+            function alertErr(title) {
+                UIkit.notify(title, {
+                    status: 'danger',
+                    pos: 'top-center',
+                    timeout: 2000
+                });
+            }
+            function alertSuc(title) {
+                UIkit.notify(title, {
+                    status: 'info',
+                    pos: 'top-center',
+                    timeout: 2000
+                });
+            }
+            function openKuang(tar) {
+                centerConfig.changexe = true;
+                $("."+tar).show();
+                $('body').css('overflow', 'hidden');
+            }
+            function closeKuang() {
+                $(".changePwd").hide();
+                $(".jifenKuang").hide();
+                $(".wpKuang").hide();
+                $(".peilvKuang").hide();
+                $('body').css('overflow', 'auto');
+                $("#oldpwd").val("");
+                $("#newpwd").val("");
+                $("#renewpwd").val("");
+                centerConfig.changexe = false;
+            }
+            function putAjax(url, data, callback, callback2) {
+                if (!isAjax) {
+                    isAjax = true;
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        dataType: "json",
+                        data: data,
+                        cache: false,
+                        success: function(data) {
+                            if (callback && typeof callback === 'function') {
+                                callback(data);
+                            }
+                            isAjax = false;
+                        },
+                        error: function() {
+                            if (callback2 && typeof callback2 === 'function') {
+                                callback2();
+                            }
+                            alertErr("请求失败，请重试!");
+                            isAjax = false;
+                            closeKuang();
+                        }
+                    });
+                }
+            }
+            //更换设备
+            function LogoutWx() {
+                layer.confirm("确定更换微信么?", function() {
+                    $(".logininp").show();
+                    $(".loginother").hide();
+                    putAjax("{:url('index/qrcode4')}", {
+                        "robot": wxid
+                    });
+                });
+                return false;
+            }
+            //开始登录微信
+            function RefreshQR() {
+                layer.load(1, {
+                    shade: [0.1, '#fff']
+                });
+                putAjax("{:url('index/qrcode')}", {}, function(data) {
+                    layer.closeAll();
+                    if (data.img) {
+                        mylayer = layer.open({
+                            type: 1,
+                            title: '微信扫码登录',
+                            shadeClose: false,
+                            shade: 0.8,
+                            area: ['330px', '380px'],
+                            time: 45000,
+                            content: '<img src="' + data.img +
+                                '" style="display: block;margin: 0 auto;">'
+                        });
+                    }
+                });
+                return false;
+            }
+            //定时刷新是否需要重新登录
+            function autoHandle() {
+                putAjax("{:url('index/needhandle')}", {
+                    "tar": (document.hidden ? 1 : 0),
+                    "type": cmdType,
+                    "user": '{$Think.session.user_id2}',
+                    "rtype": memberType,
+                    'uid': memberid
+                }, function(data) {
+                    if (data.IsNeedLogin) {
+                        window.location.href = "{:url('Login/Logout2')}";
+                    } else {
+                        changeUI(data);
+                    }
+                    $('.gd').text(data.config.gd);
+                    $('.logininp').html(data.config.rbMsg);
+                    $("#sxfsysf").attr("src", data.config.mp3_1);
+                    $("#sxfsyxf").attr("src", data.config.mp3_2);
+                    if (!$('#chatDomains').val()) {
+                        for (var k in data.config.yuming) {
+                            $('#chatDomains').append('<option value="' + k + '" ' + (data.rob.url == k ?
+                                "selected" :
+                                "") + '>' + data.config.yuming[k] + '</option>');
+                        }
+                    }
+                    if (data.rob.xiugai==0) {
+                        $(".peilv input,.peilv2 input,.fanshuiSet2 input,.fanshuiSet input,#yuliufengpan5,#edtCancel").attr('readonly',true);
+                        $('#changexe').hide();
+                    } else {
+                        $(".peilv input,.peilv2 input,.fanshuiSet2 input,.fanshuiSet input,#yuliufengpan5,#edtCancel").attr('readonly',false);
+                        $('#changexe').show();
+                    }
+                    $("#groupLoginUrl").attr('href', data.rob.link).html(data.rob.link);
+                    $(".copyLoginLink").attr('data-clipboard-text', data.rob.link);
+                    qihao = data.qh;
+                    updateApplyScoreList(data);
+                    flyersList(data);
+                    setCmd(data);
+                    setJifenList(data);
+                });
+            }
+            
+            setInterval(autoHandle,2000)
+            
+            getWpList()
+            
+            function updatePan(kaipanStatus) {
+                $("#kaipanstatus").addClass("sed");
+                if (kaipanStatus == 1) {
+                    $("#kaipanstatus").removeClass("sed");
+                    $("#kaipanstatus").text("开盘");
+                } else {
+                    $("#kaipanstatus").text("收盘");
+                }
+            }
+            //刷新界面
+            function changeUI(data) {
+                //判断是否即将过期
+                if (data.OverdueTime && data.ServerTime) {
+                    var sjstr = new Date(data.OverdueTime).pattern("yyyy/MM/dd HH:mm:ss");
+                    if (sjstr != $(".guoqitime").text()) {
+                        $(".guoqitime").text(new Date(data.OverdueTime).pattern("yyyy/MM/dd HH:mm:ss"));
+                    }
+                    var sH = (data.OverdueTime - data.ServerTime) / (60 * 60 * 1000);
+                    var xs = parseInt(sH);
+                    var fz = parseInt((sH - parseInt(sH)) * 60);
+                    var alertMsg = "剩余" + xs + "小时" + (fz ? fz + "分钟" : "") + "过期";
+                    if (sH < 2) {
+                        baojingmsg[3] = alertMsg;
+                        var msg = "";
+                        for (var k in baojingmsg) {
+                            msg += (msg ? "," : "") + baojingmsg[k];
+                        }
+                        $("#baojingmsg").text(msg);
+                    };
+                    if ((!centerConfig.isgqbj) || centerConfig.isgqbj - sH > 0.8) {
+                        if (sH < 2) {
+                            centerConfig.isgqbj = sH;
+                            baojing(true, 3, alertMsg);
+                        } else {
+                            centerConfig.isgqbj = 0;
+                        }
+                    }
+                }
+                //更新剩余积分
+                $("#leftScore").html(parseFloat(data.score));
+                //更新开盘状态
+                centerConfig.kaipanStatus = data.IsKaiPan;
+                updatePan(data.IsKaiPan);
+                centerConfig.ltype = data.lType;
+                $("input[name='ltype'][value='"+data.lType+"']").attr('checked', true);
+                $("input[name='ls'][value='"+data.rob.ls+"']").attr('checked', true);
+                $("input[name='dj'][value='"+data.rob.dj+"']").attr('checked', true);
+                $("input[name='vip'][value='"+data.rob.vip+"']").attr('checked', true);
+                $("input[name='log'][value='"+data.rob.log+"']").attr('checked', true);
+                if (!centerConfig.changexe) {
+                    var rowData = data.rob;
+                    $("#limitForm input:first").val(rowData.t);
+                    $("#limitForm input:eq(1)").val(rowData.pt);
+                    $("#limitForm input:eq(2)").val(rowData.total);
+                    $("#limitForm input:eq(3)").val(rowData.zheng);
+                    $("#limitForm input:eq(4)").val(rowData.jiao);
+                    $("#limitForm input:eq(5)").val(rowData.nian);
+                    $("#limitForm input:eq(6)").val(rowData.tong);
+                    $("#limitForm input:eq(7)").val(rowData.che);
+                    $("#limitForm input:eq(8)").val(rowData.te);
+                    $("#limitForm input:eq(9)").val(rowData.danshuang);
+                    $("#limitForm input:eq(10)").val(rowData.daxiao);
+                    $("#limitForm input:eq(11)").val(rowData.fan);
+                    $("#limitForm input:eq(12)").val(rowData.jia);
+                    $("#limitForm input:eq(13)").val(rowData.PeiLv);
+                    $("#limitForm input:eq(14)").val(rowData.zuigao);
+                    $("#limitForm input:eq(15)").val(rowData.zuidi);
+                    $("#limitForm input:eq(16)").val(rowData.chidan);
+                }
+                //赔率
+                if (!centerConfig.changepeilv) {
+                    $(".peilv input").val(data.PeiLv).addClass("ok");
+                    $(".fanshuiSet input").val(data.FanShui).addClass("ok");
+                    $("#yuliufengpan5").val(data.Hold5TimeSeconds).addClass("ok");
+                    $("#edtCancel").val(data.CancelInSecs).addClass("ok");
+                    $(".peilv2 input").val(data.tePeilv).addClass("ok");
+                    $(".fanshuiSet2 input").val(data.teFanshui).addClass("ok");
+                }
+                //是否隐藏下注成功消息
+                $("#hidesuccessmsg").attr("checked", data.HideMsg == 1);
+                $("#kaipanstatus").css("visibility", "visible");
+                //更新用户列表的积分
+                $(data.users).each(function(index) {
+                    var sB = data.users[index];
+                    if (centerConfig.dicUser[sB.wxid]) {
+                        $("span", centerConfig.dicUser[sB.wxid]).text(autoMoney(sB.score));
+                    }
+                });
+            }
+            $('input[name="ltype"]').on('change', function() {
+                putAjax("{:url('index/setType')}", {
+                    'ltype': $(this).val()
+                });
+                centerConfig.ltype = $(this).val();
+            });
+            $('input[name="ls"]').on('change', function() {
+                putAjax("{:url('index/setType')}", {
+                    'ls': $(this).val()
+                });
+            });
+            $('input[name="dj"]').on('change', function() {
+                putAjax("{:url('index/setType')}", {
+                    'dj': $(this).val()
+                });
+            });
+            $('input[name="vip"]').on('change', function() {
+                putAjax("{:url('index/setType')}", {
+                    'vip': $(this).val()
+                });
+            });
+            $('input[name="log"]').on('change', function() {
+                putAjax("{:url('index/setType')}", {
+                    'log': $(this).val()
+                });
+            });
+            $('#chatDomains').on('change', function() {
+                putAjax("{:url('index/setType')}", {
+                    'url': $(this).val()
+                });
+            });
+            $('.search').on('input', function(e) {
+                memberid = $(this).val();
+                updateJifenList();
+            });
+            function checkCmd(url,data,type=1) {
+                putAjax(url, data, function(data) {
+                    if (data.Data == 0) {
+                        alertSuc('操作成功！');
+                        if (type == 0) {
+                            div.remove();
+                        }
+                        GetCmdList();
+                    } else if (data.Data == -2) {
+                        alertErr("当前已封盘，无法操作!");
+                    } else {
+                        alertErr("操作失败，请重试!");
+                    }
+                    layer.closeAll()
+                });
+            }
+            function setCmd(data) {
+                $("#xiazhubanlist").empty();
+                var txt = "&nbsp;&nbsp;(<span style='color:green;font-weight:bolder;'>普:" + data.total1 +
+                    "</span>,托:" + data.total2 + ",吃:" + data.total3 + ")";
+                $("#dangqianzhuqi").html(txt).attr("title", txt);
+                $('#btnShowPuCmd span').text(data.totalPu);
+                $('#btnShowTuoCmd span').text(data.totalTuo);
+                $('#btnShowTuoCmd2 span').text(data.totalChi);
+                var gameName = '';
+                $(data.detail).each(function(index) {
+                    var val = data.detail[index];
+                    var tuoprefix = val.isTuo == "1" ? "" : "";
+                    var div = $('<div ' + (index % 2 == 0 ? "" : " class=\"se\"") + '  cusLink="' + val.id +
+                        '"><b class="status' + val.flyers_status + '" title="" status="' + val
+                        .flyers_status + '" style="display:' + ((val.isTuo == "1" || val.chi == "1") ? "none" : "inline-block") + ';">●</b><span>' + tuoprefix + '[' + val.wid + '] “' + val.text +
+                        '” 合计：' + val.score + '</span><s>×</s></div>');
+                    //绑定事件
+                    $("s", div).click(function() {
+                        if (div.attr("status")==0||div.attr("status")==3) {
+                            layer.confirm("确定撤销吗?" + $("span", div).text(), function() {
+                                checkCmd("{:url('index/AllowDel')}", {
+                                    id: div.attr("cusLink")
+                                },0);
+                            });
+                        }
+                    });
+                    $(".status0", div).click(function() {
+                        if (cmdType==0) {
+                            layer.confirm("确定要重新飞单吗?" + $("span", div).text(), function() {
+                                checkCmd("{:url('index/reFeidan')}", {
+                                    id: div.attr("cusLink")
+                                });
+                            });
+                        }
+                    });
+                    $(".status3", div).click(function() {
+                        if (cmdType==0) {
+                            layer.confirm("确定要重新飞单吗?" + $("span", div).text(), function() {
+                                checkCmd("{:url('index/reFeidan')}", {
+                                    id: div.attr("cusLink")
+                                });
+                            });
+                        }
+                    });
+                    if (gameName!=val.gameName) {
+                        $("#xiazhubanlist").append('<div><b>'+val.gameName+'</b>&nbsp;&nbsp;(<span>'+val.qihao+'期</span>)</div>');
+                    }
+                    gameName = val.gameName;
+                    //加入列表
+                    $("#xiazhubanlist").append(div);
+                });
+            }
+            function GetCmdList(data) {
+                putAjax("{:url('index/GetCmdList')}", {
+                    "type": cmdType,
+                    "qihao": qihao
+                }, function(data) {
+                    setCmd(data);
+                });
+            }
+            /**
+             * 获取飞单列表
+             * @constructor
+             */
+            function flyersList(data) {
+                // putAjax("{:url('index/flyersList')}", {}, function(data) {
+                if (data.iswp) {
+                    $('.login,.wpmoney,.wpinfo').show();
+                    $("#flyers_auto").prop("checked", data.Data.flyers_auto == 1);
+                    $("#flyers_withdraw").prop("checked", data.Data.flyers_withdraw == 1);
+                    var aScore = data.Data;
+                    if (!$('input[name="flyers_url"]').is(':focus') && !$('input[name="flyers_username"]').is(
+                            ':focus') && !$('input[name="flyers_password"]').is(':focus')) {
+                        $(".wangpanlogin1").eq(0).attr('data-id', aScore.id)
+                        $(".wangpanlogin1").eq(0).find("[name='flyers_url']").val(aScore.flyers_url)
+                        $(".wangpanlogin1").eq(0).find("[name='flyers_username']").val(aScore.flyers_username)
+                        $(".wangpanlogin1").eq(0).find("[name='flyers_password']").val(aScore.flyers_password)
+                        $(".wangpanlogin1").eq(0).find("[name='flyers_type']").val(aScore.flyers_type)
+                    }
+                    if ($(".wpKuang").css('display')=='none') {
+                        $("#wpname").val(aScore.flyers_username)
+                        $("#wppwd").val(aScore.flyers_password)
+                    }
+                    if (aScore.wpname) {
+                        $(".wptype").text(aScore.wpname)
+                    }
+                    $("input[name='code'][value='"+aScore.fly_id+"']").attr('checked', true);
+                    if (!fly_id) {
+                        fly_id = aScore.fly_id;
+                    }
+                    $("input[name='fstype'][value='"+aScore.fly_fs+"']").attr('checked', true);
+                    $("input[name='pktype'][value='"+aScore.flyers_type+"']").attr('checked', true);
+                    $(".pankouMoney").text(aScore.money)
+                    $(".pankouYa").text(aScore.betting)
+                    if (aScore.flyers_online) {
+                        // 			$(".wangpanlogin1").eq(k).find(".flyers_tips").html('在线').css({
+                        // 				'color': '#0af'
+                        // 			});
+                        $(".flyers_tips").html('在线').css({
+                            'color': '#0af'
+                        });
+                        $(".login span").html('已登录')
+                    } else {
+                        if (aScore.flyers_password && aScore.flyers_username) {
+                            // PlayXF();
+                        }
+                        // 			$(".wangpanlogin1").eq(k).find(".flyers_tips").html('登录失败').css({
+                        // 				'color': '#f00'
+                        // 			});
+                        $(".flyers_tips").html('离线').css({
+                            'color': '#f00'
+                        });
+                        $(".login span").html('登录')
+                    }
+                } else {
+                    $('.login,.wpmoney,.wpinfo').hide();
+                }
+                // });
+            }
+            $(document).ready(function() {
+                $("#ExitLink").click(function() {
+                    location.href = "{:url('Login/Logout2')}";
+                });
+                $('#changexe').on('click', function() {
+                    openKuang('peilvKuang');
+                })
+                $('.okBtn').on('click', function() {
+                    putAjax("{:url('index/ChangeLimit')}", {
+                        "t": $("#limitForm input:first").val(),
+                        "pt": $("#limitForm input:eq(1)").val(),
+                        "total": $("#limitForm input:eq(2)").val(),
+                        "zheng": $("#limitForm input:eq(3)").val(),
+                        "jiao": $("#limitForm input:eq(4)").val(),
+                        "nian": $("#limitForm input:eq(5)").val(),
+                        "tong": $("#limitForm input:eq(6)").val(),
+                        "che": $("#limitForm input:eq(7)").val(),
+                        "te": $("#limitForm input:eq(8)").val(),
+                        "danshuang": $("#limitForm input:eq(9)").val(),
+                        "daxiao": $("#limitForm input:eq(10)").val(),
+                        "fan": $("#limitForm input:eq(11)").val(),
+                        "jia": $("#limitForm input:eq(12)").val(),
+                        "PeiLv": $("#limitForm input:eq(13)").val(),
+                        "zuigao": $("#limitForm input:eq(14)").val(),
+                        "zuidi": $("#limitForm input:eq(15)").val(),
+                        "chidan": $("#limitForm input:eq(16)").val()
+                    }, function(data) {
+                        closeKuang();
+                        alertSuc('修改成功！');
+                    });
+                })
+                //绑定点击报警按钮
+                $("#baojingbtn").click(function() {
+                    baojing(!isBaojing);
+                });
+                //下注列表
+                $(".xiazhutitle button").click(function() {
+                    $(".xiazhutitle button").removeClass("selBtn");
+                    $(this).addClass("selBtn");
+                    var type = $(this).data('type');
+                    cmdType = type;
+                    GetCmdList();
+                    return false;
+                });
+                //用户列表
+                $("#btnShowPu, #btnShowTuo").click(function() {
+                    $("#btnShowPu, #btnShowTuo").removeClass("selBtn");
+                    $(this).addClass("selBtn");
+                    var type = $(this).data('type');
+                    memberType = type;
+                    updateJifenList();
+                    return false;
+                });
+                //绑定隐藏下注成功消息
+                $("#hidesuccessmsg").change(function() {
+                    var ishide = $("#hidesuccessmsg").attr("checked");
+                    putAjax("{:url('index/UpdateHideMsg')}", {
+                        HideMsg: ishide == "checked" ? 0 : 1
+                    }, function(data) {
+                        if (data == 0) {
+                            if (ishide == "checked") {
+                                $("#hidesuccessmsg").attr("checked", false);
+                            } else {
+                                $("#hidesuccessmsg").attr("checked", true);
+                            }
+                        } else {
+                            alertErr("修改失败，请重试!");
+                        }
+                    }, function() {
+                        $("#hidesuccessmsg").attr("checked", !ishide);
+                    });
+                });
+            });
+            //获取信息
+            autoHandle();
+            var clipboard = new Clipboard(".copyLink");
+            clipboard.on('success', function(e) {
+                alertSuc("复制成功!");
+                return false;
+            });
+            var clipboardLogin = new Clipboard(".copyLoginLink");
+            clipboardLogin.on('success', function(e) {
+                alertSuc("复制成功!");
+                return false;
+            });
+
+            function baojing(isbj, id, msg) {
+                isBaojing = isbj == true;
+                $("#baojingbtn").removeClass("redbg");
+                if (isBaojing) {
+                    $("#baojingbtn").addClass("redbg");
+                    if (id && msg) {
+                        baojingmsg[id] = msg;
+                    }
+                    var msg = "";
+                    for (var k in baojingmsg) {
+                        msg += (msg ? "," : "") + baojingmsg[k];
+                    }
+                    $("#baojingmsg").text(msg);
+                    PlayAlert();
+                } else {
+                    $("#baojing")[0].pause();
+                    $("#baojingmsg").text("");
+                    baojingmsg = {};
+                }
+            }
+            //修改密码
+            (function() {
+                $(".topheadmenu span:contains('修改密码')").click(function() {
+                    openKuang('changePwd');
+                });
+                $(".closeKuang").click(function() {
+                    closeKuang();
+                });
+                $(".closeAlert").click(function() {
+                    $(".alertBox").hide();
+                });
+                $("#jifen").click(function() {
+                    //载入数据
+                    LoadWay1();
+                    openKuang('jifenKuang');
+                });
+                $(".setWp").click(function() {
+                    getWpList();
+                    openKuang('wpKuang');
+                });
+                $('#el-id-3182-29').on('change', 'input', function() {
+                    var fs = $(this).attr('fs'),
+                        sr = $(this).attr('sr'),
+                        api = $(this).attr('api');
+                    fly_id = $(this).val();
+                    if (fs==1) {
+                        $('.fstype').css('display','flex');
+                        $('.pankou').hide();
+                    } else {
+                        $('.fstype').hide();
+                        $('.pankou').css('display','flex');
+                    }
+                    if (sr) {
+                        $('.sousuo').css('display','flex');
+                    } else {
+                        $('.sousuo').hide();
+                    }
+                    if (api) {
+                        $('#el-id-3182-47').text('接口密钥');
+                    } else {
+                        $('#el-id-3182-47').text('密码');
+                    }
+                });
+                $(".changeOk").click(function() {
+                    var oldpwd = $("#oldpwd").val();
+                    var newpwd = $("#newpwd").val();
+                    var renewpwd = $("#renewpwd").val();
+                    if (!newpwd || !oldpwd || !renewpwd) {
+                        alertErr("请输入信息!");
+                        return;
+                    }
+                    if (newpwd != renewpwd) {
+                        alertErr("两次密码不一致!");
+                        return;
+                    }
+                    putAjax("{:url('index/ModifyPwd')}", ("oldPwd=" + oldpwd + "&newPwd=" + newpwd),
+                        function(data) {
+                            if (data.status == 1) {
+                                alertSuc("请牢记新密码!");
+                                closeKuang();
+                            } else {
+                                alertErr("密码修改失败，请检查旧密码是否正确!");
+                            }
+                        });
+                    return false;
+                });
+            })();
+            function getWpList() {
+                putAjax("{:url('index/getwplist')}",{},function(data) {
+                    if (!$("input[name='code']:checked").val()) {
+                        $('#el-id-3182-29').empty();
+                        for (var k in data) {
+                            var item = data[k];
+                            $('#el-id-3182-29').append('<label class="el-radio" for="wp'+item['id']+'"><input id="wp'+item['id']+'" type="radio" name="code" value="'+item['id']+'" fs="'+item['fstype']+'" sr="'+item['searchCode']+'" api="'+item['apiKey']+'" style="width:20px;"><span class="el-radio__label">'+item['name']+'</span></label>');
+                        }
+                    }
+                });
+            }
+            //开盘
+            $("#kaipanstatus").click(function() {
+                var status = centerConfig.kaipanStatus == 1 ? 0 : 1;
+                putAjax("{:url('index/UpdatePanStatus')}", {
+                    "dlUserName": '{$Think.session.user_id2}',
+                    "st": status
+                }, function(data) {
+                    if (data == 0) {
+                        centerConfig.kaipanStatus = status;
+                        updatePan(status);
+                    }
+                });
+            });
+            //赔率
+            $(".rightframe input").bind("focus", function() {
+                centerConfig.changepeilv = true;
+                $(this)[0].focus();
+                $(this)[0].select();
+            });
+            $(".peilv input,.fanshuiSet input,#yuliufengpan5,#edtCancel,.peilv2 input,.fanshuiSet2 input").bind("blur", function() {
+                var peilv = parseFloat($(this).val()),
+                    type = $(this).attr("data-type");
+                putAjax("{:url('index/UpdatePeiLv')}", {
+                    "newPeiLv": peilv,
+                    "tar": type
+                }, function(data) {
+                    centerConfig.changepeilv = false;
+                }, function() {
+                    centerConfig.changepeilv = false;
+                });
+            });
+            var autoMoney = function(str) {
+                return String(str || "0").replace(/([.]\d{2})[\s\S]*$/, "$1");
+            };
+            function checkApply(url,data,aid) {
+                // $(".ld", div).show();
+                var div = $('.aid'+aid);
+                div.hide(900);
+                putAjax(url, data, function(data) {
+                    if (data.Data == 0) {
+                        div.hide().remove();
+                        audio.pause();
+                        audio2.pause();
+                        updateJifenList();
+                    } else if (data.Data == -2) {
+                        alertErr("您的可用积分不足，请联系上家!");
+                        // $(".ld", div).hide();
+                        div.show();
+                    } else {
+                        // $(".ld", div).hide();
+                        div.show();
+                    }
+                }, function() {
+                    // $(".ld", div).hide();
+                    div.show();
+                });
+            }
+            //更新上下分请求列表
+            function updateApplyScoreList(list) {
+                // putAjax("{:url('index/GetUpDownScoreReq')}", {}, function(list) {
+                $(".sxflist").html("");
+                list = list.list;
+                if (list && list.length) {
+                    $("#kaipanstatus").removeClass("sed");
+                    var i = 0;
+                    for (var k in list) {
+                        var aScore = list[k];
+                        var div = $('<div class="sxfitem aid'+aScore.id+'"><span class="content">vip1：上分 +100 ，(安安)</span><div class="sxfbtns"><span class="ld"></span><span class="ty" aid="'+aScore.id+'">同意</span><span class="qx" aid="'+aScore.id+'">取消</span></div></div>');
+                        $(".content", div).text(aScore.wxid + "：" + (aScore.type == 0 ? "上分 +" : "下分 -") +
+                            parseFloat(aScore.score) + " (" + aScore.nickName + ")");
+                        div.attr("vname", aScore.wxid);
+                        $(".ty", div).click(function() {
+                            var aid = $(this).attr('aid');
+                            checkApply("{:url('index/AcceptUpDownScoreReq')}", {
+                                "robot": '{$Think.session.user_id2}',
+                                "ReqID": aid
+                            },aid);
+                        });
+                        $(".qx", div).click(function() {
+                            var aid = $(this).attr('aid');
+                            checkApply("{:url('index/DenyUpDownScoreReq')}", {
+                                "robot": '{$Think.session.user_id2}',
+                                "ReqID": aid
+                            },aid);
+                        });
+                        if (i % 2 == 1) {
+                            div.addClass("se");
+                        }
+                        $(".sxflist").append(div);
+                        i++;
+                    }
+                    var sxcount = localStorage.getItem('sxCount');
+                    if (list.length > 0) {
+                        if (centerConfig.ltype == 1) {
+                            PlaySF();
+                        } else {
+                            PlayXF();
+                        }
+                    }
+                    localStorage.setItem('sxCount', list.length)
+                }
+                // });
+            }
+            //播放上分
+            function PlaySF() {
+                audio.currenttime = 0;
+                audio.load();
+                audio.play();
+            }
+            //播放下分
+            function PlayXF() {
+                audio2.currenttime = 0;
+                audio2.load();
+                audio2.play();
+            }
+            //播放告警
+            function PlayAlert() {
+                var audio = document.getElementById("alertaudio");
+                audio.currenttime = 0;
+                audio.load();
+                audio.play();
+                // PlaySF();
+            }
+            //创建用户按钮
+            $(".jifenright .create_real").click(function() {
+                var type = $(this).data('type');
+                putAjax("{:url('index/AddMember')}", {
+                    'type': type
+                }, function(data) {
+                    if (data && data.bOK == 1) {
+                        alertSuc("创建成功，" + data.NickName);
+                        updateJifenList();
+                    } else {
+                        alertErr(data.bMsg);
+                    }
+                });
+            });
+
+            function resetJifen(s) {
+                selectChangejifen = s;
+                $(".jifenright .headimg").attr("src", s.imgName ? s.imgName : "__STATIC__/xz/admin/14.jpg");
+                // $(".jifenright .headimg").attr("src", s.imgName ? (s.imgName.substr(s.imgName.indexOf('/static'))) :
+                //     "__STATIC__/xz/admin/14.jpg");
+                $(".jifenright .score").text("积分：" + s.score);
+                $(".jifenright [name='changejifenval']").val(0);
+                $(".setmanual,.setmanual2,.setblack,.setzhui").removeClass("myShow myHide");
+                $(".jifenright button").attr("curWxid", s.wxid)
+                if (s.isrobot == 1) {
+                    //托手动自动
+                    $(".setmanual[data-type='" + s.isauto + "']").addClass("myHide");
+                    $(".setmanual[data-type='" + (s.isauto == 1 ? 0 : 1) + "']").addClass("myShow");
+                    $(".setmanual2").addClass("myHide");
+                    $(".flyers_num").show();
+                    $("select[name='flyers_num']").val(s.tuoMinMax).attr("curWxid", s.wxid)
+                } else {
+                    // 吃单
+                    $(".setmanual2[data-type='" + s.chi + "']").addClass("myHide");
+                    $(".setmanual2[data-type='" + (s.chi == 1 ? 0 : 1) + "']").addClass("myShow");
+                    $(".setmanual").addClass("myHide");
+                    $(".flyers_num").hide();
+                }
+                $("#copylinkArea").html(s.link);
+                $(".copyLink").attr('data-clipboard-text', s.link);
+                //黑名单
+                $(".setblack[data-type='" + s.isBlack + "']").addClass("myHide");
+                $(".setblack[data-type='" + (s.isBlack == 1 ? 0 : 1) + "']").addClass("myShow");
+                //追
+                $(".setzhui[data-type='" + s.zhui + "']").addClass("myHide");
+                $(".setzhui[data-type='" + (s.zhui == 1 ? 0 : 1) + "']").addClass("myShow");
+            }
+
+            function selectJifen(s) {
+                selectChangejifen = s;
+                $(".jifenright .usernumber").html("会员ID：");
+                $(".jifenright .usernumber").append('v' + s.id);
+                $(".jifenright #NickName").val(s.NickName);
+                $(".jifenright #userName").val(s.UserName);
+                $(".jifenright #loginPwd").val(s.logincode);
+                resetJifen(s);
+            }
+            //更换wx
+            $("#changewx").click(function() {
+                LogoutWx();
+            });
+            $("#btnQR").click(RefreshQR);
+
+            function bindSet(url, data, tar) {
+                putAjax(url, data, function(res) {
+                    if (res == 0) {
+                        alertSuc(data.wxid + "设置成功!");
+                        selectChangejifen[tar] = data.type;
+                        resetJifen(selectChangejifen);
+                        updateJifenList();
+                    } else if (res == -1) {
+                        alertErr("当前机器人未开通追功能！");
+                    } else {
+                        alertErr("设置失败，请重试！");
+                    }
+                    layer.closeAll()
+                });
+            }
+            //拉黑白按钮
+            $(".setblack").click(function() {
+                var mywxid = $(this).attr("curWxid"),
+                    type = $(this).attr("data-type");
+                layer.confirm("将[" + mywxid + "]" + $(this).text() + "么?", function() {
+                    bindSet("{:url('index/SetBlack')}", {
+                        "wxid": mywxid,
+                        "type": type
+                    }, 'isBlack');
+                });
+            });
+            //托手动自动按钮
+            $(".setmanual").click(function() {
+                var mywxid = $(this).attr("curWxid"),
+                    type = $(this).attr("data-type");
+                layer.confirm("将托[" + mywxid + "]改为" + $(this).text() + "投注么?", function() {
+                    bindSet("{:url('index/SetAuto')}", {
+                        "wxid": mywxid,
+                        "type": type
+                    }, 'isauto');
+                });
+            });
+            //吃单按钮
+            $(".setmanual2").click(function() {
+                var mywxid = $(this).attr("curWxid"),
+                    type = $(this).attr("data-type");
+                layer.confirm("将托[" + mywxid + "]改为" + $(this).text() + "投注么?", function() {
+                    bindSet("{:url('index/SetManual2')}", {
+                        "wxid": mywxid,
+                        "type": type
+                    }, 'chi');
+                });
+            });
+            //开通追按钮
+            $(".setzhui").click(function() {
+                var mywxid = $(this).attr("curWxid"),
+                    type = $(this).attr("data-type");
+                layer.confirm("将[" + mywxid + "]" + $(this).text() + "投注么?", function() {
+                    bindSet("{:url('index/setzhui')}", {
+                        "wxid": mywxid,
+                        "type": type
+                    }, 'zhui');
+                });
+            });
+            //点击上下分的确认按钮
+            $(".jifenright .submitjifen").click(function() {
+                var s = selectChangejifen;
+                if (s == null) {
+                    alertErr("请先选择用户!");
+                    return;
+                }
+                var val = $(".jifenright [name='changejifenval']").val();
+                if (val<=0) {
+                    alertErr("请输入金额!");
+                    return;
+                }
+                var that = $(this);
+                bindJifen("{:url('index/UpDownScore')}", {
+                    "type": 1,
+                    "wxid": s.wxid,
+                    "count": val,
+                    "qh": qihao
+                }, that, s);
+            });
+            //点击上下分的确认按钮
+            $(".jifenright .submitjifen2").click(function() {
+                var s = selectChangejifen;
+                if (s == null) {
+                    alertErr("请先选择用户!");
+                    return;
+                }
+                var val = $(".jifenright [name='changejifenval']").val();
+                if (val<=0) {
+                    alertErr("请输入金额!");
+                    return;
+                }
+                var that = $(this);
+                bindJifen("{:url('index/UpDownScore')}", {
+                    "type": 2,
+                    "wxid": s.wxid,
+                    "count": val,
+                    "qh": qihao
+                }, that, s);
+            });
+            //重置密码
+            $(".jifenright .repwd").click(function() {
+                var s = selectChangejifen;
+                if (s == null) {
+                    alertErr("请先选择用户!");
+                    return;
+                }
+                var that = $(this);
+                layer.confirm("确定要将[" + s.NickName + "]重置密码么?", function() {
+                    bindJifen("{:url('index/resetPwd')}", {
+                        "user": s.id
+                    }, that, s);
+                });
+            });
+
+            function bindJifen(url, data, that, s) {
+                putAjax(url, data, function(data) {
+                    if (data.bOK == 0) {
+                        alertSuc(data.Message);
+                        resetJifen(selectChangejifen);
+                        updateJifenList();
+                    } else {
+                        alertErr(data.Message);
+                    }
+                    layer.closeAll()
+                });
+            }
+            //刷新积分排序按钮事件
+            $(".jifentitle .refjifen").click(function() {
+                updateJifenList();
+            });
+            //刷新玩家列表
+            function setJifenList(data) {
+                //创建弹出层
+                if (!window.divJifen) {
+                    window.divJifen = $(
+                        "<div style='display:none;position: absolute;border:1px solid #000;width:300px;height:240px;background:#fbfbfb;z-index:99999;top:360px;left:19px;padding:5px;'><div><div><b>玩家信息:</b></div><div class='userjifenzj'></div></div></div>"
+                    );
+                    $("div.topframe").append(window.divJifen);
+                    $(document.documentElement).click(function() {
+                        window.divJifen.hide();
+                    }).bind("touchstart", function(event) {
+                        window.divJifen.hide();
+                    });
+                    window.divJifen.bind("touchstart", function(event) {
+                        event.stopPropagation();
+                    });
+                }
+                //清空数据
+                $(".jifenleftlist").html("");
+                //遍历每个结果，显示
+                var $jsonObj = data.data;
+                //清空缓存
+                centerConfig.dicUser = {};
+                $('#btnShowPu span').text(data.count1);
+                $('#btnShowTuo span').text(data.count2);
+                $('#heji').text(data.heji);
+                $($jsonObj).each(function(index) {
+                    var sB = $jsonObj[index];
+                    if (selectChangejifen && selectChangejifen.wxid == sB.wxid) {
+                        // selectJifen(sB);
+                    }
+                    var divB = $(
+                        '<div style="display:flex;justify-content: space-between;"><b class="black"></b><b class="zhui"></b><b class="fake" style="display:block;"></b><i style="width:35px;">托</i><b class="nick" style="width:170px;text-align:left;margin-left:8px;"></b><span></span><s style="margin-left:0;width:35px;">删除</s></div>'
+                    );
+                    //将该对象记录到缓存
+                    centerConfig.dicUser[sB.wxid] = divB;
+                    //是否加了黑名单
+                    if (sB.isBlack == 1) {
+                        $("b.black", divB).text("黑");
+                    } else {
+                        $("b.black", divB).text("");
+                    }
+                    //是否是真实会员视为了托
+                    if (sB.isrobot == 2) {
+                        $("b.fake", divB).text("托");
+                    } else {
+                        $("b.fake", divB).text("");
+                    }
+                    if (sB.chi == 1) {
+                        $("b.fake", divB).text("吃");
+                    }
+                    if (sB.zhui == 1) {
+                        $("b.zhui", divB).text("追");
+                    }
+                    $("b.nick", divB).text("@v" + sB.id + '.' + sB.NickName.substr(0, 8) + "：");
+                    $("span", divB).text(autoMoney(sB.score));
+                    if (sB.isauto == 2) {
+                        //如果不是托
+                        $("i", divB).text("");
+                    } else if (sB.isauto == 0 && sB.isrobot == 1) {
+                        $("i", divB).text("手动");
+                        $("i", divB).addClass("t");
+                    } else if (sB.isauto == 1 && sB.isrobot == 1) {
+                        $("i", divB).text("自动");
+                        $("i", divB).addClass("h");
+                    }
+                    //点击删除按钮
+                    $("s", divB).click(function(event) {
+                        event.stopPropagation();
+                        layer.confirm("是否删除" + sB.wxid + " (" + sB.NickName + ") " + "数据？",
+                            function() {
+                                divB.hide();
+                                putAjax("{:url('index/DelMember')}", {
+                                    "wxid": sB.wxid
+                                }, function(data) {
+                                    if (data == 0) {
+                                        divB.remove();
+                                    } else {
+                                        divB.show();
+                                    }
+                                    layer.closeAll()
+                                }, function() {
+                                    divB.show();
+                                    layer.closeAll()
+                                });
+                            });
+                    });
+                    //单击某一个玩家，弹出浮层
+                    divB.click(function(event) {
+                        $('.qrBox').hide();
+                        event.stopPropagation();
+                        // $(".userjifenzj", window.divJifen).text("赔率:" + sB.PeiLv + "，返水:" + sB.FanShui);
+                        // window.divJifen.show();
+                        selectJifen(sB);
+                    }).bind("touchstart", function(event) {
+                        event.stopPropagation();
+                        // $(".userjifenzj", window.divJifen).text("赔率:" + sB.PeiLv + "，返水:" + sB.FanShui);
+                        // window.divJifen.show();
+                    });
+                    $(".jifenleftlist").append(divB);
+                });
+            }
+
+            function updateJifenList() {
+                putAjax("{:url('index/GetMembers')}", {
+                    "user": '{$Think.session.user_id2}',
+                    "type": memberType,
+                    'uid': memberid
+                }, function(data) {
+                    setJifenList(data);
+                });
+            }
+            //修改选定玩家的昵称
+            $(".jifenright .setnick").click(function() {
+                var val = $(".jifenright #NickName").val();
+                var s = selectChangejifen;
+                if (s == null) {
+                    alertErr("请先选择用户!");
+                    return;
+                }
+                putAjax("{:url('index/UpdateNickName')}", {
+                    "wxid": s.wxid,
+                    "newNickName": val
+                }, function(data) {
+                    if (data == 0) {
+                        updateJifenList();
+                        alertSuc(s.wxid + "昵称改为：" + val);
+                    }
+                });
+            });
+            //修改选定玩家的用户名
+            $(".jifenright .setname").click(function() {
+                var val = $(".jifenright #userName").val();
+                var s = selectChangejifen;
+                if (s == null) {
+                    alertErr("请先选择用户!");
+                    return;
+                }
+                putAjax("{:url('index/UpdateUserName')}", {
+                    "wxid": s.wxid,
+                    "newNickName": val
+                }, function(data) {
+                    if (data == 0) {
+                        updateJifenList();
+                        alertSuc(s.wxid + "用户名改为：" + val);
+                    }
+                });
+            });
+            //修改选定玩家的密码
+            $(".jifenright .setpwd").click(function() {
+                var val = $(".jifenright #userPwd").val();
+                var s = selectChangejifen;
+                if (s == null) {
+                    alertErr("请先选择用户!");
+                    return;
+                }
+                putAjax("{:url('index/UpdateUserPwd')}", {
+                    "wxid": s.wxid,
+                    "newPwd": val
+                }, function(data) {
+                    if (data == 0) {
+                        updateJifenList();
+                        alertSuc("修改成功！");
+                    }
+                });
+            });
+            //修改选定玩家的密码
+            $(".jifenright .setpwd2").click(function() {
+                var s = selectChangejifen;
+                if (s == null) {
+                    alertErr("请先选择用户!");
+                    return;
+                }
+                putAjax("{:url('index/UpdateLoginPwd')}", {
+                    "wxid": s.wxid
+                }, function(data) {
+                    if (data.status == 0) {
+                        $("#loginPwd").val(data.message);
+                        updateJifenList();
+                        alertSuc("修改成功！");
+                    }
+                });
+            });
+          //  更换头像
+           $(".jifenright .headimg").click(function() {
+                var s = selectChangejifen;
+                 if (s == null) {
+                    alertErr("请先选择用户!");
+                    return;
+                 }
+                layer.confirm("是否要换头像？", function() {
+                    $('#changeHead').click();
+                    layer.closeAll()
+                });
+            });
+                //随机更换头像
+            function upload(_this) {
+                let filelist = _this.files;
+                let fd = new FormData();
+                fd.append("image", filelist[0]);
+                fd.append("wxid", selectChangejifen.wxid);
+                $.ajax({
+                    type: "POST",
+                    url: "{:url('index/changeHeadImage')}", //这个PHP代码还是上面那个
+                    data: fd,
+                    processData : false,
+                    contentType : false,
+                    success: function(res){
+                        $(".jifenright .headimg").attr("src", res);
+                        updateJifenList();
+                    }
+                });
+            }
+            $(".getLink").click(function() {
+                var s = selectChangejifen;
+                if (s == null) {
+                    alertErr("请先选择用户!");
+                    return;
+                }
+                putAjax("{:url('index/getUserLink')}", {
+                    "uid": s.id
+                }, function(data) {
+                    if (data.bOK == 0) {
+                        $("#copylinkArea").html(data.Data); //显示复制按钮
+                        $(".copyLink").attr('data-clipboard-text', data.Data);
+                        $(".userjifenzj img").attr('src', data.qr);
+                        selectChangejifen.qr = data.qr;
+                        alertSuc(data.Message);
+                    } else {
+                        alertErr(data.Message);
+                    }
+                });
+            });
+            $(".getLinkCode").click(function() {
+                var s = selectChangejifen;
+                if (s == null) {
+                    alertErr("请先选择用户!");
+                    return;
+                }
+                $(".userjifenzj img").attr('src', s.qr);
+                $('.qrBox').toggle();
+            });
+            //飞单账号密码保存
+            $(".save").click(function() {
+                var data = {
+                    "id": fly_id,
+                    // "url": list.eq(0).find("[name='flyers_url']").val(),
+                	"at": $("#flyers_auto").is(':checked') ? 1 : 0,
+                	"wd": $("#flyers_withdraw").is(':checked') ? 1 : 0,
+                    "pw": $("#wppwd").val(),
+                    "un": $("#wpname").val(),
+                    "fs": $("input[name='fstype']:checked").val(),
+                    "pk": $("input[name='pktype']:checked").val(),
+                    "search": $("input[name='searchCode']").val()
+                };
+                bindChange("{:url('index/flyersSave')}", data);
+            });
+            //飞单登录
+            $(".login").click(function() {
+                if ($(".login span").text() == '登录') {
+                    $(".jifenright .jifenmessage").text("登录中!");
+                    bindChange("{:url('index/flyersLogin')}", {});
+                }
+            });
+            $("#flyers_auto").bind("change", function() {
+                var checked = $(this).prop('checked');
+                bindChange("{:url('index/flyersAuto')}", {
+                    "flyers_auto": checked ? 1 : 0
+                });
+            });
+            $("#flyers_withdraw").bind("change", function() {
+                var checked = $(this).prop('checked');
+                bindChange("{:url('index/flyersDraw')}", {
+                    "flyers_withdraw": checked ? 1 : 0
+                });
+            });
+            $("#flyers_num").bind("change", function() {
+                var tmpwxid = $(this).attr("curWxid");
+                bindChange("{:url('index/tuoMinMax')}", {
+                    "num": $(this).val(),
+                    'uid': tmpwxid
+                });
+            });
+
+            function bindChange(url, data) {
+                putAjax(url, data, function(data) {
+                    $(".jifenright .jifenmessage").text('');
+                    closeKuang();
+                    if (data.bOK == 0) {
+                        alertSuc(data.Message);
+                    } else {
+                        alertErr(data.Message);
+                    }
+                });
+            }
+        </script>
+
+    </body>
+</html>

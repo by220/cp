@@ -1,0 +1,143 @@
+#betsBox .bottom {
+	border: 1px solid;
+	border-top:none;
+	border-color: #b9c2cb;
+}
+#betsBox .bottom span {
+	display: inline-block;
+	height: 26px;
+	text-align: center;
+	line-height: 26px;
+}
+
+#bcount {
+	width: 127px;
+	border-right: 1px solid;
+}
+
+.bottom,#bcount
+	{
+	border-color: #b9c2cb;
+}
+#btotal {
+	width: 254px;
+}
+
+#betsBox .betList {
+	max-height: 300px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.ui-widget-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #888;
+	opacity: 0.3;
+}
+
+.ui-front {
+	z-index: 100;
+}
+
+.ui-dialog {
+	border: 5px solid #DF678D;
+	background: white;
+}
+
+.ui-dialog-titlebar {
+	padding: 4px 0;
+	line-height: 16px;
+}
+
+.ui-dialog-icon {
+	display: inline-block;
+	background-position: -52px -52px;
+	height: 11px;
+	width: 14px;
+	margin: 0 4px 0 10px;
+}
+
+.ui-dialog-title {
+	font-size: 13px;
+	font-weight: 700;
+	color: #B30B00;
+	margin-left: 7px;
+}
+
+.ui-dialog-titlebar-close {
+	background-position: -52px -42px;
+	height: 9px !important;
+	width: 11px !important;
+	border: none;
+	margin: 3px 4px 0 0;
+	padding: 0;
+	float: right;
+	text-indent: 99999px;
+	font-size: 0;
+}
+
+.ui-dialog-buttonset {
+	border: 1px solid white;
+	text-align: center;
+	padding: 8px 0;
+}
+
+.ui-dialog-buttonset .ui-button {
+	border: none;
+	width: 66px;
+	height: 18px;
+	line-height: 18px;
+	margin-right: 5px;
+	color: #fff;
+	letter-spacing: 3px;
+}
+
+.ui-dialog-buttonset .ui-state-hover {
+	background-position: 0 -19px;
+	color: #FFE400;
+	font-weight: bold;
+}
+
+
+.skin_blue .ui-dialog {
+	border-color: #6C8AC2;
+}
+
+.skin_blue .ui-dialog-content {
+	border-bottom: 1px solid #b9c2cb;
+}
+
+.skin_blue .ui-dialog-buttonset {
+	background: #edf4fe;
+}
+
+.skin_blue .skinHover,.skin_blue .skinHover ul {
+	background: #234b95;
+}
+
+.skin_blue .ui-dialog-titlebar {
+	background: url("./img/blue/openwinbg.png") repeat-x top;
+}
+
+.skin_blue .ui-dialog-icon,.skin_blue .ui-dialog-titlebar-close {
+	background-image: url("./img/blue/btn.png");
+}
+
+.skin_blue .ui-dialog-content {
+	padding: 8px 8px 16px 8px;
+}
+
+.skin_blue .ui-dialog-buttonset .ui-button {
+	background-image: url("./img/blue/btn-bg.png");
+}
+
+.skin_blue #betResultPanel .Paneltitle {
+	background: url("./img/blue/th_bg.png") repeat-x 0 -100px;
+	color: #F5F6F8;
+	border-color: #88ABDA;
+	background-color: #88ABDA;
+}

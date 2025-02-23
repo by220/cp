@@ -1,0 +1,645 @@
+@charset "utf-8";
+a:hover {
+	text-decoration: none;
+}
+.app-content-loading {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.loading-spinner {
+  position: absolute;
+  font-size: 50px;
+  left: 50%;
+  top: 50%;
+  margin-left: -25px;
+  margin-top: -25px;
+}
+
+/* additional index and overall style  david START*/
+
+.container-report {
+	width:100%;
+	height:auto;
+	overflow: hidden;
+}
+.cn {
+	font-family: Tahoma, Helvetica, Arial, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", sans-serif;
+	font-size: 24px;
+    font-weight: 200;
+	line-height: 26px;
+}
+
+.cnbig {
+	font-family: Tahoma, Helvetica, Arial, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", sans-serif;
+	font-size: 25px;
+    font-weight: 200;
+	line-height: 30px;
+}
+.cnbig2 {
+	font-family: Tahoma, Helvetica, Arial, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", sans-serif;
+	font-size: 26px;
+    font-weight: 200;
+	line-height: 32px;
+}
+
+.cnsmall {
+	font-family: Tahoma, Helvetica, Arial, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", sans-serif;
+	font-size: 22px;
+    font-weight: 200;
+	line-height: 24px;
+}
+
+.cnsmall2 {
+	font-family: Tahoma, Helvetica, Arial, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", sans-serif;
+	font-size: 20px;
+    font-weight: 200;
+	line-height: 22px;
+}
+
+.valign {
+	line-height: 50px;
+}
+
+.valign2 {
+	line-height: 45px;
+}
+
+.valign3 {
+	line-height: 42px;
+}
+
+.valign4 {
+	line-height: 30px;
+}
+
+.alignright {
+	text-align: right;
+}
+
+.footer1 {
+	width: 100%;
+	height: 63px;
+}
+.footer1text {
+	font-size: 30px;
+	padding-top: 10px;
+	margin-left: 24px;
+}
+.footer2 {
+	width: 100%;
+	height: 70px;
+	text-align:center;
+	margin-top: 5px;
+}
+
+.footer2 img {
+	max-height: 70px;
+	max-width: 568px;
+	height: auto;
+	width: 100%;	
+}
+.agreement p {
+	padding-bottom: 15px;
+}
+
+.mobilemenubtn {
+	width: 120px;
+	height: 55px;
+	border: 1px solid;
+	font-size: 24px;
+	line-height: 50px;
+	text-align: center;
+}
+
+.mobilegraymenubtn {
+	width: 120px;
+	height: 55px;
+	border: 1px solid;
+	font-size: 26px;
+	line-height: 50px;
+	padding-left: 20px;
+	padding-right: 20px;
+	text-align: center;
+}
+
+.mobilemenubtnsmall {
+	height: 45px;
+	border: 1px solid;
+	font-size: 24px;
+	line-height: 40px;
+	padding-left: 25px;
+	padding-right: 25px;
+	text-align: center;
+}
+
+.mobilemenubtn2 {
+	width: 210px;
+	height: 50px;
+	border: 1px solid;
+	font-size: 28px;
+	line-height: 43px;
+	margin-top: 10px;
+	margin-left: 30px;
+	text-align: center;
+}
+
+.navbar-brand {
+	font-size: 28px;	
+}
+
+.infopanel {
+	position: absolute;
+	top: 71px;
+	width: 100%;
+	height: 65px;
+}
+
+.homegap {
+	height: 75px;
+}
+
+@media (min-width: 768px) {
+
+	.infopanelrow {
+		padding-top: 9px;
+		text-align:center;
+		font-size: 22px;
+		line-height: 24px;
+	}
+}
+
+@media (max-width: 768px) {
+
+	.infopanelrow {
+		padding-top: 10px;
+		text-align:center;
+		font-size: 22px;
+		line-height: 20px;
+	}
+}
+
+@media (max-width: 992px) {
+	.mobilemenubtn2 {
+		display:block;
+	}
+}
+
+@media (min-width: 992px) {
+	.mobilemenubtn2 {
+		display:block;
+	}
+}
+
+.scrollable h1 {
+	font-size: 28px;
+	margin-left: 20px;
+}
+
+.list-group-item {
+	background: none;
+	padding: 12px 30px;
+	font-family: Tahoma, Helvetica, Arial, "Microsoft Yahei","微软雅黑", STXihei, "华文细黑", sans-serif;
+	font-size: 25px;
+	height: 60px;
+	
+}
+
+.overlay {
+	width: 100%; height: 100%; 
+	position:absolute; 
+	top:0; 
+	left: 0; 
+	z-index:2000;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+	display:none; 
+}
+
+.overlay2 {
+	width: 100%; height: 100%; 
+	position:absolute; 
+	top:0; 
+	left: 0; 
+	z-index:2000;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+	display:none; 
+}
+
+#maintitle {
+	text-align: center;
+	margin-top: 5px;
+  	font-size: 28px;
+	margin-top: 10px;
+}
+
+.app-content-loading {
+	font-size: 50px;
+}
+
+.minheight {
+	min-height: 70px;
+}
+
+.dropdowncentermenu, .dropdowncentermenu4 {
+	-webkit-appearance: none;
+   width: 184px;
+   height: 46px;
+   font-size: 21px;
+   line-height: 22px;
+   padding-left: 5px;
+   font-weight: 200;
+	border: 1px solid;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	display:none;
+	float: left;
+}
+
+.dropdowncentermenu2 {
+	-webkit-appearance: none;
+   width: 151px;
+   height: 46px;
+   font-size: 21px;
+   line-height: 22px;
+   padding-left: 5px;
+   font-weight: 200;	
+   border: 1px solid;
+   -webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	display:none;
+	float: left;	
+}
+
+.dropdowncentermenu3 {
+	float: left;
+	-webkit-appearance: none;
+   width: 197px;
+   height: 46px;
+   font-size: 21px;
+   line-height: 22px;
+   padding-left: 5px;
+   font-weight: 200;
+	border: 1px solid;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	display:block;
+}
+
+.marginleft10 {
+	margin-left: 20px;	
+}
+.marginleft20 {
+	margin-left: 20px;	
+}
+
+.marginleft30 {
+	margin-left: 20px;	
+}
+
+.margintop5 {
+	margin-top: 3px;
+}
+
+.margintop10 {
+	margin-top: 10px;
+}
+
+.margintop20 {
+	margin-top: 20px;
+}
+
+.margintop40 {
+	margin-top: 40px;
+}
+
+.margintop72 {
+	margin-top: 72px;
+}
+
+.marginbtm10 {
+	margin-bottom: 10px;
+}
+
+.marginbtm20 {
+	margin-bottom: 20px;
+}
+
+.marginbtm30 {
+	margin-bottom: 30px;
+}
+
+.marginbtm40 {
+	margin-bottom: 40px;
+}
+
+.marginbtm70 {
+	margin-bottom: 70px;
+}
+
+
+.marginright5 {
+	margin-right: 5px;	
+}
+
+.marginright10 {
+	margin-right: 10px;	
+}
+
+.marginright20 {
+	margin-right: 20px;	
+}
+
+.padding10 {
+	padding: 8px;
+}
+
+.padding20 {
+	padding:20px;
+}
+
+.padding40 {
+	padding:40px;
+}
+/* additional index and overall style david END*/
+
+
+/* additional home (menu) style david START*/
+.gamename {
+	font-size: 22px;
+	text-align: center;
+	margin-top: 3px;
+}
+.gamehome a {
+	color: #000;
+}
+.gamehome img {
+	width: auto;
+	height: auto;	
+}
+
+.gamehome div {
+	text-align: center;
+}
+
+.gamehome .row {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+@media (max-width: 680px) {
+	.uploadbet {
+		 width: 100%;
+		 height: auto;
+		 z-index: 2001;
+		 font-size: 24px;
+		 position: absolute;
+		 top: 7%;
+		 display: none;
+		 overflow:hidden;
+	}
+	
+	.confirmbet {
+		 width: 100%;
+		 height: auto;
+		 z-index: 2001;
+		 font-size: 24px;
+		 position: absolute;
+		 top: 7%;
+		 display: none;
+		 overflow:hidden;
+	}
+}
+@media (min-width: 680px) {
+	.uploadbet {
+		 width: 680px;
+		 height: auto;
+		 z-index: 2001;
+		 font-size: 24px;
+		 position: absolute;
+		 top: 7%;
+		 display: none;
+		 overflow:hidden;
+		 margin-left: 50%;
+		 left: -340px;
+	}
+	
+	.confirmbet {
+		 width: 680px;
+		 height: auto;
+		 z-index: 2001;
+		 font-size: 24px;
+		 position: absolute;
+		 top: 7%;
+		 display: none;
+		 overflow:hidden;
+		 margin-left: 50%;
+		 left: -340px;
+	}
+}
+
+.floatleft {
+	float: left;
+	width: auto;
+}
+
+.floatright {
+	float: right;
+}
+
+.textcenter {
+	text-align: center;
+}
+
+.textright {
+	text-align: right;	
+}
+
+.submitticketinput1 {
+	width: 140px;
+	height: 40px;
+	padding: 5px;
+	float:left;
+}
+
+.submitticketinput2 {
+	width: 125px;
+	height: 40px;
+	padding: 4px;
+}
+
+.submitbetdetail {
+	height: auto;
+	overflow:scroll;
+	overflow-x: hidden;
+	word-wrap: break-word;
+}
+
+.confirmbetdetail {
+	height: auto;
+	overflow:scroll;
+	overflow-x: hidden;
+	word-wrap: break-word;
+}
+
+.closebtn {
+	position:absolute;
+	right: 10px;
+	top: 5px;
+	width:60px;
+	height: 50px;
+	text-align: right;
+}
+
+.closebtn2 {
+	position:absolute;
+	right: 10px;
+	top: 10px;
+	width: 50px;
+	height: 50px;
+	font-size: 50px;
+}
+
+.closebtnbtmpanel {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  font-size: 45px;
+  z-index: 1000;
+}
+
+.checkboxcls {
+	width: 30px;
+	height: 30px;
+	float:left;	
+}
+
+.tickettotal , .ticketnumber {
+	font-weight:bold;
+}
+
+.inlineblock {
+	display: inline-block;
+}
+
+.odds-inline {
+	text-align: center;
+}
+.odds-inline p {
+	display: inline-block;
+}
+.odds-inline p.small {
+  	font-size: 18px;
+  	padding-right: 10px;
+}
+
+.delticket {
+  width: 60px;
+  height: 45px;
+}
+
+.menutxtfield {
+	width: 225px;
+	height: 40px;
+	padding: 5px;
+}
+
+.menutxtfield2 {
+	width: 225px;
+	height: 50px;
+	padding: 7px;
+}
+
+.reportcontainer {
+	width:100%;
+	overflow: scroll;
+	display: inline-block;
+}
+
+.reporttbl {
+	border: 2px solid;
+}
+
+.reporttbl th, .reporttbl td {
+	padding: 12px;
+	border: 2px solid;
+	text-align: center;
+}
+
+.reporttbl th{
+	font-size: 24px;
+	font-weight: 200;
+}
+
+.reporttbl2 {
+	border: none;
+	
+}
+
+.reporttbl2 th, .reporttbl2 td {
+	padding: 8px;
+	
+}
+
+/* additional home (menu) style david END*/
+
+.stress {
+  color: red;
+}
+
+
+/* Pager */
+.pagination {
+	margin: 0px;
+	margin-top: 10px;
+	padding: 0px;
+	font-size: 18px;
+	text-align: center;
+}
+.pagination a {
+	color: #000;
+}
+.pagination .next-btn, .pagination .previous-btn {
+	display: inline-block;
+	width: 145px;
+	height: 60px;
+	padding: 10px 14px;
+	border: 1px solid;
+	border-radius: 5px;
+	font-size: 20px;
+	line-height: 38px
+}
+.pagination input {
+	text-align: center;
+	display: inline-block;
+	width: 100px;
+	border: 1px solid;
+	border-radius: 5px;
+	height: 60px;
+}
+
+/* Mobile */
+/* http://instantsprite.com/ - offset 0 */
+.game-sprite { background: url('./img/game-sprite.png') no-repeat top left; width: 149px; height: 126px; margin: 0 auto;  } 
+.game-sprite.G107 { background-position: 0 0; } 
+.game-sprite.G101 { background-position: -149px 0; } 
+.game-sprite.G121 { background-position: -298px 0; } 
+.game-sprite.G103 { background-position: -447px 0; } 
+.game-sprite.G155 { background-position: -596px 0; } 
+.game-sprite.GXKLSF { background-position: -745px 0; } 
+.game-sprite.G100 { background-position: -894px 0; } 
+.game-sprite.G151 { background-position: -1043px 0; } 
+.game-sprite.G161 { background-position: -1192px 0; } 
+.game-sprite.G117 { background-position: -1341px 0; } 
+.game-sprite.G111 { background-position: -1490px 0; } 
+.game-sprite.G113 { background-position: -1639px 0; } 
+.game-sprite.G135 { background-position: -1788px 0; } 
+
+
+

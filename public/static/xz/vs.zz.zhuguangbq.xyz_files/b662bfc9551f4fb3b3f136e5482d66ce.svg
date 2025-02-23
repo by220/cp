@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"[
+	<!ENTITY E8 'stroke:none;opacity:1;fill:rgb(255,0,0);'>
+	<!ENTITY E2 'stroke:none;opacity:1;fill:rgb(255,255,255);'>
+	<!ENTITY E5 'stroke:rgb(60,182,230);fill:none;stroke-linecap:butt;stroke-miterlimit:9;opacity:1;stroke-width:2;stroke-linejoin:miter;'>
+	<!ENTITY E3 'stroke:none;font-family:黑体;fill:rgb(255,0,0);font-size:30pt;baseline-shift:-86&#37;;opacity:1;'>
+	<!ENTITY E1 'text-rendering:auto;shape-rendering:auto;'>
+	<!ENTITY E7 'stroke:rgb(255,0,0);fill:none;stroke-linecap:butt;stroke-miterlimit:9;opacity:1;stroke-width:2;stroke-linejoin:miter;'>
+	<!ENTITY E9 'stroke:none;font-size:50pt;fill:rgb(255,255,255);font-weight:bolder;baseline-shift:-86&#37;;font-family:黑体;opacity:1;'>
+	<!ENTITY E6 'stroke:none;font-size:20pt;fill:rgb(0,0,0);font-weight:bolder;baseline-shift:-86&#37;;font-family:黑体;opacity:1;'>
+	<!ENTITY E4 'stroke:none;font-family:黑体;fill:rgb(0,0,0);font-size:20pt;baseline-shift:-86&#37;;opacity:1;'>
+]>
+<svg height="220" width="440" id="SvgGdi_output" xmlns="http://www.w3.org/2000/svg">
+  <rect id="background" height="100%" style="fill:rgb(255,255,255);" width="100%" y="0" x="0" />
+  <g style="&E1;" id="root_group">
+    <g id="11439792_BeginContainer">
+      <rect id="11439793" height="200" style="&E2;" width="440" y="0" x="0" />
+      <text id="11439794" style="&E3;" transform="matrix(1 0 0 1 0 0 ) " x="10" y="10">开盘结果</text>
+      <text id="11439796" style="&E4;" transform="matrix(1 0 0 1 0 0 ) " x="190" y="15">第30877740期</text>
+      <text id="11439798" style="&E4;" transform="matrix(1 0 0 1 0 0 ) " x="10" y="87">2021/10/23 18:14:06</text>
+      <ellipse id="11439800" cy="172" cx="27" rx="17" ry="17" style="&E5;" />
+      <text id="11439801" style="&E6;" transform="matrix(1 0 0 1 0 0 ) " x="10" y="160">16</text>
+      <ellipse id="11439803" cy="172" cx="77" rx="17" ry="17" style="&E5;" />
+      <text id="11439804" style="&E6;" transform="matrix(1 0 0 1 0 0 ) " x="60" y="160">03</text>
+      <ellipse id="11439806" cy="172" cx="127" rx="17" ry="17" style="&E5;" />
+      <text id="11439807" style="&E6;" transform="matrix(1 0 0 1 0 0 ) " x="110" y="160">07</text>
+      <ellipse id="11439809" cy="172" cx="177" rx="17" ry="17" style="&E5;" />
+      <text id="11439810" style="&E6;" transform="matrix(1 0 0 1 0 0 ) " x="160" y="160">02</text>
+      <ellipse id="11439812" cy="172" cx="227" rx="17" ry="17" style="&E5;" />
+      <text id="11439813" style="&E6;" transform="matrix(1 0 0 1 0 0 ) " x="210" y="160">19</text>
+      <ellipse id="11439815" cy="172" cx="277" rx="17" ry="17" style="&E5;" />
+      <text id="11439816" style="&E6;" transform="matrix(1 0 0 1 0 0 ) " x="260" y="160">17</text>
+      <ellipse id="11439818" cy="172" cx="327" rx="17" ry="17" style="&E5;" />
+      <text id="11439819" style="&E6;" transform="matrix(1 0 0 1 0 0 ) " x="310" y="160">06</text>
+      <ellipse id="11439821" cy="172" cx="377" rx="17" ry="17" style="&E7;" />
+      <text id="11439822" style="&E6;" transform="matrix(1 0 0 1 0 0 ) " x="360" y="160">20</text>
+      <rect id="11439824" height="100" style="&E8;" width="120" y="45" x="290" />
+      <text id="11439825" style="&E9;" transform="matrix(1 0 0 1 0 0 ) " x="290" y="65">4番</text>
+    </g>
+  </g>
+  <defs id="clips_hatches_and_gradients" />
+</svg>

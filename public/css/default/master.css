@@ -1,0 +1,63 @@
+/*------------------------- 整体样式 -------------------------*/
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #313131;
+	margin: 0;
+	padding: 0;
+}
+
+/*#topbody {
+	background: #3264ab url(../images/blue/background_pic02.jpg) repeat-x left top;
+}*/
+
+div,form,img,ul,ol,li,dl,dt,dd {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	list-style: none;
+	overflow: hidden;
+}
+
+a {
+	text-decoration: none;
+	cursor: pointer;
+	color: #3e34fc;
+}
+
+a:hover {
+	color: red;
+	text-decoration: underline;
+}
+
+#header,#contents,#footer {
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	min-width: 1225px;
+}
+
+#contents {
+	top: 122px;
+	bottom: 27px;
+	width: 100%;
+	background: white;
+	-webkit-overflow-scrolling: touch;
+	overflow: auto;
+}
+
+#frame {
+	width: 100%;
+	height: 100%;
+	border: none;
+}
+
+.ui-dialog .ui-dialog-content{
+	background: white;
+	padding: 0.4em;
+}
+/*------------------------- 整体样式 -------------------------*/

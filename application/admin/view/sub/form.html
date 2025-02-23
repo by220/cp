@@ -1,0 +1,129 @@
+{include file='public/layer'}
+
+<div class="layui-form layuimini-form" style="margin-top:20px;">
+    <div class="layui-form-item">
+        <label class="layui-form-label required">用户名</label>
+        <div class="layui-input-block">
+            <input type="text" name="UserName" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="请输入用户名" value="{$info?$info['UserName']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">密码</label>
+        <div class="layui-input-block">
+            <input type="password" name="password" placeholder="需要请输入密码" value="" class="layui-input">
+            {if !$info}
+            <span style="color:red;margin-top:10px;display:block;">默认密码为123456!</span>
+            {/if}
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">积分</label>
+        <div class="layui-input-block">
+            <input type="number" name="score" placeholder="请输入初始积分"{if $info} readonly=""{/if} value="{$info?$info['score']:''}" class="layui-input">
+        </div>
+    </div>
+    {if $info}
+    <div class="layui-form-item">
+        <label class="layui-form-label required">上分</label>
+        <div class="layui-input-block">
+            <input type="number" name="up" placeholder="请输入" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">下分</label>
+        <div class="layui-input-block">
+            <input type="number" name="down" placeholder="请输入" class="layui-input">
+        </div>
+    </div>
+    {/if}
+    <div class="layui-form-item">
+        <label class="layui-form-label required">统一飞单</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="feidan" value="1"{if $info && $info['feidan']==0} checked=""{/if} lay-skin="switch" lay-text="开通|关闭">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">飞单账号</label>
+        <div class="layui-input-block">
+            <input type="text" name="feidanname" placeholder="需要请输入" value="{$info?$info['feidanname']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">飞单密码</label>
+        <div class="layui-input-block">
+            <input type="text" name="feidanpwd" placeholder="需要请输入" value="{$info?$info['feidanpwd']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">飞单网盘</label>
+        <div class="layui-input-block">
+            <select name="feidanid">
+                <option value=""></option>
+                {volist name="wp_list" id="vo" }
+                <option value="{$vo.id}"{if $info && $info['feidanid']==$vo.id} selected=""{/if}>{$vo.name}</option>
+                {/volist}
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">飞单盘口</label>
+        <div class="layui-input-block">
+            <select name="feidantype">
+                <option value=""></option>
+                <option value="1"{if $info && $info['feidantype']==1} selected=""{/if}>A</option>
+                <option value="2"{if $info && $info['feidantype']==2} selected=""{/if}>B</option>
+                <option value="3"{if $info && $info['feidantype']==3} selected=""{/if}>C</option>
+                <option value="4"{if $info && $info['feidantype']==4} selected=""{/if}>D</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">失效时间</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" id="test1" value="{$info?$info['time']:''}" name="time">
+        </div>
+    </div>
+    {if $info && $info['online']==1}
+    <div class="layui-form-item">
+        <label class="layui-form-label required">在线</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="online" value="1" checked="" lay-skin="switch" lay-text="在线|下线">
+        </div>
+    </div>
+    {/if}
+    <input type="hidden" name="id" id="id" value="{$info?$info['id']:''}" />
+
+    <div class="layui-form-item" style="margin-bottom:50px;">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.use(['form','laydate','layer'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            laydate = layui.laydate;
+            
+        laydate.render({
+            elem: '#test1' //指定元素
+        });
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            putAjax("{:url('users/add')}", data.field, function(res) {
+                if (res.status == 1) {
+                    alertSuc(res.message);
+                    var iframeIndex = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(iframeIndex);
+                }
+                else { alertErr(res.message); }
+            });
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

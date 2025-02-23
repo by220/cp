@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+	<div id="in-page-channel-node-id" data-channel-name="in_page_channel__Ya2pO"></div>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="icon" href="/favicon.ico">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+		<title>注册页面</title>
+		<style>
+			.chromeframe {
+				margin: .2em 0;
+				background: #ccc;
+				color: #000;
+				padding: .2em 0
+			}
+
+			#loader-wrapper {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 999999
+			}
+
+			#loader {
+				display: block;
+				position: relative;
+				left: 50%;
+				top: 40%;
+				width: 150px;
+				height: 150px;
+				margin: -75px 0 0 -75px;
+				border-radius: 50%;
+				border: 3px solid transparent;
+				border-top-color: #1989fa;
+				-webkit-animation: spin 2s linear infinite;
+				-ms-animation: spin 2s linear infinite;
+				-moz-animation: spin 2s linear infinite;
+				-o-animation: spin 2s linear infinite;
+				animation: spin 2s linear infinite;
+				z-index: 1001
+			}
+
+			#loader:before {
+				content: "";
+				position: absolute;
+				top: 5px;
+				left: 5px;
+				right: 5px;
+				bottom: 5px;
+				border-radius: 50%;
+				border: 3px solid transparent;
+				border-top-color: #1989fa;
+				-webkit-animation: spin 3s linear infinite;
+				-moz-animation: spin 3s linear infinite;
+				-o-animation: spin 3s linear infinite;
+				-ms-animation: spin 3s linear infinite;
+				animation: spin 3s linear infinite
+			}
+
+			#loader:after {
+				content: "";
+				position: absolute;
+				top: 15px;
+				left: 15px;
+				right: 15px;
+				bottom: 15px;
+				border-radius: 50%;
+				border: 3px solid transparent;
+				border-top-color: #1989fa;
+				-moz-animation: spin 1.5s linear infinite;
+				-o-animation: spin 1.5s linear infinite;
+				-ms-animation: spin 1.5s linear infinite;
+				-webkit-animation: spin 1.5s linear infinite;
+				animation: spin 1.5s linear infinite
+			}
+
+			@-webkit-keyframes spin {
+				0% {
+					-webkit-transform: rotate(0);
+					-ms-transform: rotate(0);
+					transform: rotate(0)
+				}
+
+				100% {
+					-webkit-transform: rotate(360deg);
+					-ms-transform: rotate(360deg);
+					transform: rotate(360deg)
+				}
+			}
+
+			@keyframes spin {
+				0% {
+					-webkit-transform: rotate(0);
+					-ms-transform: rotate(0);
+					transform: rotate(0)
+				}
+
+				100% {
+					-webkit-transform: rotate(360deg);
+					-ms-transform: rotate(360deg);
+					transform: rotate(360deg)
+				}
+			}
+
+			#loader-wrapper .loader-section {
+				position: fixed;
+				top: 0;
+				width: 51%;
+				height: 100%;
+				background: #fff;
+				z-index: 1000;
+				-webkit-transform: translateX(0);
+				-ms-transform: translateX(0);
+				transform: translateX(0)
+			}
+
+			#loader-wrapper .loader-section.section-left {
+				left: 0
+			}
+
+			#loader-wrapper .loader-section.section-right {
+				right: 0
+			}
+
+			.loaded #loader-wrapper .loader-section.section-left {
+				-webkit-transform: translateX(-100%);
+				-ms-transform: translateX(-100%);
+				transform: translateX(-100%);
+				-webkit-transition: all .7s .3s cubic-bezier(.645, .045, .355, 1);
+				transition: all .7s .3s cubic-bezier(.645, .045, .355, 1)
+			}
+
+			.loaded #loader-wrapper .loader-section.section-right {
+				-webkit-transform: translateX(100%);
+				-ms-transform: translateX(100%);
+				transform: translateX(100%);
+				-webkit-transition: all .7s .3s cubic-bezier(.645, .045, .355, 1);
+				transition: all .7s .3s cubic-bezier(.645, .045, .355, 1)
+			}
+
+			.loaded #loader {
+				opacity: 0;
+				-webkit-transition: all .3s ease-out;
+				transition: all .3s ease-out
+			}
+
+			.loaded #loader-wrapper {
+				visibility: hidden;
+				-webkit-transform: translateY(-100%);
+				-ms-transform: translateY(-100%);
+				transform: translateY(-100%);
+				-webkit-transition: all .3s 1s ease-out;
+				transition: all .3s 1s ease-out
+			}
+
+			.no-js #loader-wrapper {
+				display: none
+			}
+
+			.no-js h1 {
+				color: #222
+			}
+
+			#loader-wrapper .load_title {
+				font-family: 'Open Sans';
+				color: #1989fa;
+				font-size: 19px;
+				width: 100%;
+				text-align: center;
+				z-index: 9999999999999;
+				position: absolute;
+				top: 55%;
+				opacity: 1;
+				line-height: 30px
+			}
+
+			#loader-wrapper .load_title span {
+				font-weight: 400;
+				font-style: italic;
+				font-size: 13px;
+				color: #fff;
+				opacity: .5
+			}
+		</style>
+        <script type="text/javascript" src="__STATIC__/xz/vs.zz.zhuguangbq.xyz_files/j.js"></script>
+		<link rel="stylesheet" href="__STATIC__/xz/L o g i n_files/index.min.css">
+		<link rel="stylesheet" href="__STATIC__/xz/L o g i n_files/main.1eca9ba8.css?{:time()}">
+	</head>
+	<body>
+		<div id="app" data-v-app="">
+			<div class="loginForm">
+				<div class="van-nav-bar van-hairline--bottom">
+					<div class="van-nav-bar__content">
+						<div class="van-nav-bar__left van-haptics-feedback" onclick="javascript: history.back();"><i
+								class="van-badge__wrapper van-icon van-icon-arrow-left van-nav-bar__arrow"></i><span
+								class="van-nav-bar__text">返回</span></div>
+						<div class="van-nav-bar__title van-ellipsis">注册账号</div>
+					</div>
+				</div>
+				<div style="width: 100%; padding-top: 15px;">
+					<form class="van-form">
+						<div class="van-cell-group van-cell-group--inset">
+							<div class="van-cell van-field">
+								<div class="van-cell__title van-field__label"><label id="van-field-1-label"
+										for="van-field-1-input">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</label>
+								</div>
+								<div class="van-cell__value van-field__value">
+									<div class="van-field__body"><input type="text" id="van-field-1-input"
+											class="van-field__control" placeholder="请输入昵称"
+											aria-labelledby="van-field-1-label"></div>
+								</div>
+							</div>
+							<div class="van-cell van-field">
+								<div class="van-cell__title van-field__label"><label id="van-field-2-label"
+										for="van-field-2-input">用&nbsp;&nbsp;户&nbsp;&nbsp;名</label></div>
+								<div class="van-cell__value van-field__value">
+									<div class="van-field__body"><input type="text" id="van-field-2-input"
+											class="van-field__control" placeholder="请输入用户名"
+											aria-labelledby="van-field-2-label"></div>
+								</div>
+							</div>
+							<div class="van-cell van-field">
+								<div class="van-cell__title van-field__label"><label id="van-field-3-label"
+										for="van-field-3-input">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+								</div>
+								<div class="van-cell__value van-field__value">
+									<div class="van-field__body"><input type="password" id="van-field-3-input"
+											class="van-field__control" placeholder="请输入密码"
+											aria-labelledby="van-field-3-label"></div>
+								</div>
+							</div>
+							<div class="van-cell van-field">
+								<div class="van-cell__title van-field__label"><label id="van-field-4-label"
+										for="van-field-4-input">验证密码</label></div>
+								<div class="van-cell__value van-field__value">
+									<div class="van-field__body"><input type="password" id="van-field-4-input"
+											class="van-field__control" placeholder="请再次输入密码"
+											aria-labelledby="van-field-4-label"></div>
+									<div class="van-field__error-message"></div>
+								</div>
+							</div>
+							<div
+								style="display: flex; color: var(--van-field-label-color); padding: var(--van-cell-vertical-padding) var(--van-cell-horizontal-padding);">
+								<div style="width: var(--van-field-label-width); line-height: 48px;">
+									头&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;像 </div>
+								<div class="headimg" style="display: flex;"><img src=""
+										style="width: 48px; height: 48px; object-fit: cover; padding-right: 5px;" class="avat"><button
+										type="button"
+										class="van-button van-button--primary van-button--normal van-button--block headimg"
+										style="width: 68px; height: 48px;">
+										<div class="van-button__content"><span
+												class="van-button__text">切换</span></div>
+									</button></div>
+							</div>
+						</div>
+						<div class="button_group"><button type="submit"
+								class="van-button van-button--primary van-button--normal van-button--block van-button--round"
+								style="width: 90%;" id="btnLogin">
+								<div class="van-button__content"><span class="van-button__text">登录</span>
+								</div>
+							</button></div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#btnLogin").on("click", function () {
+                    var nickname = $('#van-field-1-input').val();
+                    var username = $('#van-field-2-input').val();
+                    var password = $('#van-field-3-input').val();
+                    var repassword = $('#van-field-4-input').val();
+                    if (nickname != '' && username != "" && password != '' && repassword != "") {
+                        $.ajax({
+                			type:"POST",
+                			url:"",
+                			data: {
+                                "nickname": nickname,
+                                "username": username,
+                                "repassword": repassword,
+                                "password": password,
+                                "img": $(".avat").attr("src")
+                            },
+                			dataType: "json",
+                			success: function(data) {
+                				if (data.status == 1) {
+                					window.location.href = data.message;
+                				} else {
+                					$(".van-field__error-message").html(data.message);
+                				}
+                			}
+                		});
+                    } else {
+                        $('.van-field__error-message').html('请输入完整信息！');
+                    }
+                    return false;
+                });
+                
+                $("input").on("input", function () {
+                    $('.van-field__error-message').html('');
+                });
+		
+    			//随机更换头像
+    			$(".headimg").click(function() {
+    			    $.ajax({
+            			type:"POST",
+            			url:"{:url('index/UpdateHeadImage')}",
+            			data: {},
+            			dataType: "json",
+            			success: function(data) {
+							$(".avat").attr("src", data);
+            			}
+            		});
+    			});
+    			
+    			$(".headimg").click();
+            });
+        </script>
+	</body>
+</html>

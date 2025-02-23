@@ -1,0 +1,312 @@
+{include file='public/head'}
+
+<div class="uk-container uk-container-center  uk-margin-large-top uk-grid">
+    {if $Think.session.user_uid == '1'}
+    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-width-1-1">
+        <h4>添加飞单</h4>
+        <div class="uk-grid">
+            <div class="uk-width-1-1">
+                <form class="uk-form">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>统一飞单:</td>
+                                <td>
+                                    <select name="feidan" id="feidan" style="width:100%;">
+                                        <option value="">请选择</option>
+                                        <option value="1">打开</option>
+                                        <option value="0">关闭</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>选择机器人:</td>
+                                <td>
+                                    <select name="sub" id="sub" style="width:100%;">
+                                        <option value="">请选择</option>
+                                        {{volist name="cate_list" id="vo" }
+                                        <option value="{$vo.UserName}">{$vo.UserName}</option>
+                                        {/volist}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>飞单链接:</td>
+                                <td>
+                                    <input id="feidanurl" type="text" placeholder="请输入">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>飞单账号:</td>
+                                <td>
+                                    <input id="feidanname" type="text" placeholder="请输入">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>飞单密码:</td>
+                                <td>
+                                    <input id="feidanpwd" type="text" placeholder="请输入">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div>
+            <div class="uk-width-1-1">
+                <div>
+                    <a class="uk-button uk-button-primary" href="javascript:;" id="btnSet">提交</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {/if}
+</div>
+
+<div class="uk-container uk-container-center  uk-margin-large-top">
+    <div class="uk-panel uk-panel-box uk-panel-box-primary">
+        <div class="uk-grid" style="margin-left: 0;">
+            <div class="uk-width-1-1" style="overflow: auto;padding: 0;">
+                <div id="table"></div>
+            </div>
+        </div>
+        <div class="uk-grid uk-align-right" data-uk-grid-margin="" style="margin-left: 0;">
+            <div class="uk-width-1-1" style="padding-left: 0;">
+                <div>
+                    <a class="uk-button uk-button-primary" href="javascript:;" id="btnRefresh">刷新列表</a>
+                    <a class="uk-button uk-button-danger" href="javascript:;" id="btnClose2">强制下线</a>
+                    <a class="uk-button uk-button-danger" href="javascript:;" id="btnDel">删除</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //只能输入数字和小数点
+    function IsNumberAndDot(e) {
+        var re = /^\d+(?=\.{0,1}\d+$|$)/
+        if (e.value != "") {
+            if (!re.test(e.value)) {
+                alert("请输入正确的数字");
+                e.value = "";
+                e.focus();
+            }
+        }
+    }
+    
+    function addUser() {
+        if ($("#edtFengPan").val() == "") {
+            alertErr("您没有填写账号！");
+            return false;
+        }
+        if ($("#edtDelay").val() == "") {
+            alertErr("您没有填写到期时间");
+            return false;
+        }
+        putAjax("{:url('users/add')}", {
+            "name": $("#edtFengPan").val(),
+            "pwd": $("#edtCancel").val(),
+            'sc': $('#edtJifen').val(),
+            "time": $("#edtDelay").val(),
+            "feidan": $("#feidan").val(),
+            'feidanurl': $('#feidanurl').val(),
+            'feidanname': $('#feidanname').val(),
+            'feidanpwd': $('#feidanpwd').val(),
+            'subP': $('#subP').val(),
+            'subxiugai': $('#subxiugai').val(),
+            'rbxiugai': $('#rbxiugai').val()
+        }, function(res) {
+            if (res.status == 1) {
+                alertSuc(res.message);
+                location.reload();
+            }
+            else { alertErr(res.message); }
+        });
+    }
+
+    //刷新用户列表
+    function RefreshUserList() {
+        $.post("{:url('users/GetUserList')}",
+            function (data, textStatus) {
+                var $jsonObj = data.data;
+                $("#table").jqxDataTable('clear');
+                $($jsonObj).each(function (index) {
+                    var val = $jsonObj[index];
+                    if (val.status == 0) {
+                        var txtStatus = "<span style='color:green;'>正常</span>";
+                    }
+                    else {
+                        var txtStatus = "<span style='color:red;'>已到期</span>";
+                    }
+                    if (val.online == 1) {
+                        var txtOnline = "<span style='color:blue;'>在线</span>";
+                    }
+                    else {
+                        var txtOnline = "<span>离线</span>";
+                    }
+                    if (val.feidan == 1) {
+                        var feidan = "<span style='color:green;'>打开</span>";
+                    }
+                    else {
+                        var feidan = "<span style='color:red;'>关闭</span>";
+                    }
+                    if (val.feidanonline == 1) {
+                        var feidanonline = "<span style='color:blue;'>在线</span>";
+                    }
+                    else {
+                        var feidanonline = "<span>离线</span>";
+                    }
+                    if (val.subxiugai == 1) {
+                        var subxiugai = "<span style='color:green;'>开通</span>";
+                    }
+                    else {
+                        var subxiugai = "<span style='color:red;'>关闭</span>";
+                    }
+                    if (val.rbxiugai == 1) {
+                        var rbxiugai = "<span style='color:green;'>开通</span>";
+                    }
+                    else {
+                        var rbxiugai = "<span style='color:red;'>关闭</span>";
+                    }
+                    $("#table").jqxDataTable('addRow', null, {
+                        "ID": val.id,
+                        "LoginName": val.UserName,
+                        "Days": val.time,
+                        "Score": val.score,
+                        "feidanurl": val.feidanurl,
+                        "feidanname": val.feidanname,
+                        "feidanpwd": val.feidanpwd,
+                        "Status": txtStatus,
+                        "online": txtOnline,
+                        "feidan": feidan,
+                        "feidanonline": feidanonline,
+                        "feidanmoney": val.feidanmoney,
+                        "feidanbetting": val.feidanbetting,
+                        "pidName": val.pidName,
+                        "subxiugai": subxiugai,
+                        "rbxiugai": rbxiugai
+                    });
+                });
+                //刷新
+                $("#table").jqxDataTable('refresh');
+            });
+    }
+    
+    //删除
+    function btnDel() {
+        //判断用户是否选定了行
+        var selection = $("#table").jqxDataTable('getSelection');
+        if (selection.length != 1) {
+            alertErr("您没有选择要删除的账号!");
+            return false;
+        }
+        var rowData = selection[0];
+        UIkit.modal.confirm("确定将[" + rowData.LoginName + "]的删除么?", function () {
+            putAjax("{:url('users/userDel')}", {
+                "dlUserName": rowData.LoginName
+            }, function(res) {
+                alertSuc("请求已提交成功!");
+                RefreshUserList();
+            });
+        });
+    }
+    
+    //下线
+    function btnClose() {
+        //判断用户是否选定了行
+        var selection = $("#table").jqxDataTable('getSelection');
+        if (selection.length != 1) {
+            alertErr("您没有选择要下线的账号!");
+            return false;
+        }
+        var rowData = selection[0];
+        UIkit.modal.confirm("确定将[" + rowData.LoginName + "]强制下线么?", function () {
+            putAjax("{:url('users/userClose')}", {"dlUserName": rowData.LoginName}, function(res) {
+                RefreshUserList();
+            });
+        });
+    }
+    
+    //设置
+    function setUser() {
+        if ($("#rb").val() == "") {
+            alertErr("您没有选择子帐号!");
+            return false;
+        }
+        putAjax("{:url('sub/setUser')}", {
+            "up": $("#edtScore").val(),
+            "down": $("#edtDownScore").val(),
+            "pwd": $("#edtPass").val(),
+            "xufei":$("#xufeiDelay").val(),
+            'sub': $('#sub').val(),
+            "feidan": $("#xiugaifeidan").val(),
+            'feidanurl': $('#xiugaifeidanurl').val(),
+            'feidanname': $('#xiugaifeidanname').val(),
+            'feidanpwd': $('#xiugaifeidanpwd').val(),
+            'subxiugai': $('#subxiugai2').val(),
+            'rbxiugai': $('#rbxiugai2').val()
+        }, function(res) {
+            if (res == 0) {
+                $("#edtScore").val('')
+                $("#edtDownScore").val('')
+                $("#edtPass").val('')
+                $("#xufeiDelay").val('')
+                $("#xiugaifeidanurl").val(''),
+                $("#xiugaifeidanname").val('')
+                $("#xiugaifeidanpwd").val('')
+                RefreshUserList();
+                alertSuc("设置成功!");
+            }
+            else { alertErr("设置失败，可能是您名下暂时没有该账号，请重试!"); }
+        });
+    }
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        //初始化表格
+        $("#table").jqxDataTable(
+        {
+            altRows: true,
+            sortable: true,
+            editable: false,
+            autoRowHeight: true,
+
+            selectionMode: 'singleRow',
+            theme: 'bootstrap',
+            columns: [
+                // { text: 'ID', dataField: 'ID', width: 0, hidden: true },
+                // { text: '用户名', dataField: 'LoginName', width: 85 },
+                // { text: '上级用户', dataField: 'pidName', width: 85 },
+                // { text: '子帐号权限', dataField: 'subxiugai', width: 80 },
+                // { text: '机器人权限', dataField: 'rbxiugai', width: 80 },
+                // { text: '失效日期', dataField: 'Days', width: 85 },
+                // { text: '可用积分', dataField: 'Score', width: 100 },
+                // { text: '飞单', dataField: 'feidan', width: 85 },
+                // { text: '飞单链接', dataField: 'feidanurl'},
+                // { text: '飞单账号', dataField: 'feidanname', width: 100 },
+                // { text: '飞单密码', dataField: 'feidanpwd', width: 100 },
+                // { text: '网盘状态', dataField: 'feidanonline', width: 85 },
+                // { text: '网盘余额', dataField: 'feidanmoney', width: 100 },
+                // { text: '网盘下注', dataField: 'feidanbetting', width: 100 },
+                // { text: '状态', dataField: 'Status', width: 60 },
+                // { text: '在线', dataField: 'online', width: 60 }
+            ]
+        });
+
+        $("#btnSet").bind("click touched", addUser);
+        $("#btnDel").bind("click touched", btnDel);
+        $("#btnClose2").bind("click touched", btnClose);
+        $("#btnSet2").bind("click touched", setUser);
+        RefreshUserList();
+
+        $("#btnRefresh").bind("click touched", RefreshUserList);
+        setInterval(RefreshUserList, 4000);
+    });
+</script>
+
+{include file='public/js'}
+</body></html>

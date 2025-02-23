@@ -1,0 +1,56 @@
+﻿        html, body {
+    background: none repeat scroll 0 0 #FFFFFF;
+}
+html, body, div, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, pre, form, p, blockquote, fieldset, input, abbr, article, aside, command, details, figcaption, figure, footer, header, hgroup, mark, meter, nav, output, progress, section, summary, time {
+    margin: 0;
+    padding: 0;
+}
+body:before {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+body {
+	cursor:default;
+    min-height: 100%;
+    color: #333333;
+    font: 14px/21px "Lucida Grande","Lucida Sans Unicode",Helvetica,Arial,Verdana,sans-serif;
+}
+a{text-decoration:none;color:#00c;}
+a:hover{
+text-decoration:underline;
+}
+a{outline: none;blr:expression(this.onFocus=this.blur())}
+img{border: 0 none;}
+form{display:inline}
+button,input,select,textarea{font-size:100%;}
+table{border-collapse:collapse;border-spacing:0;}
+.layout {
+    margin: 0 auto;
+}
+ul,ol{list-style:none outside none;}
+.clear {
+    clear: both;
+}
+.clearer {
+    clear: both;
+    display: block;
+    font-size: 1px;
+    height: 0;
+    line-height: 1px;
+    margin: 0;
+    padding: 0;
+}
+.clearfixli:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.clearfixli{display:inline-block;}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.clearfix{display:inline-block;}
+/* Hides from IE-mac \*/
+* html .clearfixli{height:1%;}
+* html .clearfix{height:1%;}
+.clearfix{display:block;}
+.clearfixli{display:block;}
+/* End hide from IE-mac */
+.clearfixli li{display:inline;float:left;}

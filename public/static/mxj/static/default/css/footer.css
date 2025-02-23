@@ -1,0 +1,61 @@
+.left_adv{
+  height: 389px;
+  width: 129px;
+  position: fixed;
+  left: 12px;
+  top: 185px;
+  z-index: 888;
+}
+
+.appqr-wrapper {
+  z-index: 99999;
+  width: 118px;
+}
+.appqr-wrapper .appqrcode {
+  width: 118px;
+  background-color: #d15606;
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.appqr-wrapper .appqrcode img {
+  width: 98px;
+  height: 98px;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 6px;
+  display: block;
+}
+.appqr img{
+  background-color: #fff;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto;
+  top: 14px;
+  position: absolute;
+  left: 14px;
+}
+.appqr-wrapper .text{
+  color: #fff;
+  text-align: center;
+  font-size: 15px;
+  line-height: 21px;
+  font-style: italic;
+  margin-top: 7px;
+  font-weight: 600;
+}
+
+.appdlurl{
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 600;
+  margin-top: 2px;
+  letter-spacing: -0.5px;
+}
+
+.appdlurl a {
+  color: #fff;
+  text-decoration: none;
+}

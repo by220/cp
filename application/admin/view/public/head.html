@@ -1,0 +1,197 @@
+<html class="uk-notouch"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>管理后台</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <link rel="stylesheet" href="__STATIC__/xz/admin/uikit.gradient.min.css">
+    <script type="text/javascript" src="__STATIC__/xz/admin/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" href="__STATIC__/xz/layui/css/layui.css">
+    <script src="__STATIC__/xz/layui/layui.js"></script>
+    <style type="text/css">
+        .divMaska {
+            display: block;
+            margin: 2px auto;
+            position: relative;
+            background-color: red;
+            color: white;
+            font-size: 12px;
+            z-index: 99999999;
+        }
+        
+        .uk-container {
+            padding: 0 15px;
+        }
+        
+        .uk-margin-large-top {
+            margin-top: 10px!important;
+        }
+        
+        .uk-navbar-nav {
+            background-color: #2f4056!important;
+            padding: 0 20px;
+        }
+        
+        .uk-navbar {
+            background: #2f4056!important;
+        }
+        
+        .uk-navbar-nav>li>a {
+            color: rgba(255,255,255,.7);
+            text-shadow: none;
+            line-height: 50px;
+            height: inherit;
+            border: none;
+            text-align: center;
+            box-shadow: none !important;
+        }
+        
+        .uk-navbar-nav>li.uk-active::after {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 5px;
+            background-color: #5FB878;
+            transition: all .2s;
+            content: '';
+            top: auto;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        .uk-navbar-nav>li.uk-active>a {
+            color: #fff;
+        }
+        
+        .uk-navbar-nav>li.uk-active>a {
+            background: none;
+        }
+        
+        .uk-navbar-nav>li:hover>a {
+            color: rgba(255,255,255,.7);
+        }
+        
+        .jqx-grid-cell {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .jqx-widget-header-bootstrap div {
+            text-align: center !important;
+        }
+        
+        .uk-navbar-nav>li>a:active {
+            background-color: transparent;
+        }
+        
+        .uk-container {
+            max-width: inherit;
+        }
+        
+        input,
+        textarea,
+        select {
+            border-radius: 5px;
+            /*border: 1px solid #aaa;*/
+            border-color: #aaa;
+            border-width: 1px;
+        }
+    
+        @media all and (max-width: 900px) {
+            .uk-width-1-2 {
+                width: 100%;
+            }
+        }
+    
+        @media all and (max-width: 500px) {
+            .uk-navbar-nav {
+                padding: 0;
+            }
+            
+            .uk-navbar-nav>li {
+                width: 25%;
+            }
+            
+            .uk-navbar-nav>li>a {
+                font-size: 12px;
+                padding: 0 5px;
+            }
+        }
+        
+        .uk-panel h4 {
+            border-left: 6px solid #0af;
+            padding-left: 8px;
+        }
+        
+        .uk-form input, .uk-form select, .uk-form textarea {
+            width: 100%;
+        }
+        
+        #layui-layer-iframe1 {
+            height: 100vh !important;
+        }
+    </style>
+    <script type="text/javascript" charset="utf-8">
+		function alertErr(title) {
+			layer.msg(title, {icon: 5,offset: '50%'});
+		}
+		
+		function alertSuc(title) {
+			layer.msg(title, {icon: 1,offset: '50%'});
+		}
+
+		function putAjax(url, data, callback, callback2) {
+		    var loadindex = layer.load(1,{offset: '50%'});
+			$.ajax({
+				type: "POST",
+				url: url,
+				dataType: "json",
+				data: data,
+				cache: false,
+				success: function(data) {
+					if (callback && typeof callback === 'function') {
+						callback(data);
+					}
+				},
+				error: function() {
+					if (callback2 && typeof callback2 === 'function') {
+						callback2();
+					}
+					alertErr("请求失败，请重试！");
+				},
+				complete: function() {
+				    layer.close(loadindex);
+				}
+			});
+		}
+    </script>
+</head>
+<body>
+    <div class="uk-container uk-container-center uk-margin-large-top">
+        <div class="uk-grid">
+            <div class="uk-width-1-1">
+                <nav class="uk-navbar">
+                    <ul class="uk-navbar-nav">
+                        <li id="menuli1" class="{if $Request.controller=='Index'&&$Request.action=='index'}uk-active{/if}"><a id="menu1" href="{:url('index/index')}">开奖信息</a></li>
+                        {if $Think.session.user_uid == '1'}
+                        {/if}
+                        <li id="menuli9" class="{if $Request.controller=='Sub'&&$Request.action=='index'}uk-active{/if}"><a id="menu9" href = "{:url('sub/index')}">子账号</a></li>
+                        <li id="menuli11" class="{if $Request.controller=='Rb'}uk-active{/if}"><a id="menu11" href = "{:url('rb/index')}">机器人</a></li>
+                        <li id="menuli5" class="{if $Request.controller=='Tongji'}uk-active{/if}"><a id="menu5" href = "{:url('tongji/index')}">统计分析</a></li>
+                        <li id="menuli7" class="{if $Request.controller=='History'}uk-active{/if}"><a id="menu7" href = "{:url('history/index')}">开奖历史</a></li>
+                        {if $Think.session.user_uid == '1'}
+                        <li id="menuli6" class="{if $Request.controller=='Uncul'}uk-active{/if}"><a id="menu6" href = "{:url('uncul/index')}">未结算</a></li>
+                        <!--<li id="menuli9" class="{if $Request.controller=='Sub'&&$Request.action=='flyer'}uk-active{/if}"><a id="menu9" href = "{:url('sub/flyer')}">飞单</a></li>-->
+                        <!--<li id="menuli11" class="{if $Request.controller=='Changed'&&$Request.action=='changerecord'}uk-active{/if}"><a id="menu11" href = "{:url('changed/changeRecord')}">改单</a></li>-->
+                        <li id="menuli12" class="{if $Request.controller=='Users'&&$Request.action=='online'}uk-active{/if}"><a id="menu12" href = "{:url('users/online')}">在线玩家</a></li>
+                        <!--<li id="menuli13" class="{if $Request.controller=='Changed'&&$Request.action=='loglist'}uk-active{/if}"><a id="menu13" href = "{:url('changed/loglist')}">日志</a></li>-->
+                        <li id="menuli13" class="{if $Request.controller=='Changed'&&$Request.action=='config'}uk-active{/if}"><a id="menu14" href = "{:url('changed/config')}">设置</a></li>
+                        <li id="menuli13" class="{if $Request.controller=='Index'&&$Request.action=='wplist'}uk-active{/if}"><a id="menu14" href = "{:url('index/wplist')}">网盘设置</a></li>
+                        <li id="menuli13" class="{if $Request.controller=='Game'&&$Request.action=='index'}uk-active{/if}"><a id="menu14" href = "{:url('game/index')}">彩种设置</a></li>
+                        {/if}
+                        <li id="menuli4" class="{if $Request.controller=='Pwd'}uk-active{/if}"><a id="menu4" href = "{:url('pwd/index')}">修改密码</a></li>
+                        <li><a id="menu8" href="{:url('Login/Logout')}">安全退出</a></li>
+                        <li style="width: auto;"><a href="javascript:;" style="color:red;">欢迎您&nbsp;&nbsp;&nbsp;&nbsp;{$Think.session.user_id}{if $Think.session.user_uid != '1'}&nbsp;&nbsp;&nbsp;&nbsp;可用积分：<span id="leftScore">{:sprintf('%.0f',db('admin')->where('UserName',$Think.session.user_id)->find()['score'])}</span>{else/}，<span>超级管理员账号</span>{/if}</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>

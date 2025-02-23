@@ -1,0 +1,83 @@
+{include file='public/head'}
+
+<div class="uk-container uk-container-center  uk-margin-large-top">
+    <div class="uk-panel uk-panel-box uk-panel-box-primary">
+        <h4>未结算订单</h4>
+        <div class="uk-grid">
+            <div class="uk-width-1-1">
+                <div id="table"></div>
+            </div>
+        </div>
+        <div class="uk-grid uk-align-right" data-uk-grid-margin="">
+            <div class="uk-width-1-1">
+                <div>
+                    <a class="uk-button uk-button-primary" href="javascript:;" id="btn1">刷新列表</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //刷新列表
+    function RefreshList() {
+        $.ajax({
+            type: "GET",
+            url: "{:url('tongji/GetUnCalculate')}",
+            dataType: "json",
+            //成功返回之后调用的函数
+            success: function (data) {
+                $("#table").jqxDataTable('clear');
+                $(data.data).each(function (index) {
+                    var val = data.data[index];
+                    $("#table").jqxDataTable('addRow', null, {
+                        "BelongOperator": val.BelongOperator,
+                        "wxid": val.name,
+                        "NickName": val.wid,
+                        "qihao": val.qihao,
+                        "dtGenerate": val.dtGenerate,
+                        "cmd": "<span style='color:blue'>" + val.text + "</span>",
+                        "id": val.id
+                    });
+                });
+                //刷新
+                $("#table").jqxDataTable('refresh');
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+                UIkit.notify("请求失败，请重试!", { status: 'danger', pos: 'top-center', timeout: 1000 });
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#table").jqxDataTable(
+        {
+            altRows: true,
+            sortable: true,
+            editable: false,
+            autoRowHeight: true,
+            selectionMode: 'singleRow',
+            theme: 'bootstrap',
+            columns: [
+                { text: '所属机器人', dataField: 'BelongOperator'},
+                { text: 'wxid', dataField: 'wxid'},
+                { text: '昵称', dataField: 'NickName'},
+                { text: '期号', dataField: 'qihao'},
+                { text: '投注时间', dataField: 'dtGenerate'},
+                { text: '指令', dataField: 'cmd'}
+            ]
+        });
+
+        RefreshList();
+
+        $("#btn1").bind("click", function () {
+            RefreshList();
+        });
+    });
+</script>
+{include file='public/js'}
+</body></html>

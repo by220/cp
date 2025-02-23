@@ -1,0 +1,451 @@
+@CHARSET "UTF-8";
+
+body {
+	margin: 0;
+	padding: 4px;
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background-color: #ffffff;
+}
+
+.mt {
+	margin-top: 20px;
+}
+
+.mb {
+	margin-bottom: 20px;
+}
+
+.main {
+	width: 884px;
+}
+
+.search .title {
+	height: 28px;
+	line-height: 28px;
+	color: #060606;
+	display: inline-block;
+	font-weight: bold;
+}
+
+.table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 99%;
+	background-color: #FFF;
+}
+
+.table th, .table td {
+	text-align: center;
+	/*font-weight: bold;*/
+	height: 28px;
+	padding: 0;
+	/*color: #762D08;*/
+}
+
+.user_info_table tbody td {
+	text-align: left;
+	text-indent: 22px;
+}
+
+.table thead th, .table .head th {
+	height: 24px;
+	line-height: 24px;
+	background: #FFBDB9 url(./img/red/table_headerbg.gif) repeat-x left top;
+	color: #762d08;
+	font-weight: bold;
+	height: 28px;
+}
+
+.table .nodata {
+	height: 30px;
+	line-height: 30px;
+	font-weight: normal;
+}
+
+.table tbody th {
+	font-weight: normal;
+	width: 18%;
+	text-align: right;
+	padding-right: 5px;
+	color: #000000;
+}
+
+.history {
+	padding-left: 9px;
+}
+
+.history a {
+	color: #762D08;
+	text-decoration: none;
+}
+
+.history .today .date a {
+	color: blue;
+}
+
+.skin_blue .history a {
+	color: #35406d;
+	text-decoration: none;
+}
+
+.skin_gray .history a {
+	color: #000000;
+	text-decoration: none;
+}
+
+.history a:hover {
+	color: RED;
+	text-decoration: none;
+}
+
+.history td {
+	width: 20%;
+}
+
+.password tbody th {
+	width: 231px;
+	text-align: right;
+	padding-right: 36px;
+}
+
+.password tbody td {
+	text-align: left;
+	text-indent: 22px;
+}
+
+.password tbody input {
+	border: 1px solid #b0b0b0;
+	height: 14px;
+	padding: 1px;
+}
+
+.password .note {
+	margin: 10px auto;
+	width: 400px;
+}
+
+.password .note a {
+	text-decoration: none;
+}
+
+.control {
+	width: 99%;
+	text-align: center;
+	margin-top: 15px;
+	overflow: hidden;
+	text-align: center;
+}
+
+.control .button {
+	background: url("./img/red/btn-bg.png") repeat-x;
+	border: none;
+	width: 66px;
+	height: 18px;
+	line-height: 18px;
+	margin-right: 5px;
+	color: #fff;
+	letter-spacing: 3px;
+}
+
+.skin_blue .control .button {
+	background: url("./img/blue/btn-bg.png") repeat-x;
+}
+
+.skin_gray .control .button {
+	background: url("./img/gray/btn-bg.png") repeat-x;
+}
+
+.control .button_hover, .control .button:hover {
+	background-position: 0 -19px;
+	color: #FFE400;
+	font-weight: bold;
+}
+
+#date {
+	width: 80px;
+}
+
+.table td, .table th {
+	border: 1px solid #E6B3BE;
+}
+
+.table tfoot tr {
+	background: #F1C8C8;
+}
+
+.list .hover {
+	background: #F6D3E4;
+}
+
+#drawTable .other1, #drawTable .other {
+	/*font-weight: bold; */
+	
+}
+
+#drawTable .GLHT_T, #drawTable .GQHH_T, #drawTable .GDSH_T, #drawTable .TIE, #drawTable .Gyxx3, #drawTable .Gyxx4,
+	#drawTable .G7SB_B {
+	color: #2836f4;
+	/*font-weight: bold; */
+}
+
+#drawTable .GDX_X, #drawTable .GWDX_X, #drawTable .GDS_D, #drawTable .GLH_H, #drawTable .GLHT_H, #drawTable .GZIH_H,
+	#drawTable .GTS_1, #drawTable .GZDS_S, #drawTable .GZDX_X, #drawTable .GHDS_S, #drawTable .GHDX_X, #drawTable .GWX_1,
+	#drawTable .GQHH_H, #drawTable .GDSH_D {
+	color: black;
+	/*font-weight: bold; */
+}
+
+#drawTable .GDX_D, #drawTable .GWDX_D, #drawTable .GDS_S, #drawTable .GLH_L, #drawTable .GLHT_L, #drawTable .GZIH_Z,
+	#drawTable .GZDS_D, #drawTable .GZDX_D, #drawTable .GHDS_D, #drawTable .GHDX_D, #drawTable .Gyxx1, #drawTable .Gyxx6,
+	#drawTable .GQHH_Q, #drawTable .GDSH_S, #drawTable .G7SB_R {
+	color: red;
+	/*font-weight: bold; */
+}
+
+#drawTable .Gyxx2, #drawTable .Gyxx5, #drawTable .G7SB_G {
+	color: #22BD1E;
+}
+
+.others {
+	font-weight: bold;
+}
+
+div, form, img, ul, ol, li, dl, dt, dd {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	list-style: none;
+	overflow: hidden;
+}
+
+a {
+	text-decoration: none;
+}
+
+.game_class {
+	background: white;
+	border: 1px solid #e7b3bf;
+	width: 98.7%;
+}
+
+.game_class ul {
+	background: url(./img/red/game_classbg.png) repeat-x;
+}
+
+.game_class li {
+	background: url(./img/red/game_classbg.png) no-repeat left -128px;
+	padding: 0 0 0 60px;
+}
+
+.game_class span {
+	position: absolute;
+	display: block;
+	width: 60px;
+	font-size: 14px;
+	line-height: 32px;
+	font-weight: bold;
+	color: #a40000;
+	text-indent: 8px;
+	margin: 0 0 0 -60px;
+	float: left;
+}
+
+.game_class a {
+	display: block;
+	width: 100px;
+	font-size: 12px;
+	color: #535353;
+	line-height: 28px;
+	background: url(./img/red/game_classbg.png) no-repeat left -319px;
+	text-align: center;
+	text-shadow: 1px 1px 0 #eeeeee;
+	margin: 4px 4px 0 0;
+	float: left;
+}
+
+.game_class a:hover, .game_class a.selected {
+	color: white;
+	background: url(./img/red/game_classbg.png) no-repeat left -291px;
+	text-shadow: 1px 1px 0 #ad3b4e;
+}
+
+.table .text {
+	color: #2836f4;
+}
+
+.table .draw_number {
+	color: #299a26;
+}
+
+.table .odds {
+	color: red;
+	font-weight: bold;
+	font-family: Verdana, Arial, Sans;
+}
+
+.table .color {
+	color: #2836f4;
+	font-weight: bold;
+}
+
+.table .minus {
+	color: red;
+}
+
+.table .cancelled {
+	text-decoration: line-through;
+}
+
+.table .result .cancelled {
+	color: red;
+	text-decoration: none;
+}
+
+/*===================================== skin_blue ===============================================*/
+.skin_blue .table thead th, .skin_blue .table .head th {
+	background: #c5e5f4 url("./img/blue/table_headerbg.gif") repeat-x left top;
+	color: #35406d;
+}
+
+.skin_blue table, .skin_blue table th, .skin_blue table td {
+	border-color: #b9c2cb;
+}
+
+.skin_blue .table tfoot tr {
+	background-color: #e6e6fa;
+}
+
+.skin_blue .list .hover {
+	background: none repeat 0 0 #c3d9f1;
+}
+
+.skin_blue .game_class {
+	background: white;
+	border: 1px solid #b9c2cb;
+	width: 98.7%;
+}
+
+.skin_blue .game_class ul {
+	background: url(./img/blue/game_classbg.png) repeat-x;
+}
+
+.skin_blue .game_class li {
+	background: url(./img/blue/game_classbg.png) no-repeat left -128px;
+	padding: 0 0 0 60px;
+}
+
+.skin_blue .game_class span {
+	position: absolute;
+	display: block;
+	width: 60px;
+	font-size: 14px;
+	line-height: 32px;
+	font-weight: bold;
+	color: #00479d;
+	text-indent: 8px;
+	margin: 0 0 0 -60px;
+	float: left;
+}
+
+.skin_blue .game_class a {
+	display: block;
+	width: 100px;
+	font-size: 12px;
+	color: #535353;
+	line-height: 28px;
+	background: url(./img/blue/game_classbg.png) no-repeat left -319px;
+	text-align: center;
+	text-shadow: 1px 1px 0 #eeeeee;
+	margin: 4px 4px 0 0;
+	float: left;
+}
+
+.skin_blue .game_class a:hover, .skin_blue .game_class a.selected {
+	color: white;
+	background: url(./img/blue/game_classbg.png) no-repeat left -291px;
+	text-shadow: 1px 1px 0 #386BAD;
+}
+
+.skin_blue .table .color {
+	color: #2836f4;
+	font-weight: bold;
+}
+
+.skin_blue .table .minus {
+	color: red;
+}
+
+/*===================================== skin_gray ===============================================*/
+.skin_gray .table thead th, .skin_gray .table .head th {
+	background: #B2B4B5 url("./img/gray/table_headerbg.png") repeat-x left top;
+	color: #fff;
+}
+
+.skin_gray table, .skin_gray table th, .skin_gray table td {
+	border-color: #b9c2cb;
+}
+
+.skin_gray .table tfoot tr {
+	background-color: #e6e6fa;
+}
+
+.skin_gray .list .hover {
+	background: none repeat 0 0 #F7F7F7;
+}
+
+.skin_gray .game_class {
+	background: white;
+	border: 1px solid #b9c2cb;
+	width: 98.7%;
+}
+
+.skin_gray .game_class ul {
+	background: url(./img/gray/game_classbg.png) repeat-x;
+}
+
+.skin_gray .game_class li {
+	background: url(./img/gray/game_classbg.png) no-repeat left -128px;
+	padding: 0 0 0 60px;
+}
+
+.skin_gray .game_class span {
+	position: absolute;
+	display: block;
+	width: 60px;
+	font-size: 14px;
+	line-height: 32px;
+	font-weight: bold;
+	color: #000000;
+	text-indent: 8px;
+	margin: 0 0 0 -60px;
+	float: left;
+}
+
+.skin_gray .game_class a {
+	display: block;
+	width: 100px;
+	font-size: 12px;
+	color: #535353;
+	line-height: 28px;
+	background: url(./img/gray/game_classbg.png) no-repeat left -319px;
+	text-align: center;
+	text-shadow: 1px 1px 0 #eeeeee;
+	margin: 4px 4px 0 0;
+	float: left;
+}
+
+.skin_gray .game_class a:hover, .skin_gray .game_class a.selected {
+	color: white;
+	background: url(./img/gray/game_classbg.png) no-repeat left -291px;
+	text-shadow: 1px 1px 0 #000000;
+}
+
+.skin_gray .table .color {
+	color: #2836f4;
+	font-weight: bold;
+}
+
+.skin_gray .table .minus {
+	color: red;
+}

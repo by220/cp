@@ -1,0 +1,10 @@
+version: '3'
+services:
+  php:
+    image: phpswoole/swoole:php8.1
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "9504:9504"
+    working_dir: /var/www/html
+    command: php think websocket:start 

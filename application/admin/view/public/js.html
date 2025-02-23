@@ -1,0 +1,42 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        function getOnlie() {
+            $.ajax({
+                type: "GET",
+                url: "{:url('index/getOnlie')}",
+                data: {tar:(document.hidden?1:0)},
+                dataType: "json",
+                success: function (data) {
+                    if (data.status==0) {
+                        location.href = "{:url('Login/Logout')}";
+                    }
+                    if (typeof ReloadHisImage === "function") {
+                        var qi = data.data1['QiHao'];
+                        var qi5 = data.data2['QiHao'];
+                        if (qi!==qihao) {
+                            ReloadHisImage();
+                        }
+                        if (qi5!==qihao5) {
+                            ReloadHisImage();
+                        }
+                        qihao = qi;
+                        qihao5 = qi5;
+                    }
+                }
+            });
+            setTimeout(getOnlie, 3000);
+        } 
+        
+        getOnlie();
+    });
+
+</script>
+
+
+<div class="uk-container uk-container-center  uk-margin-large-top">
+    <div class="uk-grid">
+        <div class="uk-width-1-1 uk-text-center">
+            <h4>版权所有 版本号: 2.3.1 Build 20200819</h4>
+        </div>
+    </div>
+</div>

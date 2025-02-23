@@ -1,0 +1,520 @@
+@CHARSET "UTF-8";
+
+.info_table .input {
+	width: 110px;
+}
+
+.user_panel .username {
+	width: 90px;
+}
+
+.user_panel .account {
+	width: 80px;
+}
+
+.user_panel .pbalance {
+	color: #2836f4;
+	margin-left: 30px;
+}
+
+.user_panel .statusControl {
+	margin-left: 20px;
+}
+
+.user_panel .commission, .user_panel .commission option {
+	color: #2836f4;
+}
+
+.info_table .dx {
+	margin-left: 5px;
+	color: red;
+}
+
+.user_panel #usernameMsg {
+	margin-left: 5px;
+}
+
+.user_panel .error {
+	color: #f97c00;
+}
+
+.share_panel .share {
+	width: 50px;
+}
+
+.share_panel tbody td {
+	text-align: center;
+}
+
+.share_panel .current {
+	color: red;
+}
+
+.user_list tbody .username {
+	background: white url(./img/td_b.jpg) repeat-y left;
+	text-align: left;
+	text-indent: 10px;
+}
+
+.user_list tbody .username span {
+	color: #344b50;
+}
+
+.user_list tbody .username a:hover {
+	text-decoration: none;
+}
+
+.user_list tbody td {
+	text-align: center;
+}
+
+.user_list .time {
+	width: 125px;
+}
+
+.user_list .new {
+	width: 50px;
+}
+
+.user_list .new a {
+	display: block;
+}
+
+.user_list .share, .user_list .range {
+	width: 30px;
+}
+
+.main .user_list .online {
+	width: 30px;
+	padding: 0;
+}
+
+.user_list .account .popdiv ul {
+	padding: 2px 5px;
+	text-align: left;
+}
+
+.user_list .account .popdiv ul li {
+	margin-top: 4px;
+}
+
+.user_list .account .label {
+	color: #555;
+	font-style: italic;
+}
+
+.user_list .account .max_limit {
+	color: blue;
+	cursor: pointer;
+}
+
+.user_list .online span {
+	display: block;
+	margin: auto;
+}
+
+.user_list .online .s0 {
+	background: url(./img/u0.gif) no-repeat;
+	width: 10px;
+	height: 10px;
+}
+
+.user_list .online .s1 {
+	background: url(./img/u1.gif) no-repeat;
+	width: 20px;
+	height: 20px;
+}
+
+.user_list .betback span, .user_list .remain span {
+	display: block;
+	width: 12px;
+	height: 12px;
+	margin: auto;
+}
+
+.user_list .betback .s0, .user_list .remain .s0 {
+	background: url(./img/img_0.gif) no-repeat;
+}
+
+.user_list .betback .s1 {
+	background: url(./img/img_1.gif) no-repeat;
+}
+
+.user_list .remain .s1 {
+	background: url(./img/img_3.gif) no-repeat;
+}
+
+.main .user_list .status {
+	width: 38px;
+	padding: 0;
+}
+
+.user_list .status input {
+	width: 36px;
+	height: 22px;
+}
+
+.user_list .subcount a {
+	color: #555;
+	font-weight: bold;
+}
+
+.user_list .modify {
+	background: url(./img/edit.gif) no-repeat left center;
+}
+
+.user_list .commission {
+	background: url(./img/edt.gif) no-repeat left center;
+	padding-left: 16px;
+}
+
+.user_list .info {
+	background: url(./img/22.gif) no-repeat left center;
+}
+
+.user_list .op_log {
+	background: url(./img/44.gif) no-repeat left center;
+	padding-left: 14px;
+}
+.user_list .copy {
+	background: url(./img/copy.jpg) no-repeat left center;
+	padding-left: 14px;
+}
+.user_list .my {
+	background: url(./img/my.png) no-repeat left center;
+	padding-left: 14px;
+}
+.user_list .showson {
+	background: url(./img/ico_bu.png) no-repeat left top;
+	padding: 2px 0 0 18px;
+	margin: 0;
+	background-position: 0 -18px;
+}
+
+.user_list .status .s2 {
+	color: #663399;
+}
+
+.user_list .status .s0, .user_list .status .ss1 {
+	color: red;
+}
+
+.user_list .status .s1 {
+	color: black;
+}
+
+.user_list .page {
+	width: 100%;
+}
+
+.top_info .title {
+	min-width: 120px;
+}
+
+.left_panel {
+	float: left;
+	border: 1px solid #b9c2cb;
+	background: white;
+	padding: 0;
+	margin: 1px 10px 0 2px;
+	width: 120px;
+}
+
+.left_panel li {
+	height: 26px;
+	line-height: 26px;
+	border-top: 1px solid #b9c2cb;
+	padding: 0 5px;
+	text-indent: 10px;
+}
+
+.left_panel .title {
+	background: #C9E7F5 url(./img/table_head.gif) repeat-x;
+	height: 24px;
+	line-height: 24px;
+	font-weight: bold;
+	border-top: none;
+}
+
+.left_panel span {
+	float: right;
+}
+
+.top_info .input {
+	width: 95px;
+	height: 18px;
+}
+
+.main .param_panel td {
+	padding: 0;
+	text-align: center;
+}
+
+.param_panel .panel {
+	width: 50%;
+}
+
+.param_panel thead tr, .param_panel .head {
+	color: black;
+}
+
+.param_panel .layout .head {
+	background: url(./img/bg2.jpg) repeat-x;
+	height: 24px;
+	line-height: 24px;
+}
+
+.param_panel .data_table tbody th {
+	background-color: #F2F2F2;
+	width: 240px;
+}
+
+.param_panel .data_table tbody td {
+	padding: 2px 0;
+}
+
+.param_panel .data_table tbody div {
+	padding: 1px 0;
+}
+
+.param_panel input {
+	border: #abb2c5 1px solid;
+}
+
+.param_panel .commission {
+	width: 50px;
+	text-align: center;
+}
+
+.param_panel .amount {
+	width: 60px;
+	text-align: center;
+}
+
+.param_panel .quick {
+	width: 100%;
+	border-bottom: 1px solid #b9c2cb;
+	border-right: 1px solid #b9c2cb;
+}
+
+.data {
+	color: #5e647c;
+	/*font-style: italic;*/
+}
+
+.param_panel .quick thead tr {
+	/*background: url(./img/bg_g.jpg) repeat-x;*/
+	
+}
+
+.param_panel .quick th, .param_panel .quick td {
+	border-top: 1px solid #b9c2cb;
+	border-left: 1px solid #b9c2cb;
+	height: 24px;
+	line-height: 24px;
+}
+
+.param_panel .quick .title {
+	width: 34%;
+}
+
+.param_panel .quick .range {
+	width: 10%;
+}
+
+.param_panel .quick .control {
+	width: 80px;
+}
+
+.param_panel .color {
+	background-image: url(./img/td_ts.gif);
+	background-repeat: no-repeat;
+	background-position: right -50px;
+}
+
+.param_panel .quickButton {
+	text-align: center;
+	margin: 5px 0 10px 0;
+}
+
+.param_panel .data_table .t_BALL th, .param_panel .quick .t_BALL .color {
+	background-position: right top;
+}
+
+.param_panel .data_table .t_LM th, .param_panel .quick .t_LM .color {
+	background-position: right -150px;
+}
+
+.param_panel .data_table .t_MP th, .param_panel .quick .t_MP .color {
+	background-position: right -100px;
+}
+
+.param_panel .data_table .t_ITEM th, .param_panel .quick .t_ITEM .color {
+	background-position: right -200px;
+}
+
+.param_panel .changed {
+	background: aqua;
+}
+
+.user_panel .popedom {
+	display: block;
+	width: 30%;
+	float: left;
+}
+
+#statusPanel {
+	width: 150px;
+	text-align: center;
+}
+
+#statusPanel .statuslist {
+	height: 22px;
+	line-height: 22px;
+}
+
+#statusPanel label {
+	margin: 0 3px;
+}
+
+.warning_panel {
+	text-align: center;
+	color: red;
+	font-weight: bold;
+}
+
+#setting .panel {
+	float: left;
+	margin: 0 15px;
+}
+
+#setting ul {
+	width: 150px;
+	height: 250px;
+	background: white;
+	padding: 5px;
+	list-style: none;
+	border: 1px solid #eee;
+	margin: 0;
+	overflow: auto;
+}
+
+#setting ul li {
+	cursor: default;
+	border: 1px solid #d3d3d3;
+	text-align: center;
+	margin: 0 5px 5px;
+	height: 20px;
+	line-height: 20px;
+	background: #aaa;
+}
+
+#setting  p {
+	margin: 0;
+}
+
+#setting .note {
+	clear: both;
+	color: red;
+}
+
+#setting .note1 {
+	color: blue;
+}
+
+#sysconfig input, #sysconfig select {
+	width: 100%;
+}
+
+#syncPanel {
+	margin-left: 15px;
+	margin-top: 10px;
+}
+
+.tab {
+	width: 100%;
+	margin: 0 0 0 0;
+	margin-top: 5px;
+	padding: 0;
+}
+
+.tab li {
+	margin: 0 8px;
+}
+
+.tab_title02 {
+	height: 29px;
+	line-height: 29px;
+	background: url(./img/tab_bg02.gif) repeat-x left -93px;
+}
+
+.tab_title02 a {
+	display: block;
+	width: 98px;
+	height: 29px;
+	font-size: 13px;
+	color: #7d7d7d;
+	background: url(./img/tab_bg02.gif) no-repeat left -29px;
+	text-shadow: 1px 1px 0 white;
+	margin: 0 5px 0 0;
+	text-align: center;
+	float: left;
+	text-decoration: none;
+}
+
+.tab_title02 a:hover, .tab_title02 a.selected {
+	color: #274D98;
+	/*font-weight:bold;*/
+	background: url(./img/tab_bg02.gif) no-repeat left top;
+}
+
+#updateAccountPanel {
+	position: absolute;
+	border: 1px solid #d3d3d3;
+	background: white;
+}
+
+#updateAccountPanel .title {
+	background: #f9d2cf;
+	height: 22px;
+	line-height: 22px;
+	font-weight: bold;
+	text-indent: 5px;
+}
+
+#updateAccountPanel .panel {
+	margin: 10px;
+}
+
+#updateAccountPanel .panel input {
+	width: 70px;
+}
+
+#updateAccountPanel .bottom {
+	text-align: center;
+}
+
+.param_panel .game_tab span {
+	float: left;
+	color: red;
+	font-weight: bold;
+	margin: 15px 0 0 0;
+}
+
+.share_panel tbody th span {
+	color: red;
+}
+
+.user_list .account .label_red {
+	color: red;
+}
+
+.user_list .account .edit_amount .input_text {
+	width: 100px;
+}
+
+#cmcontrol {
+	float: left;
+	height: 30px;
+	line-height: 34px;
+}
