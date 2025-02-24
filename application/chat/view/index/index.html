@@ -1202,6 +1202,7 @@
 				wxid: '{$rbuser.wxid}'
 			};
 			let m_drawTime = 0;
+			let lastTime = 0;
 			var isLoad = false;
 			var recordList = [];
 			var gameType = '{$game.gameType}';
@@ -1261,7 +1262,7 @@
 				function scrollBtm() {
 					msgcontent.stop().animate({scrollTop:msgcontent[0].scrollHeight - msgcontent.height() - 1});
 					//msgcontent.scrollTop(msgcontent[0].scrollHeight - msgcontent.height() - 1);
-					$(".divBottom .btndown:visible").hide();
+					//$(".divBottom .btndown:visible").hide();
 					msgconf.newMsgCount = 0;
 				}
 				$(".divBottom .btndown").on("click", function() {
@@ -1287,14 +1288,17 @@
 					if (msgconf.isAutoBottom) {
 					    scrollBtm();
 					} else {
-						$(".divBottom .btndown:hidden").show();
+						if(msgconf.newMsgCount > 0){
+							$(".divBottom .btndown:hidden").show();
+						}
 					}
 					if (newMsgB.text() != newMsgTxt) {
 						newMsgB.text(newMsgTxt);
 					}
 				};
 				setInterval(checkAutoScroll, 500);
-				setInterval(updateTime, 1000);
+				let timerId;
+				let endTime;
 				$(window).resize(autoMsgSize);
 				//提交消息
 				var submitMsg = function() {
@@ -1557,7 +1561,7 @@
 				};
 				
                 function initWS() {
-                    ws = new WebSocket("wss://3ccft.gnjfx.cn/ws?uid="+msgconf.uid+"&gt="+gameType);
+                    ws = new WebSocket("wss://x.hy1965.cn/ws?uid="+msgconf.uid+"&gt="+gameType);
                     ws.onopen = function() {
                         console.log("WebSocket connected.");
                     };
@@ -1583,6 +1587,7 @@
 						let rb = playMethod[apptype];
 						rb.forEach(item => {
 							$("#qiu"+(item - 1)).addClass("red");
+							$(".balls .ani .anibox").eq(item - 1).addClass("red");
 						});
 					}
 				}
@@ -1608,9 +1613,13 @@
 						data: {str:str},
 						success: function(ret) {
 							apptype = ret.kj.type;
-						    if (ret.kj.dtOpen > 0) {
+						  //  if (ret.kj.dtOpen > 0) {
 							    m_drawTime = ret.kj.dtOpen;
-						    }
+						  //  }
+						  if(m_drawTime<0)m_drawTime=0;
+							endTime = Date.now() + m_drawTime * 1000; 
+							console.log(endTime);
+							updateTime();
 							var c = ret.kj.Code.split(','),zonghe = 0,v = document.getElementsByClassName('numblueHead'),gameJs = '{$game.jsType}';
 							qihao = ret.qh;
 							$('.dqhao').text(qihao);
@@ -1618,6 +1627,7 @@
 							$('#topissue').text(ret.kj.QiHao);
 							for (var i = 0; i < c.length; i++) {
 								v[i].innerHTML = c[i];
+								$(".balls .ani .anibox").eq(i).show();
 								$('#qiu'+i).text(c[i]).show();
 								zonghe += Number(c[i]);
 								var haomahong = (c[i] % 3 == 0 ? 'r75' : (c[i] % 3 == 1 ? 'b75' :
@@ -1637,7 +1647,7 @@
 									v[i].classList.add(haomahong);
 								}
 								v[i].style.lineHeight = '20px';
-								$('#header .blueQiu').css('lineHeight','22px');
+								//$('#header .blueQiu').css('lineHeight','22px');
 							}
 							initBall();
 							if (ret.kj.type == 75) {
@@ -1726,7 +1736,7 @@
 								$('.isvip').show();
 							}
 							if ($b.daoji == 2) {
-							    $('.drawTime').hide();
+							    //$('.drawTime').hide();
 							} else {
 							    $('.drawTime').show();
 							}
@@ -1767,8 +1777,11 @@
 				};
 
 				function updateTime() {
-					if (m_drawTime <= 0) {
-						msgconf.flag = setInterval(function() {
+					let currentTime = Date.now();
+    				let remainingTime = endTime - currentTime;
+					console.log(remainingTime);
+					if (remainingTime <= 0) {
+						/*msgconf.flag = setInterval(function() {
 							if (m_drawTime > 0 && m_drawTime < 300) return;
 							var v = document.getElementsByClassName('numblueHead');
 							msgconf.currentTop += 1;
@@ -1791,28 +1804,44 @@
 							if (msgconf.currentTop > 50) {
 								msgconf.currentTop = 0;
 							}
-						}, 5);
+						}, 5);*/
 						//$('#drawTime').text('00:00');
 						//$('.status,.drawTime').text('开奖中');
+						$("#header .balls .result").addClass("hide");
+						$("#header .balls .ani").removeClass("hide");
 					   	$('#drawTime').text('00:00').css('color','red'); 
                         $('.status,.drawTime').text('开奖中').css('color','red');
+						console.log("开奖中")
                         // 设置 '开奖中' 文本并显示为红色
 						getTime();
 					} else {
-						clearInterval(msgconf.flag);
-    					var h = parseInt(m_drawTime / 60);
-    					var m = parseInt(m_drawTime % 60);
-    					if (m >= 10) {
-    						h = '0' + h.toString() + ':' + m.toString();
-    					} else {
-    						h = '0' + h.toString() + ':0' + m.toString();
-    					}
-    					$('#drawTime').text(h);
-    					$('.status,.drawTime').text(h);
+						//clearInterval(msgconf.flag);
+						$("#header .balls .result").removeClass("hide");
+						$("#header .balls .ani").addClass("hide");
+						let h = Math.floor(remainingTime / 3600000);  // 小时（1小时 = 3600000毫秒）
+						let m = Math.floor((remainingTime % 3600000) / 60000);  // 分钟（1分钟 = 60000毫秒）
+						let s = Math.floor((remainingTime % 60000) / 1000);  // 秒（1秒 = 1000毫秒）
+
+						// 格式化时间，确保两位数显示
+						let timeStr = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+
+    					$('#drawTime').text(timeStr);
+    					$('.status,.drawTime').text(timeStr);
 					}
-					m_drawTime--;
+					if (remainingTime > 0) {
+						setTimeout(updateTime, 1000);
+					}
+									
 				}
 
+				document.addEventListener('visibilitychange', function() {
+					if (!document.hidden) {
+						// 页面切回前台时更新时间
+						endTime = Date.now() + m_drawTime * 1000 - (Date.now() - endTime); // 更新目标时间
+						getTime();  // 页面切回前台时调用 getTime() 确保执行
+					}
+				});
+				updateTime();
 				function getHisList() {
 					$.ajax({
 						url: "{:url('index/getHis')}",
@@ -1837,7 +1866,11 @@
 					});
 				}
 				//滑动
-				$('.msgcontent').scroll(function() {
+				var currTop = $('.msgcontent').scrollTop();
+				
+				$('.msgcontent').scroll(function(e) {
+					let pos = $('.msgcontent').scrollTop() > currTop ? 1 : -1;
+					currTop = $('.msgcontent').scrollTop();
 					if (!isQp) {
 						if ($('.msgcontent').scrollTop() > 100) {
 							isLoad = false;
@@ -1847,11 +1880,17 @@
 							getHisList();
 						}
 					}
-					if($(this).scrollTop() + $(this).height() + 1 < msgcontent[0].scrollHeight){
-						$(".divBottom .btndown").show();
+					if($(this).scrollTop() + $(this).height() + 1000 < msgcontent[0].scrollHeight){
+						if(!msgconf.isAutoBottom || pos < 0){
+							$(".divBottom .btndown").show();
+						}
 					}else{
-						$(".divBottom .btndown").hide();
+						if($(this).scrollTop() + $(this).height() + 10 >= msgcontent[0].scrollHeight){
+							$(".divBottom .btndown").hide();
+						}
 					}
+					
+					
 				});
 				$('.msgcontent').on('click', '.isvip', function() {
 					$('.vipBox').show();
@@ -1938,13 +1977,17 @@
 					}
 				}
 				
-				$('#history').on('click', function() {
+				$('.uni-popup.top div[name="mask"]').on("click",function(){
+					$('.uni-popup.top').toggle();
+				});
+				
+				$('#header').on('click', function() {
 				    $('.uni-popup.left,.showKj,.uni-popup.right').hide();
 				    $('.uni-popup.top').toggle();
 				    if ($('.uni-popup.top').css('display')=='none') {
-    				    $(this).css('transform','rotate(180deg)');
+    				    //$(this).css('transform','rotate(180deg)');
 				    } else {
-    				    $(this).css('transform','rotate(0)');
+    				    //$(this).css('transform','rotate(0)');
     				    layer.load(1);
     				    $.ajax({
     						url: "{:url('index/getHistory')}",
@@ -1978,9 +2021,11 @@
 				    }
 				});
 				
-				$('#changeQiu').on('change', function() {
-				    var val = $(this).val();
+				$('#changeQiu span').on('click', function() {
+				    var val = $(this).data("value");
 				    qiuIndex = val;
+					$(this).addClass("selected").siblings().removeClass("selected");
+					return false;
 				});
 				
 				$('div[name="mask"]').on('click', function() {
@@ -2151,7 +2196,7 @@
 			.divBottom .send {
 				/*border: 1px solid #1f8b1b;*/
 				right: 8px;
-				width: 55px;
+				width: 80px;
 				height: 32px;
 				border-radius: 2px;
 				text-align: center;
@@ -2689,7 +2734,7 @@
 			}
 
 			.divBottom #txtMsg {
-				margin: 10px 0px 10px 10px;
+				margin: 10px 10px 10px 20px;
 				background: #fcfcfc;
 				border: 1px solid #dcdcde;
 				border-radius: 8px;
@@ -2701,6 +2746,8 @@
 				padding: 5px 8px;
 				outline: none;
 				display: block;
+				flex:1;
+				box-sizing:border-box;
 				user-select: text !important;
 			}
 
@@ -3662,12 +3709,13 @@
 				margin: 0 !important;
 			}
 
+			.balls .ani .list .ball,
 			.blueQiu {
-				height: 20px;
-				width: 20px;
-				line-height: 20px;
+				height: 24px;
+				width: 24px;
+				line-height: 24px;
 				border-radius: 50%;
-				background: #5d96ff;
+				background: #0092dd;
 				color: #fff;
 				float: left;
 				text-align: center;
@@ -5582,6 +5630,78 @@
 			div {
 				display: block;
 			}
+			.qiubox{
+				display:flex;
+				justify-content:space-around;
+				padding:5px;
+				background:#fff;
+			}
+			.qiubox span{
+				border-radius:3px;
+				padding:3px;
+				line-height:1;
+			}
+			.qiubox span.selected{
+				color:#fff;
+				background:#03a9f4;
+			}
+			.balls .result,
+			.balls .ani,
+			.balls{
+				flex:1;
+				display:flex;
+				justify-content: space-around;
+    			align-items: center;
+				overflow:hidden;
+			}
+			.balls .hide{
+				display:none;
+			}
+			.balls .ani .anibox{
+				width:24px;
+				height:24px;
+				overflow:hidden;
+				position:relative;
+				background:#0092dd;
+				border-radius:100%;
+			}
+			.balls .ani .list{
+				animation-duration: 2s;
+				animation-fill-mode: both;
+				animation-iteration-count: infinite;
+				animation-timing-function: linear;
+				animation-name: slide;
+				position:absolute;
+				bottom:0;
+				left:0;
+			}
+			.balls .ani .list .ball{
+				display:block;
+				margin-left:0;
+				background:none;
+			}
+			@keyframes slide{
+				0%{
+					transform:translateY(0);
+					-webkit-transform:translateY(0);
+				}
+				100%{
+					transform:translateY(100%);
+					-webkit-transform:translateY(100%);
+				}
+			}
+			
+			@-webkit-keyframes slide{
+				0%{
+					transform:translateY(0);
+					-webkit-transform:translateY(0);
+				}
+				100%{
+					transform:translateY(100%);
+					-webkit-transform:translateY(100%);
+				}
+			}
+			#header{ padding:0 5px !important; box-sizing:border-box;}
 		</style>
 	</head>
 	<body class="kajianhao font_small">
@@ -5635,17 +5755,35 @@
 		</div>
 		{if $rb.type!=75}
 		<div id="header" style="border-bottom: 1px solid rgb(209, 209, 209); height: 35px; line-height: 36px; padding-left: 0px; position: absolute; z-index: 921; width: 100vw; background: rgb(247, 247, 251) !important; top: 30px;display: flex;justify-content: space-around;align-items:center;">
-			<div style="float: left; font-size: 14px; margin-right: 5px;width: auto;"><span id="topissue">000000</span>期</div>
-			<div id="qiu0" class="blueQiu">00</div>
-			<div id="qiu1" class="blueQiu">00</div>
-			<div id="qiu2" class="blueQiu">00</div>
-			<div id="qiu3" class="blueQiu">00</div>
-			<div id="qiu4" class="blueQiu">00</div>
-			<div id="qiu5" class="blueQiu">00</div>
-			<div id="qiu6" class="blueQiu">00</div>
-			<div id="qiu7" class="blueQiu">00</div>
-			<div style="width: 50px; text-align: left; color: rgb(70, 124, 79); font-weight: bold; font-size: 14px; margin-left: 5px;" class="drawTime">00:00</div>
-			<div id="history" style="right: 10px; /*position: absolute;*/ transform: rotate(180deg); margin-top: -2px;margin-left:10px;"><uni-text class="uni-icons uniui-bottom" style="color: rgb(97, 101, 97); font-size: 25px;"><span></span></uni-text></div>
+			<div id="history" style="float: left; font-size: 14px; margin-right: 5px;width: auto;"><span id="topissue">000000</span>期</div>
+            <div class="balls">
+            	<div class="result">
+                    <div id="qiu0" class="blueQiu">00</div>
+                    <div id="qiu1" class="blueQiu">00</div>
+                    <div id="qiu2" class="blueQiu">00</div>
+                    <div id="qiu3" class="blueQiu">00</div>
+                    <div id="qiu4" class="blueQiu">00</div>
+                    <div id="qiu5" class="blueQiu">00</div>
+                    <div id="qiu6" class="blueQiu">00</div>
+                    <div id="qiu7" class="blueQiu">00</div>
+                    <div id="qiu8" class="blueQiu">00</div>
+                    <div id="qiu9" class="blueQiu">00</div>
+                </div>
+                <div class="ani hide">
+                    <div class="anibox hide"></div>
+                    <div class="anibox hide"></div>
+                    <div class="anibox hide"></div>
+                    <div class="anibox hide"></div>
+                    <div class="anibox hide"></div>
+                    <div class="anibox hide"></div>
+                    <div class="anibox hide"></div>
+                    <div class="anibox hide"></div>
+                    <div class="anibox hide"></div>
+                    <div class="anibox hide"></div>
+                </div>
+            </div>
+			<div style="text-align: left; color: rgb(70, 124, 79); font-weight: bold; font-size: 14px; margin-left: 5px;" class="drawTime">00:00</div>
+            <div></div>
 		</div>
 		{/if}
 		<div class="hero-head"
@@ -6826,7 +6964,7 @@
 					<textarea id="txtMsg" class="nostart" rows="1" autocomplete="off"
 						style="top: 0px; visibility: visible;width: calc(100% - {if $game.hasSelect}210{else/}120{/if}px);" }></textarea>
 		            {if $game.hasSelect}
-					<div style="width: 85px; text-align: center; background-color: rgb(255, 255, 255); height: 32px; padding-left: 0; border-radius: 3px; border: 1px solid rgb(204, 204, 204);">
+					<!--<div style="width: 85px; text-align: center; background-color: rgb(255, 255, 255); height: 32px; padding-left: 0; border-radius: 3px; border: 1px solid rgb(204, 204, 204);">
 						<select id="changeQiu" style="border: none;width: 100%;display: block;height: 100%;border-radius:none;background:#fff;">
 						    <option value="1">第 1 球</option>
 						    <option value="2">第 2 球</option>
@@ -6837,7 +6975,7 @@
 						    <option value="7">第 7 球</option>
 						    <option value="8" selected="">第 8 球</option>
 						</select>
-					</div>
+					</div>-->
 					{/if}
 					{if $rb.type==5}
 					<!--<div style="width: 85px; text-align: center; background-color: rgb(255, 255, 255); height: 32px; padding-left: 0; border-radius: 3px; border: 1px solid rgb(204, 204, 204);">-->
@@ -6850,7 +6988,21 @@
 					{/if}
 					<span type="submit" class="send nostart">发送</span>
 				</div>
+                
 				<div class="inpvkb">
+                	{if $game.hasSelect}
+                    <div class="qiubox" id="changeQiu">
+                        <span data-value="1">1球</span>
+                        <span data-value="2">2球</span>
+                        <span data-value="3">3球</span>
+                        <span data-value="4">4球</span>
+                        <span data-value="5">5球</span>
+                        <span data-value="6">6球</span>
+                        <span data-value="7">7球</span>
+                        <span data-value="8" class="selected">8球</span>
+                    </div>
+                    {/if}
+                
 					<ul class="dw" style="{if !$game.hasKey}display:none;{/if}">
 						<li>查</li>
 						<li>上</li>
@@ -7079,6 +7231,12 @@
 			}
 			
 			$(function(){
+				let balls = "";
+				for(i = 1 ; i <= 20; i++){
+					let num = i;
+					balls += "<span class='ball'>"+ (i > 9 ? i : '0'+i) +"</span>";
+				}
+				$(".balls .anibox").html("<div class='list'>"+ balls +"</div>");
 				$(".liushuiPopup .closebtn").on("click",function(){
 					$(".liushuiPopup").addClass("hide");
 					layer.close(loader);

@@ -2639,13 +2639,8 @@
                     return;
                 }
                 layer.confirm("是否要换头像？", function() {
-                    putAjax("{:url('index/UpdateHeadImage')}", {
-						"wxid": s.wxid
-					}, function(data) {
-						$(".jifenright .headimg").attr("src", data);
-						layer.closeAll();
-						updateJifenList();
-					});
+                    $('#changeHead').click();
+                    layer.closeAll()
                 });
             });
             function upload(_this) {

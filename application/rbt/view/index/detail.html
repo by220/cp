@@ -193,9 +193,14 @@
         }
 
         .tt1 {
-            margin-top: 5px;
-            font-size: 16px;
-        }
+				font-size: 14px;
+				margin: 5px;
+				padding: 5px 10px;
+				background-color: rgb(223,244,255);
+				border-radius: 5px;
+				line-height: 1.5;
+			}
+			
         .green{
             background-color: green !important;
         }
@@ -212,7 +217,7 @@
         }
     </style>
 </head>
-<body style="background-color: rgb(242, 243, 245);">
+<body>
     <div style="display:none;">timeout is: 432000</div>
 <div style="padding: 10px;background: #fff;">
     <!--<a class="uk-button uk-button-primary" id="btn2" onclick="history.go(-1)">返回主界面</a>-->
@@ -268,31 +273,31 @@
 </div>
 
 <div id="way2" style="width:100%;" class="ToHide">
-    <div id="content2" style="background-color:rgb(223,244,255);color:black;font-size:16px;">
+    <div id="content2">
 
     </div>
 </div>
 
 <div id="way3" style="width:100%;" class="ToHide">
     <div id="content3">
-        <div id="content3_1" style="background-color:red;color:black;font-size:16px;">
+        <div id="content3_1">
 
         </div>
         <hr>
-        <div id="content3_2" style="background-color:white;color:black;font-size:16px;">
+        <div id="content3_2">
 
         </div>
     </div>
 </div>
 
 <div id="way4" style="width:100%;" class="ToHide">
-    <div id="content4" style="background-color:rgb(223,244,255);color:black;font-size:16px;">
+    <div id="content4">
 
     </div>
 </div>
 
 <div id="way5" style="width:100%;" class="ToHide">
-    <div id="content5" style="background-color:rgb(223,244,255);color:black;font-size:16px;">
+    <div id="content5">
 
     </div>
 </div>
@@ -528,7 +533,7 @@
                     var mingxi = data.lstJiLu[index];
                     var submitTxt = mingxi.submitStatus == 0 ? "未报" : "已报";
 					sub +=
-						"<div style='margin-top:6px;'><span style='color:black;font-weight:bold;'>" +
+						"<div class='tt1' style='margin-top:6px;'><span style='color:black;font-weight:bold;'>" +
 						mingxi.qihao + "：wxid：" + mingxi.dtwxid + ", 昵称：" + mingxi.dtNickName + "，注：" +
 						mingxi.zhuscore + "， 有效：" + mingxi.validscore + "，" + mingxi.result +
 						"</span><span style='color:black;'>" + "，内容：" + mingxi.cmdText + ", 结果：" + mingxi
@@ -541,7 +546,7 @@
                 var sub2 = "";
                 $(data.lstQiDuiZhang).each(function (index) {
                     var mingxi = data.lstQiDuiZhang[index];
-                    sub2 += "<div style='margin-top:6px;'><span style='text-decoration:underline;'>" + mingxi.qihao + "</span>&nbsp;&nbsp;<span style='color:black;font-weight:bold;'>总注:" + mingxi.totalZhu + "，</span><span style='color:black;'>总盈亏：" + mingxi.totalYingKui + "</span></div>";
+                    sub2 += "<div class='tt1' style='margin-top:6px;'><span style='text-decoration:underline;'>" + mingxi.qihao + "</span>&nbsp;&nbsp;<span style='color:black;font-weight:bold;'>总注:" + mingxi.totalZhu + "，</span><span style='color:black;'>总盈亏：" + mingxi.totalYingKui + "</span></div>";
                 });
                 //将明细加入该用户概况
                 $("#content3_2").html($("#content3_2").html() + sub2);
@@ -573,7 +578,7 @@
                 $(data).each(function (index) {
                     var mingxi = data[index];
                     seq += 1;
-                    sub += "<div><span style='color:black;font-weight:bold;'>" + seq + "，" + mingxi.dt + " - " + mingxi.msg + "</span></div>";
+                    sub += "<div class='tt1'><span style='color:black;font-weight:bold;'>" + seq + "，" + mingxi.dt + " - " + mingxi.msg + "</span></div>";
                 });
 
                 //将明细加入
@@ -606,7 +611,7 @@
                 $(data).each(function (index) {
                     var mingxi = data[index];
                     seq += 1;
-                    sub += "<div><span style='color:black;font-weight:bold;'>" + seq + "，" + mingxi.dt + " - " + mingxi.msg + "</span></div>";
+                    sub += "<div class='tt1'><span style='color:black;font-weight:bold;'>" + seq + "，" + mingxi.dt + " - " + mingxi.msg + "</span></div>";
                 });
 
                 //将明细加入

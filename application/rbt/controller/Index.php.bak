@@ -58,7 +58,7 @@ class Index extends Base
     public function UpdateHeadImage()
     {
         $data = $this -> request -> param();
-        $img = '/static/xz/admin/u__chat_img'.rand(1,100).'.jpg';
+        $img = '/static/xz/admin/u__chat_img'.rand(1,40).'.jpg';
 		userUpdate($data,['imgName'=>$img]);
         return $img;
     }

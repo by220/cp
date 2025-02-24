@@ -19,7 +19,6 @@
         <script type="text/javascript" src="__STATIC__/xz/admin/clipboard.min.js"></script>
         <script type="text/javascript" src="__STATIC__/xz/admin/jquery.md5.js"></script>
         <script type="text/javascript" src="__STATIC__/xz/admin/html2canvas.min.js"></script>
-        <!--<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/layer/3.5.1/layer.min.js"></script>-->
         <script type="text/javascript" src="__STATIC__/js/layer/layer.js"></script>
         <style type="text/css">
             .el-dialog__body {
@@ -34,12 +33,16 @@
                 -webkit-user-select: none;
                 user-select: none
             }
-
+            .xxxblue {
+            color: blue;
+            }
+            .xxxred {
+            color: red;
+            }
             .van-swipe__track {
                 display: flex;
                 height: 100%
             }
-
             .van-swipe__track--vertical {
                 flex-direction: column
             }
@@ -386,13 +389,6 @@
                 line-height: 1;
                 color: #606266;
             }
-			
-			#el-id-5546-4 button{
-				background: #ddd;
-				color: #000;
-				text-shadow: unset;
-				border: solid 1px #666;
-			}
 
             .fanshuiSet2,
             .peilv2 {
@@ -569,6 +565,10 @@
             .layui-layer-title {
                 border-bottom: none; 
             }
+           .xfreg {
+            color:red !important;
+            }
+           
         </style>
     </head>
     <body>
@@ -711,7 +711,7 @@
                         <div class="sxf" style="height:125px;border:none;border-top: 1px solid #000">
                             <div class="sxftitle" style="display: flex;">
                                 <b class="shangxiafentit red">上下分确认：</b><button id="baojingbtn"
-                                    style="height: 22px;padding: 0 8px;font-size: 12px;margin-bottom: 3px;">测试提示音</button>
+                                   style="height: 22px;padding: 0 8px;font-size: 12px;margin-bottom: 3px;">测试提示音</button>
                                 <div class="score" style="display: flex;right: 95px;top: 10px;margin-left: 125px;">提示音：
                                     <div><label for="danbian"><input id="danbian" type="radio" name="ltype" value="1"
                                                 style="width:20px;">声音1</label> <label for="shuangbian"><input
@@ -757,10 +757,10 @@
                                         style="width: 110px;border: 1px solid #888;border-radius: 5px;"><button class="setpwd"
                                         style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">更新</button>
                                 </div>
-                                <div class="nickname loginPwd" style="display: flex;">验证码：<input id="loginPwd"
-                                        style="width: 110px;border: 1px solid #888;border-radius: 5px;"><button class="setpwd2"
-                                        style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">更新</button>
-                                </div>
+                                <!--<div class="nickname loginPwd" style="display: flex;">验证码：<input id="loginPwd"-->
+                                <!--        style="width: 110px;border: 1px solid #888;border-radius: 5px;"><button class="setpwd2"-->
+                                <!--        style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">更新</button>-->
+                                <!--</div>-->
                                 <div style="margin-top:10px;">
                                     <button class="repwd"
                                         style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">重置密码</button><button
@@ -992,7 +992,7 @@
                                     </path>
                                 </svg></i></button></header>
                     <div id="el-id-5546-4" class="el-dialog__body" style="padding:0;">
-                        <div style="background-color: #fff;">
+                        <div style="background-color: rgb(242, 243, 245);">
                             <div style="padding-top: 0px;">
                                 <div style="font-size: var(--van-font-size-xs); padding-bottom: 10px;">
                                     <div style="width: 100%;">
@@ -1143,7 +1143,7 @@
                                 </div>
                             </div>
                             <div class="uk-grid uk-grid-small" data-uk-grid-margin="" style="display:none;">
-                                <div class="uk-width-1-3">单码限额：<span style="color: red">*</span></div>
+                                <div class="uk-width-1-3">特码限额：<span style="color: red">*</span></div>
                                 <div class="uk-width-2-3">
                                     <input onkeyup="value=value.replace(/[^0-9]/g,&#39;&#39;)">
                                 </div>
@@ -2200,9 +2200,12 @@
                     for (var k in list) {
                         var aScore = list[k];
                         var div = $('<div class="sxfitem aid'+aScore.id+'"><span class="content">vip1：上分 +100 ，(安安)</span><div class="sxfbtns"><span class="ld"></span><span class="ty" aid="'+aScore.id+'">同意</span><span class="qx" aid="'+aScore.id+'">取消</span></div></div>');
-                        $(".content", div).text(aScore.wxid + "：" + (aScore.type == 0 ? "上分 +" : "下分 -") +
+                        $(".content", div).html(aScore.wxid + "：" + (aScore.type == 0 ? "上分 +" : "<span class='xxxred'>温馨提醒这是下分 - </span>") +
                             parseFloat(aScore.score) + " (" + aScore.nickName + ")");
                         div.attr("vname", aScore.wxid);
+                        //$(".content", div).text(aScore.wxid + "：" + (aScore.type == 0 ? "上分 +" : "下分 -") +
+                           // parseFloat(aScore.score) + " (" + aScore.nickName + ")");
+                       // div.attr("vname", aScore.wxid);
                         $(".ty", div).click(function() {
                             var aid = $(this).attr('aid');
                             checkApply("{:url('index/AcceptUpDownScoreReq')}", {
@@ -2480,7 +2483,7 @@
                         // selectJifen(sB);
                     }
                     var divB = $(
-                        '<div style="display:flex;justify-content: space-between;"><b class="black"></b><b class="zhui"></b><b class="fake" style="display:block;"></b><i style="width:35px;">托</i><b class="nick" style="width:170px;text-align:left;margin-left:8px;"></b><span></span>'+ (memberType == 0 ? '<s style="margin-left:0;width:35px;">删除</s>' : '') +'</div>'
+                        '<div style="display:flex;justify-content: space-between;"><b class="black"></b><b class="zhui"></b><b class="fake" style="display:block;"></b><i style="width:35px;">托</i><b class="nick" style="width:170px;text-align:left;margin-left:8px;"></b><span></span><s style="margin-left:0;width:35px;">删除</s></div>'
                     );
                     //将该对象记录到缓存
                     centerConfig.dicUser[sB.wxid] = divB;
@@ -2631,23 +2634,19 @@
                     }
                 });
             });
-            //更换头像
-            $(".jifenright .headimg").click(function() {
+          //  更换头像
+           $(".jifenright .headimg").click(function() {
                 var s = selectChangejifen;
-                if (s == null) {
+                 if (s == null) {
                     alertErr("请先选择用户!");
                     return;
-                }
+                 }
                 layer.confirm("是否要换头像？", function() {
-                    putAjax("{:url('index/UpdateHeadImage')}", {
-						"wxid": s.wxid
-					}, function(data) {
-						$(".jifenright .headimg").attr("src", data);
-						layer.closeAll();
-						updateJifenList();
-					});
+                    $('#changeHead').click();
+                    layer.closeAll()
                 });
             });
+                //随机更换头像
             function upload(_this) {
                 let filelist = _this.files;
                 let fd = new FormData();

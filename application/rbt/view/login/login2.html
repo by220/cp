@@ -1652,10 +1652,6 @@
                 font-size: 12px
             }
 
-            .el-input--small .el-input__wrapper {
-                padding: 1px 7px
-            }
-
             .el-input--small .el-input__inner {
                 --el-input-inner-height: calc(var(--el-input-height, 24px) - 2px)
             }
@@ -1968,7 +1964,6 @@
 
             #app {
                 width: 100%;
-                height: 100%
             }
 
             p {
@@ -2058,7 +2053,6 @@
 
             .login-content[data-v-2623b88c] {
                 width: 100%;
-                height: 100%
             }
 
             .divMaska[data-v-2623b88c] {
@@ -2099,7 +2093,10 @@
                 width: 100%;
                 min-width: 10px
             }
-
+			body {
+				display: flex;
+				align-items: center;
+			}
             ul[data-v-2623b88c],
             ol[data-v-2623b88c] {
                 list-style: none outside none
@@ -2128,8 +2125,8 @@
             .df[data-v-2623b88c] {
                 margin: 8% auto;
                 width: 80%;
-                border: 2px solid #bbbbbb;
-                max-width: 700px;
+				border: 2px solid #bbbbbb;
+                max-width: 620px;
                 min-width: 170px
             }
 
@@ -2337,8 +2334,8 @@
                 justify-content: flex-end;
                 align-items: flex-start;
                 flex: 0 0 auto;
-                font-size: var(--el-form-label-font-size);
-                color: var(--el-text-color-regular);
+                font-size: 12px;
+                color: #000;
                 height: 32px;
                 line-height: 32px;
                 padding: 0 12px 0 0;
@@ -2408,6 +2405,20 @@
             .el-form-item--feedback .el-input__validateIcon {
                 display: inline-flex
             }
+			.df input {
+				border: 1px solid #444444;
+				width: 80px;
+				height: 25px;
+				line-height: 25px;
+			}
+			.df .column{
+				margin-right:20px;
+			}
+			.df .el-input__wrapper{ border:none; padding:0;}
+			.df button{ height:25px; width: 100px;border: 1px solid #444444 !important;background-color: buttonface !important;color:#000 !important; border-radius:0;}
+			.df .el-card{ border:none; padding:10px;}
+			.df .el-card__body{ padding:0;}
+			.df .el-form-item__label{ height:20px;line-height:20px;}
         </style>
     </head>
     <body>
@@ -2602,32 +2613,20 @@
                     <div class="el-card is-never-shadow" data-v-2623b88c=""><!--v-if-->
                         <div class="el-card__body" style="">
                             <form class="el-form el-form--small el-form--label-top el-form--inline" data-v-2623b88c="">
-                                <div class="el-form-item el-form-item--small is-success is-required el-form-item--feedback"
-                                    data-v-2623b88c="" style="padding-bottom: 20px;"><label id="el-id-3770-0"
+                                <div class="column"
+                                    data-v-2623b88c=""><label id="el-id-3770-0"
                                         for="el-id-3770-3" class="el-form-item__label">用户名:</label>
                                     <div class="el-form-item__content">
                                         <div class="el-input el-input--small" data-v-2623b88c="">
                                             <!-- input --><!-- prepend slot --><!--v-if-->
                                             <div class="el-input__wrapper"><!-- prefix slot --><!--v-if--><input
                                                     class="el-input__inner" type="text" autocomplete="off" tabindex="0"
-                                                    placeholder="请输入用户名" id="name"><!-- suffix slot --><span
-                                                    class="el-input__suffix"><span
-                                                        class="el-input__suffix-inner"><!--v-if--><!--v-if--><!--v-if--><!--v-if--><i
-                                                            class="el-icon el-input__icon el-input__validateIcon"><svg
-                                                                viewBox="0 0 1024 1024"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill="currentColor"
-                                                                    d="M512 896a384 384 0 1 0 0-768 384 384 0 0 0 0 768zm0 64a448 448 0 1 1 0-896 448 448 0 0 1 0 896z">
-                                                                </path>
-                                                                <path fill="currentColor"
-                                                                    d="M745.344 361.344a32 32 0 0 1 45.312 45.312l-288 288a32 32 0 0 1-45.312 0l-160-160a32 32 0 1 1 45.312-45.312L480 626.752l265.344-265.408z">
-                                                                </path>
-                                                            </svg></i></span></span></div>
+                                                    placeholder="请输入用户名" id="name"><!-- suffix slot --></div>
                                             <!-- append slot --><!--v-if-->
                                         </div><!--v-if-->
                                     </div>
                                 </div>
-                                <div class="el-form-item el-form-item--small is-success is-required el-form-item--feedback"
+                                <div class="column"
                                     data-v-2623b88c=""><label id="el-id-3770-1" for="el-id-3770-4"
                                         class="el-form-item__label">密&nbsp;&nbsp;&nbsp;码:</label>
                                     <div class="el-form-item__content">
@@ -2636,25 +2635,12 @@
                                             <div class="el-input__wrapper"><!-- prefix slot --><!--v-if--><input
                                                     class="el-input__inner" type="password" autocomplete="off"
                                                     tabindex="0" placeholder="请输入密码"
-                                                    id="password"><!-- suffix slot --><span
-                                                    class="el-input__suffix"><span
-                                                        class="el-input__suffix-inner"><!--v-if--><!--v-if--><!--v-if--><!--v-if--><i
-                                                            class="el-icon el-input__icon el-input__validateIcon"><svg
-                                                                viewBox="0 0 1024 1024"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill="currentColor"
-                                                                    d="M512 896a384 384 0 1 0 0-768 384 384 0 0 0 0 768zm0 64a448 448 0 1 1 0-896 448 448 0 0 1 0 896z">
-                                                                </path>
-                                                                <path fill="currentColor"
-                                                                    d="M745.344 361.344a32 32 0 0 1 45.312 45.312l-288 288a32 32 0 0 1-45.312 0l-160-160a32 32 0 1 1 45.312-45.312L480 626.752l265.344-265.408z">
-                                                                </path>
-                                                            </svg></i></span></span></div>
+                                                    id="password"><!-- suffix slot --></div>
                                             <!-- append slot --><!--v-if-->
                                         </div><!--v-if-->
                                     </div>
                                 </div>
-                                <div class="el-form-item el-form-item--small el-form-item--feedback" role="group"
-                                    aria-labelledby="el-id-3770-2" data-v-2623b88c="">
+                                <div class="column" data-v-2623b88c="">
                                     <div id="el-id-3770-2" class="el-form-item__label">&nbsp;</div>
                                     <div class="el-form-item__content"><button
                                             class="el-button el-button--primary el-button--small" aria-disabled="false"

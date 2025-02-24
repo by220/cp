@@ -439,7 +439,7 @@ class Websocket extends Command{
                 foreach ($has as $value) {
                     $value['gameType'] = $type;
                    // $typeArr = ['shang','tou','xia','tou','shang','liushui','tou','cha','xia','tou','lishi','liushui','tou','shang'];
-                    $typeArr = ['shang','tou','xia','tou','shang','tou','cha','xia','tou','lishi','tou','shang'];
+                    $typeArr = ['shang','tou','xia','tou','shang','tou','xia','tou','tou','shang'];
                     $rd = rand(0,count($typeArr)-1);
                     $usre = db('robot')->where('UserName',$value['uid'])->find();
                     $admin = ['UserName'=>$usre['uid']];
@@ -462,7 +462,7 @@ class Websocket extends Command{
                                         addJifen($value,$admin,$last,0,$qh);
                                         addMsg3($value,$admin,$last,'@'.$value['NickName'].', 上分'.$last.',待审批!',$qh,$cmd);
                                         db('rbuser')->where('id',$value['id'])->setInc('score',$last);
-                                        // addMsg($value,$admin,'@'.$value['NickName'].', 成功上分'.$last.', 剩'.((int)$value['score']+(int)$last),$qh);
+                                         addMsg($value,$admin,'@'.$value['NickName'].', 成功上分'.$last.', 剩'.((int)$value['score']+(int)$last),$qh);
                                     }
                                 }
                             }
@@ -478,7 +478,7 @@ class Websocket extends Command{
                                         addJifen($value,$admin,$last,1,$qh,1);
                                         addMsg3($value,$admin,$last,'@'.$value['NickName'].', 下分'.$last.',待审批!, 剩'.($value['score']-$last),$qh,$cmd);
                                         db('rbuser')->where('id',$value['id'])->setDec('score',$last);
-                                        // addMsg($value,$admin,'@'.$value['NickName'].', 成功下分'.$last,$qh);
+                                         addMsg($value,$admin,'@'.$value['NickName'].', 成功下分'.$last,$qh);
                                     }
                                 }
                             }
@@ -521,18 +521,18 @@ class Websocket extends Command{
         /**
          * 自动开收盘
          */
-        \Swoole\Timer::tick(3000, function(){
-            $current_hour = date('H'); 
-            $date = time();
-            $start = strtotime('05:59:15');
-            $end = strtotime('06:59:15');
-            if ($date > $start && $date < $end) {
-                db('robot')->where('isOpen',1)->update(['isOpen'=>0]);
-            }
-            if ($date >= $end && $date < strtotime('07:02:15')) {
-                db('robot')->where('isOpen',0)->update(['isOpen'=>1]);
-            }
-        });
+        // \Swoole\Timer::tick(3000, function(){
+        //     $current_hour = date('H'); 
+        //     $date = time();
+        //     $start = strtotime('05:59:15');
+        //     $end = strtotime('06:59:15');
+        //     if ($date > $start && $date < $end) {
+        //         db('robot')->where('isOpen',1)->update(['isOpen'=>0]);
+        //     }
+        //     if ($date >= $end && $date < strtotime('07:02:15')) {
+        //         db('robot')->where('isOpen',0)->update(['isOpen'=>1]);
+        //     }
+        // });
         
         
         // 飞单轮询
