@@ -26,7 +26,7 @@ class Login extends Base
 		$admin = Admin::get(['UserName' => $username,'password' => $password]);
 		if (is_null($admin)) {
 		    $status = -1;
-			$message = '用户名不存在，账号密码错误！';
+			$message = '账号密码错误！';
 		} else {
 		    if (strtotime($admin -> time)<time()&&$admin->type==0) {
 		        $status = -4;

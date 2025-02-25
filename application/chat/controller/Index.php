@@ -48,13 +48,13 @@ class Index extends Base
                     $gid = $value['gameType'];
                 }
                 $gameType = $value['gameType'];
-                $jsType = $value['jsType'];
+                $jsType2 = $value['jsType2'];
                 // 处理 jsType 字段：
-                if ($jsType === "") {
+                if ($jsType2 === "") {
                     $playMethod[$gameType] = []; // 为空字符串时，存储为空数组
                 } else {
                     // 拆分逗号分隔的字符串并转换为数字数组
-                    $playMethod[$gameType] = array_map('intval', explode(',', $jsType));
+                    $playMethod[$gameType] = array_map('intval', explode(',', $jsType2));
                 }
                 if (!in_array($value['gameType'], $gameArr)) {
                     unset($game[$i]);
@@ -255,7 +255,7 @@ class Index extends Base
                                 }
                             }
                         }
-                        $allStr .= '剩余粮草 ' . sprintf('%.1f', $wan['score'] + $m);
+                        $allStr .= '剩余 ' . sprintf('%.1f', $wan['score'] + $m);
                         if ($hasOrder) {
                             addMsg($wan, $admin, $allStr, $data['qh']);
                             addMsg($wan, $admin, '@' . $data['dluser'] . ', ' . $usre['cancel'] . '秒内有效指令已全部取消!', $data['qh']);

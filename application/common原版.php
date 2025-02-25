@@ -1861,7 +1861,7 @@ function sendMsg($data)
         if (strstr($last, '/')) {
             $last = ltrim($last, '/');
         }
-      //  echo 'frist->' . $frist . ' last->' . $last . PHP_EOL;
+        echo 'frist->' . $frist . ' last->' . $last . PHP_EOL;
         if (trim($str) == '查') {
             $istId = cha($wan, $admin, $str, $data['qh']);
         } elseif (trim($str) == '玩法') {
@@ -1940,7 +1940,7 @@ function sendMsg($data)
             $istId = addMsg($wan, $admin, '@' . $data['dluser'] . ', 下注无效1!', $data['qh']);
         } elseif (strstr($arr[0], '.') || strstr($arr[0], '=') || strstr($arr[0], '+') || strstr($arr[0], ' ')) {
         //    addCmd($wan, $admin, $data['cmd'], $data['qh']);
-            $istId = addMsg($wan, $admin, '@' . $data['dluser'] . ', 指令格式不正确(0)!', $data['qh']);
+            $istId = addMsg($wan, $admin, '@' . $data['dluser'] . ', 指令格式不正确!', $data['qh']);
         } elseif (count($huan) > 1 || count($kong) > 1) {
             $duo = false;
             $zongxiaList = db('record')->where('gameType', $wan['gid'])->where('type', 3)->where('wid', $wan['NickName'])->where('rid', $wan['uid'])->where('qihao', $data['qh'])->where('isTuo', 0)->sum('score');
@@ -1965,7 +1965,7 @@ function sendMsg($data)
             } else {
                 foreach ($duoArr as $value) {
                     $str = $value;
-                 //   echo $str . PHP_EOL;
+                    echo $str . PHP_EOL;
                     if (($wan['gid'] == 17 || $game['wf']) && strstr($str, '/')) {
                         $wfArr = explode('/', $str);
                         unset($wfArr[0]);
@@ -2061,7 +2061,7 @@ function sendMsg($data)
                             }
                         }
                         if ($isTrue == 0) {
-                            $istId = addMsg($wan, $admin, '@' . $data['dluser'] . ', "' . $str . '" 指令格式不正确(1)!', $data['qh']);
+                            $istId = addMsg($wan, $admin, '@' . $data['dluser'] . ', "' . $str . '" 指令格式不正确!', $data['qh']);
                             return $istId;
                         } elseif ($isTrue == 1) {
                             $duo = xiazhu3($wan, $admin, $data, $money, $zongxiaList, $xian, $map, $str, $usre, $isTe, $arr3[1]);
@@ -2075,8 +2075,6 @@ function sendMsg($data)
                     } else {
                         list($money, $ma, $xian, $map) = getWfArr($str, $arr, $usre, [], $str, $str, 0, $frist, $last);
                         $wf = db('rbwf')->where('name', $ma)->find();
-                      //  var_dump($wf);
-                      //  var_dump($arr);
                         if ($wf && is_numeric($money) && $xian > 0 && $xian > 0 && count($arr) <= 2) {
                             $duo = xiazhu3($wan, $admin, $data, $money, $zongxiaList, $xian, $map, $str, $usre);
                             if (!$duo['bol']) {
@@ -2210,13 +2208,13 @@ function sendMsg($data)
                         }
                         if ($isTrue == 0) {
                             delCmd($errid);
-                            $istId = addMsg($wan, $admin, '@' . $data['dluser'] . ', 指令格式不正确(2)!', $data['qh']);
+                            $istId = addMsg($wan, $admin, '@' . $data['dluser'] . ', 指令格式不正确!', $data['qh']);
                         } elseif ($isTrue == 1) {
                             $istId = xiazhu4($wan, $admin, $data, $money, $zongxiaList, $xian, $map, $str, $usre, $isTe, $arr3[1], $ma);
                         }
                     } else {
                         delCmd($errid);
-                        $istId = addMsg($wan, $admin, '@' . $data['dluser'] . ', 指令格式不正确(3)!', $data['qh']);
+                        $istId = addMsg($wan, $admin, '@' . $data['dluser'] . ', 指令格式不正确!', $data['qh']);
                     }
                 } else {
                     list($money, $ma, $xian, $map) = getWfArr($str, $arr, $usre, [], $str, $str, 0, $frist, $last);
@@ -2227,7 +2225,7 @@ function sendMsg($data)
                         $istId = xiazhu4($wan, $admin, $data, $money, $zongxiaList, $xian, $map, $str, $usre, false, $money, $ma);
                     } else {
                         delCmd($errid);
-                        $istId = addMsg($wan, $admin, '@' . $data['dluser'] . ', 指令格式不正确(4)!', $data['qh']);
+                        $istId = addMsg($wan, $admin, '@' . $data['dluser'] . ', 指令格式不正确!', $data['qh']);
                     }
                 }
             }
@@ -2299,21 +2297,11 @@ function getWfArr($str, $arr, $usre, $map, $money, $ma, $xian, $frist, $last)
         $xian = $usre['jiao'];
     } elseif (strstr($str, '严') || strstr($str, '念')) {
         if (strstr($str, '严')) {
-            if (strstr($str, '/')) {
-                $arr3 = explode('/', $str);
-                $ma = $arr3[0];
-            } else {
-                $arr3 = explode('严', $str);
-                $ma = $arr3[0] . '严';
-            }
+            $arr3 = explode('严', $str);
+            $ma = $arr3[0] . '严';
         } else {
-            if (strstr($str, '/')) {
-                $arr3 = explode('/', $str);
-                $ma = $arr3[0];
-            } else {
-                $arr3 = explode('念', $str);
-                $ma = $arr3[0] . '念';
-            }
+            $arr3 = explode('念', $str);
+            $ma = $arr3[0] . '念';
         }
         $money = $arr3[1];
         $one = substr($arr3[0], 0, 1);
@@ -2381,8 +2369,6 @@ function getWfArr($str, $arr, $usre, $map, $money, $ma, $xian, $frist, $last)
             }
         }
     }
-    $req = ['money' => $money,'ma' => $ma, 'xian' => $xian,'map' => $map];
-    var_dump($req);
     return [$money, $ma, $xian, $map];
 }
 
@@ -2787,7 +2773,7 @@ function openKj($type)
 
                             $jie .= (strlen($value['NickName']) > 32 ? mb_substr($value['NickName'], 0, 2) : $value['NickName']) . '   [' . ($value['score'] < 0 ? '0.0' : $value['score']) . '] ';
                             foreach ($userDetail as $val) {
-                                if ($value['wxid'] == $val['wxid']) {
+                                if ($value['NickName'] == $val['NickName']) {
                                     // $count += $val['score'];
                                     $jie .= (($val['zong'] == 0) ? "" : '(' . (($val['ying'] - $val['ben'] > 0) ? ('+' . sprintf('%.1f', ($val['ying'] - $val['ben']))) : sprintf('%.1f', ($val['ying'] - $val['ben']))) . ')');
                                     break;

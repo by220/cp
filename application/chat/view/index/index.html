@@ -1812,6 +1812,7 @@
 					   	$('#drawTime').text('00:00').css('color','red'); 
                         $('.status,.drawTime').text('开奖中').css('color','red');
 						console.log("开奖中")
+						sleep(1000);
                         // 设置 '开奖中' 文本并显示为红色
 						getTime();
 					} else {
@@ -1833,7 +1834,9 @@
 					}
 									
 				}
-
+				function sleep(ms) {
+					return new Promise(resolve => setTimeout(resolve, ms));
+				}
 				document.addEventListener('visibilitychange', function() {
 					if (!document.hidden) {
 						// 页面切回前台时更新时间
@@ -1880,7 +1883,8 @@
 							getHisList();
 						}
 					}
-					if($(this).scrollTop() + $(this).height() + 1000 < msgcontent[0].scrollHeight){
+					//底部消息距离调节
+					if($(this).scrollTop() + $(this).height() + 3000 < msgcontent[0].scrollHeight){
 						if(!msgconf.isAutoBottom || pos < 0){
 							$(".divBottom .btndown").show();
 						}
