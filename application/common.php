@@ -3610,7 +3610,7 @@ function  resetOrder($list, $type = '')
             $arr['totalDown'] = bcadd($arr['totalDown'], $Down, 2);
             $arr['totalYouXiaoLiuShuis'] = bcadd($arr['totalYouXiaoLiuShuis'], $sliu, 2);
             $arr['totalUpDown'] = bcadd($arr['totalUpDown'], bcsub($Up, $Down, 2), 2);
-            $arr['totalUpDown'] = bcadd($arr['totalUpDown'], bcsub($Up, $Down, 2), 2);
+          //  $arr['totalUpDown'] = bcadd($arr['totalUpDown'], bcsub($Up, $Down, 2), 2);
         }
     }
     return [$arr, $allQi, $yijie, $weijie];
