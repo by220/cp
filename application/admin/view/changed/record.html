@@ -1,225 +1,106 @@
 {include file='public/head'}
-<style>
-    .jqx-popup-bootstrap {
-        position: fixed !important;
-        left: 50% !important;
-        transform: translateX(-50%);
-        z-index: 999 !important;
-    }
-    
-    .jqx-window-modal {
-        z-index: 99 !important;
-    }
-</style>
 
 <div class="uk-container uk-container-center  uk-margin-large-top">
     <div class="uk-panel uk-panel-box uk-panel-box-primary">
-        <h4>下注订单&nbsp;&nbsp;&nbsp;&nbsp;<a class="uk-button uk-button-primary" href = "{:url('gd/index')}">改单记录</a></h4>
-        <div class="uk-grid">
-            <div class="uk-width-1-1">
-                <div id="table"></div>
-            </div>
-        </div>
-        <div class="uk-grid uk-align-right" data-uk-grid-margin="">
-            <div class="uk-width-1-1">
-                <div>
-                    <a class="uk-button uk-button-primary" href="javascript:;" id="btn1">刷新列表</a>
-                    <a class="uk-button uk-button-primary" href="javascript:;" id="btnChangeLimitRobot">修改</a>
-                </div>
+        <div class="uk-grid" style="margin-left: 0;margin-top: 10px;">
+            <button class="layui-btn layui-btn-sm layui-btn-normal" id="gdrecord">改单记录</button>
+            <button class="layui-btn layui-btn-sm" id="refresh">刷新</button>
+            <div class="uk-width-1-1" style="overflow: auto;padding: 0;">
+                <div id="table" lay-filter="table"></div>
             </div>
         </div>
     </div>
 </div>
 
-<script type="text/javascript">
-    //刷新列表
-    function RefreshList() {
-        putAjax("{:url('tongji/GetUnCalculate')}",{},function (data) {
-            $("#table").jqxDataTable('clear');
-            $(data.data).each(function (index) {
-                var val = data.data[index];
-                $("#table").jqxDataTable('addRow', null, {
-                    "BelongOperator": val.BelongOperator,
-                    "wxid": val.name,
-                    "NickName": val.wid,
-                    "qihao": val.qihao,
-                    "dtGenerate": val.dtGenerate,
-                    "score": val.score,
-                    "cmd": "<span style='color:blue'>" + val.text + "</span>",
-                    "id": val.id
-                });
-            });
-            //刷新
-            $("#table").jqxDataTable('refresh');
-        })
-    }
-
-    function RequestChangeLimit() {
-        if ($("#jiao").val() == '') {
-            alertErr("有数据为空!");
-            return false;
-        }
-        putAjax("{:url('changed/resetRecord')}", {
-                "ids": $("#ids").html(),
-                "jiao": $("#jiao").val(),
-                "oldM": $("#oldM").val()
-            }, function (data) {
-                if (data == 0) {
-                    RefreshList();
-                    alertSuc("修改成功，立即生效!");
-                    $('#jqxLimitWindow').jqxWindow('close');
-                }
-                else { alertErr("已结算，修改失败，请重试!"); }
-            }
-        )
-    }
-
-    //修改限额
-    function ChangeLimit() {
-        //判断用户是否选定了行
-        var selection = $("#table").jqxDataTable('getSelection');
-        if (selection.length != 1) {
-            alertErr("您没有选择要修改的订单!");
-            return false;
-        }
-        var rowData = selection[0];
-        $("#lblLimit").html(rowData.BelongOperator);
-        $("#ids").html(rowData.id);
-        $("#limitForm #wxid").html(rowData.wxid);
-        $("#limitForm #NickName").html(rowData.NickName);
-        $("#limitForm #qihao").html(rowData.qihao);
-        $("#limitForm #timer").html(rowData.dtGenerate);
-        $("#limitForm #text").val($(rowData.cmd).text());
-        $("#limitForm #oldM").val(rowData.score);
-        $("#limitForm #jiao").val(rowData.score);
-        $('#jqxLimitWindow').jqxWindow('open');
-    }
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#btnChangeLimitRobot").bind("click touched", ChangeLimit);
-        //#region 初始化设置限额对话框
-        $("#jqxLimitWindow").jqxWindow({
-            height: 370,
-            maxHeight: 370,
-            width: 460,
-            autoOpen: false,
-            theme: 'bootstrap',
-            position: { x: 0, y: 80 },
-            collapsed: false,
-            showCloseButton: true,
-            keyboardNavigation: true,
-            title: '修改订单',
-            draggable: true,
-            resizable: false,
-            animationType: 'none',
-            isModal: true,
-            modalOpacity: 0.2,
-            modalZIndex: 99999,
-            modalBackgroundZIndex: 99999,
-            closeButtonSize: 25
-        });
-        $("#jqxLimitWindow a:first").bind("click", RequestChangeLimit);
-        $("#jqxLimitWindow a:eq(1)").click(function () {
-            $('#jqxLimitWindow').jqxWindow('close');
-        });
-        
-        //初始化表格
-        $("#table").jqxDataTable(
-            {
-                altRows: true,
-                sortable: true,
-                editable: false,
-                autoRowHeight: true,
-
-                selectionMode: 'singleRow',
-                theme: 'bootstrap',
-                columns: [
-                    { text: '所属机器人', dataField: 'BelongOperator', width: 150 },
-                    // { text: 'wxid', dataField: 'wxid', width: 230 },
-                    // { text: 'score', dataField: 'score', width: 230 },
-                    { text: '昵称', dataField: 'NickName'},
-                    { text: '期号', dataField: 'qihao', width: 180 },
-                    { text: '投注时间', dataField: 'dtGenerate', width: 180 },
-                    { text: '指令', dataField: 'cmd'}
-                ]
-            });
-
-        RefreshList();
-
-        $("#btn1").bind("click", function () {
-            RefreshList();
-        });
-    });
-</script>
-    <div id="jqxLimitWindow" role="dialog" caption="" class="jqx-rc-all jqx-rc-all-bootstrap jqx-window jqx-window-bootstrap jqx-popup jqx-popup-bootstrap jqx-widget jqx-widget-bootstrap jqx-widget-content jqx-widget-content-bootstrap" tabindex="0" hidefocus="true" style="outline: none; width: 460px; height: 650px; min-height: 50px; max-height: 650px; min-width: 100px; max-width: 800px; display: none; left: 0px; top: 80px;"><div class="jqx-window-header jqx-window-header-bootstrap jqx-widget-header jqx-widget-header-bootstrap jqx-disableselect jqx-disableselect-bootstrap jqx-rc-t jqx-rc-t-bootstrap" style="position: relative; width: 450px;"><div style="float: left; direction: ltr; margin-top: 0px;">修改订单</div><div class="jqx-window-close-button-background jqx-window-close-button-background-bootstrap" style="visibility: visible; width: 100px; height: 25px; margin-right: 5px; margin-left: 0px; position: absolute; right: 0px;"><div style="width: 100%; height: 100%;" class="jqx-window-close-button jqx-window-close-button-bootstrap jqx-icon-close jqx-icon-close-bootstrap"></div></div><div class="jqx-window-collapse-button-background jqx-window-collapse-button-background-bootstrap" style="visibility: hidden; width: 16px; height: 16px; margin-right: 5px; margin-left: 0px; position: absolute; right: 100px;"><div style="width: 100%; height: 100%; top: 0px;" class="jqx-window-collapse-button jqx-window-collapse-button-bootstrap jqx-icon-arrow-up jqx-icon-arrow-up-bootstrap"></div></div></div>
-    <div class="jqx-window-content jqx-window-content-bootstrap jqx-widget-content jqx-widget-content-bootstrap jqx-rc-b jqx-rc-b-bootstrap" style="width: 450px; height: 629px;">
-        <div>
-            <form id="limitForm" style="overflow: hidden;" class="uk-form">
-                <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
-                    <div class="uk-width-1-3">订单ID：</div>
-                    <div class="uk-width-2-3">
-                        <span id="ids"></span>
-                    </div>
-                </div>
-                <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
-                    <div class="uk-width-1-3">所属机器人：</div>
-                    <div class="uk-width-2-3">
-                        <span id="lblLimit"></span>
-                    </div>
-                </div>
-                <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
-                    <div class="uk-width-1-3">wxid：<span style="color: red">*</span></div>
-                    <div class="uk-width-2-3">
-                        <!--<input readonly="">-->
-                        <span id="wxid"></span>
-                    </div>
-                </div>
-                <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
-                    <div class="uk-width-1-3">昵称：<span style="color: red">*</span></div>
-                    <div class="uk-width-2-3">
-                        <!--<input readonly="">-->
-                        <span id="NickName"></span>
-                    </div>
-                </div>
-                <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
-                    <div class="uk-width-1-3">期号：<span style="color: red">*</span></div>
-                    <div class="uk-width-2-3">
-                        <!--<input readonly="">-->
-                        <span id="qihao"></span>
-                    </div>
-                </div>
-                <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
-                    <div class="uk-width-1-3">投注时间：<span style="color: red">*</span></div>
-                    <div class="uk-width-2-3">
-                        <!--<input readonly="">-->
-                        <span id="timer"></span>
-                    </div>
-                </div>
-                <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
-                    <div class="uk-width-1-3">指令：<span style="color: red">*</span></div>
-                    <div class="uk-width-2-3">
-                        <input readonly="" id="text">
-                        <input type="hidden" id="oldM">
-                    </div>
-                </div>
-                <div class="uk-grid uk-grid-small" data-uk-grid-margin="">
-                    <div class="uk-width-1-3">金额：<span style="color: red">*</span></div>
-                    <div class="uk-width-2-3">
-                        <input id="jiao">
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="uk-grid uk-grid-margin">
-            <div class="uk-width-1-1 uk-float-right">
-                <a class="uk-button uk-button-primary" href="javascript:;">确  定</a>
-                <a class="uk-button uk-button-danger" href="javascript:;">取  消</a>
-            </div>
-        </div>
-    </div>
-</div><div class="jqx-window-modal jqx-window-modal-bootstrap" style="opacity: 0.2; display: none; position: absolute; top: 0px; left: 0px; width: 1280px; height: 3093px; z-index: 99;"></div>
-
 {include file='public/js'}
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  </script>
+
+<script>
+    //一般直接写在一个js文件中
+    layui.use(['layer', 'form', 'table'], function(){
+      var layer = layui.layer
+      ,form = layui.form
+      ,table = layui.table;
+      
+      var tableIndex = table.render({
+        elem: '#table'
+        ,url: "{:url('tongji/GetUnCalculate')}" //数据接口
+        ,page: true //开启分页
+        ,loading: true
+        ,limit: 30
+        ,height: 'full-220'
+        ,width: '100%'
+        ,cols: [[ //表头
+          {field: 'id', title: 'ID', width:110}
+          ,{field: 'BelongOperator', title: '所属机器人', width:110}
+          ,{field: 'name', title: '账号', width:210}
+          ,{field: 'wid', title: '昵称', width:110}
+          ,{field: 'qihao', title: '期号', width:110}
+          ,{field: 'dtGenerate', title: '时间', width:160}
+          ,{field: 'score', title: '金额', width:110}
+          ,{field: 'text', title: '投注内容', width:310}
+          ,{align:'center', toolbar: '#barDemo', title: '操作', width:160} 
+        ]]
+      });
+      
+      $('#gdrecord').on('click', function(data){
+        window.location.href = "{:url('tongji/GaiDanRecord')}";
+      });
+      
+      $('#refresh').on('click', function(data){
+        refresh();
+      });
+      
+     
+      function refresh() {
+        tableIndex.reload({
+			page: {curr: 1}
+		});
+      }
+      
+      function showForm(id) {
+        var index = layer.open({
+            title: id?'编辑':'添加',
+            type: 2,
+            shade: 0.2,
+            maxmin:true,
+            shadeClose: true,
+            area: ['500px', '500px'], 
+            content: "{:url('changed/addEdit')}?id="+id,
+            success: function(layero, index){
+               
+            },
+            end: function(index, layero){ 
+              refresh(); 
+            }  
+        });
+        $(window).on("resize", function () {
+            layer.full(index);
+        });
+      }
+      
+      table.on('tool(table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+          var data = obj.data; //获得当前行数据
+          var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+          var tr = obj.tr; //获得当前行 tr 的DOM对象
+         
+           if(layEvent === 'del'){ //删除
+            layer.confirm("确定将[" + data.name + "]删除么?", function(index){
+                putAjax("{:url('index/wpDel')}", {"id":data.id}, function(res) {
+                    refresh();
+    				alertSuc('成功！');
+                });
+              obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+              layer.close(index);
+            });
+          } else if(layEvent === 'edit'){ //编辑
+            showForm(data.id);
+          }
+        });
+
+    });
+    </script>
 </body></html>

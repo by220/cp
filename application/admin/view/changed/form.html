@@ -1,0 +1,83 @@
+{include file='public/layer'}
+
+<div class="layui-form layuimini-form" style="margin-top:20px;">
+    <div class="layui-form-item">
+        <label class="layui-form-label required">订单ID</label>
+        <div class="layui-input-block">
+            <input type="text" name="ids" readonly value="{$info?$info['id']:''}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">期号</label>
+        <div class="layui-input-block">
+            <input type="text" name="qihao" readonly value="{$info?$info['qihao']:''}" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label required">所属机器人</label>
+        <div class="layui-input-block">
+            <input type="text" name="BelongOperator" readonly value="{$info?$info['BelongOperator']:''}" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label required">wxid</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" readonly value="{$info?$info['name']:''}" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label required">昵称</label>
+        <div class="layui-input-block">
+            <input type="text" name="wid" readonly value="{$info?$info['wid']:''}" class="layui-input">
+        </div>
+    </div>
+   
+    <div class="layui-form-item">
+        <label class="layui-form-label required">指令</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" id="jiao" value="{$info?$info['text']:''}" name="jiao">
+            <input type="hidden" id="oldM" value="{$info?$info['text']:''}">
+        </div>
+    </div>
+   
+    <input type="hidden" name="id" id="id" value="{$info?$info['id']:''}" />
+
+    <div class="layui-form-item" style="margin-bottom:50px;">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.use(['form','laydate','layer'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            laydate = layui.laydate;
+            
+        laydate.render({
+            elem: '#test1' //指定元素
+        });
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            putAjax("{:url('changed/resetRecordNew')}", data.field, function(res) {
+                console.log(res);
+                console.log(res.status);
+                if (res.status == 0) {
+                    var iframeIndex = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(iframeIndex);
+                    alertSuc(res.message);
+                }
+                else { alertErr(res.message); }
+            });
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

@@ -204,7 +204,7 @@ class Users extends Base
 			if($data['dlUserName']=="888"){
 				$ret = db('rbuser')->where('online',1)->update(['online' => 0]);
 			}else{
-			    $ret = db('rbuser')->where('NickName',$data['dlUserName'])->update(['online' => 0]);
+			    $ret = db('rbuser')->where('UserName',$data['dlUserName'])->update(['online' => 0]);
 			}
             
             return 'ok';

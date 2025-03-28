@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: my_nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./www:/var/www/html
+      - ./logs/nginx:/var/log/nginx
+    depends_on:
+      - php
+    networks:
+      - my_network
+
+  php:
+    build: ./php
+    container_name: my_php
+    volumes:
+      - ./www:/var/www/html
+      - ./logs/php:/var/log/php
+    networks:
+      - my_network
+    entrypoint: ["/bin/sh", "-c", "/usr/local/bin/start-all.sh"]
+
+networks:
+  my_network:
+    driver: bridge

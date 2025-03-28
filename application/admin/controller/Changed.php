@@ -4,6 +4,7 @@ namespace app\admin\controller;
 
 use app\admin\common\Base;
 use think\Request;
+use think\Cache;
 
 class Changed extends Base
 {
@@ -95,6 +96,117 @@ class Changed extends Base
         return $mp3;
     }
     
+    public function resetRecordNew(Request $request)
+    {
+		$this->isAdmin();
+        $data = $request -> param();
+        $req= [];
+        $arr = [];
+        if(cache('kaijiang')) {
+            $state=1;
+            $message =    '已开奖';
+            cache('changeList',[]);
+        }else{
+            $record=db('record')->where('id',$data['ids'])->find();
+            if($record['status'] ==1){
+                return 1;
+            }
+            $text=$record['text'];
+            $arr['QiHao'] = $record['qihao'];
+            $recmd = str_replace($text,$data['jiao'],$record['cmd']);
+            db('record')->where('id',$data['ids'])->where('gameType',$record['gameType'])->update(['text'=>$data['jiao'],'cmd'=>$recmd,'isedit'=>1]);
+            $gameinfo = db('rbgame')->where('gameType',$record['gameType'])->find();
+            if($gameinfo['wf'] ==''){
+                if($gameinfo['gameType'] == 17){
+                $cmdstr = '第'.$record['qiuNum'].'球/'.$data['jiao'];
+                }else{
+                $cmdstr = $data['jiao'];
+                }
+            }else{
+                $cmdstr = $gameinfo['wf'].'/'.$data['jiao'];
+            }
+            db('record')->where('id',$record['istId']) -> update(['cmd'=>$cmdstr,'isedit'=>1]);
+                
+                $recordinfo = db('record')->where('cmd', 'like', '%' . addslashes($text) . '%')->where('qihao',$arr['QiHao'])->where('rid',$record['rid'])->where('gameType',$record['gameType'])->where('name',$record['name'])->where('type',5)->find();
+                if($recordinfo){ 
+                    $cmdall = str_replace($text,$data['jiao'],$recordinfo['text']);
+                    $result = preg_replace('/\[(.*?)\]/', "[$cmdall]", $recordinfo['cmd']);
+                    db('record')->where('id',$recordinfo['id'])->update(['cmd'=>$result,'text'=>$cmdall,'isedit'=>1]);
+                    db('record')->where('cmd',''.$recordinfo['text'])->where('gameType',$record['gameType'])->update(['cmd'=>$cmdall,'isedit'=>1]);
+                }
+
+            $done = db('record')->where('cmd',$text)->where('gameType',$record['gameType'])->where('qihao',$arr['QiHao'])->where('rid',$record['rid'])->where('name',$record['name'])->value('id');
+            
+            db('record')->where('id',$done)->update(['cmd'=>$data['jiao'],'isedit'=>1]);
+            
+            $all = db('record')->where('rid',$record['rid'])->where('gameType',$record['gameType'])->where('qihao',$arr['QiHao'])->where('type',3)->select();
+            $count = db('record')->where('rid',$record['rid'])->where('gameType',$record['gameType'])->where('qihao',$arr['QiHao'])->where('type',3)->sum('score');
+$allStr = '-----------
+'.$arr['QiHao'].'
+核对列表:('.$count.')
+';
+            if (count($all)>0) {
+                $all2=[];
+                for ($i = 0; $i < count($all); $i++) {
+                    if (!in_array($all[$i]['name'],$all2)) {
+                        if($all[$i]['gameType']==17){
+                            $duoText='第'.$all[$i]['qiuNum'].'球/'.$all[$i]['text'];
+                        }else{
+                            $duoText=$all[$i]['text'];
+                        }
+                        for ($j = 0; $j < count($all); $j++) {
+                            if ($all[$j]['name']==$all[$i]['name']&&$all[$j]['id']!==$all[$i]['id']) {
+                                if($all[$i]['gameType']==17){
+                                    $duoText.=',第'.$all[$j]['qiuNum'].'球/'.$all[$j]['text'];
+                                }else{
+                                    $duoText.=','.$all[$j]['text'];
+                                }
+                                array_push($all2,$all[$i]['name']);
+                            }
+                        }
+$allStr.='('.$all[$i]['wid'].') "'.$duoText.'"
+';
+                    }
+                }
+            }
+$allStr .= '-----------
+以核对列表为准
+不在列表都无效';
+            db('record')->where('rid',$record['rid'])->where('qihao',$arr['QiHao'])->where('gameType',$record['gameType'])->where('sys','kai4')->update(['cmd'=>$allStr]);
+            $feng = db('record')->where('rid',$record['rid'])->where('gameType',$record['gameType'])->where('qihao',$arr['QiHao'])->where('sys','kai4')->value('id');
+         //   $arr = cache('changeList');
+          //  var_dump($arr);
+            array_push($arr, $data['ids']);
+            array_push($arr, $done);
+            array_push($arr, $feng);
+            cache('changeList', $arr);
+            $state=0;
+            $message =  '修改成功';
+            $uid = $record['BelongOperator'];
+            $redis = Cache::store('redis')->handler();
+            $redis->lPush('ws:push:queue', json_encode([
+                'broadcast' => true,
+                'data' => [
+                    'type' => 4,
+                    'id' => $record['istId'],
+                    'message' => $cmdstr,
+                    'time' => date('Y-m-d H:i:s'),
+                ]
+            ]));
+            $redis->lPush('ws:push:queue', json_encode([
+                'broadcast' => true, // 房间/频道标识
+                'data' => [
+                    'type' => 4,
+                    'id' => $feng,
+                    'message' => $allStr,
+                    'time' => date('Y-m-d H:i:s'),
+                ]
+            ]));
+        
+        }
+        return ['status' => $state, 'message'=>$message];
+    }
+
     public function resetRecord(Request $request)
     {
 		$this->isAdmin();
@@ -150,6 +262,14 @@ $allStr .= '-----------
             $state=0;
         }
         return $state;
+    }
+
+    public function addEdit(Request $request)
+    {
+        $data = $request -> param();
+        $info = $data['id']?db('record')->where('id',$data['id']) -> find():'';
+        $this -> view -> assign('info', $info);
+        return $this -> view -> fetch('form');
     }
     
 }

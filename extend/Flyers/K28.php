@@ -16,7 +16,7 @@ use think\response\Json;
 use think\Cache;
 
 class K28{
-    protected $host = "https://5715697936-lh.for9bond.com/";
+    protected $host = "https://w3.k280088.vip/";
     protected $verify_code_url = "imgcode.php?act=init";
     // protected $login_url = "Login/?t=login";
     protected $login_url = "uxj/login.php";
@@ -147,11 +147,11 @@ class K28{
         		curl_setopt($Sch, CURLOPT_SSL_VERIFYHOST,0);
         		curl_setopt($Sch, CURLOPT_HEADER,1);
                 curl_setopt($Sch, CURLOPT_TIMEOUT, 10);
-                $postData = ['xtype'=>'login','pass'=>'','username'=>$data['username'],'password'=>$data['password'],'code'=>$code];
+                $postData = ['xtype'=>'login','pass'=>'','username'=>$data['username'],'password'=>$data['password'],'code'=>trim($code)];
         		curl_setopt($Sch, CURLOPT_POSTFIELDS, http_build_query($postData));
         		curl_setopt($Sch, CURLOPT_COOKIEJAR, $cookie_path);
         		curl_setopt($Sch, CURLOPT_COOKIEFILE, $cookie_path); 
-        		$file_content = curl_exec($Sch);
+           		$file_content = curl_exec($Sch);
         		curl_close($Sch);
         		list($header, $body) = explode("\r\n\r\n", $file_content, 2);
                 if (strpos($body, '验证码') !== false) {
@@ -522,6 +522,7 @@ class K28{
             } else {
                 $gids = '';
             }
+            file_put_contents('log.txt', json_encode($cmds,JSON_UNESCAPED_UNICODE) . PHP_EOL, FILE_APPEND);
             if (count($cmds['特']) > 0){
                 $pstr = [];
                 foreach ($cmds['特'] as $item){
@@ -546,6 +547,7 @@ class K28{
                     "ab" => "A",
                     "bid" => $cmds['特'][0]['bid']
                 ];
+                
                 $Sch = curl_init();
         		curl_setopt($Sch, CURLOPT_POST, 1) ;
         		curl_setopt($Sch, CURLOPT_URL, $this->host.$this->make_url);
@@ -564,6 +566,7 @@ class K28{
         		curl_close($Sch);
                 $body = json_decode($file_content,true);
             }elseif (count($cmds['番摊']) > 0){
+                file_put_contents('logf.txt', json_encode($cmds,JSON_UNESCAPED_UNICODE) . PHP_EOL, FILE_APPEND);
                 $pstr = [];
                 foreach ($cmds['番摊'] as $item){
                     $arr = array(

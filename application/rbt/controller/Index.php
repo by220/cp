@@ -172,10 +172,10 @@ class Index extends Base
     public function UpdateFanShui()
     {
         $data = $this -> request -> param();
-        if ($data['fanshui']>5) {
+        if ($data['FanShui']>5) {
             return 1;
         } else {
-            rbUpdate(['FanShui'=>$data['fanshui']]);
+            userUpdate($data,['FanShui'=>$data['FanShui']]);
         }
         return 0;
     }
@@ -459,10 +459,10 @@ class Index extends Base
         list($count1,$count2) = setCount(USER_ID);
         foreach ($result as $k=>$value) {
             $heji +=$value['score'];
-            $result[$k]['link'] = getUserurl('index?cd',$value['code']);
+            $result[$k]['link'] = getUserurl('index?token',$value['code']);
             $result[$k]['qr'] = session('rbDomain').DS.'qr'.DS.$value['code'].'.png';
             $result[$k]['tuoMinMax'] = $result[$k]['tuoMin'] . '-' . $result[$k]['tuoMax'];
-            $result[$k]['score'] = (floor($result[$k]['score']/10000)>0?floor($result[$k]['score']/10000) . 'w' :''). sprintf('%.2f',($result[$k]['score']-floor($result[$k]['score']/10000)*10000));
+           // $result[$k]['score'] = (floor($result[$k]['score']/10000)>0?floor($result[$k]['score']/10000) . 'w' :''). sprintf('%.2f',($result[$k]['score']-floor($result[$k]['score']/10000)*10000));
         }
         return json(['code'=>1,'data'=>$result,'count1'=>$count1,'count2'=>$count2,'heji'=>sprintf('%.2f',$heji)]);
     }
@@ -551,7 +551,7 @@ class Index extends Base
             $users[$k]['link'] = getUserurl('index?cd',$value['code']);
             $users[$k]['qr'] = session('rbDomain').DS.'qr'.DS.$value['code'].'.png';
             $users[$k]['tuoMinMax'] = $users[$k]['tuoMin'] . '-' . $users[$k]['tuoMax'];
-            $users[$k]['score'] = (floor($users[$k]['score']/10000)>0?floor($users[$k]['score']/10000) . 'w' :''). sprintf('%.2f',($users[$k]['score']-floor($users[$k]['score']/10000)*10000));
+            //$users[$k]['score'] = (floor($users[$k]['score']/10000)>0?floor($users[$k]['score']/10000) . 'w' :''). sprintf('%.2f',($users[$k]['score']-floor($users[$k]['score']/10000)*10000));
         }
         return json(['CancelInSecs'=>$result['cancel'],'FanShui'=>$result['FanShui'],'HideMsg'=>$result['hideMsg'],'Hold5TimeSeconds'=>$result['fengpan'],'IsKaiPan'=>$result['isOpen'],'lType'=>$result['ltype'],'IsNeedLogin'=>false,'OverdueTime'=>strtotime($result['time'])*1000,'PeiLv'=>$result['PeiLv'],'ServerTime'=>$result['time'],'Success'=>true,'score'=>sprintf('%.0f',$result['score']),'users'=>[],'weihu'=>0,'wxpwd'=>'','wxuser'=>'','img'=>$dataimg,'qh'=>$open['QiHao'],'rob'=>$result,'tePeilv'=>$result['tePeilv'],'teFanshui'=>$result['teFanshui'], 'list'=>$res,'Data' => $flys, 'iswp' => $flys?1:0,'qihao'=>$expect,'detail'=>$resultCmd,'totalPu'=>$totalPu,'totalTuo'=>$totalTuo,'total'=>12330,'total1'=>$totalPu1,'total2'=>$totalTuo1,'totalChi'=>$totalChi,'total3'=>$totalPu2,'config'=>$config,'data'=>$users,'count1'=>$count1,'count2'=>$count2,'heji'=>sprintf('%.2f',$heji)]);
     }

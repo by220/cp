@@ -188,6 +188,9 @@ class Index extends Base
         $admin = db('admin')->where('UserName', $usre['uid'])->find();
         $wan = db('rbuser')->where('wxid', $data['wxid'])->find();
         $open = cache('nowQi' . $wan['gid']);
+        $startTime = strtotime(date('Y-m-d') . ' 14:03:00');
+        $endTime = strtotime(date('Y-m-d') . ' 17:00:00');
+        $currentTimestamp = time(); 
         $istId = 0;
         if ($wan['isBlack'] == 0 && $wan && $admin && $usre && $data['qh'] == $open['QiHao']) {
             $wan['fans'] = $usre['FanShui'];
@@ -255,7 +258,7 @@ class Index extends Base
                                 }
                             }
                         }
-                        $allStr .= '剩余 ' . sprintf('%.1f', $wan['score'] + $m);
+                        $allStr .= '剩余 ' . sprintf('%.2f', $wan['score'] + $m);
                         if ($hasOrder) {
                             addMsg($wan, $admin, $allStr, $data['qh']);
                             addMsg($wan, $admin, '@' . $data['dluser'] . ', ' . $usre['cancel'] . '秒内有效指令已全部取消!', $data['qh']);
@@ -289,7 +292,6 @@ class Index extends Base
                     }
                 }
             } elseif ((strtotime($open['dtOpen']) - time()) < $usre['fengpan'] || cache('feng' . $usre['id'] . $wan['gameType']) || (0 > (strtotime($open['dtOpen']) - time())) || ((strtotime($open['dtOpen']) - time()) > 600)) {
-                $istId = addCmd($wan, $admin, $data['cmd'], $data['qh']);
                 addMsg($wan, $admin, '@' . $data['dluser'] . ', 已停止!', $data['qh']);
             } elseif (strstr($arr[0], '.') || strstr($arr[0], '=') || strstr($arr[0], '+') || strstr($arr[0], ' ')) {
                 $istId = addCmd($wan, $admin, $data['cmd'], $data['qh']);
@@ -1308,6 +1310,23 @@ class Index extends Base
         $recordList = db('record')->where('gameType', $user['gid'])->where('name', $user['wxid'])->where('type', 3)->where('dtGenerate', 'between', $dayList)->select();
         $recordList = array_reverse($recordList);
         foreach ($recordList as $k => $value) {
+            //前端特下注输赢
+            list($recordFan, $allLiu, $ying, $Up, $Down, $liu, $kui, $sliu) = getRecordData($value);
+            $count = '';
+            if ($value['ying'] == 1) {
+                $count = $ying;
+            } elseif ($value['ying'] == 0) {
+                $count = '-' . $value['score'];
+            } elseif ($value['ying'] == 3) {
+                $count = "0.00";
+            } else {
+                if ($value['sys'] == 'shang') {
+                    $count = $value['score'];
+                } else {
+                    $count = '-' . $value['score'];
+                }
+            }
+            $recordList[$k]["yingScore"] = ($value['type'] == 4 ? $count : ($value['status'] == 1 ? $count : 0));
             $recordList[$k]['gname'] = db('rbgame')->where('gameType', $value['gameType'])->value('name');
         }
         return $recordList;
@@ -1358,7 +1377,7 @@ class Index extends Base
         if ($request->isAjax(true)) {
             $user = db('rbuser')->where('UserName', $data['username'])->where('password', $data['password'])->find();
             if (is_null($user)) {
-                $message = '用户不存在';
+                $message = '账户或密码错误';
                 $status = -1;
             } else {
                 $status = 1;

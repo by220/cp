@@ -244,7 +244,7 @@ return [
     ],
     
     //    开奖配置延迟，单位秒
-    'yanchiTime'       => 0,
+    'yanchiTime'       => 4,
     'captcha'   =>  [
         // 验证码字体大小
         'fontSize'    =>    20,    

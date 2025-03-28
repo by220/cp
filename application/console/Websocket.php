@@ -390,7 +390,7 @@ class Websocket extends Command{
                                 $arr = cache('nowQi'.$type);
                                 $qh = $arr['QiHao'];
                                 if (cache('shangqi'.$type)==cache('dangqi'.$type)) {
-                                    if ($user['score']>$last&&(strtotime($arr['dtOpen'])-time())>$item['fengpan']&&(strtotime($arr['dtOpen'])-time())<270&&!cache('feng'.$type)&&!cache('kaijiang'.$type)) {
+                                    if ($user['score']>$last&&(strtotime($arr['dtOpen'])-time())>$item['fengpan']&&(strtotime($arr['dtOpen'])-time())<255&&!cache('feng'.$type)&&!cache('kaijiang'.$type)) {
                                         $user['fans'] = $item['FanShui'];
                                         $user['peil'] = $item['PeiLv'];
                                         $user['tepeil'] = $item['tePeilv'];
@@ -522,16 +522,33 @@ class Websocket extends Command{
          * 自动开收盘
          */
         // \Swoole\Timer::tick(3000, function(){
-        //     $current_hour = date('H'); 
-        //     $date = time();
-        //     $start = strtotime('05:59:15');
-        //     $end = strtotime('06:59:15');
-        //     if ($date > $start && $date < $end) {
-        //         db('robot')->where('isOpen',1)->update(['isOpen'=>0]);
-        //     }
-        //     if ($date >= $end && $date < strtotime('07:02:15')) {
-        //         db('robot')->where('isOpen',0)->update(['isOpen'=>1]);
-        //     }
+        //      $currentDate = date('Y-m-d');
+        //      $date = time();
+        //      $all = db('robot')->select();
+        //      foreach ($all as $value) {
+        //         $start = strtotime($currentDate . ' ' . $value['datestart']);
+        //         $end = strtotime($currentDate . ' ' . $value['dateend']);
+                
+        //         // 处理跨天情况：如果 dateend 小于 datestart，则说明跨天了
+        //         if ($end < $start) {
+        //             // 假设 datestart 为17:00, dateend 为02:00 (第二天)，加一天到 end 上
+        //             $end = strtotime('+1 day', $end);
+        //         }
+
+        //         // 如果当前时间在 start 和 end 之间，更新数据
+              
+        //         if ($date > $start && $date < $end && $value['isOpen'] == 1) {
+        //             db('robot')->where('id', $value['id'])->update(['isOpen' => 0]);
+        //         }else {
+
+        //         }
+
+        //         // 如果当前时间大于等于 end，并且小于 start (跨天)，且 isOpen 为 0，则更新
+        //         if (($date >= $end || $date < $start) && $value['isOpen'] == 0) {
+        //             db('robot')->where('id', $value['id'])->update(['isOpen' => 1]);
+        //         }
+        //      }
+            
         // });
         
         
