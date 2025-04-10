@@ -548,7 +548,7 @@
 			},
 			dataType: "json",
 			success: function(data) {
-				pushCode(data, type);
+				pushCode(data.message, type);
 			}
 		});
 	}
@@ -585,19 +585,8 @@
 		var CodeArr = kj['Code'].split(',');
 		return CodeArr[0] > CodeArr[4] ? '龙' : '虎';
 	}
-	
-	function initBall(playMethod){
-		if(playMethod.length > 0){
-			let rb = playMethod;
-			rb.forEach(item => {
-				$(".kai span").eq(parseInt(item) - 1).addClass("hong");
-			});
-		}
-	}
 
-	function pushCode(data, tar) {
-		var list = data.message;
-		var types = data.game;
+	function pushCode(list, tar) {
 		var lastQi = list[0];
 		var lastCode = lastQi['Code'].split(',');
 		$('.list').empty();
@@ -606,17 +595,19 @@
 		var lu = '';
 		$(".time").html(lastQi['dtOpen']);
 		$(".qi").html(lastQi['QiHao']);
-		$(".fan").html(lastQi["fan"]);
-		/*if (tar != '75') {
+		if (tar != '75') {
 			$(".fan").html(getFan(lastQi));
 		} else {
 			$(".fan").html(getLonghu(lastQi));
-		}*/
+		}
 		$('.kai').empty();
 		for (var i = 0; i < lastCode.length; i++) {
-			$('.kai').append('<span>' + lastCode[i] + '</span>');
+			if (i < lastCode.length - 1) {
+				$('.kai').append('<span>' + lastCode[i] + '</span>');
+			} else {
+				$('.kai').append('<span class="' + (tar == '75' ? '' : 'hong') + '">' + lastCode[i] + '</span>');
+			}
 		}
-		initBall(types);
 		if (tar == '75') {
 			$('.kai').append('<span style="border:none;">=</span>');
 			$('.kai').append('<span>' + getSum(lastQi) + '</span>');
@@ -629,16 +620,23 @@
 					time[1] + '</span><span class="kailist">';
 				var list2 = list[j]['Code'].split(',');
 				for (var i = 0; i < list2.length; i++) {
-					html += '<span class="'+ (types.indexOf((i+1).toString()) >= 0 ? 'hong' :'') +'">' + list2[i] + '</span>';
+					if (i < list2.length - 1) {
+						html += '<span>' + list2[i] + '</span>';
+					} else {
+						html += '<span>' + list2[i] + '</span>';
+					}
 				}
 				if (tar != '75') {
 					html += '<span style="border:none;width: auto;">=</span>';
-					html += '<span class="hong">' + list[j]["total"] + '</span>';
+					html += '<span class="hong">' + getCum(list[j]) + '</span>';
 				}
-				//var fan = getFan(list[j]);
-				var fan = list[j]['fan'];
-				var dan = list[j]["ds"];
-				var da = list[j]["dx"];
+				var fan = getFan(list[j]);
+				var dan = getSum(list[j]) % 2 == 1 ? '单' : '双';
+				if (list[j]['type'] == 5) {
+					var da = getSum(list[j]) >= 10 ? '大' : (getSum(list[j]) == 23 ? '和' : '小');
+				} else {
+					var da = getSum(list[j]) >= 10 ? '大' : '小';
+				}
 				html += '</span><span class="three"><span class="color color' + fan + '" ' + (tar == '75' ?
 						'style="display:none;"' : '') + '>' + fan + '</span><span class="da">' + (tar == '75' ? getSum(
 						list[j]) : da) + '</span><span class="dan">' + (tar == '75' ? getLonghu(list[j]) : dan) +
@@ -655,8 +653,7 @@
 						lu += '<td><span class="color5"></span></td>';
 					} else {
 						var list2 = list[j]['Code'].split(',');
-						//var fan = getFan(list[j]);
-						var fan = list[j]['fan'];
+						var fan = getFan(list[j]);
 						lu += '<td><span class="color' + fan + '">' + fan + '</span></td>';
 					}
 				}

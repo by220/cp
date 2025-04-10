@@ -1118,7 +1118,7 @@ function addDan($value, $admin, $last, $str, $qh, $danjia = 0, $isShow = 1)
         'NickName' => '机器人',
         'qihao' => $qh,
         'dtGenerate' => date("Y-m-d H:i:s"),
-        'cmd' => '@' . $value['NickName'] . '  攻击成功，使用粮草' . trim($last) . ', 剩余粮草：' . (sprintf('%.2f', $value['score'] - $last)),
+        'cmd' => '@' . $value['NickName'] . '  使用' . trim($last) . ', 剩余：' . (sprintf('%.2f', $value['score'] - $last)),
         //'cmd' => '@' . $value['NickName']. ', '. substr($qh,-3) . '回合攻击成功，1使用粮草' . trim($last) . ', 剩余粮草：' . (sprintf('%.2f', $value['score'] - $last)),
         'uid' => $admin['UserName'],
         'rid' => $value['uid'],
@@ -1157,7 +1157,7 @@ function addDan2($value, $admin, $last, $str, $qh, $danjia = 0)
         'NickName' => '机器人',
         'qihao' => $qh,
         'dtGenerate' => date("Y-m-d H:i:s"),
-        'cmd' => '@' . $value['NickName'] . '  攻击成功，使用粮草' . trim($last) . ', 剩余粮草：' . (sprintf('%.2f', $value['score'] - $last)),
+        'cmd' => '@' . $value['NickName'] . '  使用' . trim($last) . ', 剩余：' . (sprintf('%.2f', $value['score'] - $last)),
        // 'cmd' => '@' . $value['NickName']. ', '. substr($qh,-3) . '回合攻击成功，2使用粮草' . trim($last) . ', 剩余粮草：' . (sprintf('%.2f', $value['score'] - $last)),
         'uid' => $admin['UserName'],
         'rid' => $value['uid'],
@@ -1190,7 +1190,7 @@ function addDan3($value, $admin, $last, $str, $qh, $danjia = 0, $isShow)
         'NickName' => '机器人',
         'qihao' => $qh,
         'dtGenerate' => date("Y-m-d H:i:s"),
-        'cmd' => '@' . $value['NickName'] . '  攻击成功，使用粮草' . trim($last) . ', 剩余粮草：' . (sprintf('%.2f', $value['score'] - $last)),
+        'cmd' => '@' . $value['NickName'] . '  使用' . trim($last) . ', 剩余：' . (sprintf('%.2f', $value['score'] - $last)),
         //'cmd' => '@' . $value['NickName']. ', '. substr($qh,-3) . '回合攻击成功，3使用粮草' . trim($last) . ', 剩余粮草：' . (sprintf('%.2f', $value['score'] - $last)),
         'uid' => $admin['UserName'],
         'rid' => $value['uid'],
@@ -1228,7 +1228,7 @@ function addDan4($value, $admin, $last, $str, $qh, $danjia = 0, $isShow, $ma)
         'NickName' => '机器人',
         'qihao' => $qh,
         'dtGenerate' => date("Y-m-d H:i:s"),
-        'cmd' => '@' . $value['NickName'] . '  攻击成功，使用粮草' . trim($last) . ', 剩余粮草：' . (sprintf('%.2f', $value['score'] - $last)),
+        'cmd' => '@' . $value['NickName'] . '  使用' . trim($last) . ', 剩余：' . (sprintf('%.2f', $value['score'] - $last)),
         //'cmd' => '@' . $value['NickName']. ', '. substr($qh,-3) . '回合攻击成功，4使用粮草' . trim($last) . ', 剩余粮草：' . (sprintf('%.2f', $value['score'] - $last)),
         'uid' => $admin['UserName'],
         'rid' => $value['uid'],
@@ -1431,7 +1431,9 @@ function feidan($value, $str, $id, $xiaList)
     );
     //record的dtGenerate时间减去系统时间大于cancel才可以飞单
     $record = db("record")->where('id', $id)->find();
-    if ($record['type'] == 3 && time() - strtotime($record['dtGenerate']) < ($user['cancel'] + 5)) {
+    $aa = time() - strtotime($record['dtGenerate']);
+   // echo $aa.'<'.$user['cancel'].PHP_EOL;
+    if ($record['type'] == 3 && time() - strtotime($record['dtGenerate']) < ($user['cancel'] + 10)) {
         // echo "未超过取消时间，跳出".PHP_EOL;
         db("record")->where('id', $id)->update(array(
             "flyers_status" => 3
@@ -1520,7 +1522,10 @@ function feidan($value, $str, $id, $xiaList)
         return $make == 2 ? $make : $id;
     } else {
         if ($user['flyers_online'] == 1 && $user['flyers_auto'] == 1) {
-            $fly = db('rbfly')->where('uid', $value['uid'])->where('flyers_online', 1)->find();
+            $model = db('rbfly');
+            $fly = $model->where('uid', $value['uid'])
+                         ->where('flyers_online', 1)
+                         ->find();
             $type = '特';
             $money = 0;
             if ($fly) {
@@ -1568,6 +1573,7 @@ function feidan($value, $str, $id, $xiaList)
                 $last = mb_substr($str, 1, strlen($str), "UTF-8");
                 $arr = explode('/', $str);
                 $cmds = $flyers->getCmd($str);
+              //  file_put_contents('logsss.txt', json_encode($cmds,JSON_UNESCAPED_UNICODE) . PHP_EOL, FILE_APPEND);
                 foreach ($cmds as $v) {
                     if (strstr($v['cmd'], '特')) {
                         if (strstr(explode('特', $v['cmd'])[0], '-')) {
@@ -1616,20 +1622,20 @@ function feidan($value, $str, $id, $xiaList)
                 $order = db('record')->where('id', $id)->find();
                 $make = $flyers->make($order_makes, $user, $type, $money, $user, $wp, $order, $xiaList);
                 if ($make == 3) {
-                    // if ($user['flyers_withdraw']==1) {
-                    //     $user = db('rbuser')->where('wxid',$order['name'])->where('uid',$order['rid'])->find();
-                    //     $user['gameType'] = $user['gid'];
-                    //     $user['qiuNum'] = $order['qiuNum'];
-                    //     $user['iskj'] = true;
-                    //     $admin = db('admin')->where('UserName',$order['uid'])->find();
-                    //     db('rbuser')->where('wxid',$order['name'])->where('uid',$order['rid'])->setInc('score',$order['score']);
-                    //     addMsg($user,$admin,'@'.$user['NickName'].' "'.$order['text'].'" 注单取消',$order['qihao']);
-                    //     db('record')->where('id',$id)->delete();
-                    // } else {
-                    db("record")->where('id', $id)->update(array(
-                        "flyers_status" => $make
-                    ));
-                    // }
+                    if ($user['flyers_withdraw']==1) {
+                        $user = db('rbuser')->where('wxid',$order['name'])->where('uid',$order['rid'])->find();
+                        $user['gameType'] = $user['gid'];
+                        $user['qiuNum'] = $order['qiuNum'];
+                        $user['iskj'] = true;
+                        $admin = db('admin')->where('UserName',$order['uid'])->find();
+                        db('rbuser')->where('wxid',$order['name'])->where('uid',$order['rid'])->setInc('score',$order['score']);
+                        addMsg($user,$admin,'@'.$user['NickName'].' "'.$order['text'].'" 注单取消',$order['qihao']);
+                        db('record')->where('id',$id)->delete();
+                    } else {
+                        db("record")->where('id', $id)->update(array(
+                            "flyers_status" => $make
+                        ));
+                    }
                 } else {
                     db("record")->where('id', $id)->update(array(
                         "flyers_status" => $make
@@ -1971,7 +1977,7 @@ function sendMsg($data)
             }
         } elseif ((strtotime($open['dtOpen']) - time() < $usre['fengpan']) || cache('feng' . $usre['id'] . $wan['gid']) || (0 > (strtotime($open['dtOpen']) - time())) || (strtotime($open['dtOpen']) - time() > 600) || $usre['isOpen']==0) {
         //    addCmd($wan, $admin, $data['cmd'], $data['qh']);
-            $istId = addMsg($wan, $admin, '@' . $data['dluser'] . ', 已封盘暂停下注!', $data['qh']);
+            $istId = addMsg($wan, $admin, '@' . $data['dluser'] . ', 已停止下注!', $data['qh']);
         } elseif (strstr($arr[0], '.') || strstr($arr[0], '=') || strstr($arr[0], '+') || strstr($arr[0], ' ')) {
         //    addCmd($wan, $admin, $data['cmd'], $data['qh']);
             $istId = addMsg($wan, $admin, '@' . $data['dluser'] . ', 指令格式不正确(0)!', $data['qh']);
@@ -2002,7 +2008,7 @@ function sendMsg($data)
                 foreach ($duoArr as $value) {
                     $str = $value;
                    // 玩法打印
-                    echo $str . PHP_EOL;
+                   // echo $str . PHP_EOL;
                     if (($wan['gid'] == 17 || $game['wf']) && strstr($str, '/')) {
                     if($game['wf']==''){
                             $wfArr = explode('/', $str);
@@ -2016,7 +2022,7 @@ function sendMsg($data)
                     $last = mb_substr($str, 1, strlen($str), "UTF-8");
                     $arr = explode('/', $str);
                     // 玩法打印
-                    var_dump($arr);
+                    //var_dump($arr);
                     if (strstr($str, '特') && $frist != '特' && $wan['gid'] != '5') {
                         $arr3 = explode('特', $str);
                         $isTrue = 0;
@@ -2297,7 +2303,7 @@ function sendMsg($data)
 
 function getWfArr($str, $arr, $usre, $map, $money, $ma, $xian, $frist, $last)
 {
-    $jiao = ['12角', '23角', '34角', '14角', '13角', '24角', '12', '23', '34', '14', '13', '24', '21角', '32角', '43角', '41角', '21', '32', '43', '41'];
+    $jiao = ['12角', '23角', '34角', '14角', '13角', '24角', '12', '23', '34', '14', '21角', '32角', '43角', '41角', '21', '32', '43', '41'];
     if ($frist == '大' || $frist == '小') {
         $map['text'] = array('like', array('%' . $frist . '%'), 'OR');
         $xian = $usre['daxiao'];
@@ -2643,7 +2649,7 @@ function openKj($type)
         $CodeArr = codeArr($kj);
         if (!hasSys($type, $endQh2, 'kai')) {
             $showFan = ($type != 75) ? '<span class="kpfan"><span class="fan">' . getFan($kj) . '</span>番</span>' : '';
-            $kai = '<div class="kaipan"><div class="kphead"><span class="kpone">开盘结果</span><span class="di">第<span class="qi">' . $kj['QiHao'] . '</span>期</span></div><div class="kptwo"><span class="kptime">' . $kj['dtOpen'] . '</span>' . $showFan . '</div><div class"kai">';
+            $kai = '<div class="kaipan"><div class="kphead"><span class="kpone">开盘结果</span><span class="di">第<span class="qi">' . $kj['QiHao'] . '</span>期</span></div><div class="kptwo"><span class="kptime">' . $kj['dtOpen'] . '</span>' . $showFan . '</div><div class="kai">';
             foreach ($CodeArr as $k => $value) {
                 $hong = qiuHong($value, $game, $k);
                 if (!$game['hasKey']) {
@@ -2681,12 +2687,12 @@ function openKj($type)
         if (!hasSys($type, $endQh2, 'kai2')) {
             $open2 = db('history')->where('type', $type)->where('Code', '<>', '')->order('id desc')->limit($ls)->select();
             cache('qiList' . $type, $open2);
-            $lishi = '<div class="card2"><div class="tbhead"><span>期数</span><span></span><span>结果</span>' . ($type != 75 ? '<span>番</span>' : '') . '</div><div class="list">';
+            $lishi = '<div class="card2"><div class="tbhead"><span>期数</span><span>时间</span><span>结果</span>' . ($type != 75 ? '<span>番</span>' : '') . '</div><div class="list">';
             foreach ($open2 as $k => $value) {
-                if ($k < 13) {
+                if ($k < 15) {
                     $time = explode(' ', $value['dtOpen']);
                     $bor = ($k == 0 ? 'border:1px solid #ec5d5d;' : '');
-                    $lishi .= '<div style="display: flex;justify-content:space-around;background:#fff;align-items: center;width:100%;line-height:26px;box-sizing:border-box;' . $bor . '"><span class="qihao">' . substr($value['QiHao'], -3) . '</span><span class="shijian">' . date('', strtotime($value['dtOpen'])) . '</span><span class="haoma">';
+                    $lishi .= '<div style="display: flex;justify-content:space-around;background:#fff;align-items: center;width:100%;line-height:26px;box-sizing:border-box;' . $bor . '"><span class="qihao">' . substr($value['QiHao'], -2) . '</span><span class="shijian">' . date('', strtotime($value['dtOpen'])) . '</span><span class="haoma">';
                     $list2 = explode(',', $value['Code']);
                     foreach ($list2 as $y => $val) {
                         $hong = qiuHong($val, $game, $y);
@@ -2713,7 +2719,10 @@ function openKj($type)
                     if (!$game['hasKey']) {
                         $lishi .= bgKj($value);
                     }
-                    $lishi .= '</span><span class="three" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><span class="colorfan color' . $lifan . '">' . $lifan . '</span><span class="da">' . $lida . '</span><span class="dan">' . $lidan . '</span></span></div>';
+                   // $lishi .= '</span><span class="three" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><span class="colorfan color' . $lifan . '">' . $lifan . '</span><span class="da">' . $lida . '</span><span class="dan">' . $lidan . '</span></span></div>';
+                   //去掉单双大小
+                  // $lishi .= '</span><span class="three" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><span class="colorfan color' . $lifan . '">' . $lifan . '</span></span></div>';
+                  $lishi .= '</span><span class="three" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><span class="colorfan color' . $lifan . '">' . $lifan . '</span><span class="dan">' . $lidan . '</span></span></div>';
                 }
             }
             if ($game['hasSelect']) {
@@ -3577,21 +3586,21 @@ function  resetOrder($list, $type = '')
         // if (($val['type']==3&&$val['time']&&$val['status']==1)||($val['type']==4&&$val['dtGenerate']&&$val['isTy']==1)) {
         if (($val['type'] == 3) || ($val['type'] == 4 && $val['dtGenerate'] && $val['isTy'] == 1)) {
             if ($val['flyers_status'] == 2) {
-                $flyers_status = '飞单成功';
+                $flyers_status = '已报';
                 $flyers_color = "green";
                 if ($val['type'] == 3) {
                     $arr['flyersSuc'] += 1;
                 }
             }
             if ($val['flyers_status'] == 3) {
-                $flyers_status = '飞单失败';
+                $flyers_status = '失败';
                 $flyers_color = "red";
                 if ($val['type'] == 3) {
                     $arr['flyersFail'] += 1;
                 }
             }
             if (in_array($val['flyers_status'], [0, 1])) {
-                $flyers_status = '未飞单';
+                $flyers_status = '未报';
                 $flyers_color = "";
                 if ($val['type'] == 3) {
                     $arr['flyersWait'] += 1;

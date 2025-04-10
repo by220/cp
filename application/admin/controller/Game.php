@@ -42,6 +42,7 @@ class Game extends Base
             $res[$k]['txtStatus'] = $res[$k]['status']==1 ? "<span style='color:green;'>正常</span>" : "<span style='color:red;'>关闭</span>";
             $res[$k]['jsj'] = $res[$k]['qiuNum']==1 ? "<span style='color:blue;'>相拼</span>" : "<span style='color:green;'>相加</span>";
             $res[$k]['te'] = $res[$k]['hasTe']==1 ? "<span style='color:green;'>显示</span>" : "<span style='color:red;'>隐藏</span>";
+			$res[$k]['teModel'] = $res[$k]['teModel']==1 ? "<span style='color:green;'>模型二</span>" : "<span style='color:red;'>模型一</span>";
             $res[$k]['key'] = $res[$k]['hasKey']==1 ? "<span style='color:green;'>显示</span>" : "<span style='color:red;'>隐藏</span>";
             $res[$k]['select'] = $res[$k]['hasSelect']==1 ? "<span style='color:green;'>是</span>" : "<span style='color:red;'>否</span>";
         }
@@ -63,6 +64,9 @@ class Game extends Base
             }
             if(!isset($data['hasSelect'])){
                 $data['hasSelect'] = 0;
+            }
+			if(!isset($data['teModel'])){
+                $data['teModel'] = 0;
             }
             $data['createTime'] = date('Y-m-d H:i:s');
             $data['updateTime'] = date('Y-m-d H:i:s');

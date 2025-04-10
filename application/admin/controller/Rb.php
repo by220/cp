@@ -48,6 +48,7 @@ class Rb extends Base
     
     public function addRobot(Request $request)
     {
+        $this->isAdmin();
         $data = $request -> param();
         $status = 0;
         $message = '失败';
@@ -149,14 +150,14 @@ class Rb extends Base
                 $res[$k]['status'] = 1;
                 $res[$k]['isOpen'] = 0;
                 $res[$k]['online'] = 0;
-                // rbUpdate(['isOpen'=>0,'status'=>1,'online'=>0],$value['UserName']);
+                rbUpdate(['isOpen'=>0,'status'=>1,'online'=>0],$value['UserName']);
             } else {
                 $res[$k]['status'] = 0;
-                // rbUpdate(['status'=>0]);
+                 rbUpdate(['status'=>0]);
             }
-            if (time()-$value['logtime']>60*60) {
+            if (time()-$value['logtime']>30) {
                 $res[$k]['online'] = 0;
-                // rbUpdate(['online'=>0],$value['UserName']);
+                rbUpdate(['online'=>0],$value['UserName']);
             }
             $fly = db('rbfly')->where('uid',$value['UserName'])->find();
             if($fly){

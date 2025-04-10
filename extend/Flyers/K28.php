@@ -511,7 +511,7 @@ class K28{
         if ($wp['code']=='k28' || $wp['code']=='gy') {
             $body = "";
             $fly = db('rbfly')->where('uid',$robot['UserName'])->where('flyers_online',1)->find();
-            $cmds = $this->getPuCmd($order['text'],$rb,$fly,$order['qiuNum']);
+            $cmds = $this->getCmd($order['text'],$rb,$fly,$order['qiuNum']);
             $abcd = getWpType($fly,'flyers_type');
             if ($robot['type']==8&&$robot['jstype']==1) {
                 $gids = '801';
@@ -522,21 +522,43 @@ class K28{
             } else {
                 $gids = '';
             }
-            file_put_contents('log.txt', json_encode($cmds,JSON_UNESCAPED_UNICODE) . PHP_EOL, FILE_APPEND);
-            if (count($cmds['特']) > 0){
+           // $cmds = $this->cmdConvert($cmds);
+           // var_dump($cmds);
+            //  file_put_contents('log.txt', json_encode($cmds,JSON_UNESCAPED_UNICODE) . PHP_EOL, FILE_APPEND);
+     
+             //   file_put_contents('logf.txt', json_encode($cmds,JSON_UNESCAPED_UNICODE) . PHP_EOL, FILE_APPEND);
                 $pstr = [];
-                foreach ($cmds['特'] as $item){
-                    $arr = array(
-                        "pid" => $item['pid'],
-                        "je" => $item['orderMoney'],
-                        "name" => $item['name'],
-                        "peilv1" => $item['peilv1'],
-                        "classx" => $item['sname'],
-                        "con" => "",
-                        "bz" => rand(1,100)
-                    );
-                    $pstr[] = $arr;
-                    unset($arr);
+                foreach ($cmds as $item){
+                   // var_dump($item);
+                    $name = $this->cmdConvert($item);
+                   // var_dump($name);
+                    // $arr = array(
+                    //     "pid" => $item['pid'],
+                    //     "je" => $item['orderMoney'],
+                    //     "name" => $item['name'],
+                    //     "peilv1" => $item['peilv1'],
+                    //     "classx" => $item['sname']."-".$item['cname'],
+                    //     "con" => "",
+                    //     "bz" => rand(1,100)
+                    // );
+                    preg_match_all('/\d+/', $name[0]['cmd'], $matches);
+                    $i = 0;
+                    $money = $name[0]['money'];
+                    if($money<5)$money = 5;
+                    foreach ($matches[0] as $num) {
+                        $arr = array(
+                            "pid" => 25586575+$num,
+                            "je" => $money,
+                            "name" => $num,
+                            "peilv1" => 1.9436,
+                            "classx" => '第8球',
+                            "con" => "",
+                            "bz" => rand(1,100)
+                        );
+                        $i++;
+                        $pstr[] = $arr;
+                        unset($arr);
+                    }
                 }
                 $id = $fly['id'];
                 $cookie_path = ROOT_PATH . "flyers/cookie/{$id}.txt";
@@ -545,51 +567,9 @@ class K28{
                     'pstr' => json_encode($pstr),
                     "abcd" => $abcd,
                     "ab" => "A",
-                    "bid" => $cmds['特'][0]['bid']
+                    "bid" => "23378780"
                 ];
-                
-                $Sch = curl_init();
-        		curl_setopt($Sch, CURLOPT_POST, 1) ;
-        		curl_setopt($Sch, CURLOPT_URL, $this->host.$this->make_url);
-        		curl_setopt($Sch, CURLOPT_RETURNTRANSFER,1);
-        		curl_setopt($Sch, CURLOPT_SSL_VERIFYPEER,0);
-        		curl_setopt($Sch, CURLOPT_SSL_VERIFYHOST,0);
-                curl_setopt($Sch, CURLOPT_TIMEOUT, 10);
-        		curl_setopt($Sch, CURLOPT_POSTFIELDS, http_build_query($filed));
-        		curl_setopt($Sch, CURLOPT_COOKIEJAR, $cookie_path);
-        		curl_setopt($Sch, CURLOPT_COOKIEFILE, $cookie_path); 
-        		$headers = array(
-                    'Referer: '.$this->host.'uxj/make.php?xtype=show&gids='.$gids
-                );
-                curl_setopt($Sch, CURLOPT_HTTPHEADER, $headers);
-        		$file_content = curl_exec($Sch);
-        		curl_close($Sch);
-                $body = json_decode($file_content,true);
-            }elseif (count($cmds['番摊']) > 0){
-                file_put_contents('logf.txt', json_encode($cmds,JSON_UNESCAPED_UNICODE) . PHP_EOL, FILE_APPEND);
-                $pstr = [];
-                foreach ($cmds['番摊'] as $item){
-                    $arr = array(
-                        "pid" => $item['pid'],
-                        "je" => $item['orderMoney'],
-                        "name" => $item['name'],
-                        "peilv1" => $item['peilv1'],
-                        "classx" => $item['sname']."-".$item['cname'],
-                        "con" => "",
-                        "bz" => rand(1,100)
-                    );
-                    $pstr[] = $arr;
-                    unset($arr);
-                }
-                $id = $fly['id'];
-                $cookie_path = ROOT_PATH . "flyers/cookie/{$id}.txt";
-                $filed = [
-                    'xtype' => "make",
-                    'pstr' => json_encode($pstr),
-                    "abcd" => $abcd,
-                    "ab" => "A",
-                    "bid" => $cmds['番摊'][0]['bid']
-                ];
+             //   echo  http_build_query($filed).PHP_EOL;
                 $Sch = curl_init();
         		curl_setopt($Sch, CURLOPT_POST, 1) ;
         		curl_setopt($Sch, CURLOPT_URL, $this->host.$this->make_url);
@@ -605,9 +585,10 @@ class K28{
                 );
                 curl_setopt($Sch, CURLOPT_HTTPHEADER, $headers);
         		$file_content = curl_exec($Sch);
+              //  echo $file_content.PHP_EOL;
         		curl_close($Sch);
                 $body = json_decode($file_content,true);
-            }
+            //    var_dump($body);
             if ($body != '' && isset($body[0]['cg']) && $body[0]['cg'] == 1){
                 return 2;
             }else{

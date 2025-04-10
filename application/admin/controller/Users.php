@@ -38,7 +38,7 @@ class Users extends Base
             $data['feidan'] = isset($data['feidan'])?1:0;
             $data['online'] = isset($data['online'])?1:0;
             if ($data['password']) {
-                $data['password'] = md5(md5($data['password']));
+                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
             } else {
                 unset($data['password']);
             }
@@ -80,7 +80,7 @@ class Users extends Base
                 //         return ['status' => $status, 'message' => $message];
                 //     }
                 // }
-                $data['password'] = isset($data['password'])?md5(md5($data['password'])):md5(md5('123456'));
+                $data['password'] = isset($data['password'])?password_hash($data['password'], PASSWORD_DEFAULT):password_hash('123456', PASSWORD_DEFAULT);
                 $data['level'] = $level;
                 foreach ($arr as $value) {
                     $data['UserName'] = $value;
@@ -162,7 +162,7 @@ class Users extends Base
                 $res[$k]['sub'] = $sub['uid'];
                 $res[$k]['txtOnline'] = $res[$k]['online'] == 1 ? "<span style='color:blue;'>在线</span>" : "<span>离线</span>";
                 $res[$k]['imgName'] = '<img src="'.$res[$k]['imgName'].'" style="width: 35px;height: 35px;">';
-                if ((strtotime($sub['time'])<time())||(time()-$value['logtime']>60*60)||$sub['isOpen']==0) {
+                if ((strtotime($sub['time'])<time())||(time()-$value['logtime']>60*5)||$sub['isOpen']==0) {
                     db('rbuser') -> where('id',$value['id']) -> update(['online'=>0]);
                     unset($res[$k]);
                 }

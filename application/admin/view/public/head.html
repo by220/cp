@@ -174,22 +174,22 @@
                         {if $Think.session.user_uid == '1'}
                         {/if}
                         <li id="menuli9" class="{if $Request.controller=='Sub'&&$Request.action=='index'}uk-active{/if}"><a id="menu9" href = "{:url('sub/index')}">子账号</a></li>
-                        <li id="menuli11" class="{if $Request.controller=='Rb'}uk-active{/if}"><a id="menu11" href = "{:url('rb/index')}">机器人</a></li>
-                        <li id="menuli5" class="{if $Request.controller=='Tongji'}uk-active{/if}"><a id="menu5" href = "{:url('tongji/index')}">统计分析</a></li>
+                        <li id="menuli11" class="{if $Request.controller=='Rb'}uk-active{/if}"><a id="menu11" href = "{:url('rb/index')}">机器管理</a></li>
+                        <li id="menuli5" class="{if $Request.controller=='Tongji'}uk-active{/if}"><a id="menu5" href = "{:url('tongji/index')}">报表统计</a></li>
                         <li id="menuli7" class="{if $Request.controller=='History'}uk-active{/if}"><a id="menu7" href = "{:url('history/index')}">开奖历史</a></li>
                         {if $Think.session.user_uid == '1'}
-                        <li id="menuli6" class="{if $Request.controller=='Uncul'}uk-active{/if}"><a id="menu6" href = "{:url('uncul/index')}">未结算</a></li>
+                        <li id="menuli6" class="{if $Request.controller=='Uncul'}uk-active{/if}"><a id="menu6" href = "{:url('uncul/index')}">未结订单</a></li>
                         <!--<li id="menuli9" class="{if $Request.controller=='Sub'&&$Request.action=='flyer'}uk-active{/if}"><a id="menu9" href = "{:url('sub/flyer')}">飞单</a></li>-->
-                        <li id="menuli11" class="{if $Request.controller=='Changed'&&$Request.action=='changerecord'}uk-active{/if}"><a id="menu11" href = "{:url('changed/changeRecord')}">改单</a></li>
+                        <li id="menuli11" class="{if $Request.controller=='Changed'&&$Request.action=='changerecord'}uk-active{/if}"><a id="menu11" href = "{:url('changed/changeRecord')}">订单改单</a></li>
                         <li id="menuli12" class="{if $Request.controller=='Users'&&$Request.action=='online'}uk-active{/if}"><a id="menu12" href = "{:url('users/online')}">在线玩家</a></li>
                         <!--<li id="menuli13" class="{if $Request.controller=='Changed'&&$Request.action=='loglist'}uk-active{/if}"><a id="menu13" href = "{:url('changed/loglist')}">日志</a></li>-->
                         <li id="menuli13" class="{if $Request.controller=='Changed'&&$Request.action=='config'}uk-active{/if}"><a id="menu14" href = "{:url('changed/config')}">设置</a></li>
                         <li id="menuli13" class="{if $Request.controller=='Index'&&$Request.action=='wplist'}uk-active{/if}"><a id="menu14" href = "{:url('index/wplist')}">网盘设置</a></li>
-                        <li id="menuli13" class="{if $Request.controller=='Game'&&$Request.action=='index'}uk-active{/if}"><a id="menu14" href = "{:url('game/index')}">彩种设置</a></li>
-                        {/if}
-                        <li id="menuli4" class="{if $Request.controller=='Pwd'}uk-active{/if}"><a id="menu4" href = "{:url('pwd/index')}">修改密码</a></li>
+                        <li id="menuli13" class="{if $Request.controller=='Game'&&$Request.action=='index'}uk-active{/if}"><a id="menu14" href = "{:url('game/index')}">游戏设置</a></li>
+                        <!--{/if}-->
+                        <!--<li id="menuli4" class="{if $Request.controller=='Pwd'}uk-active{/if}"><a id="menu4" href = "{:url('pwd/index')}">修改密码</a></li>-->
                         <li><a id="menu8" href="{:url('Login/Logout')}">安全退出</a></li>
-                        <li style="width: auto;"><a href="javascript:;" style="color:red;">欢迎您&nbsp;&nbsp;&nbsp;&nbsp;{$Think.session.user_id}{if $Think.session.user_uid != '1'}&nbsp;&nbsp;&nbsp;&nbsp;可用积分：<span id="leftScore">{:sprintf('%.0f',db('admin')->where('UserName',$Think.session.user_id)->find()['score'])}</span>{else/}，<span>超级管理员账号</span>{/if}</a></li>
+                        <li style="width: auto;"><a href="javascript:;" style="color:red;">欢迎您&nbsp;&nbsp;&nbsp;&nbsp;{$Think.session.user_id}{if $Think.session.user_uid != '1'}&nbsp;&nbsp;&nbsp;&nbsp;可用积分：<span id="leftScore">{:sprintf('%.0f',db('admin')->where('UserName',$Think.session.user_id)->find()['score'])}</span>{else/}，<span>超级管理员</span>{/if}</a></li>
                     </ul>
                 </nav>
             </div>

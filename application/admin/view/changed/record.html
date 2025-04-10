@@ -3,7 +3,7 @@
 <div class="uk-container uk-container-center  uk-margin-large-top">
     <div class="uk-panel uk-panel-box uk-panel-box-primary">
         <div class="uk-grid" style="margin-left: 0;margin-top: 10px;">
-            <button class="layui-btn layui-btn-sm layui-btn-normal" id="gdrecord">改单记录</button>
+            <!--<button class="layui-btn layui-btn-sm layui-btn-normal" id="gdrecord">改单记录</button>-->
             <button class="layui-btn layui-btn-sm" id="refresh">刷新</button>
             <div class="uk-width-1-1" style="overflow: auto;padding: 0;">
                 <div id="table" lay-filter="table"></div>
@@ -36,12 +36,12 @@
         ,cols: [[ //表头
           {field: 'id', title: 'ID', width:110}
           ,{field: 'BelongOperator', title: '所属机器人', width:110}
-          ,{field: 'name', title: '账号', width:210}
+          //,{field: 'name', title: '账号', width:210}
           ,{field: 'wid', title: '昵称', width:110}
           ,{field: 'qihao', title: '期号', width:110}
-          ,{field: 'dtGenerate', title: '时间', width:160}
-          ,{field: 'score', title: '金额', width:110}
-          ,{field: 'text', title: '投注内容', width:310}
+          ,{field: 'dtGenerate', title: '时间', width:170}
+          ,{field: 'score', title: '金额', width:90}
+          ,{field: 'text', title: '投注内容', width:160}
           ,{align:'center', toolbar: '#barDemo', title: '操作', width:160} 
         ]]
       });

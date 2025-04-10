@@ -228,9 +228,9 @@
 </div>
 <div style="width:100%;font-size:15px;height: 40px;background: #fff;line-height: 35px;">
     <div class="types" style="font-size:15px;display: flex;justify-content: space-around;">
-        <span id="wait" t='0'>未飞单</span>
+        <span id="wait" t='0'>未报</span>
         <span id="succ" t='2' class="sele">已飞单</span>
-        <span id="fail" t='3'>飞单失败</span>
+        <span id="fail" t='3'>失败</span>
     </div>
 </div>
 {elseif $Request.param.type == 'xzs'/}
@@ -261,9 +261,9 @@
     总双边流水:<span id="totalYouXiaoLiuShuis">0</span>，&nbsp;&nbsp;
     总盈亏:<span id="totalRealYingKui">0</span>，&nbsp;&nbsp;
     总上下:<span id="totalUp">0</span><span id="totalDown">0</span>&nbsp;=&nbsp;<span id="totalUpDown">0</span>，&nbsp;&nbsp;
-    未飞单:<span id="flyersWait">0</span>，&nbsp;&nbsp;
-    飞单成功:<span id="flyersSuc">0</span>，&nbsp;&nbsp;
-    飞单失败:<span id="flyersFail">0</span>
+    未报:<span id="flyersWait">0</span>，&nbsp;&nbsp;
+    已报:<span id="flyersSuc">0</span>，&nbsp;&nbsp;
+    失败:<span id="flyersFail">0</span>
 </div>
 <div style="width:100%;">
     <button id="btnWay11" style="font-size:14px;">当前积分对账</button>&nbsp;&nbsp;&nbsp;&nbsp;<button id="btnTime" style="font-size:14px;">0点一天</button>

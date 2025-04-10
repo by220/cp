@@ -7,26 +7,29 @@ use think\Session;
 
 class Base extends Controller
 {
+	protected $user_id;
+    protected $user_info;
 	protected function _initialize()
 	{
 		parent::_initialize();
 		define('USER_ID', Session::get('user_id'));
 		define('USERINFO', Session::get('user_find'));
+		$this->user_id = Session::get('user_id');
+        $this->user_info = Session::get('user_info');
 	}
 	
 	protected function isLogin()
 	{
-		if (is_null(USER_ID)) {
-			$this -> redirect(url('login/index'));
-		}
+		if (empty($this->user_id)) {
+            $this->redirect(url('login/index'));
+        }
 	}
 	
 	protected function isAdmin()
 	{
-	    $aid = session('user_uid');
-		if ($aid != 1) {
-			$this -> redirect(url('login/index'));
-		}
+	    if (empty($this->user_info) || empty($this->user_info['type']) || $this->user_info['type'] != 1) {
+            $this->redirect(url('login/index'));
+        }
 	}
 	
 	protected function userLogin()
@@ -38,7 +41,7 @@ class Base extends Controller
 	
 	protected function alreadyLogin()
 	{
-		if (!is_null(USER_ID)) {
+		if (!is_null($this->user_id)) {
 			$this -> redirect(url('index/index'));
 		}
 	}

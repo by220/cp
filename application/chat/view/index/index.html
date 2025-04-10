@@ -1478,14 +1478,26 @@
 					if (ele.text() == '取消'  || ele.text() == '玩法' || ele.text() == '流水' || ele.text() == '查' || ele.text() == '上' || ele.text() == '下') {
 						kuaijie = true;
 					}
-					if (ele.hasClass("del")) {
+					if (ele.hasClass("del") || ele.attr("type") == 'del') {
 						txtmsg.val((txtmsg.val() || "").replace(/[\S\s]$/, ""));
 						if (txtmsg.val()=='') {
 						    kuaijie = false;
 						}
 					} else if (ele.hasClass("nline")) {
 						txtmsg.val(txtmsg.val() + "\r\n");
-					} else {
+					} else if(ele.attr("type") == 'clear'){
+						txtmsg.val('');
+						kuaijie = false;
+					} else if(ele.attr("type") == 'enter'){
+						txtmsg.val(txtmsg.val() + "\r");
+					} else if(ele.attr("type") == 'tab'){
+						$(".double-keybord").toggleClass("horizontal");
+						autoMsgSize();
+					} else if(ele.attr("type") == 'music'){
+						
+					} else if(ele.attr("type") == 'describe'){
+
+					}else {
 						txtmsg.val(txtmsg.val() + ele.text());
 					}
 					txtmsg.scrollTop(txtmsg[0].scrollHeight);
@@ -1505,7 +1517,8 @@
 					var headimg = $(".headimg", div);
 					var fpop = $(".fpop", div);
 					if (dt.name == "机器人" && (dt.wxid == "0" || dt.wid == null)) {
-						uname.addClass("sys");
+						  uname.addClass("sys");
+				        // fpop.addClass("lx");
 					}
 					if (dt.wxid == 0 && dt.atUser != 'kai6' && dt.atUser != 'kai3' && dt.atUser != 'stop' && dt
 						.atUser != 'last') {
@@ -1592,7 +1605,7 @@
 				let isManuallyClosed = false; // 是否人为关闭，避免无限重连
 
 				function initWS() {
-					const wsUrl = "wss://m6wsn.gnjfx.cn/ws?uid=" + msgconf.uid + "&gt=" + gameType;
+					const wsUrl = "wss://x.hy1965.cn/ws?uid=" + msgconf.uid + "&gt=" + gameType;
 					ws = new WebSocket(wsUrl);
 
 					ws.onopen = function () {
@@ -1837,8 +1850,10 @@
 							}
 							if ($b.daoji == 2) {
 							    $('.drawTime').hide();
+								$('#drawTime').hide();
 							} else {
 							    $('.drawTime').show();
+								$('#drawTime').show();
 							}
 							for (var i in change) {
 								$('.msg' + change[i]['id']).find('.msgpre').text(change[i]['cmd']);
@@ -2886,8 +2901,8 @@
 				position: relative;
 				/*height: 160px;*/
 				background: #d0d3dc;
-				padding-bottom: 10px;
 				display: none;
+				overflow: hidden;
 			}
 
 			.divBottom .inpvkb ul {
@@ -2896,6 +2911,10 @@
 				height: 30px;
 				margin: 0 auto;
 				user-select: none;
+			}
+
+			.divBottom .inpvkb ul.fh{
+				 margin-bottom: 10px;
 			}
 
 			.divBottom .inpvkb ul li {
@@ -3824,7 +3843,7 @@
 			.rule p {
 				margin: 0 !important;
 			}
-
+             /*球滚动大小*/
 			.balls .ani .list .ball,
 			.blueQiu {
 				height: 24px;
@@ -5820,14 +5839,17 @@
 			#header{ padding:0 5px !important; box-sizing:border-box;}
 		</style>
 	</head>
+	<link rel="stylesheet" href="__STATIC__/model.css" />
 	<body class="kajianhao font_small">
     	<div class="window">
 	    <div id="app" style="display:none;">
 	        {{uploadFileUrl}}
 	    </div>
+		<?php $top = 0;	?>
         {if $config.headEnable == 1}
-		<div
-			style="height: 32px; position: absolute; z-index: 1000; background: rgb(247, 247, 251) !important; width: 100vw;">
+			{if $config.statubarEnable == 1}
+		<?php $top = 30;?>
+		<div style="height: 32px; position: absolute; z-index: 1000; background: rgb(247, 247, 251) !important; width: 100vw;">
 			<div
 				style="display: flex; border-bottom: 1px solid rgb(209, 209, 209); height: 29px; line-height: 29px;">
 				<div
@@ -5871,8 +5893,9 @@
 				<div style="width: 33px; text-align: right; margin-right: 10px;" class="uInfo"><uni-text class="uni-icons uniui-list" style="color: rgb(97, 101, 97); font-size: 25px;"><span></span></uni-text></div>
 			</div>
 		</div>
+			{/if}
 		{if $rb.type!=75}
-		<div id="header" style="border-bottom: 1px solid rgb(209, 209, 209); height: 35px; line-height: 36px; padding-left: 0px; position: absolute; z-index: 921; width: 100vw; background: rgb(247, 247, 251) !important; top: 30px;display: flex;justify-content: space-around;align-items:center;">
+		<div id="header" style="border-bottom: 1px solid rgb(209, 209, 209); height: 35px; line-height: 36px; padding-left: 0px; position: absolute; z-index: 921; width: 100vw; background: rgb(247, 247, 251) !important; top: <?= $top ?>px;display: flex;justify-content: space-around;align-items:center;">
 			<div id="history" style="float: left; font-size: 14px; margin-right: 5px;width: auto;"><span id="topissue">000000</span>期</div>
             <div class="balls">
             	<div class="result">
@@ -7121,67 +7144,121 @@
                         <span data-value="8" class="selected">8球</span>
                     </div>
                     {/if}
-                
-					<ul class="dw" style="{if !$game.hasKey}display:none;{/if}">
-						<li>查</li>
-						<li>上</li>
-						<li>下</li>
-						<!--<li>加</li>-->
-						<li>无</li>
-						<li>大</li>
-						<li>小</li>
-						<li>单</li>
-						<li>双</li>
-						<li class="w2 del">×</li>
-						<!--<li class="del">×</li>-->
-					</ul>
-					<ul class="dw" style="{if $game.hasKey}display:none;{/if}">
-						<li>查</li>
-						<li>上</li>
-						<li>下</li>
-						<li class="w2">流水</li>
-						<li class="w2">走势</li>
-						<li class="w2">取消</li>
-						<li class="del">×</li>
-					</ul>
-					<ul class="nb" style="{if !$game.hasKey}display:none;{/if}">
-						<li>番</li>
-						<li>角</li>
-						<li>严</li>
-						<li>正</li>{if $game.hasTe}<li>加</li>
-						<li>通</li>
-						<li>车</li>
-						{if $game.hasTe}<li>特</li>{/if}{/if}{if !$game.hasTe}
-						<li>通</li>
-						<li>车</li>
-						<!--<li class="w2">历史</li>-->
-						<li class="w2">玩法</li>{/if}
-						<li class="w2">取消</li>
-					</ul>
-					<ul class="nb">
-						<li>1</li>
-						<li>2</li>
-						<li>3</li>
-						<li>4</li>
-						<li>5</li>
-						<li>6</li>
-						<li>7</li>
-						<li>8</li>
-						<li>9</li>
-						<li>0</li>
-					</ul>
-					<ul class="fh" style="{if !$game.hasKey}display:none;{/if}">
-						<li>+</li>
-						<li>-</li>
-						<li>/</li>
-						<li>=</li>
-						<li>,</li>
-						<li>.</li>
-						<!--<li class="bspace">&nbsp;</li>-->
-						<li class="w2">历史</li>
-						<li class="w2">流水</li>
-						<!--<li class="nline">换</li>-->
-					</ul>
+					{if $config.keyboardMode == 1}
+					<!--双键位键盘-->
+					<div class="double-keybord">
+						<ul class="column">
+							<li>番</li>
+							<li>角</li>
+							<li>新</li>
+							<li>车</li>
+							<li>念</li>
+							<li>正</li>
+							<li>通</li>
+							<li>无</li>
+							<li>单</li>
+							<li>双</li>
+							<li>大</li>
+							<li>小</li>
+							<li>特</li>
+							<li>查</li>
+							<li>上</li>
+							<li>下</li>
+							<li>流水</li>
+							<li>历史</li>
+							<li type="music">♫</li>
+							<li class="vertical">取消</li>
+							<li class="vertical" type="describe">说明</li>
+							<li class="vertical" type="tab">⇅</li>
+						</ul>
+						<ul class="column">
+							<li>1</li>
+							<li>2</li>
+							<li>3</li>
+							<li>4</li>
+							<li>5</li>
+							<li>6</li>
+							<li>7</li>
+							<li>8</li>
+							<li>9</li>
+							<li>0</li>
+							<li>/</li>
+							<li>,</li>
+							<li>-</li>
+							<li type="enter">↲</li>
+							<li type="clear">✘</li>
+							<li type="del">⇦</li>
+							<li class="horizontal">取消</li>
+							<li class="horizontal" type="describe">说明</li>
+							<li class="horizontal" type="tab">⇅</li>
+						</ul>
+					</div>
+					{else /}
+					<!--单键位键盘-->
+					<div class="singleKeybord">
+						<ul class="dw" style="{if !$game.hasKey}display:none;{/if}">
+							<li>查</li>
+							<li>上</li>
+							<li>下</li>
+							<!--<li>加</li>-->
+							<li>无</li>
+							<li>大</li>
+							<li>小</li>
+							<li>单</li>
+							<li>双</li>
+							<li class="w2 del">×</li>
+							<!--<li class="del">×</li>-->
+						</ul>
+						<ul class="dw" style="{if $game.hasKey}display:none;{/if}">
+							<li>查</li>
+							<li>上</li>
+							<li>下</li>
+							<li class="w2">流水</li>
+							<li class="w2">走势</li>
+							<li class="w2">取消</li>
+							<li class="del">×</li>
+						</ul>
+						<ul class="nb" style="{if !$game.hasKey}display:none;{/if}">
+							<li>番</li>
+							<li>角</li>
+							<li>严</li>
+							<li>正</li>{if $game.hasTe}<li>加</li>
+							<li>通</li>
+							<li>车</li>
+							{if $game.hasTe}<li>特</li>{/if}{/if}{if !$game.hasTe}
+							<li>通</li>
+							<li>车</li>
+							<!--<li class="w2">历史</li>-->
+							<li class="w2">玩法</li>{/if}
+							<li class="w2">取消</li>
+						</ul>
+						<ul class="nb">
+							<li>1</li>
+							<li>2</li>
+							<li>3</li>
+							<li>4</li>
+							<li>5</li>
+							<li>6</li>
+							<li>7</li>
+							<li>8</li>
+							<li>9</li>
+							<li>0</li>
+						</ul>
+						<ul class="fh" style="{if !$game.hasKey}display:none;{/if}">
+							<li>+</li>
+							<li>-</li>
+							<li>/</li>
+							<li>=</li>
+							<li>,</li>
+							<li>.</li>
+							<!--<li class="bspace">&nbsp;</li>-->
+							<li class="w2">历史</li>
+							<li class="w2">流水</li>
+							<!--<li class="nline">换</li>-->
+						</ul>
+					</div>
+					{/if}
+
 				</div>
 			</div>
 		</form>

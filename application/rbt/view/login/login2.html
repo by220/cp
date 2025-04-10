@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>登录页</title>
+        <title>登录</title>
         <meta name="viewport"
             content="width=device-width,initial-scale=1, maximum-scale=1,minimum-scale=1,user-scalable=no">
         <script type="text/javascript" src="__STATIC__/xz/L o g i n_files/jquery-1.11.3.min.js"></script>
@@ -2621,7 +2621,7 @@
                                             <!-- input --><!-- prepend slot --><!--v-if-->
                                             <div class="el-input__wrapper"><!-- prefix slot --><!--v-if--><input
                                                     class="el-input__inner" type="text" autocomplete="off" tabindex="0"
-                                                    placeholder="请输入用户名" id="name"><!-- suffix slot --></div>
+                                                    placeholder="" id="name"><!-- suffix slot --></div>
                                             <!-- append slot --><!--v-if-->
                                         </div><!--v-if-->
                                     </div>
@@ -2634,7 +2634,7 @@
                                             <!-- input --><!-- prepend slot --><!--v-if-->
                                             <div class="el-input__wrapper"><!-- prefix slot --><!--v-if--><input
                                                     class="el-input__inner" type="password" autocomplete="off"
-                                                    tabindex="0" placeholder="请输入密码"
+                                                    tabindex="0" placeholder=""
                                                     id="password"><!-- suffix slot --></div>
                                             <!-- append slot --><!--v-if-->
                                         </div><!--v-if-->
@@ -2645,10 +2645,10 @@
                                     <div class="el-form-item__content"><button
                                             class="el-button el-button--primary el-button--small" aria-disabled="false"
                                             type="button" id="btnLogin" data-v-2623b88c=""
-                                            style="width: 80px;"><!--v-if--><span class="">登 录</span></button><button
+                                            style="width: 50px;"><!--v-if--><span class="">登 录</span></button><button
                                             class="el-button el-button--primary el-button--small" aria-disabled="false"
                                             type="button" id="btnLogin2" data-v-2623b88c=""
-                                            style="width: 80px;"><!--v-if--><span class="">查</span></button><!--v-if-->
+                                            style="width: 40px;"><!--v-if--><span class="">查</span></button><!--v-if-->
                                     </div>
                                 </div>
                             </form>
@@ -2659,6 +2659,17 @@
         </div>
 
         <script type="text/javascript">
+         //DOM加载完毕
+       $(document).ready(function () {
+        //加载cookie
+        if ($.cookie('theuser') != "null") {
+            $("#name").val($.cookie('theuser'));
+        }
+
+        if ($.cookie('thepwd') != "null") {
+            $("#password").val($.cookie('thepwd'));
+        }
+    });
             //登录
             function Login(username, password, myip) {
                 $.ajax({
@@ -2672,14 +2683,14 @@
                     dataType: "json",
                     success: function(data) {
                         if (data.status == 1) {
-                            // $.cookie("theuser", $("#name").val(), {
-                            //     expires: 365,
-                            //     path: '/'
-                            // });
-                            // $.cookie("thepwd", $("#password").val(), {
-                            //     expires: 365,
-                            //     path: '/'
-                            // });
+                             $.cookie("theuser", $("#name").val(), {
+                                 expires: 365,
+                                 path: '/'
+                             });
+                             $.cookie("thepwd", $("#password").val(), {
+                                 expires: 365,
+                                 path: '/'
+                             });
                             window.location.href = "{:url('index/index')}";
                         } else {
                             alertErr(data.message);

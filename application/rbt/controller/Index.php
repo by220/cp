@@ -459,7 +459,7 @@ class Index extends Base
         list($count1,$count2) = setCount(USER_ID);
         foreach ($result as $k=>$value) {
             $heji +=$value['score'];
-            $result[$k]['link'] = getUserurl('index?token',$value['code']);
+            $result[$k]['link'] = getUserurl('index?cd',$value['code']);
             $result[$k]['qr'] = session('rbDomain').DS.'qr'.DS.$value['code'].'.png';
             $result[$k]['tuoMinMax'] = $result[$k]['tuoMin'] . '-' . $result[$k]['tuoMax'];
            // $result[$k]['score'] = (floor($result[$k]['score']/10000)>0?floor($result[$k]['score']/10000) . 'w' :''). sprintf('%.2f',($result[$k]['score']-floor($result[$k]['score']/10000)*10000));
@@ -475,9 +475,9 @@ class Index extends Base
             rbUpdate(['online'=>0]);
 	        return json(['IsNeedLogin'=>true]);
         }
-	    if ($data['tar']==0) {
-            rbUpdate(['logtime'=>time()]);
-        }
+	   // if ($data['tar']==0) {
+    //         rbUpdate(['logtime'=>time()]);
+    //     }
 	    $dataimg = [];
         // Cache::set('lalink',session('rbDomain'));
         // session('rbInfo',$result);
@@ -548,6 +548,7 @@ class Index extends Base
         }
         foreach ($users as $k=>$value) {
             $heji +=$value['score'];
+           // 地址生成
             $users[$k]['link'] = getUserurl('index?cd',$value['code']);
             $users[$k]['qr'] = session('rbDomain').DS.'qr'.DS.$value['code'].'.png';
             $users[$k]['tuoMinMax'] = $users[$k]['tuoMin'] . '-' . $users[$k]['tuoMax'];
@@ -894,6 +895,7 @@ class Index extends Base
      * @throws \think\exception\DbException
      * @throws \think\exception\PDOException
      */
+     //地址生成刷新
     public function getUserLink(Request $request){
         $data = $request->only('uid');
         $user = db('rbuser')->where('id',$data['uid'])->find();

@@ -34,6 +34,7 @@
             <input type="text" name="dataUrl" lay-verify="required" lay-reqtext="彩种键名不能为空" placeholder="请输入" value="{$info?$info['dataUrl']:''}" class="layui-input">
         </div>
     </div>
+    <div style="display:none">
     <div class="layui-form-item">
         <label class="layui-form-label required">A盘特码赔率</label>
         <div class="layui-input-block">
@@ -58,6 +59,7 @@
             <input type="text" name="peilvbdx" placeholder="请输入" value="{$info?$info['peilvbdx']:''}" class="layui-input">
         </div>
     </div>
+    
     <div class="layui-form-item">
         <label class="layui-form-label required">C盘特码赔率</label>
         <div class="layui-input-block">
@@ -81,6 +83,7 @@
         <div class="layui-input-block">
             <input type="text" name="peilvddx" placeholder="请输入" value="{$info?$info['peilvddx']:''}" class="layui-input">
         </div>
+    </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">排序</label>
@@ -110,6 +113,12 @@
         <label class="layui-form-label required">显示特</label>
         <div class="layui-input-block">
             <input type="checkbox" name="hasTe" value="1"{if $info && $info['hasTe']==1} checked=""{/if} lay-skin="switch" lay-text="显示|隐藏">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">特模型</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="teModel" value="1"{if $info && $info['teModel']==1} checked=""{/if} lay-skin="switch" lay-text="模二|模一">
         </div>
     </div>
     <div class="layui-form-item">

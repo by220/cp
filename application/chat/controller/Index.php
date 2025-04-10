@@ -190,7 +190,7 @@ class Index extends Base
         $open = cache('nowQi' . $wan['gid']);
         $startTime = strtotime(date('Y-m-d') . ' 14:03:00');
         $endTime = strtotime(date('Y-m-d') . ' 17:00:00');
-        $currentTimestamp = time(); 
+        $currentTimestamp = time();
         $istId = 0;
         if ($wan['isBlack'] == 0 && $wan && $admin && $usre && $data['qh'] == $open['QiHao']) {
             $wan['fans'] = $usre['FanShui'];
@@ -1478,4 +1478,62 @@ class Index extends Base
         list($arr, $allQi, $yijie, $weijie) = resetOrder($recordList, true);
         return json(['list' => $arr['list']]);
     }
+
+    public function getcp()
+    {
+        $filed = [
+            'xtype' => "show",
+            'date' => 'day',
+            "tpage" => 1,
+            "gameid" => 0,
+            "ty" => 1
+        ];
+        $cookie_path = ROOT_PATH . "flyers/cookie/4.txt";
+        $host = 'https://w3.k280088.vip/mxj/baoday.php';
+        $Sch = curl_init();
+        curl_setopt($Sch, CURLOPT_POST, 1);
+        curl_setopt($Sch, CURLOPT_URL, $host);
+        curl_setopt($Sch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($Sch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($Sch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($Sch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($Sch, CURLOPT_POSTFIELDS, http_build_query($filed));
+        curl_setopt($Sch, CURLOPT_COOKIEJAR, $cookie_path);
+        curl_setopt($Sch, CURLOPT_COOKIEFILE, $cookie_path);
+        $headers = array(
+            'Referer: https://w3.k280088.vip/uxj/make.php?xtype=show&gids=131'
+        );
+        curl_setopt($Sch, CURLOPT_HTTPHEADER, $headers);
+        $file_content = curl_exec($Sch);
+        echo $file_content . PHP_EOL;
+        curl_close($Sch);
+    }
+    
+    public function getcpw()
+    {
+        $filed = [
+            'xtype' => "show",
+            "tpage" => 1,
+        ];
+        $cookie_path = ROOT_PATH . "flyers/cookie/4.txt";
+        $host = 'https://w3.k280088.vip/mxj/lib.php';
+        $Sch = curl_init();
+        curl_setopt($Sch, CURLOPT_POST, 1);
+        curl_setopt($Sch, CURLOPT_URL, $host);
+        curl_setopt($Sch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($Sch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($Sch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($Sch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($Sch, CURLOPT_POSTFIELDS, http_build_query($filed));
+        curl_setopt($Sch, CURLOPT_COOKIEJAR, $cookie_path);
+        curl_setopt($Sch, CURLOPT_COOKIEFILE, $cookie_path);
+        $headers = array(
+            'Referer: https://w3.k280088.vip/uxj/make.php?xtype=show&gids=131'
+        );
+        curl_setopt($Sch, CURLOPT_HTTPHEADER, $headers);
+        $file_content = curl_exec($Sch);
+        echo $file_content . PHP_EOL;
+        curl_close($Sch);
+    }
+    
 }

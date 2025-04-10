@@ -2,9 +2,36 @@
 <html style="overflow: hidden;">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="renderer" content="webkit">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="force-rendering" content="webkit">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 		<title>{$config.title}</title>
 		<style>
+		html, body {
+				touch-action: none;
+				height: 100%;
+				overflow: hidden;
+				-webkit-touch-callout: none;
+			}
+			.window{
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				left: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				margin: auto;
+				overflow: hidden;
+				transform: scale(1);	
+			}
+			.app{
+				height:100vh;
+				overflow:hidden;
+				display:flex;
+				flex-direction:column;
+			}
 			.table_title {
 				text-align: center;
 				background-color: #7030a0;
@@ -110,6 +137,163 @@
 
 			.xsl_nei {
 				border-left: 1px solid #eee;
+			}
+			.openlayer{
+				margin:5px;
+				background:#07c160;
+				color:#fff;
+				font-size:12px;
+				text-align:center;
+				height:32px;
+				line-height:32px;
+				user-select:none;
+				border-radius:2px;
+			}
+			.msglayer.msgleft .fpop.lx{
+				background:#eff0fe !important;
+			}
+			.liushuiPopup{
+				position:fixed;
+				top:0;
+				width:100%;
+				height:100%;
+				left:0;
+				z-index:99998;
+				background:#fff;
+				font-size:14px;
+				color:#000;
+				display:flex;
+				flex-direction:column;
+				transition:all .3s;
+				-webkit-transition:all .3s;
+			}
+			.liushuiPopup *{ box-sizing:border-box;}
+			.liushuiPopup.hide{
+				transform:translateY(100%);
+				-webkit-transform:translateY(100%);
+			}
+			.liushuiPopup .closebtn{
+				position:absolute;
+				color:#1989fa;
+				padding:5px;
+				right:11px;
+				top:8px;
+			}
+			.liushuiPopup .head{
+				text-align:center;
+				color:#323233;
+				height:46px;
+				line-height:46px;
+				font-size:16px;
+			}
+			.liushuiPopup .date {
+				display:flex;
+				justify-content:center;
+				font-family:-apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,Segoe UI,Arial,Roboto,PingFang SC,miui,Hiragino Sans GB,Microsoft Yahei,sans-serif;
+			}
+			.liushuiPopup .date .btn{
+				flex:1;
+				text-align:center;
+				color:#646566;
+				height:44px;
+				line-height:44px;
+				cursor:pointer;
+				position:relative;
+			}
+			.liushuiPopup .date .btn.active,
+			.liushuiPopup .date .btn:hover{
+				color:#323233;
+			}
+			.liushuiPopup .date .btn.active:after{
+				content:"";
+				width:40px;
+				height:3px;
+				background:#ee0a24;
+				border-radius:3px;
+				position:absolute;
+				bottom:0;
+				left:0;
+				right:0;
+				margin:auto;
+			}
+			.liushuiPopup .vipinfo .title{
+				font-weight:bold;
+				margin-bottom:.5rem;
+			}
+			.liushuiPopup .vipinfo ul li{
+				font-size:12px;
+				margin-bottom:.5rem;
+			}
+			.liushuiPopup .datalist{
+				flex:1;
+				overflow:auto;
+				background:#f2f3f5;
+				padding:5px 10px;
+			}
+			.liushuiPopup .datalist .item{
+				background:#fff;
+				border-radius:.5rem;
+				padding: 0.5rem .8rem;
+				margin: 1rem 0;
+				padding-bottom:1rem;
+			}
+			.liushuiPopup .datalist .qihao{
+				text-align:center;
+				color:rgb(45,55,72);
+				font-size: 1.125rem;
+				border-bottom:solid 1px #efefef;
+				margin-bottom:1rem;
+				height:40px;
+				line-height:40px;
+			}
+			
+			.liushuiPopup .datalist .item li{
+				box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+				padding:.6rem .6rem;
+				border-radius:.5rem;
+				background:#ffffff;
+				font-size:14px;
+				margin-top:8px;
+				color:rgb(45,55,72);
+				background:#eee;
+				border:solid 1px #ccc;
+			}
+			.liushuiPopup .datalist .item li:first-child{
+				margin-top:0;
+			}
+			.liushuiPopup .datalist .item li .infoitem_row.type1{
+				background:none;
+				line-height:1.4;
+			}
+			.liushuiPopup .datalist .item .lose{
+				color:rgb(72,187,120);
+				font-size:.875rem;
+			}
+			.liushuiPopup .datalist .item .fanshui,
+			.liushuiPopup .datalist .item .win{
+				color:red;
+				font-size:.875rem;
+			}
+			.liushuiPopup .datalist .item .fanshui{
+				display: none;
+				margin:0 10px;
+			}
+			.liushuiPopup .datalist .item .rowscore{
+				font-weight:bold;
+				margin-left: 15px;
+			}
+			.liushuiPopup .datalist .item .time{
+				color:#000;
+			}
+			.liushuiPopup .datalist .item .rowcontent{
+				color:rgb(255,255,255);
+				background:rgb(113,128,150);
+				padding-left: 0.25rem;
+				padding-right: 0.25rem;
+				margin:0 3px;
+			}
+			.liushuiPopup .datalist .item .rowcontent.sf{
+				background: red;
 			}
 		</style>
 		<style type="text/css">
@@ -1013,14 +1197,16 @@
 			.grid-item.selected .gou {
 				display: block;
 			}
+			
+			
 		</style>
 		<link rel="stylesheet" href="__STATIC__/xz/news_files/bulma.min.css?{:time()}">
 		<script type="text/javascript" src="__STATIC__/xz/vs.zz.zhuguangbq.xyz_files/j.js"></script>
-		<script src="__STATIC__/vue.js" type="text/javascript"></script>
+        <script src="__STATIC__/vue.js" type="text/javascript"></script>
         <link rel="stylesheet" href="__STATIC__/xz/layui/css/layui.css">
         <script src="__STATIC__/xz/layui/layui.js"></script>
 		<script type="text/javascript">
-			var qihao = null;
+			var qihao = '{$kj.qh}';
 			var countNum = 0;
 			var firstNum = 0;
 			var msgconf = {
@@ -1030,15 +1216,18 @@
 				uid: '{$rbuser.id}',
 				flag: 0,
 				isVip: false,
-				currentTop: 0
+				currentTop: 0,
+				wxid: '{$rbuser.wxid}'
 			};
 			let m_drawTime = 0;
+			let lastTime = 0;
 			var isLoad = false;
 			var recordList = [];
 			var gameType = '{$game.gameType}';
 			var gameWf = '{$game.wf}';
 			var qiuIndex = 8;
 			var kuaijie = false;
+			var apptype = null;
             var ws;
         
             layui.use(['layer', 'form', 'table'], function(){
@@ -1070,6 +1259,7 @@
 			$(document).ready(function() {
 				var txtmsg = $("#txtMsg");
 				var msgcontent = $(".msgcontent");
+				$(".blueQiu").removeClass("red");
 				var autoMsgSize = function() {
 					if (!$(".divBottom").hasClass("msgdown")) {
 						$(".divBottom").removeClass("msgup");
@@ -1087,7 +1277,9 @@
 					$(".aotuheight").css("height", document.documentElement.clientHeight + 0);
 					$(".divBottom").css("top", $(window).scrollTop() + msgcontent.height()); //
 				};
+				//消息滑动
 				function scrollBtm() {
+					//msgcontent.stop().animate({scrollTop:msgcontent[0].scrollHeight - msgcontent.height() - 1});
 					msgcontent.scrollTop(msgcontent[0].scrollHeight - msgcontent.height() - 1);
 					$(".divBottom .btndown:visible").hide();
 					msgconf.newMsgCount = 0;
@@ -1111,30 +1303,40 @@
 							sTop) < 50) {
 						msgconf.isAutoBottom = true;
 					}
-					var newMsgTxt = msgconf.newMsgCount + "条新消息";
+					var newMsgTxt = msgconf.newMsgCount + "条";
 					if (msgconf.isAutoBottom) {
 					    scrollBtm();
 					} else {
-						$(".divBottom .btndown:hidden").show();
+						if(msgconf.newMsgCount > 0){
+							$(".divBottom .btndown:hidden").show();
+						}
 					}
 					if (newMsgB.text() != newMsgTxt) {
 						newMsgB.text(newMsgTxt);
 					}
 				};
 				setInterval(checkAutoScroll, 500);
-				setInterval(updateTime, 1000);
+				let timerId;
+				let endTime;
 				$(window).resize(autoMsgSize);
 				//提交消息
 				var submitMsg = function() {
 					var sendContent = $.trim(txtmsg.val());
 					if (/\S/.test(sendContent)) {
+						//console.log(sendContent);
 						(function() {
 							if (!kuaijie) {
 						        sendContent = getQiu() + sendContent;
+							} else {
+								//去掉历史限制
+            					if (sendContent != '取消' && sendContent != '玩法' && sendContent != '流水' && sendContent != '查' && sendContent.indexOf("上") != -1 && sendContent.indexOf("下") != -1) {
+            						sendContent = getQiu() + sendContent;
+									//console.log(sendContent);
+            					}
 							}
 							kuaijie = false;
-							var div = "<div class='msglayer msg0 msgright' ids='0'><div class='fpop'><div class='headimg'><img src='"+'{$rbuser.imgName}'+"' /></div><h5 class='uname'>"+(msgconf.nickName || "自己")+"</h5><div class='msg-loader'><div class='throbber-loader'>Loading…</div></div><pre class='msgpre'>"+sendContent+"</pre></div></div>";
-							msgcontent.append(div);
+							//var div = "<div class='msglayer msg0 msgright' ids='0'><div class='fpop'><div class='headimg'><img src='"+'{$rbuser.imgName}'+"' /></div><h5 class='uname'>"+(msgconf.nickName || "自己")+"</h5><div class='msg-loader'><div class='throbber-loader'>Loading…</div></div><pre class='msgpre'>"+sendContent+"</pre></div></div>";
+							//msgcontent.append(div);
 							var text = {
 								"dluser": msgconf.nickName,
 								"wxid": '{$rbuser.wxid}',
@@ -1144,6 +1346,7 @@
 								'qiuIndex': qiuIndex
 							};
                             ws.send(JSON.stringify(text));
+							$(".throbber-loader").remove();
 					        scrollBtm();
 						})();
 					}
@@ -1271,7 +1474,8 @@
 				});
 				$(".divBottom .inpvkb li").on("click", function(event) {
 					var ele = $(this);
-					if (ele.text() == '取消' || ele.text() == '历史' || ele.text() == '玩法' || ele.text() == '流水' || ele.text() == '查' || ele.text() == '上' || ele.text() == '下') {
+					//去掉历史限制
+					if (ele.text() == '取消'  || ele.text() == '玩法' || ele.text() == '流水' || ele.text() == '查' || ele.text() == '上' || ele.text() == '下') {
 						kuaijie = true;
 					}
 					if (ele.hasClass("del")) {
@@ -1285,6 +1489,10 @@
 						txtmsg.val(txtmsg.val() + ele.text());
 					}
 					txtmsg.scrollTop(txtmsg[0].scrollHeight);
+					/*if(ele.text() == '流水'){
+						submitMsg();
+						$(".divBottom .vkb").click();
+					}*/
 				});
 				//根据GetMsg结果，创建消息div，其dt为返回的一个item
 				var createMsgTag = function(dt, isVip) {
@@ -1296,8 +1504,9 @@
 					var uname = $(".uname", div);
 					var headimg = $(".headimg", div);
 					var fpop = $(".fpop", div);
-					if (dt.rank == 2) {
-						uname.addClass("sys");
+					if (dt.name == "机器人" && (dt.wxid == "0" || dt.wid == null)) {
+				// 		uname.addClass("sys");
+				        fpop.addClass("lx");
 					}
 					if (dt.wxid == 0 && dt.atUser != 'kai6' && dt.atUser != 'kai3' && dt.atUser != 'stop' && dt
 						.atUser != 'last') {
@@ -1317,7 +1526,7 @@
 						fpop.addClass("corrgm");
 					}
 					if (gameType == '5') {
-						uname.addClass("black");
+						//uname.addClass("black");
 					}
 					uname.text(dt.name);
 					switch (dt.type) {
@@ -1333,7 +1542,11 @@
 										fpop.addClass("corr");
 									}
 									if (msgconf.nickName == dt.wid) {
-										liu =
+										fpop.addClass("lx");
+										//liu =
+								 			//'<a class="openlayer" onclick="openModel()" style="display:' +
+								 		//	(isVip == 1 ? 'block' : 'block') + ';">查看详情</a>';
+								 		liu =
 											'<p class="isvip" style="width: 90%;margin: 5px auto;background: #84bb54;color: #fff;text-align:center;line-height: 28px;border-radius: 5px;display:' +
 											(isVip == 1 ? 'block' : 'none') + ';">查看详情</p>';
 									}
@@ -1346,6 +1559,7 @@
 											'style="font-variant-numeric: tabular-nums;' + (dt.content
 												.indexOf("累计") != -1 ? 'width:100%;' : '') + '"')) +
 									"></pre>");
+								
 								pre.text(dt.content);
 								fpop.append(pre);
 								fpop.append(liu);
@@ -1368,30 +1582,117 @@
 					if (/\S/.test(dt.headimg || "")) {
 						headimg.append('<img src="' + dt.headimg + '" />');
 					} else if (dt.rank == 2) {
-						headimg.append('<img src="https://' + window.location.host + '/static/xz/admin/jqr.png" />');
+						headimg.append('<img src="http://' + window.location.host + '/static/xz/admin/jqr.png" />');
 					}
 					return div;
 				};
 				
-                function initWS() {
-                    ws = new WebSocket("wss://awsdb.cn/ws?uid="+msgconf.uid+"&gt="+gameType);
-                    ws.onopen = function() {
-                        console.log("WebSocket connected.");
-                    };
-                    ws.onmessage = function (event) {
-                        var list = JSON.parse(event.data);
-        				var div = createMsgTag(list, list['isVip']);
-        				if ($('.msg' + list['ids']).length == 0) {
-        					msgcontent.append(div);
-        				}
-					    $(".throbber-loader").remove();
-					    scrollBtm();
-                    };
-                    ws.onclose = function() {
-                        initWS();
-                        console.log("WebSocket closed.");
-                    };
-                }
+                let ws = null;
+				let heartbeatInterval = null;
+				let reconnectTimeout = null;
+				let isManuallyClosed = false; // 是否人为关闭，避免无限重连
+
+				function initWS() {
+					const wsUrl = "wss://x.hy1965.cn/ws?uid=" + msgconf.uid + "&gt=" + gameType;
+					ws = new WebSocket(wsUrl);
+
+					ws.onopen = function () {
+						console.log("[WebSocket] ✅ 已连接");
+
+						// 启动心跳检测
+						startHeartbeat();
+					};
+
+					ws.onmessage = function (event) {
+						console.log("[WebSocket] 📩 收到消息：", event.data);
+
+						const list = JSON.parse(event.data);
+						if (list.type === 'pong') {
+							console.log("[WebSocket] ❤️ 收到心跳回应：pong");
+							return;
+						}
+
+						if(list.type == 3)
+						{
+							var div1 = "<div class='msglayer msg"+list.ids+" msgright' ids='"+list.ids+"'><div class='fpop'><div class='headimg'><img src='"+list.headimg+"' /></div><h5 class='uname'>"+(list.name || "自己")+"</h5><pre class='msgpre'>"+list.content+"</pre></div></div>";
+							$(".msgcontent").append(div1);
+							return;
+						}
+
+						if (list.type == 4) {
+							const el = $(".msg" + list.id).find(".msgpre");
+							if (el.length > 0) {
+								el.html(list.message);
+							} else {
+								console.warn("找不到 msgpre 元素，id=", list.id);
+							}
+							return;
+						}
+
+
+
+
+						const div = createMsgTag(list, list['isVip']);
+
+						if ($('.msg' + list['ids']).length === 0) {
+							msgcontent.append(div);
+						}
+
+						$(".throbber-loader").remove();
+						scrollBtm();
+					};
+
+					ws.onerror = function (err) {
+						console.warn("[WebSocket] ❌ 错误：", err);
+						reconnect();
+					};
+
+					ws.onclose = function () {
+						console.warn("[WebSocket] 🔌 已断开");
+						if (!isManuallyClosed) {
+							reconnect();
+						}
+					};
+				}
+
+				function startHeartbeat() {
+					clearInterval(heartbeatInterval);
+					heartbeatInterval = setInterval(() => {
+						if (ws && ws.readyState === 1) {
+							ws.send(JSON.stringify({ type: "ping" }));
+							console.log("[WebSocket] 💓 心跳 ping");
+						}
+					}, 10000); // 每 10 秒发送一次
+				}
+
+				function reconnect() {
+					clearInterval(heartbeatInterval);
+					clearTimeout(reconnectTimeout);
+
+					console.log("[WebSocket] 🔄 尝试重连中...");
+
+					reconnectTimeout = setTimeout(() => {
+						initWS();
+					}, 5000); // 5 秒后尝试重连
+				}
+				//var playMethod = {"5":[1,2,3,4],"8":[8]};
+				var playMethod = {$playmethod};
+				function initBall(){
+					if(playMethod[apptype]){
+						let rb = playMethod[apptype];
+						rb.forEach(item => {
+							$("#qiu"+(item - 1)).addClass("red");
+							$(".balls .ani .anibox").eq(item - 1).addClass("red");
+						});
+					}
+				}
+
+				function closeWS() {
+					isManuallyClosed = true;
+					clearInterval(heartbeatInterval);
+					clearTimeout(reconnectTimeout);
+					if (ws) ws.close();
+				}
          
                 initWS();
                 function getTime() {
@@ -1413,16 +1714,21 @@
 						type: 'POST',
 						data: {str:str},
 						success: function(ret) {
-						    if (ret.kj.dtOpen > 0) {
+							apptype = ret.kj.type;
+						  //  if (ret.kj.dtOpen > 0) {
 							    m_drawTime = ret.kj.dtOpen;
-						    }
+						  //  }
+						  if(m_drawTime<0)m_drawTime=0;
+							endTime = Date.now() + m_drawTime * 1000; 
+							//updateTime();
 							var c = ret.kj.Code.split(','),zonghe = 0,v = document.getElementsByClassName('numblueHead'),gameJs = '{$game.jsType}';
 							qihao = ret.qh;
 							$('.dqhao').text(qihao);
-							$('#issue').text(ret.kj.QiHao + '期');
-							$('#topissue').text(ret.kj.QiHao);
+							//$('#issue').text(ret.kj.QiHao + '期');
+							$('#topissue').text(c.length > 8 ? ret.kj.QiHao.substr(-3) : ret.kj.QiHao);
 							for (var i = 0; i < c.length; i++) {
-								v[i].innerHTML = c[i];
+								//v[i].innerHTML = c[i];
+								$(".balls .ani .anibox").eq(i).show();
 								$('#qiu'+i).text(c[i]).show();
 								zonghe += Number(c[i]);
 								var haomahong = (c[i] % 3 == 0 ? 'r75' : (c[i] % 3 == 1 ? 'b75' :
@@ -1436,14 +1742,15 @@
 								} else {
 									hong = 'numblueHeadActive';
 								}
-								v[i].classList.add(hong);
-								v[i].classList.remove('blue75', 'green75', 'red75');
-								if (ret.kj.type == 75) {
-									v[i].classList.add(haomahong);
-								}
-								v[i].style.lineHeight = '20px';
-								$('.blueQiu').css('lineHeight','22px');
+								//v[i].classList.add(hong);
+								//v[i].classList.remove('blue75', 'green75', 'red75');
+								//if (ret.kj.type == 75) {
+									//v[i].classList.add(haomahong);
+								//}
+								//v[i].style.lineHeight = '20px';
+								//$('#header .blueQiu').css('lineHeight','22px');
 							}
+							initBall();
 							if (ret.kj.type == 75) {
 								$('.content .zonghe').text(zonghe);
 								var longhu = (c[0] > c[4] ? '龙' : '虎');
@@ -1513,11 +1820,13 @@
 							var list = $b.Message;
 							var change = $b.list;
 							var dt = null;
+							qihao = ret.qh;
 							$('.online').text($b.online);
 							$('.yingkui').text($b.yingkui);
 							$('.liushui').text($b.liushui);
 							$('.liushuiTxt').text($b.txt);
-							$('.yijie').text($b.yijie);
+							$('.yijie').text('个数：' + $b.yijie);
+							$('.kaiqihao').text('期号：' + qihao);
 							$('.weijie').text($b.weijie);
 							$('.money').text($b.rbuser.score);
 							msgconf.nickName = $b['rbuser']['NickName'];
@@ -1529,8 +1838,10 @@
 							}
 							if ($b.daoji == 2) {
 							    $('.drawTime').hide();
+								$('#drawTime').hide();
 							} else {
 							    $('.drawTime').show();
+								$('#drawTime').show();
 							}
 							for (var i in change) {
 								$('.msg' + change[i]['id']).find('.msgpre').text(change[i]['cmd']);
@@ -1569,8 +1880,10 @@
 				};
 
 				function updateTime() {
-					if (m_drawTime <= 0) {
-						msgconf.flag = setInterval(function() {
+					let currentTime = Date.now();
+    				let remainingTime = endTime - currentTime;
+					if (remainingTime <= 0) {
+						/*msgconf.flag = setInterval(function() {
 							if (m_drawTime > 0 && m_drawTime < 300) return;
 							var v = document.getElementsByClassName('numblueHead');
 							msgconf.currentTop += 1;
@@ -1584,7 +1897,7 @@
 									v[i].classList.add(haomahong);
 								}
 								v[i].style.lineHeight = msgconf.currentTop + 'px';
-								$('.blueQiu').eq(i).text(kjnum).css('lineHeight', msgconf.currentTop + 'px');
+								$('#header .blueQiu').eq(i).text(kjnum).css('lineHeight', msgconf.currentTop + 'px');
 							}
 							$('.content .zonghe').text(Math.round(Math.random() * 400)).css('lineHeight', msgconf
 								.currentTop + 'px');
@@ -1593,25 +1906,46 @@
 							if (msgconf.currentTop > 50) {
 								msgconf.currentTop = 0;
 							}
-						}, 5);
-						$('#drawTime').text('00:00');
-						$('.status,.drawTime').text('开奖中');
+						}, 5);*/
+						//$('#drawTime').text('00:00');
+						//$('.status,.drawTime').text('开奖中');
+						$("#header .balls .result").addClass("hide");
+						$("#header .balls .ani").removeClass("hide");
+					   	//$('#drawTime').text('00:00').css('color','red'); 
+                        $('.status,.drawTime').text('开奖中').css('color','red');
+						sleep(1000);
+                        // 设置 '开奖中' 文本并显示为红色
 						getTime();
 					} else {
-						clearInterval(msgconf.flag);
-    					var h = parseInt(m_drawTime / 60);
-    					var m = parseInt(m_drawTime % 60);
-    					if (m >= 10) {
-    						h = '0' + h.toString() + ':' + m.toString();
-    					} else {
-    						h = '0' + h.toString() + ':0' + m.toString();
-    					}
-    					$('#drawTime').text(h);
-    					$('.status,.drawTime').text(h);
-					}
-					m_drawTime--;
-				}
+						//clearInterval(msgconf.flag);
+						$("#header .balls .result").removeClass("hide");
+						$("#header .balls .ani").addClass("hide");
+						let h = Math.floor(remainingTime / 3600000);  // 小时（1小时 = 3600000毫秒）
+						let m = Math.floor((remainingTime % 3600000) / 60000);  // 分钟（1分钟 = 60000毫秒）
+						let s = Math.floor((remainingTime % 60000) / 1000);  // 秒（1秒 = 1000毫秒）
 
+						// 格式化时间，确保两位数显示
+						let timeStr = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+
+    					$('#drawTime').text(timeStr);
+    					$('.status,.drawTime').text(timeStr);
+					}
+					//if (remainingTime > 0) {
+						setTimeout(updateTime, 1000);
+					//}
+									
+				}
+				function sleep(ms) {
+					return new Promise(resolve => setTimeout(resolve, ms));
+				}
+				document.addEventListener('visibilitychange', function() {
+					if (!document.hidden) {
+						// 页面切回前台时更新时间
+						endTime = Date.now() + m_drawTime * 1000 - (Date.now() - endTime); // 更新目标时间
+						getTime();  // 页面切回前台时调用 getTime() 确保执行
+					}
+				});
+				updateTime();
 				function getHisList() {
 					$.ajax({
 						url: "{:url('index/getHis')}",
@@ -1636,7 +1970,11 @@
 					});
 				}
 				//滑动
-				$('.msgcontent').scroll(function() {
+				var currTop = $('.msgcontent').scrollTop();
+				
+				$('.msgcontent').scroll(function(e) {
+					let pos = $('.msgcontent').scrollTop() > currTop ? 1 : -1;
+					currTop = $('.msgcontent').scrollTop();
 					if (!isQp) {
 						if ($('.msgcontent').scrollTop() > 100) {
 							isLoad = false;
@@ -1646,6 +1984,18 @@
 							getHisList();
 						}
 					}
+					//底部消息距离调节
+					if($(this).scrollTop() + $(this).height() + 3000 < msgcontent[0].scrollHeight){
+						if(!msgconf.isAutoBottom || pos < 0){
+							$(".divBottom .btndown").show();
+						}
+					}else{
+						if($(this).scrollTop() + $(this).height() + 10 >= msgcontent[0].scrollHeight){
+							$(".divBottom .btndown").hide();
+						}
+					}
+					
+					
 				});
 				$('.msgcontent').on('click', '.isvip', function() {
 					$('.vipBox').show();
@@ -1732,13 +2082,17 @@
 					}
 				}
 				
-				$('#history').on('click', function() {
+				$('.uni-popup.top div[name="mask"]').on("click",function(){
+					$('.uni-popup.top').toggle();
+				});
+				
+				$('#header').on('click', function() {
 				    $('.uni-popup.left,.showKj,.uni-popup.right').hide();
 				    $('.uni-popup.top').toggle();
 				    if ($('.uni-popup.top').css('display')=='none') {
-    				    $(this).css('transform','rotate(180deg)');
+    				    //$(this).css('transform','rotate(180deg)');
 				    } else {
-    				    $(this).css('transform','rotate(0)');
+    				    //$(this).css('transform','rotate(0)');
     				    layer.load(1);
     				    $.ajax({
     						url: "{:url('index/getHistory')}",
@@ -1747,26 +2101,45 @@
     						success: function(ret) {
     						    layer.closeAll();
     						    $('.historyList').empty();
+								let rb = [];
+								if(playMethod[apptype]){
+									rb = playMethod[apptype];
+								}
             					for (var k in ret) {
             						dt = ret[k];
             						var code = dt.Code.split(','),
             						    html = '';
+									let x = 1;
         							for (var i in code) {
-    								    html += '<div class="blueQiu" style="display:block;">'+code[i]+'</div>';
+										let css = "";
+										if(rb.indexOf(x) > -1){
+											css = " red"
+										}
+    								    html += '<div class="blueQiu'+ css +'" style="display:block;">'+code[i]+'</div>';
+										x++;
         							}
-            						var div = '<div style="display: flex; align-items: center; padding-top: 5px; padding-bottom: 5px; border-bottom: 1px solid rgb(209, 209, 209); width: 95vw; padding-left: 0vw;justify-content: space-around;"><div style="float: left; font-size: 14px; margin-right: 10px;"><span id="topissues">'+dt.QiHao+'</span>期</div>'+html+'<div style="margin-left: 5px; font-size: 12px;">'+dt.fan+'番</div><div style="margin-left: 5px; margin-right: 5px; font-weight: 600; font-size: 12px;">'+dt.da+'</div><div style="font-weight: 600; font-size: 12px;">'+dt.dan+'</div></div>'; 
+            						var div = '<div style="display: flex; align-items: center; padding-top: 5px; padding-bottom: 5px; border-bottom: 1px solid rgb(209, 209, 209); width: 95vw; padding-left: 0vw;justify-content: space-around;"><div style="float: left; font-size: 14px; margin-right: 10px;"><span id="topissues">'+(code.length > 8 ? dt.QiHao.substr(-3) : dt.QiHao)+'</span>期</div>'+html+'<div style="margin-left: 5px; font-size: 12px;">'+dt.fan+'番</div><div style="margin-left: 5px; margin-right: 5px; font-weight: 600; font-size: 12px;">'+dt.da+'</div><div style="font-weight: 600; font-size: 12px;">'+dt.dan+'</div></div>'; 
         						    $('.historyList').append(div);
         						}
     						}
     				    });
 				    }
 				});
+				{if $game.hasSelect and ($game.teModel == 1)}
+				$('#changeQiu span').on('click', function() {
+				    var val = $(this).data("value");
+				    qiuIndex = val;
+					$(this).addClass("selected").siblings().removeClass("selected");
+					return false;
+				});
+				{/if}
 				
+				{if $game.hasSelect and ($game.teModel == 0)}
 				$('#changeQiu').on('change', function() {
 				    var val = $(this).val();
 				    qiuIndex = val;
 				});
-				
+				{/if}
 				$('div[name="mask"]').on('click', function() {
 				    $('.uni-popup.left,.showKj,.uni-popup.right').hide();
 				});
@@ -1935,7 +2308,7 @@
 			.divBottom .send {
 				/*border: 1px solid #1f8b1b;*/
 				right: 8px;
-				width: 55px;
+				width: 80px;
 				height: 32px;
 				border-radius: 2px;
 				text-align: center;
@@ -2039,8 +2412,8 @@
 			.msglayer.msgright .headimg img {
 				position: relative;
 				z-index: 2;
-				width: 48px;
-				height: 48px;
+				width: 40px;
+				height: 40px;
 				border-radius: 4px;
 			}
 
@@ -2094,11 +2467,11 @@
 			.msglayer.msgleft .fpop {
 				float: left;
 				display: inline-block;
-				max-width: 80%;
+				max-width: 75%;
 				min-width: 30px;
 				min-height: 30px;
 				width: auto;
-				margin: 25px 0 0 68px;
+				margin: 25px 0 0 58px;
 				padding: 0px;
 				border: 1px solid #d1d1d1;
 				background: #ffffff;
@@ -2134,7 +2507,7 @@
 			}
 
 			.msglayer.msgleft .headimg {
-				left: -60px;
+				left: -50px;
 			}
 
 			.msglayer.msgleft .uname {
@@ -2192,6 +2565,7 @@
 			}
 
 			.msglayer pre.msgpre {
+				width:auto !important;
 				position: relative;
 				zoom: 1;
 				margin: 6px;
@@ -2378,10 +2752,10 @@
 				position: absolute;
 				top: 0px;
 				width: 100%;
-				overflow-x: hidden;
-				overflow-y: scroll;
+				overflow: auto;
 				z-index: 4;
 				-webkit-overflow-scrolling: touch;
+				transform: translateZ(0);
 			}
 
 			.msgcontent.hide div {
@@ -2424,6 +2798,10 @@
 			.aaa {
 				color: red;
 			}
+			
+			.allkeyword{
+				z-index:999;
+			}
 
 			.divBottom_top {
 				position: relative;
@@ -2433,19 +2811,26 @@
 			}
 
 			.divBottom .btndown {
-				display: inline-block;
 				position: absolute;
-				height: 24px;
+				height: 30px;
 				line-height: 24px;
-				right: 30px;
+				right: 2px;
 				border: 1px solid #e7e7e7;
-				background: #ffffff;
+				background: #1aac19;
+				color: #fff;
+    			display: flex;
 				cursor: pointer;
-				border-radius: 13px;
+				font-size:16px;
+				border-radius: 4px;
+				padding-left: 5px;
+    			padding-right: 5px;
+				align-items: center;
+    			justify-content: center;
+				z-index:999;
 			}
 
 			.divBottom.msgdown .btndown {
-				top: -30px;
+				top: -62px;
 			}
 
 			.divBottom.msgup .btndown {
@@ -2463,16 +2848,27 @@
 				border-color: #09bb07 transparent transparent transparent;
 				left: 6px;
 				top: 9px;
+				display:none;
+			}
+			
+			.divBottom .btndown:after{
+				width:5px;
+				height:5px;
+				content:"";
+				border:solid 1px #fff;
+				border-top-color:#1aac19;
+				border-right-color:#1aac19;
+				transform: rotate(-45deg) translateY(-3px);
+				-webkit-transform: rotate(-45deg) translateY(-3px);
+    			margin-left: 6px;
 			}
 
 			.divBottom .btndown b {
-				line-height: 24px;
-				color: #09bb07;
-				margin: 3px 8px 3px 24px;
+				font-weight:normal;
 			}
 
 			.divBottom #txtMsg {
-				margin: 10px 0px 10px 10px;
+				margin: 10px 10px 10px 20px;
 				background: #fcfcfc;
 				border: 1px solid #dcdcde;
 				border-radius: 8px;
@@ -2484,6 +2880,8 @@
 				padding: 5px 8px;
 				outline: none;
 				display: block;
+				flex:1;
+				box-sizing:border-box;
 				user-select: text !important;
 			}
 
@@ -2861,11 +3259,6 @@
 					font-size: 20px;
 				}
 
-				.msglayer.msgleft .fpop {
-					max-width: 270px !important;
-					margin: 25px 0 0 60px !important;
-				}
-
 				.msglayer .fpop.corr,
 				.msglayer .fpop.corr2 {
 					width: 84% !important;
@@ -2890,21 +3283,11 @@
 					width: 13px;
 				}
 
-				.msglayer.msgleft .headimg {
-					left: -55px !important;
-				}
-
 				.msglayer.msgleft .headimg,
 				.msglayer.msgright .headimg {
 					width: 45px !important;
 					height: 45px !important;
 					top: -10px !important;
-				}
-
-				.msglayer.msgleft .headimg img,
-				.msglayer.msgright .headimg img {
-					width: 45px !important;
-					height: 45px !important;
 				}
 
 				.numblueHead {
@@ -3445,12 +3828,13 @@
 				margin: 0 !important;
 			}
 
+			.balls .ani .list .ball,
 			.blueQiu {
-				height: 20px;
-				width: 20px;
-				line-height: 20px;
+				height: 24px;
+				width: 24px;
+				line-height: 24px;
 				border-radius: 50%;
-				background: #5d96ff;
+				background: #0092dd;
 				color: #fff;
 				float: left;
 				text-align: center;
@@ -5365,14 +5749,90 @@
 			div {
 				display: block;
 			}
+			.qiubox{
+				display:flex;
+				justify-content:space-around;
+				padding:5px;
+				background:#fff;
+			}
+			.qiubox span{
+				border-radius:3px;
+				padding:3px;
+				line-height:1;
+			}
+			.qiubox span.selected{
+				color:#fff;
+				background:#03a9f4;
+			}
+			.balls .result,
+			.balls .ani,
+			.balls{
+				flex:1;
+				display:flex;
+				justify-content: space-around;
+    			align-items: center;
+				overflow:hidden;
+			}
+			.balls .hide{
+				display:none;
+			}
+			.balls .ani .anibox{
+				width:24px;
+				height:24px;
+				overflow:hidden;
+				position:relative;
+				background:#0092dd;
+				border-radius:100%;
+			}
+			.balls .ani .list{
+				animation-duration: 2s;
+				animation-fill-mode: both;
+				animation-iteration-count: infinite;
+				animation-timing-function: linear;
+				animation-name: slide;
+				position:absolute;
+				bottom:0;
+				left:0;
+			}
+			.balls .ani .list .ball{
+				display:block;
+				margin-left:0;
+				background:none;
+			}
+			@keyframes slide{
+				0%{
+					transform:translateY(0);
+					-webkit-transform:translateY(0);
+				}
+				100%{
+					transform:translateY(100%);
+					-webkit-transform:translateY(100%);
+				}
+			}
+			
+			@-webkit-keyframes slide{
+				0%{
+					transform:translateY(0);
+					-webkit-transform:translateY(0);
+				}
+				100%{
+					transform:translateY(100%);
+					-webkit-transform:translateY(100%);
+				}
+			}
+			#header{ padding:0 5px !important; box-sizing:border-box;}
 		</style>
 	</head>
 	<body class="kajianhao font_small">
+    	<div class="window">
 	    <div id="app" style="display:none;">
 	        {{uploadFileUrl}}
 	    </div>
-		<div
-			style="height: 32px; position: absolute; z-index: 1000; background: rgb(247, 247, 251) !important; width: 100vw;">
+		<?php $top = 0;	?>
+        {if $config.headEnable == 1}
+			{if $config.statubarEnable == 1}
+		<?php $top = 30;?>
+		<div style="height: 32px; position: absolute; z-index: 1000; background: rgb(247, 247, 251) !important; width: 100vw;">
 			<div
 				style="display: flex; border-bottom: 1px solid rgb(209, 209, 209); height: 29px; line-height: 29px;">
 				<div
@@ -5416,19 +5876,38 @@
 				<div style="width: 33px; text-align: right; margin-right: 10px;" class="uInfo"><uni-text class="uni-icons uniui-list" style="color: rgb(97, 101, 97); font-size: 25px;"><span></span></uni-text></div>
 			</div>
 		</div>
+			{/if}
 		{if $rb.type!=75}
-		<div style="border-bottom: 1px solid rgb(209, 209, 209); height: 35px; line-height: 36px; padding-left: 0px; position: absolute; z-index: 921; width: 100vw; background: rgb(247, 247, 251) !important; top: 30px;display: flex;justify-content: space-around;align-items:center;">
-			<div style="float: left; font-size: 14px; margin-right: 5px;width: auto;"><span id="topissue">000000</span>期</div>
-			<div id="qiu0" class="blueQiu">00</div>
-			<div id="qiu1" class="blueQiu">00</div>
-			<div id="qiu2" class="blueQiu">00</div>
-			<div id="qiu3" class="blueQiu">00</div>
-			<div id="qiu4" class="blueQiu">00</div>
-			<div id="qiu5" class="blueQiu">00</div>
-			<div id="qiu6" class="blueQiu">00</div>
-			<div id="qiu7" class="blueQiu">00</div>
-			<div style="width: 50px; text-align: left; color: rgb(70, 124, 79); font-weight: bold; font-size: 14px; margin-left: 5px;" class="drawTime">00:00</div>
-			<div id="history" style="right: 10px; /*position: absolute;*/ transform: rotate(180deg); margin-top: -2px;margin-left:10px;"><uni-text class="uni-icons uniui-bottom" style="color: rgb(97, 101, 97); font-size: 25px;"><span></span></uni-text></div>
+		<div id="header" style="border-bottom: 1px solid rgb(209, 209, 209); height: 35px; line-height: 36px; padding-left: 0px; position: absolute; z-index: 921; width: 100vw; background: rgb(247, 247, 251) !important; top: <?= $top ?>px;display: flex;justify-content: space-around;align-items:center;">
+			<div id="history" style="float: left; font-size: 14px; margin-right: 5px;width: auto;"><span id="topissue">000000</span>期</div>
+            <div class="balls">
+            	<div class="result">
+                    <div id="qiu0" class="blueQiu">00</div>
+                    <div id="qiu1" class="blueQiu">00</div>
+                    <div id="qiu2" class="blueQiu">00</div>
+                    <div id="qiu3" class="blueQiu">00</div>
+                    <div id="qiu4" class="blueQiu">00</div>
+                    <div id="qiu5" class="blueQiu">00</div>
+                    <div id="qiu6" class="blueQiu">00</div>
+                    <div id="qiu7" class="blueQiu">00</div>
+                    <div id="qiu8" class="blueQiu">00</div>
+                    <div id="qiu9" class="blueQiu">00</div>
+                </div>
+                <div class="ani hide">
+                    <div class="anibox hide"></div>
+                    <div class="anibox hide"></div>
+                    <div class="anibox hide"></div>
+                    <div class="anibox hide"></div>
+                    <div class="anibox hide"></div>
+                    <div class="anibox hide"></div>
+                    <div class="anibox hide"></div>
+                    <div class="anibox hide"></div>
+                    <div class="anibox hide"></div>
+                    <div class="anibox hide"></div>
+                </div>
+            </div>
+			<div style="text-align: left; color: rgb(70, 124, 79); font-weight: bold; font-size: 14px; margin-left: 5px;" class="drawTime">00:00</div>
+            <div></div>
 		</div>
 		{/if}
 		<div class="hero-head"
@@ -5505,6 +5984,7 @@
 			</div>
 			<div class="content" style="background:#e1e6eb;width:100%;height:.5px;"></div>
 		</div>
+        {/if}
 		<div class="uni-popup right"
 			style="height: 100%; width: 80%; left: 20%; z-index: 999;position:fixed;display:none;"><div
 				><div  class="" name="mask"
@@ -6488,7 +6968,7 @@
 					</svg></div>
 				<div
 					style="margin-top: 5px; position: absolute; text-align: center; width: 100%; color: rgb(255, 255, 255);">
-					<span style="margin-right: 33px;">期号：31195786</span>待 结：<span style="margin-left: 5px; margin-right: 5px;" class="weijie">0</span>/<span style="margin-left: 5px;" class="yijie">个数：0</span></div>
+					<span style="margin-right: 33px;" class="kaiqihao">期号：</span>待 结：<span style="margin-left: 5px; margin-right: 5px;" class="weijie">0</span>/<span style="margin-left: 5px;" class="yijie">个数：0</span></div>
 				<div
 					style="display: flex; margin-top: 33px; width: 95%; margin-left: 10px; text-align: center;">
 					<div class="shezhi"
@@ -6608,8 +7088,8 @@
 					</div>
 					<textarea id="txtMsg" class="nostart" rows="1" autocomplete="off"
 						style="top: 0px; visibility: visible;width: calc(100% - {if $game.hasSelect}210{else/}120{/if}px);" }></textarea>
-		            {if $game.hasSelect}
-					<div style="width: 85px; text-align: center; background-color: rgb(255, 255, 255); height: 32px; padding-left: 0; border-radius: 3px; border: 1px solid rgb(204, 204, 204);">
+		            {if $game.hasSelect and ($game.teModel == 0)}
+					<div style="width: 85px; text-align: center; background-color: rgb(255, 255, 255); height: 32px; padding-left: 0; border-radius: 3px; border: 1px solid rgb(204, 204, 204); margin-right:5px;">
 						<select id="changeQiu" style="border: none;width: 100%;display: block;height: 100%;border-radius:none;background:#fff;">
 						    <option value="1">第 1 球</option>
 						    <option value="2">第 2 球</option>
@@ -6633,16 +7113,33 @@
 					{/if}
 					<span type="submit" class="send nostart">发送</span>
 				</div>
+                
 				<div class="inpvkb">
+                	{if $game.hasSelect and ($game.teModel == 1)}
+                    <div class="qiubox" id="changeQiu">
+                        <span data-value="1">1球</span>
+                        <span data-value="2">2球</span>
+                        <span data-value="3">3球</span>
+                        <span data-value="4">4球</span>
+                        <span data-value="5">5球</span>
+                        <span data-value="6">6球</span>
+                        <span data-value="7">7球</span>
+                        <span data-value="8" class="selected">8球</span>
+                    </div>
+                    {/if}
+                
 					<ul class="dw" style="{if !$game.hasKey}display:none;{/if}">
 						<li>查</li>
 						<li>上</li>
 						<li>下</li>
+						<!--<li>加</li>-->
 						<li>无</li>
 						<li>大</li>
 						<li>小</li>
 						<li>单</li>
-						<li>双</li><li class="w2 del">×</li>
+						<li>双</li>
+						<li class="w2 del">×</li>
+						<!--<li class="del">×</li>-->
 					</ul>
 					<ul class="dw" style="{if $game.hasKey}display:none;{/if}">
 						<li>查</li>
@@ -6660,8 +7157,12 @@
 						<li>正</li>{if $game.hasTe}<li>加</li>
 						<li>通</li>
 						<li>车</li>
-						{if $game.hasTe}<li>特</li>{/if}{/if}{if !$game.hasTe}<li class="w2">历史</li>
-						<li class="w2">玩法</li>{/if}<li class="w2">取消</li>
+						{if $game.hasTe}<li>特</li>{/if}{/if}{if !$game.hasTe}
+						<li>通</li>
+						<li>车</li>
+						<!--<li class="w2">历史</li>-->
+						<li class="w2">玩法</li>{/if}
+						<li class="w2">取消</li>
 					</ul>
 					<ul class="nb">
 						<li>1</li>
@@ -6682,9 +7183,10 @@
 						<li>=</li>
 						<li>,</li>
 						<li>.</li>
-						<li class="bspace">&nbsp;</li>
+						<!--<li class="bspace">&nbsp;</li>-->
+						<li class="w2">历史</li>
 						<li class="w2">流水</li>
-						<li class="nline">换</li>
+						<!--<li class="nline">换</li>-->
 					</ul>
 				</div>
 			</div>
@@ -6767,8 +7269,121 @@
               </div>
             </form>
 		</div>
-
+		<div class="liushuiPopup hide">
+        	<span class="closebtn">关闭</span>
+        	<div class="head">用户流水（6点一天）</div>
+            <div class="date">
+                <span class="btn">{:date('Y-m-d', strtotime($gtime . ' -2 day'))}</span>
+				<span class="btn">{:date('Y-m-d', strtotime($gtime . ' -1 day'))}</span>
+                <span class="btn active">{$gtime}</span>
+            </div>
+            <div class="datalist" id="datalist"></div>
+        </div>
 		<script type="text/javascript">
+			function openModel(){
+				$(".liushuiPopup").removeClass("hide");
+				getSerial();
+			}
+			var loader = null;
+			function getSerial(){
+				loader = layer.load(1,{shade:false});
+				let data = {
+					day: $(".liushuiPopup .btn.active").text(),
+					timeType: 1,
+					wxid: '{$rbuser.wxid}'
+				}
+				$.ajax({
+					url: "/chat/index/getscorehis.html",
+					type: 'POST',
+					cache: false,
+					data:data,
+					success:function(res){
+						//渲染数据
+						let list = {};
+						let dom = "";
+						let qihao = [];
+						if(res.list.length > 0){
+							res.list.forEach(function(item,idx){
+								if(!list[item.qihao]){
+									list[item.qihao] = [];
+								}
+								list[item.qihao].push(item);
+							});
+							qihao = Object.keys(list);
+							qihao.sort((a, b) => b -a);
+							let topMargin = "";
+							qihao.forEach(function(item,idx){
+								let rows = list[item];
+								dom += '<div class="item"><h2 class="qihao">'+ item +'</h2><ul>'
+								rows.forEach(function(row,idx){
+									var mingxi = row;
+									var t = mingxi.dttype;
+									subDiv = "<li>";
+									if (t == 0) {
+										//手动上分
+										subDiv += '<div class="infoitem_row type2" style="margin-top: 10px; margin-bottom: 10px;"><span class="rowtype">积分操作：</span><span class="rowqi"></span><span class="rowcontent sf">机器人上分+' + parseFloat(mingxi.score) + '</span><span class="rowresult"></span><br><span class="rowbefore"></span><span class="rowchange win">+' + parseFloat(mingxi.score) + '</span><span class="fanshui"></span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '</span></div>';
+									}
+									else if (t == 1) {
+										//手动下分
+										subDiv += '<div class="infoitem_row type2" style="margin-top: 10px; margin-bottom: 10px;"><span class="rowtype">积分操作：</span><span class="rowqi"></span><span class="rowcontent xf">机器人下分' + parseFloat(mingxi.count) + '</span><span class="rowresult"></span><br><span class="rowbefore"></span><span class="rowchange lose">' + parseFloat(mingxi.count) + '</span><span class="fanshui"></span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '</span></div>';
+									}
+									else if (t == 2) {
+										//请求上分
+										subDiv += '<div class="infoitem_row type2" style="margin-top: 10px; margin-bottom: 10px;"><span class="rowtype">积分操作：</span><span class="rowqi"></span><span class="rowcontent sf">会员请求上分+' + parseFloat(mingxi.count) + '</span><span class="rowresult"></span><br><span class="rowbefore"></span><span class="rowchange win">+' + parseFloat(mingxi.count) + '</span><span class="fanshui"></span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '</span></div>';
+									}
+									else if (t == 3) {
+										//请求下分
+										subDiv += '<div class="infoitem_row type2" style="margin-top: 10px; margin-bottom: 10px;"><span class="rowtype">积分操作：</span><span class="rowqi"></span><span class="rowcontent xf">会员请求下分' + parseFloat(mingxi.count) + '</span><span class="rowresult"></span><br><span class="rowbefore"></span><span class="rowchange lose">' + parseFloat(mingxi.count) + '</span><span class="fanshui"></span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '</span></div>';
+		
+									} else if (t == 4) {
+										//删除用户下分
+										subDiv += '<div class="infoitem_row type2" style="margin-top: 10px; margin-bottom: 10px;"><span class="rowtype">积分操作：</span><span class="rowqi"></span><span class="rowcontent xf">删除会员下分' + parseFloat(mingxi.count) + '</span><span class="rowresult"></span><br><span class="rowbefore"></span><span class="rowchange lose">' + parseFloat(mingxi.count) + '</span><span class="fanshui"></span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '</span></div>';
+									}
+									else {
+										if (mingxi.count > 0) {
+											subDiv += '<div class="infoitem_row type1" ' + topMargin + '><span class="rowtype">盈亏操作：</span><span class="rowqi">' + mingxi.qihao + '</span><span class="rowcontent">' + mingxi.cmdText + '</span><span class="rowresult">' + mingxi.code + '=&gt;' + mingxi.lastResult + '=&gt;' + mingxi.fan + '</span><br><span class="rowbefore"></span><span class="rowchange win">+' + parseFloat(mingxi.count) + '</span><span class="fanshui">[返水' + mingxi.fanshui + ']</span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '&nbsp;<=&nbsp;' + mingxi.dtCmd + '</span></div>';
+										}
+										else if (mingxi.count == 0) {
+											subDiv += '<div class="infoitem_row type1"' + topMargin + '><span class="rowtype">盈亏操作：</span><span class="rowqi">' + mingxi.qihao + '</span><span class="rowcontent">' + mingxi.cmdText + '</span><span class="rowresult">' + mingxi.code + '=&gt;' + mingxi.lastResult + '=&gt;' + mingxi.fan + '</span><br><span class="rowbefore"></span><span class="rowchange win">' + parseFloat(mingxi.count) + '</span><span class="fanshui"></span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '&nbsp;<=&nbsp;' + mingxi.dtCmd + '</span></div>';
+										}
+										else {
+											subDiv += '<div class="infoitem_row type1"' + topMargin + '><span class="rowtype">盈亏操作：</span><span class="rowqi">' + mingxi.qihao + '</span><span class="rowcontent">' + mingxi.cmdText + '</span><span class="rowresult">' + mingxi.code + '=&gt;' + mingxi.lastResult + '=&gt;' + mingxi.fan + '</span><br><span class="rowbefore"></span><span class="rowchange lose">' + parseFloat(mingxi.count) + '</span><span class="fanshui"></span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '&nbsp;<=&nbsp;' + mingxi.dtCmd + '</span></div>';
+										}
+									}
+									subDiv += "</li>";
+									dom += subDiv;
+								});
+								dom += "</ul></div>"
+							});
+						}
+						$(".liushuiPopup #datalist").html(dom);
+						layer.close(loader);
+					},
+					dataType: 'json',
+				});
+			}
+			
+			$(function(){
+				let balls = "";
+				for(i = 1 ; i <= 20; i++){
+					let num = i;
+					balls += "<span class='ball'>"+ (i > 9 ? i : '0'+i) +"</span>";
+				}
+				$(".balls .anibox").html("<div class='list'>"+ balls +"</div>");
+				$(".liushuiPopup .closebtn").on("click",function(){
+					$(".liushuiPopup").addClass("hide");
+					layer.close(loader);
+				}),
+				$(".liushuiPopup .date .btn").on("click",function(){
+					$(this).addClass("active").siblings().removeClass("active");
+					getSerial();
+				});
+
+				$("body").bind("click touchstart", function (event) {
+				  event.preventDefault();
+				  return false;
+			  });
+			});
 		    var that;
             var macApp = new Vue({
                 el: '#app',
@@ -6844,7 +7459,6 @@
                     },
                     // 上传进度条
                     uploadFileProgress(event, file, list) {
-                        console.log(that.dealObjData(event));
                         that.isUpload = true;
                         that.uploadPercentage = Math.floor(that.dealObjData(event).percent);
                         if (that.uploadPercentage == 100) {
@@ -7048,6 +7662,6 @@
                 }
             })
 		</script>
-
+        </div>
 	</body>
 </html>

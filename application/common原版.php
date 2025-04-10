@@ -3474,21 +3474,21 @@ function  resetOrder($list, $type = '')
         // if (($val['type']==3&&$val['time']&&$val['status']==1)||($val['type']==4&&$val['dtGenerate']&&$val['isTy']==1)) {
         if (($val['type'] == 3) || ($val['type'] == 4 && $val['dtGenerate'] && $val['isTy'] == 1)) {
             if ($val['flyers_status'] == 2) {
-                $flyers_status = '飞单成功';
+                $flyers_status = '已报';
                 $flyers_color = "green";
                 if ($val['type'] == 3) {
                     $arr['flyersSuc'] += 1;
                 }
             }
             if ($val['flyers_status'] == 3) {
-                $flyers_status = '飞单失败';
+                $flyers_status = '失败';
                 $flyers_color = "red";
                 if ($val['type'] == 3) {
                     $arr['flyersFail'] += 1;
                 }
             }
             if (in_array($val['flyers_status'], [0, 1])) {
-                $flyers_status = '未飞单';
+                $flyers_status = '未报';
                 $flyers_color = "";
                 if ($val['type'] == 3) {
                     $arr['flyersWait'] += 1;

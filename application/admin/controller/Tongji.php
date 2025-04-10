@@ -41,11 +41,11 @@ class Tongji extends Base
         }
         foreach ($res as $k=>$value) {
             if ($value['flyers_status'] == 0) {
-                $flyStatus = "<span>未飞单</span>";
+                $flyStatus = "<span>未报</span>";
             } elseif ($value['flyers_status'] == 2) {
                 $flyStatus = "<span style='color:green;'>已飞单</span>";
             } elseif ($value['flyers_status'] == 3) {
-                $flyStatus = "<span style='color:red;'>飞单失败</span>";
+                $flyStatus = "<span style='color:red;'>失败</span>";
             } else {
                 $flyStatus = '';
             }

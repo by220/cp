@@ -58,21 +58,9 @@
             </div>
           </div>-->
           <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">头部导航</label>
+            <label class="layui-form-label">头部</label>
             <div class="layui-input-block">
               <input type="checkbox" name="headEnable" value="1"{if $info && $info['headEnable']==1} checked=""{/if} lay-skin="switch" lay-text="显示|隐藏">
-            </div>
-          </div>
-          <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">游戏状态栏</label>
-            <div class="layui-input-block">
-              <input type="checkbox" name="statubarEnable" value="1"{if $info && $info['statubarEnable']==1} checked=""{/if} lay-skin="switch" lay-text="显示|隐藏">
-            </div>
-          </div>
-          <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">键盘模式</label>
-            <div class="layui-input-block">
-              <input type="checkbox" name="keyboardMode" value="1"{if $info && $info['keyboardMode']==1} checked=""{/if} lay-skin="switch" lay-text="双键|单键">
             </div>
           </div>
           <div class="layui-form-item layui-form-text">
@@ -107,8 +95,6 @@
       form.on('submit(formDemo)', function(data){
         data.field.rbMsg = layedit.getContent(editIndex);
 		data.field["headEnable"] = data.field["headEnable"] ? data.field["headEnable"] : "0";
-		data.field["statubarEnable"] = data.field["statubarEnable"] ? data.field["statubarEnable"] : "0";
-		data.field["keyboardMode"] = data.field["keyboardMode"] ? data.field["keyboardMode"] : "0";
         putAjax("{:url('changed/setConfig')}",data.field,function (data) {
             alertSuc("保存成功!");
         });

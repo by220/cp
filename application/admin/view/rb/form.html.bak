@@ -39,7 +39,6 @@
         </div>
     </div>
     {/if}
-    {if $Think.session.user_uid == '1'}
     <div class="layui-form-item">
         <label class="layui-form-label required">彩种</label>
         <div class="layui-input-block">
@@ -48,6 +47,7 @@
             {/volist}
         </div>
     </div>
+    {if $Think.session.user_uid == '1'}
     <div class="layui-form-item">
         <label class="layui-form-label required">托数量</label>
         <div class="layui-input-block">

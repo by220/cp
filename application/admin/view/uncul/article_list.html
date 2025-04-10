@@ -33,11 +33,11 @@
         ,height: 'full-220'
         ,width: '100%'
         ,cols: [[ //表头
-          {field: 'uid', title: '子帐号', width:160}
-          ,{field: 'BelongOperator', title: '机器人', width:160}
-          ,{field: 'wid', title: '玩家', width:200} 
-          ,{field: 'qihao', title: '期号', width:160}
-          ,{field: 'text', title: '指令', width:400}
+          {field: 'uid', title: '子帐号', width:80}
+          ,{field: 'BelongOperator', title: '机器人', width:80}
+          ,{field: 'wid', title: '玩家', width:120} 
+          ,{field: 'qihao', title: '期号', width:100}
+          ,{field: 'text', title: '指令', width:120}
           ,{field: 'dtGenerate', title: '投注时间', width:160}
           ,{field: 'flyStatus', title: '报网状态', width:100}
           ,{align:'center', toolbar: '#barDemo', title: '操作', width:100} 
@@ -62,7 +62,7 @@
             
             if(layEvent === 'del'){ //删除
             layer.confirm("确定将注单[" + data.text + "]删除么?", function(index){
-                putAjax("{:url('uncul/del')}", {"dlUserName":data.id}, function(res) {
+                putAjax("{:url('uncul/del')}", {"id":data.id}, function(res) {
                     refresh();
             		alertSuc('成功！');
                 });
