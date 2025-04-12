@@ -12,7 +12,7 @@ class Sub extends Base
 	{
 		parent::_initialize();
 		$this->isLogin();
-// 		$this->isAdmin();
+ 		$this->isAdmin();
 	}
     /**
      * 显示资源列表

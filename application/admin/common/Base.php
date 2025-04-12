@@ -27,9 +27,26 @@ class Base extends Controller
 	
 	protected function isAdmin()
 	{
-	    if (empty($this->user_info) || empty($this->user_info['type']) || $this->user_info['type'] != 1) {
-            $this->redirect(url('login/index'));
-        }
+	    if (empty($this->user_info)) {
+			Session::clear();
+			$this->redirect(url('login/index'));
+			exit;
+		}
+
+		$user = db('admin')->where('UserName', $this->user_info['username'])->find();
+		if (!$user) {
+			Session::clear();
+			$this->redirect(url('login/index'));
+			exit;
+		}
+		$check_token = hash('sha256', $user['UserName'] . $user['password'] . 'SALT');
+
+		if ($check_token !== $this->user_info['login_token']|| $user['type'] !==1) {
+			Session::clear();
+			$this->redirect(url('login/index'));
+			exit;
+		}
+
 	}
 	
 	protected function userLogin()

