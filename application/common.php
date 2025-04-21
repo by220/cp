@@ -2598,7 +2598,7 @@ function getKj($val)
                 foreach ($all as $value) {
                     $count += $value['score'];
                 }
-                $allStr = '-----------
+$allStr = '-----------
 ' . $endQh . '
 核对列表:(' . $count . ')
 ';
@@ -2616,12 +2616,12 @@ function getKj($val)
                                     array_push($all2, $wxid2);
                                 }
                             }
-                            $allStr .= '(' . $all[$i]['wid'] . ') "' . $duoText . '"
+$allStr .= '(' . $all[$i]['wid'] . ') "' . $duoText . '"
 ';
                         }
                     }
                 }
-                $allStr .= '-----------
+$allStr .= '-----------
 以核对列表为准
 不在列表都无效';
                 addMsg2($user, $admin, $endQh . "期停止", $endQh, 'stop', 0);
@@ -2701,7 +2701,7 @@ function openKj($type)
                 if ($k < 15) {
                     $time = explode(' ', $value['dtOpen']);
                     $bor = ($k == 0 ? 'border:1px solid #ec5d5d;' : '');
-                    $lishi .= '<div style="display: flex;justify-content:space-around;background:#fff;align-items: center;width:100%;line-height:26px;box-sizing:border-box;' . $bor . '"><span class="qihao">' . substr($value['QiHao'], -3) . '</span><span class="shijian">' . date('', strtotime($value['dtOpen'])) . '</span><span class="haoma">';
+                    $lishi .= '<div style="display: flex;justify-content:space-around;background:#fff;align-items: center;width:100%;line-height:26px;box-sizing:border-box;' . $bor . '"><span class="qihao">' . substr($value['QiHao'], -3) . '</span><span class="shijian">' . date('H:i', strtotime($value['dtOpen'])) . '</span><span class="haoma">';
                     $list2 = explode(',', $value['Code']);
                     foreach ($list2 as $y => $val) {
                         $hong = qiuHong($val, $game, $y);
@@ -2728,10 +2728,10 @@ function openKj($type)
                     if (!$game['hasKey']) {
                         $lishi .= bgKj($value);
                     }
-                    // $lishi .= '</span><span class="three" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><span class="colorfan color' . $lifan . '">' . $lifan . '</span><span class="da">' . $lida . '</span><span class="dan">' . $lidan . '</span></span></div>';
+                     $lishi .= '</span><span class="three" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><span class="colorfan color' . $lifan . '">' . $lifan . '</span><span class="da">' . $lida . '</span><span class="dan">' . $lidan . '</span></span></div>';
                     //去掉单双大小
                     // $lishi .= '</span><span class="three" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><span class="colorfan color' . $lifan . '">' . $lifan . '</span></span></div>';
-                    $lishi .= '</span><span class="three" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><span class="colorfan color' . $lifan . '">' . $lifan . '</span><span class="dan">' . $lidan . '</span></span></div>';
+                    //$lishi .= '</span><span class="three" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><span class="colorfan color' . $lifan . '">' . $lifan . '</span><span class="dan">' . $lidan . '</span></span></div>';
                 }
             }
             if ($game['hasSelect']) {
@@ -3089,7 +3089,7 @@ function getKjDx($kj, $val = '')
     if ($kj['type'] == 75) {
         return getZongDx($kj) . ',';
     }
-    if (in_array($kj['type'], array(5, 55, 502, 28, 77, 174, 10, 18))) {
+    if (in_array($kj['type'], array(5, 55,28, 77, 174, 10, 18))) {
         $sum =  getFan($kj, $val);
         $da = $sum > 2 ? '大' : '小';
     } else {

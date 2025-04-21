@@ -139,16 +139,16 @@ class Index extends Base
     public function getOnlie()
     {
         $data = $this->request->param();
-        $online = Session::has('user_online') ? Session::get('user_online') : null;
-        if ($online != 1) {
+      //  $online = Session::has('user_online') ? Session::get('user_online') : null;
+     //   if ($online != 1) {
             $ret = db('admin')->where('UserName', USER_ID)->find();
-            if ($ret['online'] == 0 || ((time() - $ret['logtime'] > 60 * 5) && $data['tar'] == 1)) {
+            if ($ret['online'] == 0 || ((time() - $ret['logtime'] >60*60) && $data['tar'] == 1)) {
                 return ['status' => 0];
             }
             if ($data['tar'] == 0) {
                 db('admin')->where('UserName', USER_ID)->update(['logtime' => time()]);
             }
-        }
+     //   }
         $open3 = db('history')->where('type', 8)->order('id desc')->find();
         $open5 = db('history')->where('type', 5)->order('id desc')->find();
         return ['status' => 1, 'data1' => $open3, 'data2' => $open5];

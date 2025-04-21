@@ -385,6 +385,27 @@ class Websocket extends Command{
                             }
                             $rand = rand(0,count($fristArr)-1);
                             $frist = $fristArr[$rand];
+                            if(strstr($frist, '特')){
+                                $user['tuoMax'] = $item['te'];
+                            }else if(strstr($frist, '角')){
+                                $user['tuoMax'] = $item['jiao'];
+                            }else if(strstr($frist, '正')){
+                                $user['tuoMax'] = $item['zheng'];
+                            }else if(strstr($frist, '通')||strstr($frist, '无')){
+                                $user['tuoMax'] = $item['tong'];
+                            }else if(strstr($frist, '念')||strstr($frist, '严')){
+                                $user['tuoMax'] = $item['nian'];
+                            }else if(strstr($frist, '加')){
+                                $user['tuoMax'] = $item['jia'];
+                            }else if(strstr($frist, '番')){
+                                $user['tuoMax'] = $item['fan'];
+                            }else if(strstr($frist, '车')||strstr($frist, '123')||strstr($frist, '234')||strstr($frist, '134')||strstr($frist, '124')){
+                                $user['tuoMax'] = $item['che'];
+                            }else if(strstr($frist, '单')||strstr($frist, '双')){
+                                $user['tuoMax'] = $item['danshuang'];
+                            }else if(strstr($frist, '大')||strstr($frist, '小')){
+                                $user['tuoMax'] = $item['daxiao'];
+                            }
                             $last = rand($user['tuoMin'],$user['tuoMax']);
                     // 修改随机金额为从固定值中随机选择
                     //$amounts = [100, 200, 300, 400, 500,600,700,800,900,1000,1100,1200,1300,1400,1500];

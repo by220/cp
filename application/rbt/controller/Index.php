@@ -475,9 +475,9 @@ class Index extends Base
             rbUpdate(['online'=>0]);
 	        return json(['IsNeedLogin'=>true]);
         }
-	   // if ($data['tar']==0) {
-    //         rbUpdate(['logtime'=>time()]);
-    //     }
+	    if ($data['tar']==0) {
+             rbUpdate(['logtime'=>time()]);
+         }
 	    $dataimg = [];
         // Cache::set('lalink',session('rbDomain'));
         // session('rbInfo',$result);
