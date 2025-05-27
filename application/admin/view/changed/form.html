@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="display:none;">
         <label class="layui-form-label required">wxid</label>
         <div class="layui-input-block">
             <input type="text" name="name" readonly value="{$info?$info['name']:''}" class="layui-input">
@@ -40,6 +40,17 @@
         <div class="layui-input-block">
             <input type="text" class="layui-input" id="jiao" value="{$info?$info['text']:''}" name="jiao">
             <input type="hidden" id="oldM" value="{$info?$info['text']:''}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label required">球</label>
+        <div class="layui-input-block">
+            <?php
+            for ($i = 1; $i <= 8; $i++) {
+                echo '<input type="radio" name="qiuNum" value="'.$i.'" title="'.$i.'" '. (isset($info['qiuNum']) && $info['qiuNum'] == $i ? 'checked' : '') .'>';
+            }
+            ?>
         </div>
     </div>
    

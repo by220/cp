@@ -5,6 +5,7 @@ namespace app\admin\controller;
 use app\admin\common\Base;
 use app\admin\model\Admin as AdminModel;
 use think\Request;
+use think\Cache;
 
 class Users extends Base
 {
@@ -248,6 +249,56 @@ class Users extends Base
             }
 
             return 'ok';
+        }
+    }
+
+    // 发送消息接口
+    public function sendMessage()
+    {
+        // 获取请求数据
+        $data = input('post.');
+        
+        // 验证数据
+        if(empty($data['userid']) || empty($data['title']) || empty($data['content'])){
+            return json(['code'=>0, 'msg'=>'参数不完整']);
+        }
+        
+        // 获取当前登录管理员ID作为发送者
+        $adminId = 99999999; // 假设管理员ID保存在session中
+        
+        // 准备插入数据
+        $noticeData = [
+            'userid' => $data['userid'],
+            'sendid' => $adminId,
+            'title' => $data['title'],
+            'content' => $data['content'],
+            'du' => 0, // 0表示未读
+            'time' => date('Y-m-d H:i:s')
+        ];
+        
+        try {
+            // 插入数据库
+            $result =db('notices')->insert($noticeData);
+            
+            if($result){
+                $redis = Cache::store('redis')->handler();
+                $redis->lPush('ws:push:queue', json_encode([
+                   // 'broadcast' => true,
+                    'uid' => $data['userid'],
+                    'data' => [
+                        'type' => 5,
+                        'id' => $data['userid'],
+                        'message' => $data['content'],
+                        'time' => date('Y-m-d H:i:s'),
+                    ]
+                ]));
+
+                return json(['code'=>1, 'msg'=>'消息发送成功']);
+            }else{
+                return json(['code'=>0, 'msg'=>'消息发送失败']);
+            }
+        } catch (\Exception $e) {
+            return json(['code'=>0, 'msg'=>'系统错误:'.$e->getMessage()]);
         }
     }
 }

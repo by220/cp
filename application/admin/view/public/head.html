@@ -187,7 +187,7 @@
                         <li id="menuli13" class="{if $Request.controller=='Index'&&$Request.action=='wplist'}uk-active{/if}"><a id="menu14" href = "{:url('index/wplist')}">网盘设置</a></li>
                         <li id="menuli13" class="{if $Request.controller=='Game'&&$Request.action=='index'}uk-active{/if}"><a id="menu14" href = "{:url('game/index')}">游戏设置</a></li>
                         <!--{/if}-->
-                        <!--<li id="menuli4" class="{if $Request.controller=='Pwd'}uk-active{/if}"><a id="menu4" href = "{:url('pwd/index')}">修改密码</a></li>-->
+                        <li id="menuli4" class="{if $Request.controller=='Pwd'}uk-active{/if}"><a id="menu4" href = "{:url('pwd/index')}">修改密码</a></li>
                         <li><a id="menu8" href="{:url('Login/Logout')}">安全退出</a></li>
                         <li style="width: auto;"><a href="javascript:;" style="color:red;">欢迎您&nbsp;&nbsp;&nbsp;&nbsp;{$Think.session.user_id}{if $Think.session.user_uid != '1'}&nbsp;&nbsp;&nbsp;&nbsp;可用积分：<span id="leftScore">{:sprintf('%.0f',db('admin')->where('UserName',$Think.session.user_id)->find()['score'])}</span>{else/}，<span>超级管理员</span>{/if}</a></li>
                     </ul>

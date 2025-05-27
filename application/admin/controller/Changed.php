@@ -111,14 +111,16 @@ class Changed extends Base
             if($record['status'] ==1){
                 return 1;
             }
+            $qiuNum = $data['qiuNum'];
             $text=$record['text'];
             $arr['QiHao'] = $record['qihao'];
             $recmd = str_replace($text,$data['jiao'],$record['cmd']);
-            db('record')->where('id',$data['ids'])->where('gameType',$record['gameType'])->update(['text'=>$data['jiao'],'cmd'=>$recmd,'isedit'=>1]);
+            $ma =  explode('/', $data['jiao']);
+            db('record')->where('id',$data['ids'])->where('gameType',$record['gameType'])->update(['text'=>$data['jiao'],'cmd'=>$recmd,'isedit'=>1,'qiuNum'=>$qiuNum,'wf'=>$ma[0]]);
             $gameinfo = db('rbgame')->where('gameType',$record['gameType'])->find();
             if($gameinfo['wf'] ==''){
                 if($gameinfo['gameType'] == 17){
-                $cmdstr = '第'.$record['qiuNum'].'球/'.$data['jiao'];
+                $cmdstr = '第'.$qiuNum.'球/'.$data['jiao'];
                 }else{
                 $cmdstr = $data['jiao'];
                 }

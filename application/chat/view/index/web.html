@@ -1,43 +1,470 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>WebSocket Chat</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
 </head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        background: #f4f0ec;
+        font-family: '微软雅黑';
+        color: #272727;
+        font-size: 14px;
+    }
+    a{
+        color: inherit;
+        text-decoration: none;
+    }
+    a:hover{
+        color: #a10000;
+    }
+    .banner img {
+        width: 1920px;
+        display: block;
+        position: relative;
+        left: 50%;
+        margin-left: -960px;
+    }
+    .con{
+        background: #fff;
+        border: 1px solid #d4d4d4;
+        max-width: 1100px;
+        width: 100%;
+        margin: 0 auto 30px auto;
+        padding: 0 24px;
+        box-sizing: border-box;
+    }
+    .i_breadcrumb{
+        list-style: none;
+        margin: 0;
+        padding: 12px 0;
+        font-size: 0;
+    }
+    .i_breadcrumb_item{
+        display: inline-flex;
+        align-items: center;
+        font-size: 14px;
+        color: #a3a3a3;
+    }
+    .i_breadcrumb_item img{
+        margin: 0 8px;
+
+    }
+    .party_history{
+        background: #f0f0f0;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    .party_history p{
+        margin: 0;
+        font-size: 17px;
+        line-height: 36px;
+        color: #444444;
+        opacity: 0.7;
+    }
+    .party_history .btn img{
+        display: block;
+        margin-left: auto;
+    }
+    .i_list_title{
+        font-size: 28px;
+        display: flex;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 4px solid #91000b;
+    }
+    .i_list_title span{
+        letter-spacing: 4px;
+    }
+    .i_list_title i{
+        width: 18px;
+        height: 18px;
+        background: #f0dbdc;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+    }
+    .i_list_title i::before{
+        content: "";
+        width: 10px;
+        height: 10px;
+        border: 1px solid #fff;
+        background: #91000b;
+        border-radius: 50%;
+    }
+    .i_list{
+        list-style: none;
+        padding: 8px 0;
+        margin: 0;
+        height: 261px;
+        box-sizing: border-box;
+    }
+    .i_list_item{
+        display: flex;
+        align-items: center;
+        padding: 12px 0;
+    }
+    .i_list_item::before{
+        content: "";
+        width: 6px;
+        height: 6px;
+        background: #e8d2b8;
+        border-radius: 50%;
+        margin-right: 8px;
+        flex: 0 0 auto;
+    }
+    .i_list_item a{
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .i_list_item span{
+        flex: 0 0 120px;
+        text-align: right;
+    }
+    .i_row{
+        display: flex;
+        margin: 0 -12px;
+    }
+    .i_row .i_col{
+        width: 50%;
+        padding: 0 12px;
+        box-sizing: border-box;
+    }
+    .bhss_title{
+        position: relative;
+        margin: 40px 0 20px 0;
+    }
+    .bhss_title img{
+        display: block;
+        margin: auto;
+        z-index: 9;
+        background: #fff;
+        position: relative;
+        padding: 0 20px;
+    }
+    .bhss_title::before {
+        content: "";
+        width: 100%;
+        height: 4px;
+        background: #f9eded;
+        position: absolute;
+        bottom: 0;
+        top: 0;
+        margin: auto;
+    }
+    .i_info{
+        padding: 10px 0 10px 40px;
+        font-size: 18px;
+    }
+    .i_info a{
+        display: inline-flex;
+        align-items: center;
+        margin-right: 60px;
+        padding: 8px 0;
+    }
+    .i_info i{
+        width: 6px;
+        height: 6px;
+        background: #e8d2b8;
+        border-radius: 50%;
+        margin-right: 20px;
+        flex: 0 0 auto;
+    }
+    .i_info.ts{
+        padding: 12px 0 12px 12px;
+    }
+    .i_info.ts a{
+        padding: 4px 0;
+        margin-right: 20px;
+    }
+    .i_info.ts a i{
+        margin-right: 8px;
+    }
+    .i_card {
+        box-shadow: 0 3px 4px 0 rgba(0,0,0,0.15);
+        width: 465px;
+        margin-bottom: 12px;
+    }
+    .i_card > img{
+        display: block;
+    }
+    @media screen and (max-width:800px ) {
+        .banner img{
+            content: url('img/m_banner.png');
+            width: 100%;
+            left: auto;
+            margin-left: auto;
+        }
+        .con{
+            border: none;
+            padding: 0 15px;
+        }
+        .party_history p{
+            font-size: 15px;
+            line-height: 28px;
+        }
+        .party_history .btn img{
+            width: 92px;
+            margin-top: 8px;
+        }
+        .party_history{
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        .i_row{
+            display: block;
+            margin: 0;
+            padding: 0 !important;
+        }
+        .i_row .i_col{
+            width: 100%;
+            padding: 0;
+        }
+        .i_card > img{
+            width: 100%;
+        }
+        .i_card{
+            width: 100%;
+        }
+        .i_info {
+            padding: 10px 0 10px 15px;
+        }
+        .i_info i{
+            margin-right: 12px;
+        }
+        .i_info.ts2 a{
+            margin-right: 30px !important;
+        }
+        .i_list{
+            height: auto;
+        }
+        .i_list_item a{
+            font-size: 16px;
+        }
+        .i_list_item span{
+            flex: 0 0 90px;
+        }
+    }
+</style>
 <body>
-    <div>
-        <input type="text" id="text" />
-        <button onclick="sendMsg()">Send</button>
-        <button onclick="closeWS()">Close</button>
-        <div id="message"></div>
+<div class="banner">
+    <img src="img/banner.png">
+</div>
+<div class="con">
+    <ul class="i_breadcrumb">
+        <li class="i_breadcrumb_item">现在位置：</li>
+        <li class="i_breadcrumb_item">
+            <a href="#">首页</a>
+            <img src="img/icon-right.png">
+        </li>
+        <li class="i_breadcrumb_item">
+            <a href="#">专题专栏</a>
+            <img src="img/icon-right.png">
+        </li>
+        <li class="i_breadcrumb_item">学党史办实事</li>
+    </ul>
+    <div class="party_history">
+        <p>
+            前言: 在党史学习教育动员大会上，习近平总书记强调，要把学习党史同总结经验、观照现实、推动工
+            作结合起来，同解决实际问题结合起来，开展好“我为群众办实事”实践活动。为深入推进党史学习
+            教育，开展“我为群众办实事”实践活动，广东省生态环境厅公众网特开设”学党史，办实事“专题，
+            传承革命精神，展示最新学习动态及工作成果。
+        </p>
+        <div class="btn">
+            <a href="#">
+                <img src="img/btn.png">
+            </a>
+        </div>
     </div>
- 
-    <script type="text/javascript">
-        var ws;
-        function initWS() {
-            ws = new WebSocket("wss://x.hy1965.cn/ws?uid=43&gt=17");
-            ws.onopen = function() {
-                console.log("WebSocket connected.");
-            };
-            ws.onmessage = function (event) {
-                console.log("Received message: " + event.data);
-                var mes = document.getElementById('message');
-                mes.innerHTML += "<p>" + event.data + "</p>";
-            };
-            ws.onclose = function() {
-                console.log("WebSocket closed.");
-            };
-        }
- 
-        function sendMsg() {
-            var text = document.getElementById('text').value;
-            ws.send(text);
-        }
- 
-        function closeWS() {
-            ws.close();
-        }
- 
-        window.onload = initWS;
-    </script>
+    <div class="i_row">
+        <div class="i_col">
+            <div class="i_list_title">
+                <i></i>
+                <span>动态要闻</span>
+            </div>
+            <ul class="i_list">
+                <li class="i_list_item">
+                    <a href="#">习近平给《文史哲》编辑部全体编辑人员回信习近平给《文史哲》编辑部全体编辑人员回信习近平给《文史哲》编辑部全体编辑人员回信习近平给《文史哲》编辑部全体编辑人员回信</a>
+                    <span>2021-06-08</span>
+                </li>
+                <li class="i_list_item">
+                    <a href="#">习近平给《文史哲》编辑部全体编辑人员回信</a>
+                    <span>2021-06-08</span>
+                </li>
+                <li class="i_list_item">
+                    <a href="#">习近平给《文史哲》编辑部全体编辑人员回信</a>
+                    <span>2021-06-08</span>
+                </li>
+                <li class="i_list_item">
+                    <a href="#">习近平给《文史哲》编辑部全体编辑人员回信</a>
+                    <span>2021-06-08</span>
+                </li>
+                <li class="i_list_item">
+                    <a href="#">习近平给《文史哲》编辑部全体编辑人员回信</a>
+                    <span>2021-06-08</span>
+                </li>
+                <li class="i_list_item">
+                    <a href="#">习近平给《文史哲》编辑部全体编辑人员回信</a>
+                    <span>2021-06-08</span>
+                </li>
+                <li class="i_list_item">
+                    <a href="#">习近平给《文史哲》编辑部全体编辑人员回信</a>
+                    <span>2021-06-08</span>
+                </li>
+            </ul>
+        </div>
+        <div class="i_col">
+            <div class="i_list_title">
+                <i></i>
+                <span>政策文件</span>
+            </div>
+            <ul class="i_list">
+                <li class="i_list_item">
+                    <a href="#">习近平给《文史哲》编辑部全体编辑人员回信习近平给《文史哲》编辑部全体编辑人员回信习近平给《文史哲》编辑部全体编辑人员回信习近平给《文史哲》编辑部全体编辑人员回信</a>
+                    <span>2021-06-08</span>
+                </li>
+                <li class="i_list_item">
+                    <a href="#">习近平给《文史哲》编辑部全体编辑人员回信</a>
+                    <span>2021-06-08</span>
+                </li>
+                <li class="i_list_item">
+                    <a href="#">习近平给《文史哲》编辑部全体编辑人员回信</a>
+                    <span>2021-06-08</span>
+                </li>
+                <li class="i_list_item">
+                    <a href="#">习近平给《文史哲》编辑部全体编辑人员回信</a>
+                    <span>2021-06-08</span>
+                </li>
+                <li class="i_list_item">
+                    <a href="#">习近平给《文史哲》编辑部全体编辑人员回信</a>
+                    <span>2021-06-08</span>
+                </li>
+                <li class="i_list_item">
+                    <a href="#">习近平给《文史哲》编辑部全体编辑人员回信</a>
+                    <span>2021-06-08</span>
+                </li>
+                <li class="i_list_item">
+                    <a href="#">习近平给《文史哲》编辑部全体编辑人员回信</a>
+                    <span>2021-06-08</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="bhss_title">
+        <img src="img/bhss_title.png">
+    </div>
+    <div class="i_row" style="padding: 10px 0">
+        <div class="i_col">
+            <div class="i_card">
+                <img src="img/zwfwsxbl.png">
+                <div class="i_info">
+                    <a href="#">
+                        <i></i>
+                        <span>办件进度查询</span>
+                    </a>
+                    <a href="#">
+                        <i></i>
+                        <span>咨询投诉</span>
+                    </a>
+                    <a href="#">
+                        <i></i>
+                        <span>物流查询</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="i_col">
+            <div class="i_card" style="margin-left: auto">
+                <img src="img/jlhd.png">
+                <div class="i_info ts2">
+                    <a href="#" style="margin-right: 100px">
+                        <i></i>
+                        <span>回应关切</span>
+                    </a>
+                    <a href="#">
+                        <i></i>
+                        <span>留言选登</span>
+                    </a>
+                    <a href="#" style="margin-right: 100px">
+                        <i></i>
+                        <span>政策解读</span>
+                    </a>
+                    <a href="#">
+                        <i></i>
+                        <span>业务咨询</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="i_row" style="padding: 10px 0">
+        <div class="i_col">
+            <div class="i_card">
+                <img src="img/hbbhbz.png">
+                <div class="i_info">
+                    <a href="#">
+                        <i></i>
+                        <span>广东省地方标准文本</span>
+                    </a>
+                    <a href="#">
+                        <i></i>
+                        <span>国家标准</span>
+                    </a>
+                    <a href="#">
+                        <i></i>
+                        <span>广东省地方标准管理</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="i_col">
+            <div class="i_card" style="margin-left: auto">
+                <img src="img/hzzl.png">
+                <div class="i_info ts">
+                    <a href="#">
+                        <i></i>
+                        <span>环境状况公报</span>
+                    </a>
+                    <a href="#">
+                        <i></i>
+                        <span>城市空气和水环境质量及排名情况</span>
+                    </a>
+                    <a href="#">
+                        <i></i>
+                        <span>粤港澳珠三角区域空气监测网络监测结果报告</span>
+                    </a>
+                    <a href="#" style="margin-right: 30px">
+                        <i></i>
+                        <span>城市环境空气质量</span>
+                    </a>
+                    <a href="#" style="margin-right: 30px">
+                        <i></i>
+                        <span>饮用水</span>
+                    </a>
+                    <a href="#">
+                        <i></i>
+                        <span>江河水质量</span>
+                    </a>
+                    <a href="#" style="margin-right: 66px">
+                        <i></i>
+                        <span>生态环境质量</span>
+                    </a>
+                    <a href="#">
+                        <i></i>
+                        <span>辐射环境质量</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

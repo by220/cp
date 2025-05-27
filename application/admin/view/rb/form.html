@@ -68,13 +68,19 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">开通追</label>
         <div class="layui-input-block">
-            <input type="checkbox" name="zhui" value="1"{if $info && $info['zhui']==1} checked=""{/if} lay-skin="switch" lay-text="开通|关闭">
+            <input type="checkbox" name="zhui" value="1" 
+               {if isset($info) && $info['zhui'] == 1} checked="" 
+               {elseif !isset($info)} checked="" {/if} 
+               lay-skin="switch" lay-text="开通|关闭">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">机器人权限</label>
         <div class="layui-input-block">
-            <input type="checkbox" name="xiugai" value="1"{if $info && $info['xiugai']==1} checked=""{/if} lay-skin="switch" lay-text="开通|关闭">
+            <input type="checkbox" name="xiugai" value="1" 
+       {if isset($info) && $info['xiugai'] == 1} checked="" 
+       {elseif !isset($info)} checked="" {/if} 
+       lay-skin="switch" lay-text="开通|关闭">
         </div>
     </div>
     {if $Think.session.user_uid == '1'}
@@ -94,6 +100,9 @@
         </div>
     </div>
     {/if}
+    {/if}{/if}
+    {if $info}
+
     <div class="layui-form-item">
         <label class="layui-form-label required">封盘</label>
         <div class="layui-input-block">
@@ -221,7 +230,7 @@
         </div>
     </div>
     {/if}
-    {/if}
+
     <input type="hidden" name="id" id="id" value="{$info?$info['id']:''}" />
 
     <div class="layui-form-item" style="margin-bottom:150px;">

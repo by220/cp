@@ -18,7 +18,8 @@ class Login extends Base
      */
     public function  logout2(Request $request)
     {
-		db('robot')->where('UserName',USER_ID)->update(['online' => 0,'logtime'=>time()]);
+		//db('robot')->where('UserName',USER_ID)->update(['online' => 0,'logtime'=>time()]);
+		Session::delete('rbInfo');
         Session::delete('user_id2');
 		$this -> redirect('login2');
     }
@@ -65,7 +66,9 @@ class Login extends Base
 		    } else {
     			$status = 1;
     			$token = create_invite_code();
-    			db('robot')->where($map)->update(['token'=>$token,'online' => 1,'logtime'=>time()]);
+				$ip = getClientIp();
+				$city = getIpCity($ip);
+    			db('robot')->where($map)->update(['token'=>$token,'online' => 1,'logtime'=>time(),'ip'=>$ip,'city'=>$city]);
     			$message = '验证通过, 正在进入后台';
 		        $admin = db('robot')->where($map)->find();
     			Session::set('user_id2', $username);

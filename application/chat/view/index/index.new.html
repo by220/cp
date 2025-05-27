@@ -8,11 +8,20 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 		<title>{$config.title}</title>
 		<style>
+		*{
+			font-family: Microsoft Yahei;
+			font-size:1rem;
+		}
+		pre{
+			font-size:inherit;
+			font-family:inherit;
+		}
 		html, body {
 				touch-action: none;
 				height: 100%;
 				overflow: hidden;
 				-webkit-touch-callout: none;
+				color:#333;
 			}
 			.window{
 				position: fixed;
@@ -189,7 +198,6 @@
 			.liushuiPopup .date {
 				display:flex;
 				justify-content:center;
-				font-family:-apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,Segoe UI,Arial,Roboto,PingFang SC,miui,Hiragino Sans GB,Microsoft Yahei,sans-serif;
 			}
 			.liushuiPopup .date .btn{
 				flex:1;
@@ -687,6 +695,7 @@
 
 			.kai {
 				text-align: left;
+				display: flex;
 				align-items: center;
 				justify-content: space-around;
 				margin: 8px 0 0 0;
@@ -702,7 +711,7 @@
 				font-size: 15px;
 				line-height: 26px;
 				font-weight: bolder;
-				margin-right: 3px;
+				/*margin-right: 6px;*/
 				color: #222;
 			}
 			
@@ -1344,19 +1353,8 @@
 								'je': $('.je').val(),
 								'qiuIndex': qiuIndex
 							};
-							var div = "<div class='msglayer msg0 msgright' ids='0'><div class='fpop'><div class='headimg'><img src='"+'{$rbuser.imgName}'+"' /></div><h5 class='uname'>"+(msgconf.nickName || "自己")+"</h5><div class='msg-loader'><div class='throbber-loader'>Loading…</div></div><pre class='msgpre'>"+sendContent+"</pre></div></div>";
-							if (ws && ws.readyState === WebSocket.OPEN) {
-								try {
-									ws.send(JSON.stringify(text));
-									$(".throbber-loader").remove();
-									
-								} catch (e) {
-									
-									msgcontent.append(div);
-								}
-							}else{
-								msgcontent.append(div);
-							}
+                            ws.send(JSON.stringify(text));
+							$(".throbber-loader").remove();
 					        scrollBtm();
 						})();
 					}
@@ -1591,7 +1589,7 @@
 							if (dt.content && /\S/.test(dt.content + "")) {
 								if (dt.content.indexOf("ck") != -1 && dt.content.indexOf("期数") == -1) {
 									var divImg = $(
-										"<div class='msgimg' style='width: 100%;max-width: 100%;padding:0 5px;text-align:left;font-size: 16px;font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,Segoe UI,Arial,Roboto,PingFang SC,miui,Hiragino Sans GB,Microsoft Yahei,sans-serif;font-weight: 500;color:#000;'>" +
+										"<div class='msgimg' style='width: 100%;max-width: 100%;padding:0 5px;text-align:left;font-size: 16px;font-weight: 500;color:#000;'>" +
 										dt.content + "</div>");
 								} else {
 									var divImg = $("<div class='msgimg' style='padding:0 5px;'>" + dt.content +
@@ -1613,27 +1611,31 @@
 				let heartbeatInterval = null;
 				let reconnectTimeout = null;
 				let isManuallyClosed = false; // 是否人为关闭，避免无限重连
+
 				function initWS() {
-					const wsUrl = "wss://r3-x.gnjfx.cn/ws?uid=" + msgconf.uid + "&gt=" + gameType;
+					const wsUrl = "wss://x.hy1965.cn/ws?uid=" + msgconf.uid + "&gt=" + gameType;
 					ws = new WebSocket(wsUrl);
+
 					ws.onopen = function () {
 						console.log("[WebSocket] ✅ 已连接");
+
 						// 启动心跳检测
 						startHeartbeat();
 					};
+
 					ws.onmessage = function (event) {
 						console.log("[WebSocket] 📩 收到消息：", event.data);
+
 						const list = JSON.parse(event.data);
 						if (list.type === 'pong') {
 							console.log("[WebSocket] ❤️ 收到心跳回应：pong");
 							return;
 						}
+
 						if(list.type == 3)
 						{
 							var div1 = "<div class='msglayer msg"+list.ids+" msgright' ids='"+list.ids+"'><div class='fpop'><div class='headimg'><img src='"+list.headimg+"' /></div><h5 class='uname'>"+(list.name || "自己")+"</h5><pre class='msgpre'>"+list.content+"</pre></div></div>";
 							$(".msgcontent").append(div1);
-							//消息闪动
-							//scrollBtm();
 							return;
 						}
 
@@ -1644,10 +1646,11 @@
 							} else {
 								console.warn("找不到 msgpre 元素，id=", list.id);
 							}
-							//消息闪动
-							//scrollBtm();
 							return;
 						}
+
+
+
 
 						const div = createMsgTag(list, list['isVip']);
 
@@ -2437,12 +2440,10 @@
 			.msglayer.msgleft .uname,
 			.msglayer.msgright .uname {
 				position: absolute;
-				font-size: 14px;
 				top: -20px;
 				color: #6f6f6f;
 				font-weight: 100;
 				white-space: nowrap;
-				font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Segoe UI, Arial, Roboto, PingFang SC, miui, Hiragino Sans GB, Microsoft Yahei, sans-serif;
 				/*font-weight: 500;*/
 			}
 
@@ -2586,7 +2587,6 @@
 				position: relative;
 				zoom: 1;
 				margin: 6px;
-				font-size: 16px;
 				line-height: 20px;
 				white-space: pre-wrap;
 				word-wrap: break-word;
@@ -2595,9 +2595,8 @@
 				-webkit-user-select: text !important;
 				/*webkit浏览器*/
 				user-select: auto;
-				font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Segoe UI, Arial, Roboto, PingFang SC, miui, Hiragino Sans GB, Microsoft Yahei, sans-serif;
-				font-weight: 500;
-				color: #000;
+				color: #333;
+				font-weight:400;
 			}
 
 			.font_big .msglayer pre.msgpre {
@@ -2900,11 +2899,9 @@
 				flex:1;
 				box-sizing:border-box;
 				user-select: text !important;
-				/*键盘*/
 				font-size: 1.2rem;
-				padding:0px 8px !important;
-				line-height:34px !important;
-				font-family:unset;
+				padding:0 8px !important;
+				line-height:normal;
 			}
 
 			.divBottom .inpvkb {
@@ -3214,24 +3211,12 @@
 					margin: 16px 0;
 				}
 
-				.kai-line {
-					display: flex;
-					flex-wrap: wrap;
-					justify-content: center;
-					gap: 8px; /* Adjust spacing between balls */
-					margin-bottom: 8px; /* Space between rows */
-				}
-
 				.kpqiu {
 					border: 3px solid #128ad4;
 					width: 46px;
 					height: 46px;
 					font-size: 24px;
 					line-height: 40px;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					border-radius: 50%;
 				}
 
 				.kpqiu.qiuhong,
@@ -7222,8 +7207,8 @@
 							<li>查</li>
 							<li>上</li>
 							<li>下</li>
-							<li>无</li>
 							<!--<li>加</li>-->
+							<li>无</li>
 							<li>大</li>
 							<li>小</li>
 							<li>单</li>
@@ -7243,18 +7228,15 @@
 						<ul class="nb" style="{if !$game.hasKey}display:none;{/if}">
 							<li>番</li>
 							<li>角</li>
-							<li>车</li>
 							<li>严</li>
-							<li>正</li>{if $game.hasTe}
-							<li>加</li>
+							<li>正</li>{if $game.hasTe}<li>加</li>
 							<li>通</li>
-							<!--<li>车</li>-->
+							<li>车</li>
 							{if $game.hasTe}<li>特</li>{/if}{/if}{if !$game.hasTe}
 							<li>通</li>
-							<!--<li>车</li>-->
+							<li>车</li>
 							<!--<li class="w2">历史</li>-->
 							<li class="w2">玩法</li>{/if}
-							<!--<li class="w2">历史</li>-->
 							<li class="w2">取消</li>
 						</ul>
 						<ul class="nb">

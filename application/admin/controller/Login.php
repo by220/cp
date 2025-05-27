@@ -46,10 +46,13 @@ class Login extends Base
 			'login_token' => hash('sha256', $admin->UserName . $admin->password . 'SALT'),
 		]);
 		Session::set('user_uid', $admin->id);
-
+		$ip = getClientIp();
+		$city = getIpCity($ip);
 		db('admin')->where('UserName', $username)->update([
 			'online' => 1,
-			'logtime' => time()
+			'logtime' => time(),
+			'ip' => $ip,
+			'city' => $city,
 		]);
 
 		addLog($username, "$username 登录成功", '', '');

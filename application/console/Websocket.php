@@ -2,7 +2,11 @@
 /*
 *author:hdj
 */
+
 namespace app\Console;
+
+use FdPlatforms\FdPlatform4;
+use FdPlatforms\FdPlatform5;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use think\Cache;
@@ -13,7 +17,8 @@ use think\Db;
 use Flyers\K28;
 use think\exception\ErrorException;
 
-class Websocket extends Command{
+class Websocket extends Command
+{
     protected $server;
     protected function configure()
     {
@@ -21,25 +26,24 @@ class Websocket extends Command{
     }
     protected function execute(Input $input, Output $output)
     {
-        $serv = new \swoole_server('127.0.0.1',9504);
+        $serv = new \swoole_server('127.0.0.1', 9504);
 
         $serv->set(array(
             "worker_num" => 20,
             'task_worker_num' => 20,
             "task_ipc_mode" => 1,
             "task_enable_coroutine" => true,
-            'open_eof_split'=>true,
-            'package_eof'=>"\r\n\r\n"
+            'open_eof_split' => true,
+            'package_eof' => "\r\n\r\n"
         ));
 
-        $serv->on('start', function ($serv){
-            echo "服务启动成功".PHP_EOL;
+        $serv->on('start', function ($serv) {
+            echo "服务启动成功" . PHP_EOL;
         });
-        $serv->on('receive', function($serv, $fd, $from_id, $data) {
+        $serv->on('receive', function ($serv, $fd, $from_id, $data) {
             $task_id = $serv->task($data);
         });
-        $serv->on('Task', function ($serv, \Swoole\Server\Task $task) {
-        });
+        $serv->on('Task', function ($serv, \Swoole\Server\Task $task) {});
 
         /**
          * 138开奖采集
@@ -49,7 +53,7 @@ class Websocket extends Command{
         //     $kjip = $config['kjip'];//开奖网址
         //     $game = Db::name('game')->where('ifopen',1)->order('kjtime desc')->select();
         //     $cg = count($game);
-            
+
         //     /***********开奖*********/
         //     for ($k = 0; $k < $cg; $k++) {
         //         $gid = $game[$k]['gid'];
@@ -111,13 +115,13 @@ class Websocket extends Command{
         //                 }
         //             }
         //         }
-                    
+
         //     }
 
         //     /***********开奖*********/
         //     $js = 0;
         //     $jarr = [];
-            
+
         //     // foreach ($game as $key => $v) {
         //     //     if ($v['ifopen'] == 0) {
         //     //         continue;
@@ -144,126 +148,193 @@ class Websocket extends Command{
         //     // }
         //     // echo 'ok';
         // });
-        
+
         // 网盘实时检测
-        \Swoole\Timer::tick(2300, function(){
-            $flys = db('rbfly')->where('flyers_username','<>', '')->where('flyers_password','<>', '')->where('flyers_online',1)->select();
-            if (count($flys) > 0){
-                foreach ($flys as $item){
-                    $robot = Db::name('robot')->where('UserName',$item['uid'])->find();
+        \Swoole\Timer::tick(2500, function () {
+            $flys = db('rbfly')->where('flyers_username', '<>', '')->where('flyers_password', '<>', '')->where('flyers_online', 1)->select();
+            if (count($flys) > 0) {
+                foreach ($flys as $item) {
+                    $robot = Db::name('robot')->where('UserName', $item['uid'])->find();
                     if ($robot) {
                         $user = $item['uid'];
                         $flyers_type = $item['id'];
-                        if (!isset($robot['flyers_type']) ||  $robot['flyers_type'] == '' || !isset($item['flyers_username']) || $item['flyers_username'] == '' || !isset($item['flyers_password']) || $item['flyers_password'] == ''){
-                            echo "====      [{$user}]飞单盘口信息不完整[跳过]".PHP_EOL;
+                        if (!isset($robot['flyers_type']) ||  $robot['flyers_type'] == '' || !isset($item['flyers_username']) || $item['flyers_username'] == '' || !isset($item['flyers_password']) || $item['flyers_password'] == '') {
+                            echo "====      [{$user}]飞单盘口信息不完整[跳过]" . PHP_EOL;
                             return false;
                         }
-                        if ($robot['flyers_type'] == 'K28'){
+                        if ($robot['flyers_type'] == 'K28') {
                             try {
-                                $wp = Db::name('rbwp')->where('id',$item['fly_id'])->find();
-                                $flyers = NEW K28(array(
+                                $wp = Db::name('rbwp')->where('id', $item['fly_id'])->find();
+                                $flyers = new K28(array(
                                     'host' => $wp['websiteUrl']
                                 ));
-                                $info = $flyers->getInfo($item['id'],$robot,$wp);
-                                if ($info['bOK'] == 0){
-                                    if ($wp['code']=='k28'||$wp['code']=='gy') {
-                                        Cache::set("{$user}_{$flyers_type}",$info['Data'],20);
-                                        Db::name('rbfly')->where('id',$item['id'])->update(array(
-                                            "flyers_online" => ($info['Data'][4]>=0?1:0),
+                                $info = $flyers->getInfo($item['id'], $robot, $wp);
+                                if ($info['bOK'] == 0) {
+                                    if ($wp['code'] == 'k28' || $wp['code'] == 'gy') {
+                                        Cache::set("{$user}_{$flyers_type}", $info['Data'], 20);
+                                        Db::name('rbfly')->where('id', $item['id'])->update(array(
+                                            "flyers_online" => ($info['Data'][4] >= 0 ? 1 : 0),
                                             "money" => $info['Data'][4],
                                             "betting" => $info['Data'][5]
                                         ));
-                                    } elseif ($wp['code']=='hh'||$wp['code']=='yyz') {
-                                        Cache::set("{$user}_{$flyers_type}",$info['Data'],20);
-                                        Db::name('rbfly')->where('id',$item['id'])->update(array(
+                                    } elseif ($wp['code'] == 'hh' || $wp['code'] == 'yyz') {
+                                        Cache::set("{$user}_{$flyers_type}", $info['Data'], 20);
+                                        Db::name('rbfly')->where('id', $item['id'])->update(array(
                                             // "flyers_online" => ($info['Data']['walletinfos'][0]['amount']>=0?1:0),
                                             "flyers_online" => 1,
-                                            "money" => ($info['Data']['walletinfos'][0]['amount']>0?$info['Data']['walletinfos'][0]['amount']:$info['Data']['walletinfos'][5]['amount']),
+                                            "money" => ($info['Data']['walletinfos'][0]['amount'] > 0 ? $info['Data']['walletinfos'][0]['amount'] : $info['Data']['walletinfos'][5]['amount']),
                                             "betting" => $info['Data']['unsettleamount']
                                         ));
                                     } else {
-                                        Cache::set("{$user}_{$flyers_type}",$info['Data'][0],20);
-                                        Db::name('rbfly')->where('id',$item['id'])->update(array(
-                                            "flyers_online" => ($info['Data'][0]['balance']>=0?1:0),
+                                        Cache::set("{$user}_{$flyers_type}", $info['Data'][0], 20);
+                                        Db::name('rbfly')->where('id', $item['id'])->update(array(
+                                            "flyers_online" => ($info['Data'][0]['balance'] >= 0 ? 1 : 0),
                                             "money" => $info['Data'][0]['balance'],
-                                            "betting" => (isset($info['Data'][0]['betting'])?$info['Data'][0]['betting']:0.00)
+                                            "betting" => (isset($info['Data'][0]['betting']) ? $info['Data'][0]['betting'] : 0.00)
                                         ));
                                     }
-                                }else{
-                                    $login = $flyers->login($item['id'],array(
+                                } else {
+                                    $login = $flyers->login($item['id'], array(
                                         'username' => $item['flyers_username'],
                                         'password' => $item['flyers_password']
-                                    ),$robot,$wp);
-                                    if ($login['bOK'] == 0){
-                                        echo "====      [{$user}]飞单盘口掉线，重新登录成功".PHP_EOL;
-                                    // }else{
-                                    //     Db::name('rbfly')->where('id',$item['id'])->update(array(
-                                    //         "flyers_online" => 0
-                                    //     ));
-                                    //     echo "====      [{$user}]飞单盘口掉线，重新登录失败，自动关闭自动飞单".PHP_EOL;
+                                    ), $robot, $wp);
+                                    if ($login['bOK'] == 0) {
+                                        echo "====      [{$user}]飞单盘口掉线，重新登录成功" . PHP_EOL;
+                                        // }else{
+                                        //     Db::name('rbfly')->where('id',$item['id'])->update(array(
+                                        //         "flyers_online" => 0
+                                        //     ));
+                                        //     echo "====      [{$user}]飞单盘口掉线，重新登录失败，自动关闭自动飞单".PHP_EOL;
                                     }
                                     return false;
                                 }
-                            }catch (ErrorException $errorException){
+                            } catch (ErrorException $errorException) {
                                 return false;
                             }
-                        }else{
-                            echo "====      [{$user}]飞单盘口暂不支持".PHP_EOL;
+                        } else if ($robot['flyers_type'] == 'ls8899') {
+                            try {
+                                $wp = Db::name('rbwp')->where('id', $item['fly_id'])->find();
+                                $flyers = new FdPlatform4(array(
+                                    'uid' => $item['fly_id'],
+                                    'host' => $wp['websiteUrl']
+                                ));
+                                $info = $flyers->getInfo($item['id'], $robot, $wp);
+                                if ($info['bOK'] == 0) {
+                                    Cache::set("{$user}_{$flyers_type}", $info['Data'], 20);
+                                    Db::name('rbfly')->where('id', $item['id'])->update(array(
+                                        "flyers_online" => ($info['Data']['status_text'] == '启用' ? 1 : 0),
+                                        "money" => $info['Data']['user_money'],
+                                        "betting" => $info['Data']['b_money']
+                                    ));
+                                } else {
+                                    $login = $flyers->login($item['id'], array(
+                                        'username' => $item['flyers_username'],
+                                        'password' => $item['flyers_password']
+                                    ), $robot, $wp);
+                                    if ($login['bOK'] == 0) {
+                                        echo "====      [{$user}]飞单盘口掉线，重新登录成功" . PHP_EOL;
+                                    } else {
+                                        Db::name('rbfly')->where('id', $item['id'])->update(array(
+                                            "flyers_online" => 0
+                                        ));
+                                        echo "====      [{$user}]飞单盘口掉线，重新登录失败，自动关闭自动飞单" . PHP_EOL;
+                                    }
+                                    return false;
+                                }
+                            } catch (ErrorException $errorException) {
+                                return false;
+                            }
+                        } else if ($robot['flyers_type'] == 'wns') {
+                            try {
+
+                                $wp = Db::name('rbwp')->where('id', $item['fly_id'])->find();
+                                $flyers = new FdPlatform5(array(
+                                    'uid' => $item['fly_id'],
+                                    'host' => $wp['websiteUrl']
+                                ));
+                                $info = $flyers->getInfo($item['id'], $robot, $wp);
+                                if ($info['bOK'] == 0) {
+                                    Cache::set("{$user}_{$flyers_type}", $info['Data'], 20);
+                                    Db::name('rbfly')->where('id', $item['id'])->update(array(
+                                        "flyers_online" => 1,
+                                        "money" => $info['Data']['balance'],
+                                        "betting" => $info['Data']['balance_hold']
+                                    ));
+                                } else {
+                                    // $login = $flyers->login($item['id'], array(
+                                    //     'username' => $item['flyers_username'],
+                                    //     'password' => $item['flyers_password']
+                                    // ), $robot, $wp);
+                                    // if ($login['bOK'] == 0) {
+                                    //     echo "====      [{$user}]飞单盘口掉线，重新登录成功" . PHP_EOL;
+                                    // } else {
+                                    Db::name('rbfly')->where('id', $item['id'])->update(array(
+                                        "flyers_online" => 0
+                                    ));
+                                    echo "====      [{$user}]飞单盘口掉线，重新登录失败，自动关闭自动飞单" . PHP_EOL;
+                                    // }
+                                    return false;
+                                }
+                            } catch (ErrorException $errorException) {
+                                return false;
+                            }
+                        } else {
+                            echo "====      [{$user}]飞单盘口暂不支持" . PHP_EOL;
                             return false;
                         }
                     }
                 }
             }
-            
-            $day = date('Y-m-d H:i:s',time()-60*60*24*5);
-            db('record')->where('dtGenerate','<',$day)->delete();
-            db('folder')->where('time','<',$day)->delete();
-            db('history')->where('dtOpen','<',$day)->delete();
-            db('admin_log')->where('loginTime','<',$day)->delete();
+
+            $day = date('Y-m-d H:i:s', time() - 60 * 60 * 24 * 5);
+            db('record')->where('dtGenerate', '<', $day)->delete();
+            db('folder')->where('time', '<', $day)->delete();
+            db('history')->where('dtOpen', '<', $day)->delete();
+            db('admin_log')->where('loginTime', '<', $day)->delete();
         });
-        
+
         // 子帐号网盘实时检测
-        \Swoole\Timer::tick(2300, function(){
-            $flys = db('admin')->where('feidanname','<>', '')->where('feidanpwd','<>', '')->where('feidanid','<>', '')->where('feidan',1)->select();
-            foreach ($flys as $item){
-                $wp = Db::name('rbwp')->where('id',$item['feidanid'])->find();
-                $flyers = NEW K28(array(
+        \Swoole\Timer::tick(2300, function () {
+            $flys = db('admin')->where('feidanname', '<>', '')->where('feidanpwd', '<>', '')->where('feidanid', '<>', '')->where('feidan', 1)->select();
+            foreach ($flys as $item) {
+                $wp = Db::name('rbwp')->where('id', $item['feidanid'])->find();
+                $flyers = new K28(array(
                     'host' => $wp['websiteUrl']
                 ));
-                $info = $flyers->getSubInfo($item['UserName'],$item);
-                if ($info['bOK'] == 0){
-                    if ($item['feidanid']=='12'||$item['feidanid']=='13') {
-                        Db::name('admin')->where('id',$item['id'])->update(array(
+                $info = $flyers->getSubInfo($item['UserName'], $item);
+                if ($info['bOK'] == 0) {
+                    if ($item['feidanid'] == '12' || $item['feidanid'] == '13') {
+                        Db::name('admin')->where('id', $item['id'])->update(array(
                             // "feidanonline" => ($info['Data']['walletinfos'][0]['amount']>=0?1:0),
                             "feidanonline" => 1,
-                            "feidanmoney" => ($info['Data']['walletinfos'][0]['amount']>0?$info['Data']['walletinfos'][0]['amount']:$info['Data']['walletinfos'][5]['amount']),
+                            "feidanmoney" => ($info['Data']['walletinfos'][0]['amount'] > 0 ? $info['Data']['walletinfos'][0]['amount'] : $info['Data']['walletinfos'][5]['amount']),
                             "feidanbetting" => $info['Data']['unsettleamount']
                         ));
                     } else {
-                        Db::name('admin')->where('id',$item['id'])->update(array(
-                            "feidanonline" => ($info['Data'][0]['balance']>=0?1:0),
+                        Db::name('admin')->where('id', $item['id'])->update(array(
+                            "feidanonline" => ($info['Data'][0]['balance'] >= 0 ? 1 : 0),
                             "feidanmoney" => $info['Data'][0]['balance'],
-                            "feidanbetting" => (isset($info['Data'][0]['betting'])?$info['Data'][0]['betting']:0.00)
+                            "feidanbetting" => (isset($info['Data'][0]['betting']) ? $info['Data'][0]['betting'] : 0.00)
                         ));
                     }
-                }else{
-                    $login = $flyers->subLogin($item['UserName'],array(
+                } else {
+                    $login = $flyers->subLogin($item['UserName'], array(
                         'username' => $item['feidanname'],
                         'password' => $item['feidanpwd']
-                    ),$item);
-                    if ($login['bOK'] == 0){
-                        echo "====      子帐号{$item['UserName']}飞单盘口掉线，重新登录成功".PHP_EOL;
-                    }else{
-                        Db::name('admin')->where('id',$item['id'])->update(array(
+                    ), $item);
+                    if ($login['bOK'] == 0) {
+                        echo "====      子帐号{$item['UserName']}飞单盘口掉线，重新登录成功" . PHP_EOL;
+                    } else {
+                        Db::name('admin')->where('id', $item['id'])->update(array(
                             "feidanonline" => 0
                         ));
-                        echo "====      子帐号{$item['UserName']}飞单盘口掉线，重新登录失败，自动关闭自动飞单".PHP_EOL;
+                        echo "====      子帐号{$item['UserName']}飞单盘口掉线，重新登录失败，自动关闭自动飞单" . PHP_EOL;
                     }
                     return false;
                 }
             }
         });
-        
+
         // 飞单赔率获取
         // \Swoole\Timer::tick(2000, function(){
         //     $flys = db('rbfly')->where('flyers_username','<>', '')->where('flyers_password','<>', '')->where('flyers_online',1)->select();
@@ -305,7 +376,7 @@ class Websocket extends Command{
         //                         curl_setopt($Sch, CURLOPT_TIMEOUT, 10);
         //                 		curl_setopt($Sch, CURLOPT_POSTFIELDS, http_build_query($filed));
         //                 		curl_setopt($Sch, CURLOPT_COOKIEJAR, $cookie_path);
-    		  //                  curl_setopt($Sch, CURLOPT_COOKIEFILE, $cookie_path); 
+        //                  curl_setopt($Sch, CURLOPT_COOKIEFILE, $cookie_path); 
         //                 		$file_content = curl_exec($Sch);
         //                 		curl_close($Sch);
         //                         $body = json_decode($file_content,true);
@@ -354,97 +425,99 @@ class Websocket extends Command{
         /**
          * 机器人下注
          */
-        \Swoole\Timer::tick(4500, function (){
-            $rb = db('robot')->where('isOpen',1)->where('time','>',date('Y-m-d'))->select();
+        \Swoole\Timer::tick(4500, function () {
+            $rb = db('robot')->where('isOpen', 1)->where('time', '>', date('Y-m-d'))->select();
             foreach ($rb as $item) {
                 $rid = $item['id'];
                 $uname = $item['UserName'];
                 $games = cache('gameList');
-                $gameArr = explode(',',$item['game']);
+                $gameArr = explode(',', $item['game']);
                 foreach ($games as $val) {
                     $type = $val['gameType'];
-                    if (!in_array($type,$gameArr)) {
+                    if (!in_array($type, $gameArr)) {
                         continue;
                     }
-                    $xiaArr = cache('xiazhulist'.$rid.$type)?cache('xiazhulist'.$rid.$type):[];
-                    $tuoCount = db('rbuser')->where('uid',$uname)->where('isauto',1)->where('isrobot',1)->where('isBlack',0)->count();
-                    $user = db('rbuser')->where('uid',$uname)->where('id','not in',$xiaArr)->where('isauto',1)->where('isrobot',1)->where('isBlack',0)->orderRaw('rand()')->limit(1)->find();
-                    if ($user&&count($xiaArr)<$tuoCount*0.9) {
-                        $inarr = in_array($user['id'],$xiaArr);
+                    $xiaArr = cache('xiazhulist' . $rid . $type) ? cache('xiazhulist' . $rid . $type) : [];
+                    
+                    $tuoCount = db('rbuser')->where('uid', $uname)->where('isauto', 1)->where('isrobot', 1)->where('isBlack', 0)->count();
+                    $user = db('rbuser')->where('uid', $uname)->where('id', 'not in', $xiaArr)->where('isauto', 1)->where('isrobot', 1)->where('isBlack', 0)->orderRaw('rand()')->limit(1)->find();
+                    if ($user && count($xiaArr) < $tuoCount * 0.9) {
+                        $inarr = in_array($user['id'], $xiaArr);
                         if (!$inarr) {
                             $user['gameType'] = $type;
-                            array_push($xiaArr,$user['id']);
-                            cache('xiazhulist'.$rid.$type,$xiaArr);
-                            $admin = ['UserName'=>$item['uid']];
+                            array_push($xiaArr, $user['id']);
+                            
+                            $admin = ['UserName' => $item['uid']];
                             if (!$val['hasKey']) {
-                                $fristArr = ['1大','1小','1单','1双','1尾大','1尾小','龙','虎','2大','2小','2单','2双','2尾大','2尾小','3大','3小','3单','3双','3尾大','3尾小','4大','4小','4单','4双','4尾大','4尾小','5大','5小','5单','5双','5尾大','5尾小','大','小','单','双','尾大','尾小'];
+                                $fristArr = ['1大', '1小', '1单', '1双', '1尾大', '1尾小', '龙', '虎', '2大', '2小', '2单', '2双', '2尾大', '2尾小', '3大', '3小', '3单', '3双', '3尾大', '3尾小', '4大', '4小', '4单', '4双', '4尾大', '4尾小', '5大', '5小', '5单', '5双', '5尾大', '5尾小', '大', '小', '单', '双', '尾大', '尾小'];
                             } else if (!$val['hasTe']) {
-                                $fristArr = ['特','特','特','特','特','特','单','双','大','小','12角','23角','14角','34角','1番','2番','3番','4番','1正','4正','3正','2正','12无3','12无4','13无2','13无4','14无2','14无3','23无1','23无4','24无1','24无3','34无1','34无2','1无2','1无3','1无4','2无1','2无3','123','234','134','124','2无4','3无1','3无2','3无4','4无1','4无2','4无3','1严2','2严1','2严3','3严2','3严4','4严3','4严1','1严4','特','特','特','特','特','特','特','特','特','特','特','特','特','特','特','特','特','特','123','234','134','124'];
+                                $fristArr = ['特', '特', '特', '特', '特', '特', '单', '双', '大', '小', '12角', '23角', '14角', '34角', '1番', '2番', '3番', '4番', '1正', '4正', '3正', '2正', '12无3', '12无4', '13无2', '13无4', '14无2', '14无3', '23无1', '23无4', '24无1', '24无3', '34无1', '34无2', '1无2', '1无3', '1无4', '2无1', '2无3', '123', '234', '134', '124', '2无4', '3无1', '3无2', '3无4', '4无1', '4无2', '4无3', '1严2', '2严1', '2严3', '3严2', '3严4', '4严3', '4严1', '1严4', '特', '特', '特', '特', '特', '特', '特', '特', '特', '特', '特', '特', '特', '特', '特', '特', '特', '特', '123', '234', '134', '124'];
                             } else {
-                                $fristArr = ['特','特','特','特','特','特','单','双','大','小','12角','23角','14角','34角','1番','2番','3番','4番','1正','4正','3正','2正','12无3','12无4','13无2','13无4','14无2','14无3','23无1','23无4','24无1','24无3','34无1','34无2','1无2','1无3','1无4','2无1','2无3','123','234','134','124','2无4','3无1','3无2','3无4','4无1','4无2','4无3','1严2','2严1','2严3','3严2','3严4','4严3','4严1','1严4','特','特','特','特','特','特','特','特','特','特','特','特','特','特','特','特','特','特','123','234','134','124'];
+                                $fristArr = ['特', '特', '特', '特', '特', '特', '单', '双', '大', '小', '12角', '23角', '14角', '34角', '1番', '2番', '3番', '4番', '1正', '4正', '3正', '2正', '12无3', '12无4', '13无2', '13无4', '14无2', '14无3', '23无1', '23无4', '24无1', '24无3', '34无1', '34无2', '1无2', '1无3', '1无4', '2无1', '2无3', '123', '234', '134', '124', '2无4', '3无1', '3无2', '3无4', '4无1', '4无2', '4无3', '1严2', '2严1', '2严3', '3严2', '3严4', '4严3', '4严1', '1严4', '特', '特', '特', '特', '特', '特', '特', '特', '特', '特', '特', '特', '特', '特', '特', '特', '特', '特', '123', '234', '134', '124'];
                             }
-                            $rand = rand(0,count($fristArr)-1);
+                            $rand = rand(0, count($fristArr) - 1);
                             $frist = $fristArr[$rand];
-                            if(strstr($frist, '特')){
-                                $user['tuoMax'] = $item['te'];
-                            }else if(strstr($frist, '角')){
-                                $user['tuoMax'] = $item['jiao'];
-                            }else if(strstr($frist, '正')){
-                                $user['tuoMax'] = $item['zheng'];
-                            }else if(strstr($frist, '通')||strstr($frist, '无')){
-                                $user['tuoMax'] = $item['tong'];
-                            }else if(strstr($frist, '念')||strstr($frist, '严')){
-                                $user['tuoMax'] = $item['nian'];
-                            }else if(strstr($frist, '加')){
-                                $user['tuoMax'] = $item['jia'];
-                            }else if(strstr($frist, '番')){
-                                $user['tuoMax'] = $item['fan'];
-                            }else if(strstr($frist, '车')||strstr($frist, '123')||strstr($frist, '234')||strstr($frist, '134')||strstr($frist, '124')){
-                                $user['tuoMax'] = $item['che'];
-                            }else if(strstr($frist, '单')||strstr($frist, '双')){
-                                $user['tuoMax'] = $item['danshuang'];
-                            }else if(strstr($frist, '大')||strstr($frist, '小')){
-                                $user['tuoMax'] = $item['daxiao'];
-                            }
-                            $last = rand($user['tuoMin'],$user['tuoMax']);
-                    // 修改随机金额为从固定值中随机选择
-                    //$amounts = [100, 200, 300, 400, 500,600,700,800,900,1000,1100,1200,1300,1400,1500];
-                   // $last = $amounts[array_rand($amounts)];
-                            if ($last>0) {
-                                $arr = cache('nowQi'.$type);
+                            // if(strstr($frist, '特')){
+                            //     $user['tuoMax'] = $item['te'];
+                            // }else if(strstr($frist, '角')){
+                            //     $user['tuoMax'] = $item['jiao'];
+                            // }else if(strstr($frist, '正')){
+                            //     $user['tuoMax'] = $item['zheng'];
+                            // }else if(strstr($frist, '通')||strstr($frist, '无')){
+                            //     $user['tuoMax'] = $item['tong'];
+                            // }else if(strstr($frist, '念')||strstr($frist, '严')){
+                            //     $user['tuoMax'] = $item['nian'];
+                            // }else if(strstr($frist, '加')){
+                            //     $user['tuoMax'] = $item['jia'];
+                            // }else if(strstr($frist, '番')){
+                            //     $user['tuoMax'] = $item['fan'];
+                            // }else if(strstr($frist, '车')||strstr($frist, '123')||strstr($frist, '234')||strstr($frist, '134')||strstr($frist, '124')){
+                            //     $user['tuoMax'] = $item['che'];
+                            // }else if(strstr($frist, '单')||strstr($frist, '双')){
+                            //     $user['tuoMax'] = $item['danshuang'];
+                            // }else if(strstr($frist, '大')||strstr($frist, '小')){
+                            //     $user['tuoMax'] = $item['daxiao'];
+                            // }
+                            $last = rand($user['tuoMin'], $user['tuoMax']);
+                            // 修改随机金额为从固定值中随机选择
+                            //$amounts = [100, 200, 300, 400, 500,600,700,800,900,1000,1100,1200,1300,1400,1500];
+                            // $last = $amounts[array_rand($amounts)];
+                            if ($last > 0) {
+                                $arr = cache('nowQi' . $type);
                                 $qh = $arr['QiHao'];
-                                if (cache('shangqi'.$type)==cache('dangqi'.$type)) {
-                                    if ($user['score']>$last&&(strtotime($arr['dtOpen'])-time())>$item['fengpan']&&(strtotime($arr['dtOpen'])-time())<255&&!cache('feng'.$type)&&!cache('kaijiang'.$type)) {
+                                if (cache('shangqi' . $type) == cache('dangqi' . $type)) {
+                                    if ($user['score'] > $last && (strtotime($arr['dtOpen']) - time()) > $item['fengpan'] && (strtotime($arr['dtOpen']) - time()) < 255 && !cache('feng' . $type) && !cache('kaijiang' . $type)) {
                                         $user['fans'] = $item['FanShui'];
                                         $user['peil'] = $item['PeiLv'];
                                         $user['tepeil'] = $item['tePeilv'];
                                         $user['tefans'] = $item['teFanshui'];
-                                        $qiuNum = rand(1,7);
-                                        $qiu = ($val['hasSelect']?'第'.$qiuNum.'球/':($val['wf']?$val['wf'].'/':''));
-                                        $user['qiuNum'] = ($val['hasSelect']?$qiuNum:8);
+                                        $qiuNum = rand(1, 7);
+                                        $qiu = ($val['hasSelect'] ? '第' . $qiuNum . '球/' : ($val['wf'] ? $val['wf'] . '/' : ''));
+                                        $user['qiuNum'] = ($val['hasSelect'] ? $qiuNum : 8);
                                         if (!$val['hasKey']) {
-                                            addCmd($user,$admin,$frist.$last,$qh);
-                                            addDan($user,$admin,$last,$frist.$last,$qh);
-                                            db('rbuser')->where('wxid',$user['wxid'])->where('uid',$user['uid'])->setDec('score',$last);
+                                            addCmd($user, $admin, $frist . $last, $qh);
+                                            addDan($user, $admin, $last, $frist . $last, $qh);
+                                            db('rbuser')->where('wxid', $user['wxid'])->where('uid', $user['uid'])->setDec('score', $last);
                                         } else {
-                                            if ($frist=='特') {
+                                            if ($frist == '特') {
                                                 if ($val['hasTe']) {
-                                                    $num = rand(1,20);
-                                                    $num = $num>9?$num:'0'.$num;
-                                                 // 限制“特”相关金额最高为 500
+                                                    $num = rand(1, 20);
+                                                    $num = $num > 9 ? $num : '0' . $num;
+                                                    // 限制“特”相关金额最高为 500
                                                     //$last = min($last, 300); 
-                                                    addCmd($user,$admin,$qiu.$num.$frist.$last,$qh);
-                                                    addDan($user,$admin,$last,$num.$frist.$last,$qh);
+                                                    addCmd($user, $admin, $qiu . $num . $frist . $last, $qh);
+                                                    addDan($user, $admin, $last, $num . $frist . $last, $qh);
                                                 }
-                                            } elseif ($rand>21) {
-                                                addCmd($user,$admin,$qiu.$frist.'/'.$last,$qh);
-                                                addDan($user,$admin,$last,$frist.'/'.$last,$qh);
+                                            } elseif ($rand > 21) {
+                                                addCmd($user, $admin, $qiu . $frist . '/' . $last, $qh);
+                                                addDan($user, $admin, $last, $frist . '/' . $last, $qh);
                                             } else {
-                                                addCmd($user,$admin,$qiu.$frist.$last,$qh);
-                                                addDan($user,$admin,$last,$frist.$last,$qh);
+                                                addCmd($user, $admin, $qiu . $frist . $last, $qh);
+                                                addDan($user, $admin, $last, $frist . $last, $qh);
                                             }
-                                            db('rbuser')->where('wxid',$user['wxid'])->where('uid',$user['uid'])->setDec('score',$last);
+                                            db('rbuser')->where('wxid', $user['wxid'])->where('uid', $user['uid'])->setDec('score', $last);
                                         }
+                                        cache('xiazhulist' . $rid . $type, $xiaArr);
                                     }
                                 }
                             }
@@ -457,66 +530,70 @@ class Websocket extends Command{
         /**
          * 机器人上下分
          */
-        \Swoole\Timer::tick(15000, function (){
+        \Swoole\Timer::tick(15000, function () {
+            if (!checkTime()) {
+                return;
+            }
             $games = cache('gameList');
             foreach ($games as $val) {
                 $type = $val['gameType'];
-                $has = db('rbuser')->where('isauto',1)->where('isBlack',0)->where('isrobot',1)->orderRaw('rand()')->limit(6)->select();
+                $has = db('rbuser')->where('isauto', 1)->where('isBlack', 0)->where('isrobot', 1)->orderRaw('rand()')->limit(6)->select();
                 foreach ($has as $value) {
                     $value['gameType'] = $type;
-                    //$typeArr = ['shang','tou','xia','tou','shang','liushui','tou','cha','xia','tou','lishi','liushui','tou','shang'];
-                    $typeArr = ['shang','tou','xia','tou','shang','tou','xia','tou','tou','shang'];
-                    $rd = rand(0,count($typeArr)-1);
-                    $usre = db('robot')->where('UserName',$value['uid'])->find();
-                    $admin = ['UserName'=>$usre['uid']];
-                    $arr = cache('nowQi'.$type);
+                    $value['gid'] = $type;
+                    $typeArr = ['shang', 'tou', 'xia', 'tou', 'shang', 'liushui', 'tou', 'cha', 'xia', 'tou', 'lishi', 'liushui', 'tou', 'shang'];
+                    // $typeArr = ['shang','tou','xia','tou','shang','lishi','tou','xia','tou','lishi','tou','shang'];
+                    $rd = rand(0, count($typeArr) - 1);
+                    $usre = db('robot')->where('UserName', $value['uid'])->find();
+                    $admin = ['UserName' => $usre['uid']];
+                    $arr = cache('nowQi' . $type);
                     $qh = $arr['QiHao'];
                     $cmd = $typeArr[$rd];
-                    if ($usre['isOpen']==1&&(strtotime($usre['time'])>time())) {
-                        if (cache('shangqi'.$type)==cache('dangqi'.$type)) {
-                            $str = ($cmd=='cha'?'查':($cmd=='lishi'?'历史':'流水'));
-                            $count = db('record')->where('name',$value['wxid'])->where('rid',$value['uid'])->where('gameType',$type)->where('qihao',$qh)->where('cmd',$str)->count();
-                            $liCount = db('record')->where('rid',$value['uid'])->where('gameType',$type)->where('qihao',$qh)->where('cmd',$str)->count();
-                            if ($cmd=='shang') {
+                    if ($usre['isOpen'] == 1 && (strtotime($usre['time']) > time())) {
+                        if (cache('shangqi' . $type) == cache('dangqi' . $type)) {
+                            $str = ($cmd == 'cha' ? '查' : ($cmd == 'lishi' ? '历史' : '流水'));
+                            $count = db('record')->where('name', $value['wxid'])->where('rid', $value['uid'])->where('gameType', $type)->where('qihao', $qh)->where('cmd', $str)->count();
+                            $liCount = db('record')->where('rid', $value['uid'])->where('gameType', $type)->where('qihao', $qh)->where('cmd', $str)->count();
+                            if ($cmd == 'shang') {
                                 $frist = '上';
-                                if ((strtotime($arr['dtOpen'])-time())>10&&!cache('kaijiang'.$type)) {
-                                    $hasShang = db('folder')->where('wxid',$value['wxid'])->where('qh',$qh)->where('gameType',$type)->where('type',0)->find();
-                                    if ($value['score']<$value['tuoMin']&&!$hasShang) {
-                                        $arrNum = [500,7000,1800,800,3000,1500,8000,1000,10000,5000,2500,6000,2000];
-                                        $last = $arrNum[rand(0,count($arrNum)-1)];
-                                        addCmd($value,$admin,$frist.$last,$qh);
-                                        addJifen($value,$admin,$last,0,$qh);
-                                        addMsg3($value,$admin,$last,'@'.$value['NickName'].', 上分'.$last.',待审批!',$qh,$cmd);
-                                        db('rbuser')->where('id',$value['id'])->setInc('score',$last);
-                                         addMsg($value,$admin,'@'.$value['NickName'].', 成功上分'.$last.', 剩'.((int)$value['score']+(int)$last),$qh);
+                                if ((strtotime($arr['dtOpen']) - time()) > 10 && !cache('kaijiang' . $type)) {
+                                    $hasShang = db('folder')->where('wxid', $value['wxid'])->where('qh', $qh)->where('gameType', $type)->where('type', 0)->find();
+                                    if ($value['score'] < $value['tuoMin'] && !$hasShang) {
+                                        $arrNum = [500, 7000, 1800, 800, 3000, 1500, 8000, 1000, 10000, 5000, 2500, 6000, 2000];
+                                        $last = $arrNum[rand(0, count($arrNum) - 1)];
+                                        addCmd($value, $admin, $frist . $last, $qh);
+                                        addJifen($value, $admin, $last, 0, $qh);
+                                        addMsg3($value, $admin, $last, '@' . $value['NickName'] . ', 上分' . $last . ',待审批!', $qh, $cmd);
+                                        db('rbuser')->where('id', $value['id'])->setInc('score', $last);
+                                        addMsg($value, $admin, '@' . $value['NickName'] . ', 成功上分' . $last . ', 剩' . ((int)$value['score'] + (int)$last), $qh);
                                     }
                                 }
                             }
-                            if ($cmd=='xia') {
+                            if ($cmd == 'xia') {
                                 $frist = '下';
-                                if ((strtotime($arr['dtOpen'])-time())>10&&!cache('kaijiang'.$type)) {
-                                    $hasXia = db('folder')->where('wxid',$value['wxid'])->where('qh',$qh)->where('gameType',$type)->where('type',1)->find();
-                                    $xia = db('folder')->where('wxid',$value['wxid'])->order('id desc')->find();
-                                    $time = $xia?strtotime($xia['time']):0;
-                                    $last = ($value['score']>2000)?round($value['score']*0.5,-3):0;
-                                    if (($value['score']>$last)&&!$hasXia&&(time() - $time> 30*60)&&$last!=0) {
-                                        addCmd($value,$admin,$frist.$last,$qh);
-                                        addJifen($value,$admin,$last,1,$qh,1);
-                                        addMsg3($value,$admin,$last,'@'.$value['NickName'].', 下分'.$last.',待审批!, 剩'.($value['score']-$last),$qh,$cmd);
-                                        db('rbuser')->where('id',$value['id'])->setDec('score',$last);
-                                         addMsg($value,$admin,'@'.$value['NickName'].', 成功下分'.$last,$qh);
+                                if ((strtotime($arr['dtOpen']) - time()) > 10 && !cache('kaijiang' . $type)) {
+                                    $hasXia = db('folder')->where('wxid', $value['wxid'])->where('qh', $qh)->where('gameType', $type)->where('type', 1)->find();
+                                    $xia = db('folder')->where('wxid', $value['wxid'])->order('id desc')->find();
+                                    $time = $xia ? strtotime($xia['time']) : 0;
+                                    $last = ($value['score'] > 2000) ? round($value['score'] * 0.5, -3) : 0;
+                                    if (($value['score'] > $last) && !$hasXia && (time() - $time > 30 * 60) && $last != 0) {
+                                        addCmd($value, $admin, $frist . $last, $qh);
+                                        addJifen($value, $admin, $last, 1, $qh, 1);
+                                        addMsg3($value, $admin, $last, '@' . $value['NickName'] . ', 下分' . $last . ',待审批!, 剩' . ($value['score'] - $last), $qh, $cmd);
+                                        db('rbuser')->where('id', $value['id'])->setDec('score', $last);
+                                        addMsg($value, $admin, '@' . $value['NickName'] . ', 成功下分' . $last, $qh);
                                     }
                                 }
                             }
-                            if ($cmd=='cha'&&$count<1) {
-                                cha($value,$admin,$str,$qh);
+                            if ($cmd == 'cha' && $count < 1) {
+                                cha($value, $admin, $str, $qh);
                             }
-                            if ($cmd=='lishi'&&$liCount<1&&$val['hasKey']) {
+                            if ($cmd == 'lishi' && $liCount < 1 && $val['hasKey']) {
                                 $value['iskj'] = true;
-                                lishi($value,$admin,$str,$qh,$usre);
+                                lishi($value, $admin, $str, $qh, $usre);
                             }
-                            if ($cmd=='liushui'&&$liCount<1) {
-                                liushui($value,$admin,$str,$qh,$usre);
+                            if ($cmd == 'liushui' && $liCount < 1) {
+                                liushui($value, $admin, $str, $qh, $usre);
                             }
                         }
                     }
@@ -527,7 +604,7 @@ class Websocket extends Command{
         /**
          * 开奖
          */
-        \Swoole\Timer::tick(1700, function (){
+        \Swoole\Timer::tick(1700, function () {
             $games = cache('gameList');
             foreach ($games as $val) {
                 openKj($val['gameType']);
@@ -537,7 +614,7 @@ class Websocket extends Command{
         /**
          * 更新开奖信息
          */
-        \Swoole\Timer::tick(1000, function(){
+        \Swoole\Timer::tick(1000, function () {
             $games = cache('gameList');
             foreach ($games as $val) {
                 getKj($val);
@@ -554,7 +631,7 @@ class Websocket extends Command{
         //      foreach ($all as $value) {
         //         $start = strtotime($currentDate . ' ' . $value['datestart']);
         //         $end = strtotime($currentDate . ' ' . $value['dateend']);
-                
+
         //         // 处理跨天情况：如果 dateend 小于 datestart，则说明跨天了
         //         if ($end < $start) {
         //             // 假设 datestart 为17:00, dateend 为02:00 (第二天)，加一天到 end 上
@@ -562,7 +639,7 @@ class Websocket extends Command{
         //         }
 
         //         // 如果当前时间在 start 和 end 之间，更新数据
-              
+
         //         if ($date > $start && $date < $end && $value['isOpen'] == 1) {
         //             db('robot')->where('id', $value['id'])->update(['isOpen' => 0]);
         //         }else {
@@ -574,28 +651,27 @@ class Websocket extends Command{
         //             db('robot')->where('id', $value['id'])->update(['isOpen' => 1]);
         //         }
         //      }
-            
+
         // });
-        
-        
+
+
         // 飞单轮询
-        \Swoole\Timer::tick(2400, function(){
-            $all = db('record')->where('type',3)->where('status',0)->where('isTuo',0)->where('flyers_status',3)->select();
+        \Swoole\Timer::tick(2400, function () {
+            $all = db('record')->where('type', 3)->where('status', 0)->where('isTuo', 0)->where('flyers_status', 3)->select();
             foreach ($all as $value) {
-                $wan = db('rbuser')->where('wxid',$value['name'])->find();
+                $wan = db('rbuser')->where('wxid', $value['name'])->find();
                 $wan['gameType'] = $wan['gid'];
                 $wan['qiuNum'] = $value['qiuNum'];
                 $wan['iskj'] = true;
                 if ($value['gameType'] == 75) {
-                    $xiaLists = [['m'=>$value['score'],'cmd'=>$value['text'],'d'=>$value['score'],'xiaId'=>$value['id']]];
-                    feidan($wan,$value['text'],$value['id'],$xiaLists);
+                    $xiaLists = [['m' => $value['score'], 'cmd' => $value['text'], 'd' => $value['score'], 'xiaId' => $value['id']]];
+                    feidan($wan, $value['text'], $value['id'], $xiaLists);
                 } else {
-                    feidan($wan,$value['text'],$value['id'],[]);
+                    feidan($wan, $value['text'], $value['id'], []);
                 }
             }
         });
-        
+
         $serv->start();
     }
-
 }

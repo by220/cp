@@ -20,6 +20,7 @@ class Game extends Base
     
     public function addEdit(Request $request)
     {
+        $this->isAdmin();
         $data = $request -> param();
         $info = $data['id']?db('rbgame')->where('id',$data['id']) -> find():'';
         $res = ['a','b','c','d'];
@@ -37,6 +38,7 @@ class Game extends Base
     
     public function GetGameList(Request $request)
     {
+        $this->isAdmin();
         $res = db('rbgame') -> select();
         foreach ($res as $k=>$value) {
             $res[$k]['txtStatus'] = $res[$k]['status']==1 ? "<span style='color:green;'>正常</span>" : "<span style='color:red;'>关闭</span>";
@@ -51,6 +53,7 @@ class Game extends Base
     
     public function Setwp()
     {
+        $this->isAdmin();
         $data = $this -> request -> param();
         if ($data['id']) {
             if(!isset($data['status'])){
@@ -93,6 +96,7 @@ class Game extends Base
     
     public function gameDel()
     {
+        $this->isAdmin();
         if ($this -> request -> isAjax()) {
             $data = $this -> request -> param();
             db('rbgame')->where('id',$data['id'])->delete();
@@ -104,6 +108,7 @@ class Game extends Base
     
     public function gamePl($data)
     {
+        $this->isAdmin();
         $res = ['a','b','c','d'];
         foreach ($res as $value) {
             $tepl = db('rbwppl')->where('gameType',$data['gameType'])->where('type',$value)->where('name','te')->find();

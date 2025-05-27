@@ -7,19 +7,30 @@ use think\Controller;
 use think\Request;
 use think\Session;
 use Flyers\K28;
+use think\Cache;
 
 class Index extends Base
 {
     public function index(Request $request)
-    {
+    { 
         $w = $request->param('cd');
         $gid = $request->param('gid');
         //$code = session('user_code');
+        $cn = $request->param('cn');
         $code = $w;
         if (empty($code)) {
+           if(empty($cn)){
             $this->redirect('/html/');
+           }else{
+            $this->redirect('/chat/wxlogin/?member_id='.$request->param('cn'));
+           }
+          //  if (isWeChatBrowser()) {
+                
+          //  }
+           
             //$this -> redirect('ShowPortal');
         }
+        session('uid', $cn);
         $hasUser = db('rbuser')->where('code', $w)->find();
         session('cd', $hasUser['code']);
         session('user_code', $w);
@@ -29,14 +40,15 @@ class Index extends Base
             if (!$rb['game']) {
                 exit('没有开放彩种！');
             }
+            $title = isset($rb["title"]) ? $rb["title"] : "";
             $game = db('rbgame')->where('status', 1)->where('gameType', 'in', $rb['game'])->order('sort')->select();
             $name = $game[0]['name'];
             if (!$gid) {
-                if (!$hasUser['gid']) {
+              //  if (!$hasUser['gid']) {
                     $gid = $game[0]['gameType'];
-                } else {
-                    $gid = $hasUser['gid'];
-                }
+              //  } else {
+               //     $gid = $hasUser['gid'];
+               // }
             }
             $thisgame = $game[0];
             $gameArr = explode(',', $rb['game']);
@@ -60,12 +72,22 @@ class Index extends Base
                     unset($game[$i]);
                 }
             }
-            db('rbuser')->where('id', $hasUser['id'])->update(['gid' => $gid, 'token' => $token]);
+            //多地区登录
+            $auth = db('rbuser')->where('id', $hasUser['id'])->find();
+            $ip = getClientIp();
+            $city = getIpCity($ip);
+            $map = ['gid' => $gid,'ip' =>$ip,'city'=>$city];
+            if(!$auth || empty($auth["token"])){
+                $map["token"] = $token;
+                //db('rbuser')->where('id', $hasUser['id'])->update(['gid' => $gid, 'token' => $token]);
+            }
+            db('rbuser')->where('id', $hasUser['id'])->update($map);
             cache('usercount' . $hasUser['id'], 0);
             $check = checkUser($w, 0, true);
             if ($check['code']) {
                 $kj = getDaoji();
                 $rb = $check['rb'];
+                $this->view->assign('title', $title);
                 $this->view->assign('rbgame', $game);
                 $this->view->assign('gname', $name);
                 $this->view->assign('game', $thisgame);

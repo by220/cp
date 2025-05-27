@@ -5,6 +5,7 @@ namespace app\admin\controller;
 use app\admin\common\Base;
 use app\admin\model\Admin as AdminModel;
 use think\Request;
+use think\Session;
 
 class Rb extends Base
 {
@@ -30,6 +31,7 @@ class Rb extends Base
     
     public function addEdit(Request $request)
     {
+        //$this->isAdmin();
         $data = $request -> param();
         if (session('user_uid')=='1') {
             $cate_list = db('admin') -> where('type',0)->where('status',0) -> where('level','<',6) -> select();
@@ -48,7 +50,8 @@ class Rb extends Base
     
     public function addRobot(Request $request)
     {
-        $this->isAdmin();
+        //修改机器人权限
+        //$this->isAdmin();
         $data = $request -> param();
         $status = 0;
         $message = '失败';
@@ -61,9 +64,15 @@ class Rb extends Base
                     unset($data['game'.$val['gameType']]);
                 }
             }
-            $data['game'] = implode(',',$arr);
-            $data['zhui'] = isset($data['zhui'])?1:0;
-            $data['xiugai'] = isset($data['xiugai'])?1:0;
+            
+            if(Session::get('user_uid') == '1'){
+                $data['game'] = implode(',',$arr);
+                $data['zhui'] = isset($data['zhui'])?1:0;
+                $data['xiugai'] = isset($data['xiugai'])?1:0;
+            }else{
+                unset($data['game']);
+            }
+            
             $rb = db('robot')->where('id',$data['id'])->find();
             $user = db('admin')->where('UserName',$rb['uid'])->find();
             if ($data['up']) {

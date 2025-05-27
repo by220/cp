@@ -114,7 +114,7 @@ class Web extends Command
 
         $istId = sendMsg($data);
         if ($istId) {
-            $wan = db('rbuser')->where('wxid',$data['wxid'])->find();
+            $wan = db('rbuser')->where('wxid',$data['wxid'])->field('uid,imgName,NickName,wxid,score')->find();
             $usre = db('robot')->where('UserName',$wan['uid'])->find();
             $value = db('record')->where('id',$istId)->find();
             $msg = ["type"=>3,"ids"=>$value['istId'],"name"=>$wan['NickName'],"content"=>$data['cmd'],"headimg"=>$wan['imgName']];

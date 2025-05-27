@@ -38,7 +38,7 @@ class WebTest extends Command {
             $except = null;
             
             // 检查socket状态
-            if (socket_select($read, $write, $except, 0, 200000) > 0) {
+            if (socket_select($read, $write, $except, 0, 100000) > 0) {
                 // 处理新连接
                 if (in_array($this->master, $read)) {
                     $client = socket_accept($this->master);

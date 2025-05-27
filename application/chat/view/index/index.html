@@ -6,7 +6,7 @@
         <meta name="theme-color" content="#ffffff">
         <meta name="force-rendering" content="webkit">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-		<title>{$config.title}</title>
+		<title>{$title}</title>
 		<style>
 		html, body {
 				touch-action: none;
@@ -687,7 +687,6 @@
 
 			.kai {
 				text-align: left;
-				display: flex;
 				align-items: center;
 				justify-content: space-around;
 				margin: 8px 0 0 0;
@@ -703,7 +702,7 @@
 				font-size: 15px;
 				line-height: 26px;
 				font-weight: bolder;
-				/*margin-right: 6px;*/
+				margin-right: 3px;
 				color: #222;
 			}
 			
@@ -1197,8 +1196,61 @@
 			.grid-item.selected .gou {
 				display: block;
 			}
-			
-			
+			/* 消息弹出层样式 */
+				#messageModal {
+					font-family: "Microsoft YaHei", sans-serif;
+					color: #333;
+				}
+
+				#messageTitle {
+					border-bottom: 1px solid #eee;
+					padding-bottom: 10px;
+					margin-bottom: 15px;
+				}
+
+				#messageContent {
+					padding: 10px;
+					background: #f9f9f9;
+					border-radius: 4px;
+					border: 1px solid #eee;
+				}
+
+				/* 消息列表项悬停效果 */
+				.msglayer {
+					cursor: pointer;
+					transition: all 0.3s;
+				}
+				.msglayer:hover {
+					background: #f5f5f5;
+				}
+			/* 响应式消息弹出层 */
+			.layui-layer-content {
+				box-sizing: border-box !important;
+				padding: 15px !important;
+			}
+
+			/* 移动端适配 */
+			@media screen and (max-width: 768px) {
+				.layui-layer {
+					width: 95% !important;
+					left: 2.5% !important;
+					max-width: none !important;
+				}
+				
+				#messageModal {
+					padding: 10px;
+				}
+				
+				#messageContent {
+					max-height: 60vh !important;
+				}
+			}
+			.layui-layer-loading {
+				position: fixed !important;
+				top: 50% !important;
+				left: 50% !important;
+				margin: 0 !important;
+			}
 		</style>
 		<link rel="stylesheet" href="__STATIC__/xz/news_files/bulma.min.css?{:time()}">
 		<script type="text/javascript" src="__STATIC__/xz/vs.zz.zhuguangbq.xyz_files/j.js"></script>
@@ -1349,7 +1401,7 @@
 							if (ws && ws.readyState === WebSocket.OPEN) {
 								try {
 									ws.send(JSON.stringify(text));
-									//$(".throbber-loader").remove();
+									$(".throbber-loader").remove();
 									
 								} catch (e) {
 									
@@ -1615,7 +1667,7 @@
 				let reconnectTimeout = null;
 				let isManuallyClosed = false; // 是否人为关闭，避免无限重连
 				function initWS() {
-					const wsUrl = "wss://x.hy1965.cn/ws?uid=" + msgconf.uid + "&gt=" + gameType;
+					const wsUrl = "wss://x.9kx7.cn/ws?uid=" + msgconf.uid + "&gt=" + gameType;
 					ws = new WebSocket(wsUrl);
 					ws.onopen = function () {
 						console.log("[WebSocket] ✅ 已连接");
@@ -1629,10 +1681,22 @@
 							console.log("[WebSocket] ❤️ 收到心跳回应：pong");
 							return;
 						}
+						if(list.type==5){
+							showMessageModal({
+								title: list.title || "新消息",
+								content: list.message,
+								time: list.time || new Date().toLocaleString(),
+								sender: list.name || "系统"
+							});
+							return;
+						}
+
 						if(list.type == 3)
 						{
 							var div1 = "<div class='msglayer msg"+list.ids+" msgright' ids='"+list.ids+"'><div class='fpop'><div class='headimg'><img src='"+list.headimg+"' /></div><h5 class='uname'>"+(list.name || "自己")+"</h5><pre class='msgpre'>"+list.content+"</pre></div></div>";
 							$(".msgcontent").append(div1);
+							//消息闪动
+							scrollBtm();
 							return;
 						}
 
@@ -1643,8 +1707,12 @@
 							} else {
 								console.warn("找不到 msgpre 元素，id=", list.id);
 							}
+							//消息闪动
+							scrollBtm();
 							return;
 						}
+
+
 
 						const div = createMsgTag(list, list['isVip']);
 
@@ -1669,6 +1737,62 @@
 					};
 				}
 
+				// 显示消息弹出层函数
+				function showMessageModal(data) {
+					// 填充数据
+					$('#messageTitle').text(data.title || '消息详情');
+					$('#messageContent').html(data.content);
+					$('#messageTime').text(data.time);
+					
+					// 计算合适的初始大小
+					function calculateSize() {
+						var winWidth = $(window).width();
+						var winHeight = $(window).height();
+						
+						// 基础大小
+						var baseWidth = Math.min(600, winWidth * 0.8);
+						var baseHeight = Math.min(500, winHeight * 0.7);
+						
+						// 如果是移动设备
+						if(winWidth < 768) {
+							baseWidth = winWidth * 0.95;
+							baseHeight = winHeight * 0.7;
+						}
+						
+						return [baseWidth + 'px', baseHeight + 'px'];
+					}
+					
+					// 弹出层配置
+					var index = layer.open({
+						type: 1,
+						title: '消息详情',
+						area: calculateSize(),
+						shadeClose: true,
+						content: $('#messageModal'),
+						resize: true,
+						maxmin: true,
+						success: function(layero) {
+							// 内容区域自适应
+							var $content = $(layero).find('.layui-layer-content');
+							$content.css({
+								'max-height': ($(window).height() * 0.6) + 'px',
+								'overflow-y': 'auto'
+							});
+							
+							// 窗口大小变化时重新调整
+							$(window).on('resize.modal', function() {
+								layer.style(index, {
+									area: calculateSize()
+								});
+							});
+						},
+						end: function() {
+							// 移除resize事件监听
+							$(window).off('resize.modal');
+						}
+					});
+				}
+
 				function startHeartbeat() {
 					clearInterval(heartbeatInterval);
 					heartbeatInterval = setInterval(() => {
@@ -1687,7 +1811,7 @@
 
 					reconnectTimeout = setTimeout(() => {
 						initWS();
-					}, 5000); // 5 秒后尝试重连
+					}, 2000); // 5 秒后尝试重连
 				}
 				//var playMethod = {"5":[1,2,3,4],"8":[8]};
 				var playMethod = {$playmethod};
@@ -3211,12 +3335,24 @@
 					margin: 16px 0;
 				}
 
+				.kai-line {
+					display: flex;
+					flex-wrap: wrap;
+					justify-content: center;
+					gap: 8px; /* Adjust spacing between balls */
+					margin-bottom: 8px; /* Space between rows */
+				}
+
 				.kpqiu {
 					border: 3px solid #128ad4;
 					width: 46px;
 					height: 46px;
 					font-size: 24px;
 					line-height: 40px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					border-radius: 50%;
 				}
 
 				.kpqiu.qiuhong,
@@ -5848,6 +5984,19 @@
 	</head>
 	<link rel="stylesheet" href="__STATIC__/model.css" />
 	<body class="kajianhao font_small">
+		<!-- 消息弹出容器 -->
+		<div id="messageModal" style="display:none;padding:20px;">
+			<div style="margin-bottom:15px;">
+				<h3 id="messageTitle" style="font-size:18px;color:#333;"></h3>
+				<div style="font-size:12px;color:#999;margin-top:5px;">
+					<span id="messageTime"></span>
+				</div>
+			</div>
+			<div id="messageContent" style="line-height:1.6;max-height:400px;overflow-y:auto;"></div>
+			<div style="margin-top:20px;text-align:center;">
+				<button class="layui-btn layui-btn-sm" onclick="layer.closeAll()">关闭</button>
+			</div>
+		</div>
     	<div class="window">
 	    <div id="app" style="display:none;">
 	        {{uploadFileUrl}}
@@ -7237,7 +7386,7 @@
 							{if $game.hasTe}<li>特</li>{/if}{/if}{if !$game.hasTe}
 							<li>通</li>
 							<!--<li>车</li>-->
-							<!--<li class="w2">历史</li>-->
+
 							<li class="w2">玩法</li>{/if}
 							<!--<li class="w2">历史</li>-->
 							<li class="w2">取消</li>
@@ -7262,9 +7411,10 @@
 							<li>,</li>
 							<li>.</li>
 							<!--<li class="bspace">&nbsp;</li>-->
-							<li class="w2">历史</li>
+							<li class="bspace"> </li>
+							<!--<li class="w2">历史</li>-->
 							<li class="w2">流水</li>
-							<!--<li class="nline">换</li>-->
+							<li class="nline">换</li>
 						</ul>
 					</div>
 					{/if}

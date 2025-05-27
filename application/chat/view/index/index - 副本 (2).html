@@ -1633,7 +1633,7 @@
 							var div1 = "<div class='msglayer msg"+list.ids+" msgright' ids='"+list.ids+"'><div class='fpop'><div class='headimg'><img src='"+list.headimg+"' /></div><h5 class='uname'>"+(list.name || "自己")+"</h5><pre class='msgpre'>"+list.content+"</pre></div></div>";
 							$(".msgcontent").append(div1);
 							//消息闪动
-							//scrollBtm();
+							scrollBtm();
 							return;
 						}
 
@@ -1645,7 +1645,7 @@
 								console.warn("找不到 msgpre 元素，id=", list.id);
 							}
 							//消息闪动
-							//scrollBtm();
+							scrollBtm();
 							return;
 						}
 

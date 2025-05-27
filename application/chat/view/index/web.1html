@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Chat</title>
+</head>
+<body>
+    <div>
+        <input type="text" id="text" />
+        <button onclick="sendMsg()">Send</button>
+        <button onclick="closeWS()">Close</button>
+        <div id="message"></div>
+    </div>
+ 
+    <script type="text/javascript">
+        var ws;
+        function initWS() {
+            ws = new WebSocket("wss://x.hy1965.cn/ws?uid=43&gt=17");
+            ws.onopen = function() {
+                console.log("WebSocket connected.");
+            };
+            ws.onmessage = function (event) {
+                console.log("Received message: " + event.data);
+                var mes = document.getElementById('message');
+                mes.innerHTML += "<p>" + event.data + "</p>";
+            };
+            ws.onclose = function() {
+                console.log("WebSocket closed.");
+            };
+        }
+ 
+        function sendMsg() {
+            var text = document.getElementById('text').value;
+            ws.send(text);
+        }
+ 
+        function closeWS() {
+            ws.close();
+        }
+ 
+        window.onload = initWS;
+    </script>
+</body>
+</html>

@@ -20,11 +20,11 @@
         <script type="text/javascript" src="__STATIC__/xz/admin/jquery.md5.js"></script>
         <script type="text/javascript" src="__STATIC__/xz/admin/html2canvas.min.js"></script>
         <script type="text/javascript" src="__STATIC__/js/layer/layer.js"></script>
-        <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
-        <script>
-        // VConsole 默认会挂载到 `window.VConsole` 上
-        var vConsole = new window.VConsole();
-        </script>
+        <!--<script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>-->
+        <!--<script>-->
+        <!--// VConsole 默认会挂载到 `window.VConsole` 上-->
+        <!--var vConsole = new window.VConsole();-->
+        <!--</script>-->
         <style type="text/css">
             .el-dialog__body {
                 padding: 0 !important;
@@ -120,7 +120,7 @@
                 color: var(--van-tab-active-text-color);
                 font-weight: var(--van-font-weight-bold)
             }
-
+         
             .van-tab--disabled {
                 color: var(--van-tab-disabled-text-color);
                 cursor: not-allowed
@@ -632,12 +632,14 @@
                     </div>
 
                     <div id="xiazhuban">
-                        <div class="xiazhutitle"><b>下注榜：</b><span id="dangqianzhuqi" title=""></span><br><button
+                        <div class="xiazhutitle"><b>下注榜：</b><span id="dangqianzhuqi" title=""></span>
+                                <!--<br><button
                                 class="loginwxbtn selBtn" style="width:75px;"
                                 id="btnShowPuCmd" data-type="0">普(<span></span>)</button>&nbsp;&nbsp;&nbsp;<button class="loginwxbtn"
                                 style="width:75px;"
                                 id="btnShowTuoCmd" data-type="1">托(<span></span>)</button>&nbsp;&nbsp;&nbsp;<button class="loginwxbtn"
-                                style="width:75px;" id="btnShowTuoCmd2" data-type="2">吃单(<span></span>)</button></div>
+                                style="width:75px;" id="btnShowTuoCmd2" data-type="2">吃单(<span></span>)</button>-->
+                        </div>
                         <div id="xiazhubanlist" style="border-radius: 0 0 10px 10px;height:445px;overflow-y: auto;">
                         </div>
                     </div>
@@ -711,6 +713,9 @@
                         <div style="padding: 0px 0px 5px 5px;{$type==75?'display:none;':''}"> 登录链接：<a href="" target="_blank" id="groupLoginUrl"
                                 style="color: black; padding-right: 10px;"></a><a href="javascript:;"
                                 class="copyLoginLink">复制链接</a></div>
+                        <div style="padding: 0px 0px 5px 5px;"> 微信登录：<a href="" target="_blank" id="LoginUrlwx"
+                                style="color: black; padding-right: 10px;"></a><a href="javascript:;"
+                                class="copyLoginLinkwx">复制链接</a></div>
 
                         <div class="sxf" style="height:125px;border:none;border-top: 1px solid #000">
                             <div class="sxftitle" style="display: flex;">
@@ -784,6 +789,11 @@
                                         style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">改手动</button><button
                                         class="setmanual myHide" data-type="1"
                                         style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">改自动</button>
+                                        <button
+                                        class="setfeidan myHide" data-type="0"
+                                        style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">停止</button><button
+                                        class="setfeidan myHide" data-type="1"
+                                        style="font-size: 12px;padding: 0px 8px;height: 20px;margin-left:5px;">飞单</button>
                                 </div>
                                 <div class="score">积分：</div>
                                 <div><input name="changejifenval"></div>
@@ -860,7 +870,7 @@
                                     <button class="login">登录</button>
                                 </div>
                             </div>
-                            <div class="" style="padding: 10px; height: 55px;">
+                            <div class="" style="height: 55px;">
                                 <div class="el-row"
                                     style="margin-left: -2.5px; margin-right: -2.5px;align-items:center;">
                                     <div class="el-col el-col-8 is-guttered"
@@ -868,13 +878,22 @@
                                         报网类型: <span class="wptype">无</span> <button class="el-button el-button--small setWp" aria-disabled="false"
                                             type="button"><span class="">设置账号</span></button></div>
                                     <div class="el-col el-col-15 is-guttered wpmoney"
-                                        style="padding-right: 2.5px; padding-left: 2.5px;text-align:center;"><button
+                                        style="padding-right: 2.5px; padding-left: 2.5px;text-align:center;">
+                                       <!-- 验证码输入和图片 + 登录按钮在同一行 -->
+                                    <div style="display: inline-flex; align-items: center; gap: 6px;">
+                                        <input type="text" id="captcha_input" placeholder="验证码" style="width: 40px;border: 1px solid #888;border-radius: 5px;">
+                                        <input type="hidden" id="uniqid">
+                                        <img id="captcha_img" src="" alt="验证码"
+                                            style="height: 32px; cursor: pointer;"
+                                            onclick="refreshCaptcha()" title="点击刷新验证码">
+                                        <button
                                             class="el-button el-button--success el-button--small login"
                                             aria-disabled="false" type="button"><span class="">登录</span></button><input
                                             type="checkbox" id="flyers_auto" checked="true"
-                                            style="margin-left:15px;">自动上报网盘&nbsp;&nbsp;&nbsp;&nbsp;网盘余额:
-                                        <span class="pankouMoney"></span>
-                                    </div>
+                                            style="margin-left:15px;">自动上报网盘
+                                        </div> </div>
+                                            
+  
                                 </div>
                                 <div class="el-row wpinfo"
                                     style="margin-left: -2.5px; margin-right: -2.5px; padding-top: 5px;align-items:center;">
@@ -890,6 +909,9 @@
                                             style="display: inline-block; min-width: 20px;" class="csrecord">0</span>
                                         押注: <span style="display: inline-block; min-width: 20px;"
                                             class="pankouYa">0</span>
+                                        网盘余额:
+                                        <span class="pankouMoney"></span>
+                                  
                                     </div>
                                 </div>
                             </div>
@@ -1685,6 +1707,9 @@
                     }
                     $("#groupLoginUrl").attr('href', data.rob.link).html(data.rob.link);
                     $(".copyLoginLink").attr('data-clipboard-text', data.rob.link);
+
+                    $("#LoginUrlwx").attr('href', data.rob.wxlink).html(data.rob.wxlink);
+                    $(".copyLoginLinkwx").attr('data-clipboard-text', data.rob.wxlink);
                     qihao = data.qh;
                     updateApplyScoreList(data);
                     flyersList(data);
@@ -1828,7 +1853,7 @@
                         if (type == 0) {
                             div.remove();
                         }
-                        GetCmdList();
+                        //GetCmdList();
                     } else if (data.Data == -2) {
                         alertErr("当前已封盘，无法操作!");
                     } else {
@@ -1837,6 +1862,23 @@
                     layer.closeAll()
                 });
             }
+
+            function refreshCaptcha() {
+                fetch("{:url('index/getImgcode')}")
+                    .then(res => res.json())
+                    .then(res => {
+                        if (res.bOK === 0 && res.Data && res.Data.base64Image) {
+                            // 设置 img 的 src 为 base64 图片
+                            document.getElementById('captcha_img').src = res.Data.base64Image;
+                            $("#uniqid").val( res.Data.uniqid);
+                        } else {
+                        }
+                    })
+                    .catch(err => {
+                        console.error('获取验证码失败', err);
+                    });
+            }
+
             function setCmd(data) {
                 $("#xiazhubanlist").empty();
                 var txt = "&nbsp;&nbsp;(<span style='color:green;font-weight:bolder;'>普:" + data.total1 +
@@ -1849,10 +1891,10 @@
                 $(data.detail).each(function(index) {
                     var val = data.detail[index];
                     var tuoprefix = val.isTuo == "1" ? "" : "";
-                    var div = $('<div ' + (index % 2 == 0 ? "" : " class=\"se\"") + '  cusLink="' + val.id +
+                     var div = $('<div ' + (index % 2 == 0 ? " " : " class=\"se\"") + '  cusLink="' + val.id +
                         '"><b class="status' + val.flyers_status + '" title="" status="' + val
-                        .flyers_status + '" style="display:' + ((val.isTuo == "1" || val.chi == "1") ? "none" : "inline-block") + ';">●</b><span>' + tuoprefix + '[' + val.wid + '] “' + val.text +
-                        '” 合计：' + val.score + '</span><s>×</s></div>');
+                        .flyers_status + '" style="color:'+ (val.isTuo == "1" ? 'green' : 'red') +';display:' + ((val.isTuo == "1" || val.chi == "1") ? "inline-block" : "inline-block") + ';">●</b><span>' + tuoprefix + '[' + val.wid + '] “' + val.text +
+                        '” 合计' + val.score +  ' '+ (val.flyers_status == 2 ? '成功' : '失败') +'</span><s>×</s></div>');
                     //绑定事件
                     $("s", div).click(function() {
                         if (div.attr("status")==0||div.attr("status")==3) {
@@ -1889,14 +1931,28 @@
                     $("#xiazhubanlist").append(div);
                 });
             }
-            function GetCmdList(data) {
-                putAjax("{:url('index/GetCmdList')}", {
-                    "type": cmdType,
-                    "qihao": qihao
-                }, function(data) {
-                    setCmd(data);
-                });
+            var mynewTimer = null;
+            function GetCmdList() {
+                if(qihao){
+                    clearInterval(mynewTimer);
+                    $.ajax({
+                            type: "POST",
+                            url: "{:url('index/GetCmdList')}",
+                            dataType: "json",
+                            data: {
+                                "qihao": qihao
+                            },
+                            cache: false,
+                            success: function(data) {
+                                setCmd(data);
+                            },
+                            error: function() {
+                                alertErr("请求失败，请重试!");
+                            }
+                    });
+                }
             }
+            //mynewTimer = setInterval(GetCmdList,1000)
             /**
              * 获取飞单列表
              * @constructor
@@ -1957,6 +2013,9 @@
                 // });
             }
             $(document).ready(function() {
+
+                refreshCaptcha();
+
                 $("#ExitLink").click(function() {
                     location.href = "{:url('Login/Logout2')}";
                 });
@@ -2041,6 +2100,12 @@
                 alertSuc("复制成功!");
                 return false;
             });
+            var clipboardLogin = new Clipboard(".copyLoginLinkwx");
+            clipboardLogin.on('success', function(e) {
+                alertSuc("复制成功!");
+                return false;
+            });
+
 
             function baojing(isbj, id, msg) {
                 isBaojing = isbj == true;
@@ -2208,9 +2273,9 @@
                     for (var k in list) {
                         var aScore = list[k];
                         var div = $('<div class="sxfitem aid'+aScore.id+'"><span class="content">vip1：上分 +100 ，(安安)</span><div class="sxfbtns"><span class="ld"></span><span class="ty" aid="'+aScore.id+'">同意</span><span class="qx" aid="'+aScore.id+'">取消</span></div></div>');
-                        $(".content", div).text(aScore.wxid + "：" + (aScore.type == 0 ? "上分 +" : "下分 -") +
+                         $(".content", div).text(aScore.wxid + "：" + (aScore.type == 0 ? "上分 +" : "下分 -") +
                             parseFloat(aScore.score) + " (" + aScore.nickName + ")");
-                        div.attr("vname", aScore.wxid);
+                        div.attr("vname", aScore.wxid);   
                         $(".ty", div).click(function() {
                             var aid = $(this).attr('aid');
                             checkApply("{:url('index/AcceptUpDownScoreReq')}", {
@@ -2285,7 +2350,7 @@
                 //     "__STATIC__/xz/admin/14.jpg");
                 $(".jifenright .score").text("积分：" + s.score);
                 $(".jifenright [name='changejifenval']").val(0);
-                $(".setmanual,.setmanual2,.setblack,.setzhui").removeClass("myShow myHide");
+                $(".setmanual,.setmanual2,.setblack,.setzhui,.setfeidan").removeClass("myShow myHide");
                 $(".jifenright button").attr("curWxid", s.wxid)
                 if (s.isrobot == 1) {
                     //托手动自动
@@ -2306,6 +2371,9 @@
                 //黑名单
                 $(".setblack[data-type='" + s.isBlack + "']").addClass("myHide");
                 $(".setblack[data-type='" + (s.isBlack == 1 ? 0 : 1) + "']").addClass("myShow");
+                //飞单
+                $(".setfeidan[data-type='" + s.isFeidan + "']").addClass("myHide");
+                $(".setfeidan[data-type='" + (s.isFeidan == 1 ? 0 : 1) + "']").addClass("myShow");
                 //追
                 $(".setzhui[data-type='" + s.zhui + "']").addClass("myHide");
                 $(".setzhui[data-type='" + (s.zhui == 1 ? 0 : 1) + "']").addClass("myShow");
@@ -2351,6 +2419,17 @@
                         "wxid": mywxid,
                         "type": type
                     }, 'isBlack');
+                });
+            });
+            //飞单按钮
+            $(".setfeidan").click(function() {
+                var mywxid = $(this).attr("curWxid"),
+                    type = $(this).attr("data-type");
+                layer.confirm("将[" + mywxid + "]" + $(this).text() + "么?", function() {
+                    bindSet("{:url('index/SetFeidan')}", {
+                        "wxid": mywxid,
+                        "type": type
+                    }, 'isFeidan');
                 });
             });
             //托手动自动按钮
@@ -2489,7 +2568,7 @@
                         // selectJifen(sB);
                     }
                     var divB = $(
-                        '<div style="display:flex;justify-content: space-between;"><b class="black"></b><b class="zhui"></b><b class="fake" style="display:block;"></b><i style="width:35px;">托</i><b class="nick" style="width:170px;text-align:left;margin-left:8px;"></b><span></span>'+ (memberType == 0 ? '<s style="margin-left:0;width:35px;">删除</s>' : '') +'</div>'
+                        '<div style="display:flex;justify-content: space-between;"><b class="feidan"></b><b class="black"></b><b class="zhui"></b><b class="fake" style="display:block;"></b><i style="width:35px;">托</i><b class="nick" style="width:170px;text-align:left;margin-left:8px;"></b><span></span>'+ (memberType == 0 ? '<s style="margin-left:0;width:35px;">删除</s>' : '') +'</div>'
                     );
                     //将该对象记录到缓存
                     centerConfig.dicUser[sB.wxid] = divB;
@@ -2498,6 +2577,12 @@
                         $("b.black", divB).text("黑");
                     } else {
                         $("b.black", divB).text("");
+                    }
+                    //是否飞单
+                    if (sB.isFeidan == 1) {
+                        $("b.feidan", divB).text("飞");
+                    } else {
+                        $("b.feidan", divB).text("");
                     }
                     //是否是真实会员视为了托
                     if (sB.isrobot == 2) {
@@ -2742,7 +2827,10 @@
             $(".login").click(function() {
                 if ($(".login span").text() == '登录') {
                     $(".jifenright .jifenmessage").text("登录中!");
-                    bindChange("{:url('index/flyersLogin')}", {});
+                    bindChange("{:url('index/flyersLogin')}", {
+                        "code": $("#captcha_input").val(),
+                        "uniqid": $("#uniqid").val()
+                    });
                 }
             });
             $("#flyers_auto").bind("change", function() {

@@ -11,73 +11,131 @@
     </div>
 </div>
 
+<!-- 发送消息的弹出层 -->
+<div id="sendMsgDiv" style="display: none; padding: 20px;">
+    <form class="layui-form" id="msgForm">
+      <input type="hidden" name="userid" id="userid">
+        <div class="layui-form-item">
+            <label class="layui-form-label">接收人</label>
+            <div class="layui-input-block">
+                <input type="text" name="receiver" id="receiver" readonly class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">内容</label>
+            <div class="layui-input-block">
+                <textarea name="content" required lay-verify="required" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="sendMsg">发送</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
 {include file='public/js'}
 
 <script type="text/html" id="barDemo">
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">下线</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="sendmsg">发送信息</a>
 </script>
 
-    <script>
-    //一般直接写在一个js文件中
-    layui.use(['layer', 'form', 'table'], function(){
-      var layer = layui.layer
-      ,form = layui.form
-      ,table = layui.table;
-      
-      var tableIndex = table.render({
-        elem: '#table'
-        ,url: "{:url('users/GetUserList3')}" //数据接口
-        ,page: true //开启分页
-        ,loading: true
-        ,limit: 30
-        ,height: 'full-220'
-        ,width: '100%'
-        ,cols: [[ //表头
-           {field: 'imgName', title: '头像', width:160}
-          ,{field: 'NickName', title: '玩家昵称', width:160} 
-          ,{field: 'usertype', title: '用户类型', width:160} 
-          ,{field: 'score', title: '积分', width:160}
-          ,{field: 'wxid', title: 'wxid', width:200} 
-          ,{field: 'sub', title: '子账号', width:160}
-          ,{field: 'robot', title: '机器人', width:160}
-          ,{field: 'txtOnline', title: '在线', width:110}
-          ,{field: 'logtime', title: '登录时间', width:200}
-          ,{align:'center', toolbar: '#barDemo', title: '操作', width:160} 
-        ]]
-      });
-      
-      $('#refresh').on('click', function(data){
-        refresh();
-      });
-      
-      
-      function refresh() {
-        tableIndex.reload({
-			page: {curr: 1}
-		});
-      }
-      
-      setInterval(function () {
-        refresh();
-      }, 10000);
+<script>
+//一般直接写在一个js文件中
+layui.use(['layer', 'form', 'table'], function(){
+  var layer = layui.layer
+  ,form = layui.form
+  ,table = layui.table;
+  
+  var tableIndex = table.render({
+    elem: '#table'
+    ,url: "{:url('users/GetUserList3')}" //数据接口
+    ,page: true //开启分页
+    ,loading: true
+    ,limit: 30
+    ,height: 'full-220'
+    ,width: '100%'
+    ,cols: [[ //表头
+    //   {field: 'imgName', title: '头像', width:160}
+      {field: 'NickName', title: '玩家昵称', width:120} 
+      ,{field: 'usertype', title: '用户类型', width:90} 
+      ,{field: 'score', title: '积分', width:120}
+    //   ,{field: 'wxid', title: 'wxid', width:200} 
+      ,{field: 'sub', title: '子账号', width:90}
+      ,{field: 'robot', title: '机器人', width:90}
+      ,{field: 'txtOnline', title: '在线', width:65}
+      ,{field: 'ip', title: '登录ip', width:170}
+      ,{field: 'city', title: '地区', width:350}
+      ,{field: 'logtime', title: '登录时间', width:170}
+      ,{align:'center', toolbar: '#barDemo', title: '操作', width:190} 
+    ]]
+  });
+  
+  $('#refresh').on('click', function(data){
+    refresh();
+  });
+  
+  
+  function refresh() {
+    tableIndex.reload({
+        page: {curr: 1}
+    });
+  }
+  
+  setInterval(function () {
+    refresh();
+  }, 10000);
 
-        table.on('tool(table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-            var data = obj.data; //获得当前行数据
-            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-            var tr = obj.tr; //获得当前行 tr 的DOM对象
-            
-            if(layEvent === 'del'){ //删除
-            layer.confirm("确定将[" + data.UserName + "]强制下线么?", function(index){
-                putAjax("{:url('users/userClose2')}", {"dlUserName":data.UserName}, function(res) {
-                    refresh();
-            		alertSuc('成功！');
-                });
-              obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-              layer.close(index);
+    table.on('tool(table)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        var data = obj.data; //获得当前行数据
+        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+        var tr = obj.tr; //获得当前行 tr 的DOM对象
+        
+        if(layEvent === 'del'){ //删除
+          layer.confirm("确定将[" + data.UserName + "]强制下线么?", function(index){
+              putAjax("{:url('users/userClose2')}", {"dlUserName":data.UserName}, function(res) {
+                  refresh();
+              alertSuc('成功！');
+              });
+            obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+            layer.close(index);
+          });
+        } else if(layEvent === 'sendmsg'){ //发送消息
+            //弹出发送消息窗口
+            $('#receiver').val(data.UserName); //设置接收人
+            $('#userid').val(data.id); 
+            layer.open({
+                type: 1,
+                title: '发送消息',
+                area: ['500px', '400px'],
+                content: $('#sendMsgDiv')
             });
+        }
+    });
+
+    //监听发送消息表单提交
+    form.on('submit(sendMsg)', function(data){
+        var postData = data.field;
+        //这里调用发送消息的接口
+        putAjax("{:url('users/sendMessage')}", postData, function(res) {
+            if(res.code == 1){
+                alertSuc('消息发送成功！');
+                layer.closeAll(); //关闭所有弹出层
+            }else{
+                alertErr(res.msg || '消息发送失败！');
             }
         });
-
+        return false; //阻止表单跳转
     });
-    </script> 
+});
+</script> 
 </body></html>

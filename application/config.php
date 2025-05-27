@@ -17,7 +17,7 @@ return [
     // 应用命名空间
     'app_namespace'          => 'app',
     // 应用调试模式
-    'app_debug'              => false,
+    'app_debug'              => true,
     // 应用Trace
     'app_trace'              => false,
     // 应用模式状态
@@ -254,5 +254,9 @@ return [
         // 关闭验证码杂点
         'useNoise'    =>    false,
         'useCurve'    =>    false,
+    ],
+    'oauth' => [
+        'appid' => 'wxd09926ca3885904b',
+        'appsecret'     => 'dff4f31ec4215815d8ffe0c0abd511dc',
     ]
 ];
