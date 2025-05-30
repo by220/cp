@@ -29,6 +29,7 @@ class Index extends Base
     public function index()
     {
         $this->assign('type', session('rbInfo')['type']);
+        $this->assign('robot_ls', session('rbInfo')['ls']);
         return $this->view->fetch('admin_list');
     }
 
@@ -312,6 +313,7 @@ class Index extends Base
     public function ShowDetails()
     {
         $this->assign('type', session('rbInfo')['type']);
+        $this->assign('robot_ls', session('robot_ls'));
         return $this->view->fetch('detail');
     }
 
@@ -350,8 +352,8 @@ class Index extends Base
                 }
                 $value['text'] = getQiuWf($value['gameType'], $value['qiuNum']) . $value['text'];
                 $value['gameName'] = $val['name'];
-                array_push($result, $value);
-                /*if ($data['type']==2) {
+                // array_push($result, $value);
+                if ($data['type']==2) {
                     if ($value['isTuo']==0&&$value['chi']==1) {
                         array_push($result,$value);
                     }
@@ -359,7 +361,7 @@ class Index extends Base
                     if ($value['isTuo']==$data['type']&&$value['chi']==0) {
                         array_push($result,$value);
                     }
-                }*/
+                }
             }
         }
         return json(['qihao' => $expect, 'detail' => $result, 'totalPu' => $totalPu, 'totalTuo' => $totalTuo, 'total' => 12330, 'total1' => $totalPu1, 'total2' => $totalTuo1, 'totalChi' => $totalChi, 'total3' => $totalPu2]);
@@ -487,7 +489,7 @@ class Index extends Base
         $data = $this->request->param();
         $result = session('rbInfo');
         //   if (!$result['token']||($result['token']!==Session::get('rb_token'))||$result['online']==0||((time()-$result['logtime']>30*60)&&$data['tar']==1) || (strtotime($result['time'])<time())) {
-        if (!$result['UserName'] || ($result['UserName'] !== Session::get('user_id2')) || $result['online'] == 0 || ((time() - $result['logtime'] > 3 * 60) && $data['tar'] == 1) || (strtotime($result['time']) < time())) {
+        if (!$result['UserName'] || ($result['UserName'] !== Session::get('user_id2')) || $result['online'] == 0 || ((time() - $result['logtime'] > 5 * 60 * 60) && $data['tar'] == 1) || (strtotime($result['time']) < time())) {
             rbUpdate(['online' => 0]);
             return json(['IsNeedLogin' => true]);
         }
@@ -544,8 +546,8 @@ class Index extends Base
                 }
                 $value['text'] = getQiuWf($value['gameType'], $value['qiuNum']) . $value['text'];
                 $value['gameName'] = $val['name'];
-                array_push($resultCmd, $value);
-                /*if ($data['type']==2) {
+               // array_push($resultCmd, $value);
+                if ($data['type']==2) {
                     if ($value['isTuo']==0&&$value['chi']==1) {
                         array_push($resultCmd,$value);
                     }
@@ -553,7 +555,7 @@ class Index extends Base
                     if ($value['isTuo']==$data['type']&&$value['chi']==0) {
                         array_push($resultCmd,$value);
                     }
-                }*/
+                }
             }
         }
         if ($data['uid']) {
@@ -1011,5 +1013,40 @@ class Index extends Base
             return json(['bOK' => 0, 'Message' => '获取成功', 'Data' => $req['Data']]);
         }
         return json(['bOK' => 1, 'Message' => '获取失败']);
+    }
+
+    public function Getalltongji()
+    {
+        $data = $this->request->param();
+        $user =  Db::name('rbuser')->where('id',$data['uid'])->find();
+        $rb = Db::name('robot')->where('UserName',$user['uid'])->find();
+        list($type, $liu, $liu2, $ying, $kui, $allQi, $weijie, $yijie, $txt) = get_Yingkui($user, $rb,1);
+        $userdata = [];
+        $datas['day'] = getTimeList();
+        $datas['timeType'] = 1;
+        $res = get_score_his($datas);
+
+        $lius = '@v'. $user['id'] .'(' . $user['NickName'] . ') ';
+
+        if ($rb['ls'] == 1) {
+            $res['totalLs'] =  $res['totalYouXiaoLiuShui'];
+            $lius = $lius.'' . ($type == 75 ? '' : '') . ',流水:' . sprintf('%.2f', $liu).',总盈利:'. $ying. ',盈亏:' . sprintf('%.2f', ($ying - $kui)) . ',期数:' . count($allQi);
+        } else {
+            $res['totalLs'] = $res['totalLiuShui'];
+            if ($type == 75) {
+               $lius = $lius.',流水:' . sprintf('%.2f', $liu) .',总盈利:'. $ying. ',盈亏:' . sprintf('%.2f', ($ying - $kui)) . ',下注期数:' . count($allQi);
+            } else {
+                //  $liu 单边，$liu2 双边
+                $lius = $lius.',流水:' . sprintf('%.2f', $liu2) .',总盈利:'. $ying. ',盈亏:' . sprintf('%.2f', ($ying - $kui)) . ',下注期数:' . count($allQi);
+            }
+        }
+        $lius = $lius.',积分:'.$user['score'];
+        $userdata['user'] = $lius;
+        $jf = Db::name('rbuser')
+        ->where(['uid' => USER_ID, 'isrobot' => 0])
+        ->sum('score');
+        $alldata = '真流水: '.$res['totalLs'].', 盈利：'.$res['totalYing'].',盈亏：'.$res['totalYingKui'].', 积分：'.$jf;
+        $userdata['zong'] = $alldata;
+        return json(['bOK' => 0, 'Message' => '获取成功', 'Data' => $userdata]);
     }
 }

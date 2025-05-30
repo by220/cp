@@ -52,7 +52,7 @@ class Base extends Controller
 	protected function userLogin()
 	{
 		if (is_null(USERINFO)) {
-            exit('无效地址！');
+            exit('无效地址1！');
 		}
 	}
 	

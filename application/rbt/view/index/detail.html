@@ -305,7 +305,7 @@
 <script type="text/javascript">
     var dayIndex = 3;//天的索引，0，1,2,3
     var timeType = 1;//0点还是6点一天， 0是0点一天，1是6点一天
-
+    var robot_ls = <?php echo $robot_ls?>;
     function GetWay1Data(day) {
         $("#content").html("<span style='color:black;font-size:14px;font-weight:200;background-color:yellow;'>数据正在生成，请稍候...</span>");
 
@@ -319,6 +319,7 @@
             },
             //成功返回之后调用的函数
             success: function (data) {
+                console.log('aa:'+robot_ls);
                 //所有会员总计
                 $("#flyersWait").html(data.flyersWait);
                 $("#flyersSuc").html(data.flyersSuc);
@@ -327,7 +328,7 @@
                 $("#totalRealLiuShui").html(data.totalLiuShui);
                 $("#totalRealYouXiaoLiuShuis").html(data.totalYouXiaoLiuShuis);
                 $("#totalRealYouXiaoLiuShui").html(data.totalYouXiaoLiuShui);
-                $("#totalFanShui").html(parseFloat(data.totalFanShui));
+                $("#totalFanShui").html(parseFloat(robot_ls==2?data.totalFanShuis:data.totalFanShui));
                 $("#totalUp").html(data.totalUp);
                 $("#totalDown").html('-'+data.totalDown);
                 $("#totalUpDown").html(data.totalUpDown);
@@ -347,7 +348,8 @@
 					{if $type==75}
 					val.totalValidLiuShuis = '';
 					{/if}
-                    $("#content").html($("#content").html() + '<div class="infoitem" data-wxid=' + val.wxid + '><div class="item_top">会员ID：<span class="userid">' + val.wxid + '</span>，昵称：<span class="nickname">' + val.NickName + '</span></div><div class="all_fanshui" style="display: block;">总返水：' + parseFloat(val.totalFanShui) + ' </div><div class="profit_loss">昨余:' + val.ZuoYu +'，&nbsp;&nbsp; 流水: ' + val.totalLiuShui + '，&nbsp;&nbsp; {$type==75?"有效":"单边"}流水: ' + val.totalValidLiuShui +  '{$type==75?"":"，&nbsp;&nbsp; 双边流水: "}' + val.totalValidLiuShuis + '，&nbsp;&nbsp; 盈亏:' + val.totalYingKui + ',&nbsp;&nbsp;上下:&nbsp;&nbsp;' + val.totalUp + tmpDownText + '=&nbsp;&nbsp;' + val.totalUpDown + '</div>' + '</div>');
+                    //$("#content").html($("#content").html() + '<div class="infoitem" data-wxid=' + val.id + '><div class="item_top">会员ID：<span class="userid">' + val.id + '</span>，昵称：<span class="nickname">' + val.NickName + '</span></div><div class="all_fanshui" style="display: block;">总返水：' + parseFloat(val.totalFanShui) + ' </div><div class="profit_loss">昨余:' + val.ZuoYu +'，&nbsp;&nbsp; 流水: ' + val.totalLiuShui + '，&nbsp;&nbsp; {$type==75?"有效":"单边"}流水: ' + val.totalValidLiuShui +  '{$type==75?"":"，&nbsp;&nbsp; 双边流水: "}' + val.totalValidLiuShuis + '，&nbsp;&nbsp; 盈亏:' + val.totalYingKui + ',&nbsp;&nbsp;上下:&nbsp;&nbsp;' + val.totalUp + tmpDownText + '=&nbsp;&nbsp;' + val.totalUpDown + '</div>' + '</div>');
+                    $("#content").html($("#content").html() + '<div class="infoitem" data-wxid=' + val.wxid + '><div class="item_top">会员ID：<span class="userid">@v' + val.userid + '</span>，昵称：<span class="nickname">' + val.NickName + '</span></div><div class="all_fanshui" style="display: block;">总返水：' + parseFloat(robot_ls==2?val.totalFanShuis:val.totalFanShui) + ' </div><div class="profit_loss">昨余:' + val.ZuoYu +'，&nbsp;&nbsp; 流水: ' + val.totalLiuShui + '，&nbsp;&nbsp; {$type==75?"有效":"单边"}流水: ' + val.totalValidLiuShui +  '{$type==75?"":"，&nbsp;&nbsp; 双边流水: "}' + val.totalValidLiuShuis + '，&nbsp;&nbsp; 盈亏:' + val.totalYingKui + ',&nbsp;&nbsp;上下:&nbsp;&nbsp;' + val.totalUp + tmpDownText + '=&nbsp;&nbsp;' + val.totalUpDown + '</div>' + '</div>');
                 });
 
                 //绑定点击事件

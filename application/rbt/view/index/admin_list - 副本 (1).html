@@ -20,8 +20,11 @@
         <script type="text/javascript" src="__STATIC__/xz/admin/jquery.md5.js"></script>
         <script type="text/javascript" src="__STATIC__/xz/admin/html2canvas.min.js"></script>
         <script type="text/javascript" src="__STATIC__/js/layer/layer.js"></script>
-        <script type="text/javascript" src="__STATIC__/js/qrcode.js"></script>
-        <script>var liushuiMode = 1;</script>
+        <!--<script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>-->
+        <!--<script>-->
+        <!--// VConsole 默认会挂载到 `window.VConsole` 上-->
+        <!--var vConsole = new window.VConsole();-->
+        <!--</script>-->
         <style type="text/css">
             .el-dialog__body {
                 padding: 0 !important;
@@ -503,15 +506,14 @@
                 height: auto;
             }
 
-            
             #codelogin {
                 display: block;
-                height: 350px;
+                height: 285px;
             }
-			
+
             #xiazhuban {
                 overflow: hidden;
-                height: calc(100% - 362px);
+                height: calc(100% - 300px);
                 margin-top: 8px;
             }
 
@@ -571,36 +573,6 @@
             .layui-layer-title {
                 border-bottom: none; 
             }
-
-            #codelogin .logininp input[type='checkbox']{
-				width:auto;
-			}
-			#codelogin img{
-				display:block;
-				width:180px;
-				height:180px;
-				margin:10px auto;
-			}
-			.address{
-				display:block;
-				word-break:break-all;
-			}
-			.userbox{
-				margin-top:12px;
-				position:relative;
-			}
-			.userbox .jifenmx{
-			    display:none;
-				position: absolute;
-				border: 1px solid rgb(0, 0, 0);
-				width: 300px;
-				background: rgb(251, 251, 251);
-				z-index: 99999;
-				top: 0px;
-				left: 0px;
-    			transform: translateX(-100%);
-				padding: 5px;
-			}
         </style>
     </head>
     <body>
@@ -647,30 +619,26 @@
                         <!--    <div style="position:relative;left:90px;"><button id="changewx">更换微信</button></div>-->
                         <!--</div>-->
 
-                        <div class="loginip" >
-                            <select id="selectOption" style="width: 90%; height: 35px; margin-top: 8px;">
-                            </select>
-                            <div style="margin-top: 10px;">
-                                <label for="set_confirm" id="zcsh">
-                                    <input type="checkbox" autocomplete="off" name="set_confirm" id="set_confirm" checked="checked">
-                                    注册审核(新注册会员一般在列表底部)
-                                </label>
-                            </div>
-                            <div id="shareLinkContainer">
-                            	<div id="qrcode"></div>
-                                <div><span class="red">登录链接：</span><span class="address"></span></div>
-                            </div>
+                        <div class="logininp" {$type==75?'style="display:none;"':''}>
+                            <!--<p>聚财提供专业接口报单服务，各大盘口如需合作请联系代理！</p>-->
+                            <!--<p>聚财提供专业接口报单服务，各大盘口如需合作请联系代理！</p>-->
+                            <!--<p>&nbsp;</p>-->
+                            <!--<p style="font-weight: bold;">【澳洲5番摊】【澳洲8番摊】【加拿大番摊】已上线聚财，如需开机请联系代理！</p>-->
+                            <!--<p>&nbsp;</p>-->
+                            <!--<p>聚财机器功能推介</p>-->
+                            <!--<p style="font-weight: bold;">验证码 此功能进连接要输入验证码，降低了V信限制！</p>-->
+                            <!--<p><b>追功能</b> 此功能可自己设定买法，让机器全自动下注或追注 </p>-->
                         </div>
                     </div>
 
                     <div id="xiazhuban">
                         <div class="xiazhutitle"><b>下注榜：</b><span id="dangqianzhuqi" title=""></span>
-                                <br><button
+                                <!--<br><button
                                 class="loginwxbtn selBtn" style="width:75px;"
                                 id="btnShowPuCmd" data-type="0">普(<span></span>)</button>&nbsp;&nbsp;&nbsp;<button class="loginwxbtn"
                                 style="width:75px;"
                                 id="btnShowTuoCmd" data-type="1">托(<span></span>)</button>&nbsp;&nbsp;&nbsp;<button class="loginwxbtn"
-                                style="width:75px;" id="btnShowTuoCmd2" data-type="2">吃单(<span></span>)</button>
+                                style="width:75px;" id="btnShowTuoCmd2" data-type="2">吃单(<span></span>)</button>-->
                         </div>
                         <div id="xiazhubanlist" style="border-radius: 0 0 10px 10px;height:445px;overflow-y: auto;">
                         </div>
@@ -710,7 +678,7 @@
                                 </div>
                             </div>
                             <div style="width: 190px;margin-left: 50px;">
-                                <div class="score liushuigroup" style="display: flex;right: 95px;float:left;{$type==75?'display:none;':''}"><b>流水显示：</b>
+                                <div class="score" style="display: flex;right: 95px;float:left;{$type==75?'display:none;':''}"><b>流水显示：</b>
                                     <div><label for="liushui"><input id="liushui" type="radio" name="ls" value="1"
                                                 style="width:20px;">单边</label> <label for="liushuis"><input id="liushuis"
                                                 type="radio" name="ls" value="2"
@@ -741,15 +709,15 @@
                                         style="width:20px;">是</label> <label for="logn"><input id="logn" type="radio"
                                         name="log" value="2" style="width:20px;">否</label></div>
                         </div>
-                        <!--
+
                         <div style="padding: 0px 0px 5px 5px;{$type==75?'display:none;':''}"> 登录链接：<a href="" target="_blank" id="groupLoginUrl"
                                 style="color: black; padding-right: 10px;"></a><a href="javascript:;"
                                 class="copyLoginLink">复制链接</a></div>
                         <div style="padding: 0px 0px 5px 5px;"> 微信登录：<a href="" target="_blank" id="LoginUrlwx"
                                 style="color: black; padding-right: 10px;"></a><a href="javascript:;"
                                 class="copyLoginLinkwx">复制链接</a></div>
-                        -->
-                        <div class="sxf" style="height:210px;border:none;border-top: 1px solid #000">
+
+                        <div class="sxf" style="height:125px;border:none;border-top: 1px solid #000">
                             <div class="sxftitle" style="display: flex;">
                                 <b class="shangxiafentit red">上下分确认：</b><button id="baojingbtn"
                                     style="height: 22px;padding: 0 8px;font-size: 12px;margin-bottom: 3px;">测试提示音</button>
@@ -776,32 +744,12 @@
                                 合计：<span id="heji"></span></p>
                             <input name="search" type="text" placeholder="请输入用户昵称" class="search"
                                 style="width: 320px;line-height: 22px;margin-top: 3px;">
-                            <div class="userbox"> 
-                            <div class="jifenmx">
-                                	<div>
-                                        <div>
-                                            <b>真实用户总计:</b>
-                                        </div>
-                                        <div class="userjifenzj"></div>
-                                    </div>
-                                    <hr>
-                                    <div>
-                                        <div>
-                                            <b>选择用户总计:</b>
-                                        </div>
-                                        <div class="jifentongji"></div>
-                                        <div class="account_info" style="background-color: red; color: white;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            
                             <div class="jifenleftlist" style="left:1px;height:calc(100% - 120px);overflow-y: auto;width:320px;"></div>
-                                
                             <div class="jifenright" style="height:calc(100% - 60px);width:235px;">
                                 <img class="headimg" title="点击随机更改头像" src="__STATIC__/xz/admin/defaultheadimg.jpg"
                                     style="width: 55px;height: 55px;top: 200px;right: 10px;">
                                 <input type="file" name="changeHead" class="myHide" id="changeHead" accept="image/png,image/gif,image/jpg,image/jpeg" value="" onchange="upload(this)" />
-                                <button class="create_real" data-type="0">创建会员</button>
+                                <button class="create_real" data-type="0">创建玩家</button>
                                 <button class="create_real" data-type="1" style="right:5px;">创建托</button>
                                 <div style="margin-top: 8px;margin-bottom: 8px;"><b>修改积分</b></div>
                                 <div class="usernumber">会员ID：</div>
@@ -951,17 +899,17 @@
                                     style="margin-left: -2.5px; margin-right: -2.5px; padding-top: 5px;align-items:center;">
                                     <div class="el-col el-col-12 is-guttered"
                                         style="padding-right: 2.5px; padding-left: 2.5px;align-items: center;display: flex;justify-content: space-between;">
-                                        在线状态: <span class="flyers_tips"></span>
+                                        报网状态: <span class="flyers_tips"></span>
                                         <label style="float: right; padding-right: 34px;"><input type="checkbox"
-                                                id="flyers_withdraw"> 失败退单
+                                                id="flyers_withdraw"> 失败自动退单
                                         </label>
                                     </div>
                                     <div class="el-col el-col-11 is-guttered"
-                                        style="padding-right: 2.5px; padding-left: 2.5px;"> 超时: <span
-                                            style="display: inline-block; min-width: 10px;" class="csrecord">0</span>
+                                        style="padding-right: 2.5px; padding-left: 2.5px;"> 超时订单: <span
+                                            style="display: inline-block; min-width: 20px;" class="csrecord">0</span>
                                         押注: <span style="display: inline-block; min-width: 20px;"
                                             class="pankouYa">0</span>
-                                        余额:
+                                        网盘余额:
                                         <span class="pankouMoney"></span>
                                   
                                     </div>
@@ -1726,7 +1674,6 @@
                 return false;
             }
             //定时刷新是否需要重新登录
-            var isLoaded = false;
             function autoHandle() {
                 putAjax("{:url('index/needhandle')}", {
                     "tar": (document.hidden ? 1 : 0),
@@ -1758,15 +1705,11 @@
                         $(".peilv input,.peilv2 input,.fanshuiSet2 input,.fanshuiSet input,#yuliufengpan5,#edtCancel").attr('readonly',false);
                         $('#changexe').show();
                     }
-                    if(!isLoaded){
-                        isLoaded = true;
-                        $("#selectOption").html("");
-                        $("#selectOption").append("<option value='"+ data.rob.link +"' selected>登录二维码</option>")
-    					$("#selectOption").append("<option value='"+ data.rob.wxlink +"'>微信登录二维码</option>");
-    					$("#qrcode").html("");
-    					new QRCode(document.getElementById('qrcode'), data.rob.link);
-    					$("#shareLinkContainer .address").text(data.rob.link).attr('data-clipboard-text',data.rob.link);
-                    }
+                    $("#groupLoginUrl").attr('href', data.rob.link).html(data.rob.link);
+                    $(".copyLoginLink").attr('data-clipboard-text', data.rob.link);
+
+                    $("#LoginUrlwx").attr('href', data.rob.wxlink).html(data.rob.wxlink);
+                    $(".copyLoginLinkwx").attr('data-clipboard-text', data.rob.wxlink);
                     qihao = data.qh;
                     updateApplyScoreList(data);
                     flyersList(data);
@@ -1997,8 +1940,7 @@
                             url: "{:url('index/GetCmdList')}",
                             dataType: "json",
                             data: {
-                                "qihao": qihao,
-                                'type':cmdType
+                                "qihao": qihao
                             },
                             cache: false,
                             success: function(data) {
@@ -2071,7 +2013,7 @@
                 // });
             }
             $(document).ready(function() {
-                
+
                 refreshCaptcha();
 
                 $("#ExitLink").click(function() {
@@ -2198,9 +2140,7 @@
                 });
                 $("#jifen").click(function() {
                     //载入数据
-                    liushuiMode = $(".liushuigroup input[name='ls']:checked").val();
-                    if(liushuiMode==undefined)return;
-                    LoadWay1(liushuiMode);
+                    LoadWay1();
                     openKuang('jifenKuang');
                 });
                 $(".setWp").click(function() {
@@ -2426,8 +2366,8 @@
                     $(".setmanual").addClass("myHide");
                     $(".flyers_num").hide();
                 }
-                $("#copylinkArea").html(s.link.replace('chat/index/index',''));
-                $(".copyLink").attr('data-clipboard-text', s.link.replace('chat/index/index',''));
+                $("#copylinkArea").html(s.link);
+                $(".copyLink").attr('data-clipboard-text', s.link);
                 //黑名单
                 $(".setblack[data-type='" + s.isBlack + "']").addClass("myHide");
                 $(".setblack[data-type='" + (s.isBlack == 1 ? 0 : 1) + "']").addClass("myShow");
@@ -2440,18 +2380,6 @@
             }
 
             function selectJifen(s) {
-                putAjax("{:url('index/Getalltongji')}", {
-                    'uid': s.id
-                }, function(data) {
-                    if (data && data.bOK === 0 && data.Data && data.Data.user && data.Data.zong !== undefined) {
-                        $(".jifentongji").html(data.Data.user);
-                        $(".userjifenzj").html(data.Data.zong);
-                    } else {
-                        $(".jifentongji").html("获取数据错误");
-                        $(".userjifenzj").html("获取数据错误");
-                    }
-                });
-
                 selectChangejifen = s;
                 $(".jifenright .usernumber").html("会员ID：");
                 $(".jifenright .usernumber").append('v' + s.id);
@@ -2459,9 +2387,6 @@
                 $(".jifenright #userName").val(s.UserName);
                 $(".jifenright #loginPwd").val(s.logincode);
 				$(".jifenright #fanshui").val(s.FanShui);
-
-                
-                $(".account_info").html("账号: "+ s.UserName +"  密码: "+s.password);
                 resetJifen(s);
             }
             //更换wx
@@ -2707,7 +2632,6 @@
                     //单击某一个玩家，弹出浮层
                     divB.click(function(event) {
                         $('.qrBox').hide();
-                        $('.jifenmx').show();
                         event.stopPropagation();
                         // $(".userjifenzj", window.divJifen).text("赔率:" + sB.PeiLv + "，返水:" + sB.FanShui);
                         // window.divJifen.show();
@@ -2720,7 +2644,7 @@
                     $(".jifenleftlist").append(divB);
                 });
             }
-        
+
             function updateJifenList() {
                 putAjax("{:url('index/GetMembers')}", {
                     "user": '{$Think.session.user_id2}',
@@ -2730,10 +2654,6 @@
                     setJifenList(data);
                 });
             }
-            
-            $(document).on("click",function(){
-                $('.jifenmx').hide();
-            })
             //修改选定玩家的昵称
             $(".jifenright .setnick").click(function() {
                 var val = $(".jifenright #NickName").val();
@@ -2869,7 +2789,7 @@
                     "uid": s.id
                 }, function(data) {
                     if (data.bOK == 0) {
-                        $("#copylinkArea").html(data.Data.replace('chat/index/index','')); //显示复制按钮
+                        $("#copylinkArea").html(data.Data); //显示复制按钮
                         $(".copyLink").attr('data-clipboard-text', data.Data);
                         $(".userjifenzj img").attr('src', data.qr);
                         selectChangejifen.qr = data.qr;
@@ -2944,19 +2864,6 @@
                     }
                 });
             }
-
-            $("#selectOption").on("change",function(){
-				let url = $(this).val();
-				$("#qrcode").html("");
-				new QRCode(document.getElementById('qrcode'), url);
-				$("#shareLinkContainer .address").text(url).attr('data-clipboard-text',url);
-			});
-
-			var clipboardaddre = new Clipboard(".address");
-            clipboardaddre.on('success', function(e) {
-                alertSuc("复制成功!");
-                return false;
-            });
         </script>
 
     </body>

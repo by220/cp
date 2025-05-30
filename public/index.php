@@ -12,7 +12,7 @@
 // [ 前台应用入口文件 ]
 
 ini_set('session.cookie_httponly', 1);
-ini_set('session.cookie_secure', 1); // 如果是 HTTPS，保留；HTTP 可注释掉
+//ini_set('session.cookie_secure', 1); // 如果是 HTTPS，保留；HTTP 可注释掉
 ini_set('session.use_only_cookies', 1);
 
 $logPath = __DIR__ . '/../runtime/log/access_' . date('Ymd_H') . '.log';

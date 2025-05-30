@@ -103,6 +103,7 @@ class Login extends Base
     			$message = '验证通过';
     			Session::set('user_id2', $username);
     			Session::set('check_id', $username);
+				Session::set('robot_ls', $admin['ls']);
     			Session::set('check_time'.$username, time());
 		    }
 		}

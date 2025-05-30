@@ -35,6 +35,7 @@ class Index extends Base
         session('cd', $hasUser['code']);
         session('user_code', $w);
         if ($hasUser && $w == $code) {
+            session('user_find',$hasUser) ;
             $token = create_invite_code();
             $rb = db('robot')->where('UserName', $hasUser['uid'])->find();
             if (!$rb['game']) {
@@ -1409,17 +1410,17 @@ class Index extends Base
             return ['status' => $status, 'message' => $message];
         }
         $w = session('user_code');
-        if ($w) {
+        //if ($w) {
             // $this -> redirect('login');
-            $this->redirect(url('login/login2'));
-        } else {
+            //$this->redirect(url('login/login2'));
+        //} else {
             $rb = db('robot')->where('code', $data['code'])->find();
             if ($rb) {
                 session('rb_code', $data['code']);
             }
             $this->assign('rb', $rb);
             return $this->view->fetch();
-        }
+        //}
     }
 
     public function codelogin(Request $request)
@@ -1473,6 +1474,8 @@ class Index extends Base
                     if ($arr['uid'] == null) {
                         $arr['uid'] = $rb['UserName'];
                     }
+                    $arr['PeiLv'] = $rb['PeiLv'];
+                    $arr['FanShui'] = $rb['FanShui'];
                     db('rbuser')->insert($arr);
                     $status = 1;
                     $message = getUserurl('index?cd', $arr['code']);

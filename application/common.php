@@ -16,6 +16,7 @@ use think\Cache;
 use Qqwry\Qqwry;
 use FdPlatforms\FdPlatform4;
 use FdPlatforms\FdPlatform5;
+use think\Session;
 
 function formatqs($gid, $qs)
 {
@@ -1023,7 +1024,9 @@ function getData($val)
                 $secondItem = $response[1]; // 第二条数据
                 $arr['preDrawIssue'] = $secondItem['qishu'];
                 $arr['drawIssue'] = $firstItem['qishu'];
-                $arr['drawTime'] = date('Y-m-d') . ' ' . $firstItem['time'] . ':00';
+                //$arr['drawTime'] = date('Y-m-d') . ' ' . $firstItem['time'] . ':00';
+                $seconds = ($firstItem['qishu'] % 2 == 0) ? '00' : '30';
+                $arr['drawTime'] = date('Y-m-d') . ' ' . $firstItem['time'] . ':' . $seconds;
                 $arr['preDrawCode'] = $secondItem['kjcodes'];
             } else {
                 $arr = ['preDrawIssue' => ''];
@@ -1323,7 +1326,7 @@ function getLishi($data, $rb = '')
 {
     $type = $data['gameType'];
     $js = (int)cache('ls' . $type);
-    $hisArr = db('history')->where('type', $type)->where('Code', '<>', '')->order('id desc')->limit($js)->select();
+    $hisArr = db('history')->where('type', $type)->where('Code', '<>', '')->order('dtOpen desc,id desc')->limit($js)->select();
     $arr = cache('nowQi' . $type);
     if (isset($data['cmdqiu'])) {
         $fan = getFan($hisArr[0], $data);
@@ -1380,7 +1383,7 @@ function getLishi($data, $rb = '')
 
 function getZoushi()
 {
-    $zs = db('history')->where('Code', '<>', '')->where('type', 75)->order('id desc')->limit(20)->select();
+    $zs = db('history')->where('Code', '<>', '')->where('type', 75)->order('dtOpen desc,id desc')->limit(20)->select();
     $zs = array_reverse($zs);
     $hisStr = '<table border="1"><thead><tr class="background_1"><th scope="col">期</th><th scope="col">时间</th><th colspan="2" scope="col">平一</th><th colspan="2" scope="col">平二</th><th colspan="2" scope="col">平三</th><th colspan="2" scope="col">平四</th><th colspan="2" scope="col">特码</th><th colspan="2" scope="col">和值</th><th scope="col">龙</th></tr></thead><tbody class="xsl_lst">';
     foreach ($zs as $k => $value) {
@@ -1393,10 +1396,10 @@ function getZoushi()
 
 function feidan($value, $str, $id, $xiaList)
 {
-    if(!isset($value['uid'])){
+    if (!isset($value['uid'])) {
         return 3;
     }
-    if($value['isFeidan']==0){
+    if ($value['isFeidan'] == 0) {
         return 3;
     }
     $user = db('robot')->where('UserName', $value['uid'])->find();
@@ -1445,12 +1448,12 @@ function feidan($value, $str, $id, $xiaList)
                 $rbfly['host'] = $info['websiteUrl'];
                 $flyers = new FdPlatform4($rbfly);
                 $poststr = $flyers->getCmd($record);
-                echo json_encode($poststr).PHP_EOL;
+                echo json_encode($poststr) . PHP_EOL;
                 $user['websiteUrl'] = $info['websiteUrl'];
                 $user['fly_id'] = $rbfly['id'];
-                $make = $flyers->subMake($user,$poststr);
+                $make = $flyers->subMake($user, $poststr);
                 $order = db('record')->where('id', $id)->find();
-             //  echo json_encode($make).PHP_EOL;
+                //  echo json_encode($make).PHP_EOL;
                 break;
             case 'wns':
                 $rbfly['host'] = $info['websiteUrl'];
@@ -1458,7 +1461,7 @@ function feidan($value, $str, $id, $xiaList)
                 $poststr = $flyers->getCmd($record);
                 $user['websiteUrl'] = $info['websiteUrl'];
                 $user['fly_id'] = $rbfly['id'];
-                $make = $flyers->subMake($user,$poststr);
+                $make = $flyers->subMake($user, $poststr);
                 $order = db('record')->where('id', $id)->find();
                 break;
             default:
@@ -1515,21 +1518,20 @@ function feidan($value, $str, $id, $xiaList)
                         }
                     }
                 }
-            $order = db('record')->where('id', $id)->find();
-            $make = $flyers->subMake($order_makes, $user, $type, $money, $zi, $order);
-
+                $order = db('record')->where('id', $id)->find();
+                $make = $flyers->subMake($order_makes, $user, $type, $money, $zi, $order);
         }
-        
+
         if ($make == 3) {
-            if ($user['flyers_withdraw']==1) {
-                $user = db('rbuser')->where('wxid',$order['name'])->where('uid',$order['rid'])->find();
+            if ($user['flyers_withdraw'] == 1) {
+                $user = db('rbuser')->where('wxid', $order['name'])->where('uid', $order['rid'])->find();
                 $user['gameType'] = $user['gid'];
                 $user['qiuNum'] = $order['qiuNum'];
                 $user['iskj'] = true;
-                $admin = db('admin')->where('UserName',$order['uid'])->find();
-                db('rbuser')->where('wxid',$order['name'])->where('uid',$order['rid'])->setInc('score',$order['score']);
-                addMsg($user,$admin,'@'.$user['NickName'].' "'.$order['text'].'" 注单取消',$order['qihao']);
-                db('record')->where('id',$id)->delete();
+                $admin = db('admin')->where('UserName', $order['uid'])->find();
+                db('rbuser')->where('wxid', $order['name'])->where('uid', $order['rid'])->setInc('score', $order['score']);
+                addMsg($user, $admin, '@' . $user['NickName'] . ' "' . $order['text'] . '" 注单取消', $order['qihao']);
+                db('record')->where('id', $id)->delete();
             } else {
                 db("record")->where('id', $id)->update(array(
                     "flyers_status" => $make
@@ -2022,7 +2024,7 @@ function sendMsg($data)
                     $istId = addMsg3($wan, $admin, $last, '@' . $data['dluser'] . ', 下分' . $last . ',待审批!, 剩' . sprintf('%.0f', ($wan['score'] - $last)), $data['qh'], 'xia', $oid);
                 }
             }
-        } elseif ((strtotime($open['dtOpen']) - time() < $usre['fengpan']) || cache('feng' . $usre['id'] . $wan['gid']) || (0 > (strtotime($open['dtOpen']) - time())) || (strtotime($open['dtOpen']) - time() > 600) || $usre['isOpen'] == 0||($usre['flyers_auto']==1&&$usre['flyers_online']==0)) {
+        } elseif ((strtotime($open['dtOpen']) - time() < $usre['fengpan']) || cache('feng' . $usre['id'] . $wan['gid']) || (0 > (strtotime($open['dtOpen']) - time())) || (strtotime($open['dtOpen']) - time() > 600) || $usre['isOpen'] == 0 || ($usre['flyers_auto'] == 1 && $usre['flyers_online'] == 0)) {
             //    addCmd($wan, $admin, $data['cmd'], $data['qh']);
             $istId = addMsg($wan, $admin, '@' . $data['dluser'] . ', 已停止下注!', $data['qh']);
         } elseif (strstr($arr[0], '.') || strstr($arr[0], '=') || strstr($arr[0], '+') || strstr($arr[0], ' ')) {
@@ -2618,11 +2620,11 @@ function getKj($val)
             cache('kaijiang' . $type, true);
         }
     }
-    $last = db('history')->where('type', $type)->where('Code', '<>', '')->order('id desc')->find();
+    $last = db('history')->where('type', $type)->where('Code', '<>', '')->order('dtOpen desc,id desc')->find();
     if ($last) {
         cache('lastQi' . $type, $last);
     }
-    $open = db('history')->where('type', $type)->order('id desc')->find();
+    $open = db('history')->where('type', $type)->order('dtOpen desc,id desc')->find();
     cache('nowQi' . $type, $open);
     $rb = db('robot')->where('isOpen', 1)->where('time', '>', date('Y-m-d'))->select();
     $endTime = $open['dtOpen'];
@@ -2778,13 +2780,14 @@ function openKj($type)
             addMsg2(['uid' => $uname, 'id' => $uname, 'gameType' => $type], ['UserName' => $uname], $kai, $endQh2, 'kai', 1, 1);
         }
         if (!hasSys($type, $endQh2, 'kai2')) {
-            $open2 = db('history')->where('type', $type)->where('Code', '<>', '')->order('id desc')->limit($ls)->select();
+            $open2 = db('history')->where('type', $type)->where('Code', '<>', '')->order('dtOpen desc,id desc')->limit($ls)->select();
             cache('qiList' . $type, $open2);
             $lishi = '<div class="card2"><div class="tbhead"><span>期数</span><span></span><span>结果</span>' . ($type != 75 ? '<span>番</span>' : '') . '</div><div class="list">';
             foreach ($open2 as $k => $value) {
                 if ($k < 15) {
                     $time = explode(' ', $value['dtOpen']);
                     $bor = ($k == 0 ? 'border:1px solid #ec5d5d;' : '');
+                    //H:i:s
                     $lishi .= '<div style="display: flex;justify-content:space-around;background:#fff;align-items: center;width:100%;line-height:26px;box-sizing:border-box;' . $bor . '"><span class="qihao">' . substr($value['QiHao'], -3) . '</span><span class="shijian">' . date('', strtotime($value['dtOpen'])) . '</span><span class="haoma">';
                     $list2 = explode(',', $value['Code']);
                     foreach ($list2 as $y => $val) {
@@ -2841,7 +2844,6 @@ function openKj($type)
                 foreach ($wfArr as $value) {
                     $wfStr .= '<th>' . $value . '</th>';
                 }
-                // $lishi .= '</div><div class="luzi" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><table border="1" cellspacing="0"><thead><tr>' . ($wf ? $wfStr : '<th></th><th></th><th></th>') . '<th></th><th></th><th></th><th></th><th>路</th><th>字</th><th>图</th><th></th><th></th><th></th><th></th></thead><tbody class="lu">';
                 $lishi .= '</div><div class="luzi" ' . (!$game['hasKey'] ? 'style="display:none;"' : '') . '><table border="1" cellspacing="0"><thead><tr>' . ($wf ? $wfStr : '<th></th><th></th><th></th>') . '<th></th><th>路</th><th>字</th><th>图</th><th></th><th></th><th></th><th></th><th></th></tr></thead><tbody class="lu">';
                 for ($i = 0; $i < ($len + 1); $i++) {
                     $lishi .= '<tr>';
@@ -3672,14 +3674,18 @@ function get_Liushui($user, $rb)
     return $lius;
 }
 
-function get_Yingkui($user, $rb)
+function get_Yingkui($user, $rb, $isrobot = 0)
 {
     $data['user'] = $user;
     $data['rb'] = $rb;
     $timer = get_time_arr(['day' => getTimeList(), 'timeType' => 1]);
     $dayList = $timer['d'];
     $type = $user['gid'];
-    $recordList = db('record')->where('gameType', $type)->where('name', $user['wxid'])->where('uid', $rb['UserName'])->where('type', 3)->where('chi', 0)->where('dtGenerate', 'between', $dayList)->select();
+    if ($isrobot == 0) {
+        $recordList = db('record')->where('gameType', $type)->where('name', $user['wxid'])->where('uid', $rb['UserName'])->where('type', 3)->where('chi', 0)->where('dtGenerate', 'between', $dayList)->select();
+    } else {
+        $recordList = db('record')->where('name', $user['wxid'])->where('uid', $rb['UserName'])->where('type', 3)->where('chi', 0)->where('dtGenerate', 'between', $dayList)->select();
+    }
     list($arr, $allQi, $yijie, $weijie) = resetOrder($recordList);
     $ying = $arr['totalYing'];
     $kui = $arr['totalKui'];
@@ -3698,6 +3704,28 @@ function getShuang($val)
     $arr2 = explode('/', $str);
     if (strstr($str, '车') || strstr($str, '推') || in_array($arr2[0], $chetui)) {
         return $val['totalYing'];
+    } elseif (in_array($arr2[0], $tong)) {
+        return $val['score'] * 0.5;
+    } elseif (in_array($arr2[0], $wanfaArr)) {
+        return $val['score'];
+    } else {
+        return $val['score'];
+    }
+}
+
+function getShuangs($val)
+{
+    $chetui = ['123', '132', '231', '213', '321', '312', '124', '142', '421', '412', '214', '241', '234', '243', '324', '342', '432', '423', '134', '143', '341', '314', '413', '431'];
+    $tong = ['12无3', '21无3', '12无4', '21无4', '13无2', '31无2', '13无4', '31无4', '14无2', '41无2', '14无3', '41无3', '23无1', '32无1', '23无4', '32无4', '24无1', '42无1', '24无3', '42无3', '34无1', '43无1', '34无2', '43无2', '1通23', '1通24', '1通34', '1通32', '1通42', '1通43', '2通13', '2通14', '2通34', '2通31', '2通41', '2通43', '3通12', '3通14', '3通24', '3通12', '3通41', '3通42', '4通12', '4通13', '4通23', '4通21', '4通31', '4通32'];
+    $wanfaArr = ['1无2', '1无4', '2无1', '2无3', '3无2', '3无4', '4无1', '4无3', '1加34', '1加43', '1加23', '1加32', '2加34', '2加43', '2加41', '2加14', '3加14', '3加41', '3加12', '3加21', '4加12', '4加21', '4加23', '4加32'];
+    $str = $val['text'];
+    $arr2 = explode('/', $str);
+    if (strstr($str, '车') || strstr($str, '推') || in_array($arr2[0], $chetui)) {
+        if($val['ying']==1){
+            return $val['score']/3;
+        }else{
+            return $val['score'];
+        }
     } elseif (in_array($arr2[0], $tong)) {
         return $val['score'] * 0.5;
     } elseif (in_array($arr2[0], $wanfaArr)) {
@@ -3736,7 +3764,7 @@ function  getZuoyu($val)
 function  resetOrder($list, $type = '')
 {
     $arr['detail'] = $arr['list'] = $arrzy2 = $allQi = [];
-    $arr['totalZuoYu'] = $arr['totalLiuShui'] = $arr['totalYing'] = $arr['totalKui'] = $arr['totalYouXiaoLiuShui'] = $arr['totalYouXiaoLiuShuis'] = $arr['totalValidLiuShuis'] = $arr['robotName'] = $arr['shortRobotName'] = $arr['totalYingKui'] = $arr['totalFanShui'] = $arr['totalUp'] = $arr['totalDown'] = $arr['totalUpDown'] = $arr['flyersSuc'] = $arr['flyersFail'] = $arr['flyersWait'] = $weijie = $yijie = 0;
+    $arr['totalZuoYu'] = $arr['totalLiuShui'] = $arr['totalYing'] = $arr['totalKui'] = $arr['totalYouXiaoLiuShui'] = $arr['totalYouXiaoLiuShuis'] = $arr['totalValidLiuShuis'] = $arr['robotName'] = $arr['shortRobotName'] = $arr['totalYingKui'] = $arr['totalFanShui'] = $arr['totalFanShuis'] = $arr['totalUp'] = $arr['totalDown'] = $arr['totalUpDown'] = $arr['flyersSuc'] = $arr['flyersFail'] = $arr['flyersWait'] = $weijie = $yijie = 0;
     foreach ($list as $k => $val) {
         // if (($val['type']==3&&$val['time']&&$val['status']==1)||($val['type']==4&&$val['dtGenerate']&&$val['isTy']==1)) {
         if (($val['type'] == 3) || ($val['type'] == 4 && $val['dtGenerate'] && $val['isTy'] == 1)) {
@@ -3744,32 +3772,34 @@ function  resetOrder($list, $type = '')
                 $flyers_status = '已报';
                 $flyers_color = "green";
                 if ($val['type'] == 3) {
-                 //   $arr['flyersSuc'] += 1;
-                 $arr['flyersSuc'] +=  $val['score'] ;// 统计已报金额 
+                    //   $arr['flyersSuc'] += 1;
+                    $arr['flyersSuc'] +=  $val['score']; // 统计已报金额 
                 }
             }
             if ($val['flyers_status'] == 3) {
                 $flyers_status = '失败';
                 $flyers_color = "red";
                 if ($val['type'] == 3) {
-                  //  $arr['flyersFail'] += 1;
-                    $arr['flyersFail'] +=  $val['score'] ;// 统计失败金额 
+                    //  $arr['flyersFail'] += 1;
+                    $arr['flyersFail'] +=  $val['score']; // 统计失败金额 
                 }
             }
             if (in_array($val['flyers_status'], [0, 1])) {
                 $flyers_status = '未报';
                 $flyers_color = "";
                 if ($val['type'] == 3) {
-                    $arr['flyersWait'] += 1;
+                    //   $arr['flyersWait'] += 1;
+                    $arr['flyersWait'] +=  $val['score']; //统计未报金额
                 }
             }
             $ben = $val['ying'] == 0 ? $val['score'] : 0;
             $wxid2 = substr($val['name'], 5, 8);
-            list($recordFan, $allLiu, $ying, $Up, $Down, $liu, $kui, $sliu) = getRecordData($val);
+            list($recordFan, $allLiu, $ying, $Up, $Down, $liu, $kui, $sliu,$recordFans) = getRecordData($val);
             if (!in_array($wxid2, $arrzy2)) {
                 $zuoYu = getZuoyu($val);
                 array_push($arrzy2, $wxid2);
                 array_push($arr['detail'], [
+                    "userid" => isset($val['user_id']) ? $val['user_id'] : "",
                     "wxid" => $val['name'],
                     "NickName" => $val['wid'],
                     'ying' => $ying,
@@ -3783,6 +3813,7 @@ function  resetOrder($list, $type = '')
                     "totalYingKui" => bcsub($ying, $kui, 2),
                     "totalLiuShui" => $liu,
                     "totalFanShui" => $recordFan,
+                    "totalFanShuis" => $recordFans,
                     "totalValidLiuShui" => $allLiu,
                     "totalValidLiuShuis" => $sliu
                 ]);
@@ -3804,6 +3835,7 @@ function  resetOrder($list, $type = '')
                         $arr['detail'][$y]['totalYingKui']  = bcadd($arr['detail'][$y]['totalYingKui'], bcsub($ying, $kui, 2), 2);
                         $arr['detail'][$y]['totalLiuShui'] = bcadd($arr['detail'][$y]['totalLiuShui'], $liu, 2);
                         $arr['detail'][$y]['totalFanShui'] = bcadd($arr['detail'][$y]['totalFanShui'], $recordFan, 2);
+                        $arr['detail'][$y]['totalFanShuis'] = bcadd($arr['detail'][$y]['totalFanShuis'], $recordFans, 2);
                         $arr['detail'][$y]['totalValidLiuShui']  = bcadd($arr['detail'][$y]['totalValidLiuShui'], $allLiu, 2);
                         $arr['detail'][$y]['totalValidLiuShuis']  = bcadd($arr['detail'][$y]['totalValidLiuShuis'], $sliu, 2);
                     }
@@ -3839,6 +3871,7 @@ function  resetOrder($list, $type = '')
                 $val["lastResult"] = $fan ? getCum($has, $val) : '';
                 $val["fan"] = $fan;
                 $val["dtfanshui"] = $recordFan;
+                $val["dtfanshuis"] = $recordFans;
                 $val["afterScore"] = floatval($val['afterScore']);
                 $val["cmdText"] = getQiuWf($val['gameType'], $val['qiuNum']) . $val['text'];
                 $val["dtCmd"] = $val['dtGenerate'];
@@ -3861,6 +3894,7 @@ function  resetOrder($list, $type = '')
             $arr['totalYouXiaoLiuShui'] = bcadd($arr['totalYouXiaoLiuShui'], $allLiu, 2);
             $arr['totalYingKui'] = bcadd($arr['totalYingKui'], bcsub($ying, $kui, 2), 2);
             $arr['totalFanShui'] = bcadd($arr['totalFanShui'], $recordFan, 2);
+            $arr['totalFanShuis'] = bcadd($arr['totalFanShuis'], $recordFans, 2);
             $arr['totalUp'] = bcadd($arr['totalUp'], $Up, 2);
             $arr['totalDown'] = bcadd($arr['totalDown'], $Down, 2);
             $arr['totalYouXiaoLiuShuis'] = bcadd($arr['totalYouXiaoLiuShuis'], $sliu, 2);
@@ -4154,7 +4188,7 @@ function  jiesuan($value, $kj)
 
 function  getRecordData($val)
 {
-    $recordFan = $allLiu = $ying = $Up = $Down = $liu = $kui = $sliu = 0;
+    $recordFan = $recordFans = $allLiu = $ying = $Up = $Down = $liu = $kui = $sliu = 0;
     if ($val['status'] == 1 && $val['ying'] == 1 && $val['type'] == 3) {
         if (strstr($val['text'], '特')) {
             $arr3 = explode('特', $val['text']);
@@ -4179,6 +4213,17 @@ function  getRecordData($val)
         }
         $sliu = bcadd($sliu, getShuang($val), 2);
     }
+    if($val['status'] == 1 && $val['ying'] != 3 && $val['type'] == 3){
+        if (strstr($val['text'], '特')) {
+            $b_f1 = $val['totalYing'];
+        }else{
+            $b_f1 = getShuangs($val);
+        }
+        $c_f1 = bcdiv($val['fanshui'], 100, 2);
+        $d_f1 = bcmul($b_f1, $c_f1, 2);
+        $recordFans = bcadd($recordFans, $d_f1, 2);
+ 
+    }
     if ($val['sys'] == 'shang' && $val['isTy'] == 1) {
         $Up = bcadd($Up, $val['score'], 2);
     }
@@ -4192,7 +4237,7 @@ function  getRecordData($val)
         $kui = bcadd($kui, $val['score'], 2);
         $sliu = bcadd($sliu, $val['score'], 2);
     }
-    return [$recordFan, $allLiu, $ying, $Up, $Down, $liu, $kui, $sliu];
+    return [$recordFan, $allLiu, $ying, $Up, $Down, $liu, $kui, $sliu, $recordFans];
 }
 
 function  get_score_his($data)
@@ -4207,10 +4252,21 @@ function  get_score_his($data)
     $arr['totalYouXiaoLiuShuis'] = 0;
     $arr['totalYingKui'] = 0;
     $arr['totalFanShui'] = 0;
+    $arr['totalFanShuis'] = 0;
     $arr['totalUp'] = 0;
     $arr['totalDown'] = 0;
     $arr['totalUpDown'] = 0;
-    $recordList = db('record')->where('rid', $map)->where('type', 'exp', ' IN (3,4) ')->where('isTuo', 0)->where('chi', 0)->where('dtGenerate', 'between', $dayList)->select();
+    // $recordList = db('record')->where('rid', $map)->where('type', 'exp', ' IN (3,4) ')->where('isTuo', 0)->where('chi', 0)->where('dtGenerate', 'between', $dayList)->select();
+    $recordList = db('record')
+    ->alias('r')
+    ->join('rbuser u', 'r.name = u.wxid', 'LEFT')           // 关联 rbuser
+    ->where('r.rid', $map)
+    ->where('r.type', 'exp', 'IN (3,4)')
+    ->where('r.isTuo', 0)
+    ->where('r.chi', 0)
+    ->where('r.dtGenerate', 'between', $dayList)
+    ->field('r.*, u.id as user_id')       // 取出 user_id
+    ->select();
     list($arr, $allQi, $yijie, $weijie) = resetOrder($recordList);
     //昵称字母排序
     usort($arr['detail'], function ($a, $b) {
@@ -4275,7 +4331,7 @@ function get_way3_data($data)
     $rob = db('robot')->where('UserName', $map)->find();
     $has = cache('lastQi' . $rob['type']);
     $result = db('record')->where('qihao', $has['QiHao'])->where('type', 3)->where('rid', $map)->where('dtGenerate', 'between', $dayList)->select();
-    $his = db('history')->where('type', $rob['type'])->where('Code', '<>', '')->where('dtOpen', 'between', $dayList)->order('id desc')->limit(30)->select();
+    $his = db('history')->where('type', $rob['type'])->where('Code', '<>', '')->where('dtOpen', 'between', $dayList)->order('dtOpen desc,id desc')->limit(30)->select();
     list($arr, $allQi, $yijie, $weijie) = resetOrder($result, true);
     foreach ($his as $value) {
         $zhu = db('record')->where('qihao', $value['QiHao'])->where('type', 3)->where('rid', $map)->where('dtGenerate', 'between', $dayList)->count();
@@ -10440,7 +10496,7 @@ function checkTime()
     $currentMinute = (int)date('i');  // 分钟，带前导零
 
     // 检查是否在9:30到23点之间
-    if (($currentHour > 9 || ($currentHour == 9 && $currentMinute >= 30)) && $currentHour <23) {
+    if (($currentHour > 9 || ($currentHour == 9 && $currentMinute >= 30)) && $currentHour < 23) {
         // 当前时间在9:30到23点之间
         return true;
     } else {

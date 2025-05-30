@@ -239,13 +239,14 @@
 		<div style="width:100%;padding: 5px;">
 			总反水:<span id="totalFanShui">0</span>，&nbsp;&nbsp;
 			总昨余:<span id="totalZuoYu">0</span>，&nbsp;&nbsp;
-			总流水:<span id="totalRealLiuShui">0</span>&nbsp;&nbsp;
-			<br>
+		<!--	总流水:<span id="totalRealLiuShui">0</span>&nbsp;&nbsp;-->
+			
 			{if $type == 75}
 			总有效流水:<span id="totalRealYouXiaoLiuShui">0</span>，&nbsp;&nbsp;
 			{else/}
-			总单边流水:<span id="totalRealYouXiaoLiuShui">0</span>，&nbsp;&nbsp;
-			总双边流水:<span id="totalRealYouXiaoLiuShuis">0</span>&nbsp;&nbsp;
+		<!--	总单边流水:<span id="totalRealYouXiaoLiuShui">0</span>，&nbsp;&nbsp;
+			总双边流水:<span id="totalRealYouXiaoLiuShuis">0</span>&nbsp;&nbsp;-->
+				总<span id="totalRealYouXiaoLiuShuiStr"></span>:<span id="totalRealYouXiaoLiuShui">0</span>
 			{/if}
 			<br>
 			总盈亏:<span id="totalRealYingKui">0</span>，&nbsp;&nbsp;
@@ -299,6 +300,7 @@
 		<script type="text/javascript">
 			var dayIndex = 3; //天的索引，0，1,2,3
 			var timeType = 1; //0点还是6点一天， 0是0点一天，1是6点一天
+			let type = {$type};
 			function GetWay1Data(day) {
 				$("#content").html(
 					"<span style='color:black;font-size:14px;font-weight:200;background-color:yellow;'>数据正在生成，请稍候...</span>");
@@ -318,9 +320,9 @@
 						$("#flyersFail").html(data.flyersFail);
 						$("#totalRealYingKui").html(data.totalYingKui);
 						$("#totalRealLiuShui").html(data.totalLiuShui);
-						$("#totalRealYouXiaoLiuShuis").html(data.totalYouXiaoLiuShuis);
-						$("#totalRealYouXiaoLiuShui").html(data.totalYouXiaoLiuShui);
-						$("#totalFanShui").html(parseFloat(data.totalFanShui));
+					//	$("#totalRealYouXiaoLiuShuis").html(data.totalYouXiaoLiuShuis);
+						$("#totalRealYouXiaoLiuShui").html(liushuiMode==2?data.totalYouXiaoLiuShuis:data.totalYouXiaoLiuShui);
+						$("#totalFanShui").html(parseFloat(liushuiMode==2?data.totalFanShuis:data.totalFanShui));
 						$("#totalUp").html(data.totalUp);
 						$("#totalDown").html('-' + data.totalDown);
 						$("#totalUpDown").html(data.totalUpDown);
@@ -337,19 +339,49 @@
 							// else {
 							// tmpDownText = "-0";
 							// }
+							if(liushuiMode==2)
+							{
+								val.totalValidLiuShui = val.totalValidLiuShuis;
+							}
 							{if $type==75}
-							val.totalValidLiuShuis = '';
+								val.totalValidLiuShuis = '';
 							{/if}
-							$("#content").html($("#content").html() + '<div class="infoitem" data-wxid=' +
-								val.wxid + '><div class="item_top">会员ID：<span class="userid">' + val
-								.wxid + '</span>，昵称：<span class="nickname">' + val.NickName +
+							let validLabel = '';
+							if (type == 75) {
+								validLabel = '有效流水';
+							} else {
+								validLabel = liushuiMode == 2 ? '双边流水' : '单边流水';
+							}
+							$("#totalRealYouXiaoLiuShuiStr").html(validLabel);
+						/*	$("#content").html($("#content").html() + '<div class="infoitem" data-wxid=' +
+								val.wxid + '><div class="item_top">会员ID：<span class="userid">@v' + val
+								.userid + '</span>，昵称：<span class="nickname">' + val.NickName +
 								'</span></div><div class="all_fanshui" style="display: block;">总返水：' +
-								parseFloat(val.totalFanShui) + ' </div><div class="profit_loss">昨余:' +
+								parseFloat(liushuiMode==2?val.totalFanShuis:val.totalFanShui) + ' </div><div class="profit_loss">昨余:' +
 								val.ZuoYu + '，&nbsp;&nbsp; 流水: ' + val.totalLiuShui +
 								'，&nbsp;&nbsp; {$type==75?"有效":"单边"}流水: ' + val.totalValidLiuShui + '{$type==75?"":"，&nbsp;&nbsp; 双边流水: "}' +
 								val.totalValidLiuShuis + '，&nbsp;&nbsp; 盈亏:' + val.totalYingKui +
 								',&nbsp;&nbsp;上下:&nbsp;&nbsp;' + val.totalUp + tmpDownText +
 								'=&nbsp;&nbsp;' + val.totalUpDown + '</div>' + '</div>');
+								*/
+								const html = `
+									<div class="infoitem" data-wxid="${val.wxid}">
+										<div class="item_top">
+										会员ID：<span class="userid">@v${val.userid}</span>，
+										昵称：<span class="nickname">${val.NickName}</span>
+										</div>
+										<div class="all_fanshui" style="display: block;">
+										总返水：${parseFloat(liushuiMode == 2 ? val.totalFanShuis : val.totalFanShui)}
+										</div>
+										<div class="profit_loss">
+										昨余: ${val.ZuoYu}，&nbsp;&nbsp;
+										${validLabel}: ${val.totalValidLiuShui}，&nbsp;&nbsp;
+										盈亏: ${val.totalYingKui}，&nbsp;&nbsp;
+										上下: ${val.totalUp}${tmpDownText} = ${val.totalUpDown}
+										</div>
+									</div>
+									`;
+								$("#content").append(html);			
 						});
 						//绑定点击事件
 						$(".infoitem").bind("click", function() {
@@ -430,16 +462,16 @@
                                         }
         
                                         lastMingXi = mingxi;
-        
+										lastfanshui = liushuiMode==2? mingxi.dtfanshuis: mingxi.dtfanshui;
                                         if (mingxi.count > 0) {
-                                            subDiv += '<div class="infoitem_row type1" ' + topMargin + '><span class="rowtype">盈亏操作：</span><span class="rowqi">' + mingxi.qihao + '</span><span class="rowcontent">' + mingxi.cmdText + '</span><span class="rowcontent '+mingxi.flyersColor+'">' + mingxi.flyersStatus + '</span><br><span class="rowresult" style="display: block;">' + mingxi.code + '=&gt;' + mingxi.lastResult + '=&gt;' + mingxi.fan + '</span><span class="rowbefore"></span><span class="rowchange win">+' + parseFloat(mingxi.count) + '</span><span class="fanshui">[返水' + mingxi.dtfanshui + ']</span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '&nbsp;<=&nbsp;' + mingxi.dtCmd + '</span></div>';
+                                            subDiv += '<div class="infoitem_row type1" ' + topMargin + '><span class="rowtype">盈亏操作：</span><span class="rowqi">' + mingxi.qihao + '</span><span class="rowcontent">' + mingxi.cmdText + '</span><span class="rowcontent '+mingxi.flyersColor+'">' + mingxi.flyersStatus + '</span><br><span class="rowresult" style="display: block;">' + mingxi.code + '=&gt;' + mingxi.lastResult + '=&gt;' + mingxi.fan + '</span><span class="rowbefore"></span><span class="rowchange win">+' + parseFloat(mingxi.count) + '</span><span class="fanshui">[返水' + lastfanshui + ']</span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '&nbsp;<=&nbsp;' + mingxi.dtCmd + '</span></div>';
                                         }
                                         else if (mingxi.count == 0) {
-                                            var fs = mingxi.ying==1?'[返水' + mingxi.dtfanshui + ']':'';
+                                            var fs = mingxi.ying==1||liushuiMode==2?'[返水' + lastfanshui + ']':'';
                                             subDiv += '<div class="infoitem_row type1"' + topMargin + '><span class="rowtype">盈亏操作：</span><span class="rowqi">' + mingxi.qihao + '</span><span class="rowcontent">' + mingxi.cmdText + '</span><span class="rowcontent '+mingxi.flyersColor+'">' + mingxi.flyersStatus + '</span><br><span class="rowresult" style="display: block;">' + mingxi.code + '=&gt;' + mingxi.lastResult + '=&gt;' + mingxi.fan + '</span><span class="rowbefore"></span><span class="rowchange win">' + parseFloat(mingxi.count) + '</span><span class="fanshui">'+fs+'</span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '&nbsp;<=&nbsp;' + mingxi.dtCmd + '</span></div>';
                                         }
                                         else {
-                                            var fs = mingxi.ying==1?'[返水' + mingxi.dtfanshui + ']':'';
+                                            var fs = mingxi.ying==1||liushuiMode==2?'[返水' + lastfanshui + ']':'';
                                             subDiv += '<div class="infoitem_row type1"' + topMargin + '><span class="rowtype">盈亏操作：</span><span class="rowqi">' + mingxi.qihao + '</span><span class="rowcontent">' + mingxi.cmdText + '</span><span class="rowcontent '+mingxi.flyersColor+'">' + mingxi.flyersStatus + '</span><br><span class="rowresult" style="display: block;">' + mingxi.code + '=&gt;' + mingxi.lastResult + '=&gt;' + mingxi.fan + '</span><span class="rowbefore"></span><span class="rowchange lose">' + parseFloat(mingxi.count) + '</span><span class="fanshui">'+fs+'</span><span class="rowscore">' + mingxi.afterScore + '</span><br><span class="rowtime">' + mingxi.dtJieSuan + '&nbsp;<=&nbsp;' + mingxi.dtCmd + '</span></div>';
                                         }
                                     }
@@ -623,7 +655,7 @@
 				});
 			}
 			//加载当前积分对账
-			function LoadWay1() {
+			function LoadWay1(liushuiMode) {
 				//处理内容的隐藏和显示
 				$("#way1").removeClass("ToHide").addClass("ToShow");
 				$("#way2").addClass("ToHide").removeClass("ToShow");

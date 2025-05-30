@@ -6,12 +6,6 @@
 			<div class="uk-panel uk-panel-box uk-panel-box-primary" style="padding:5px;">
 				<form class="layui-form" action="">
 					<div class="layui-inline">
-						<input type="text" name="qihao" placeholder="请输入期号" autocomplete="off" class="layui-input">
-					</div>
-					<div class="layui-input-inline">
-						<button class="layui-btn layui-btn-sm" lay-submit lay-filter="formDemo">查询</button>
-					</div>
-					<div class="layui-inline">
 						<select name="type" lay-filter="changeGame">
 							<option value=""></option>
 							{volist name="game" id="vo" }
@@ -20,6 +14,26 @@
 							{/volist}
 						</select>
 					</div>
+					<div class="layui-inline">
+						<input type="text" name="qihao" placeholder="请输入期号" autocomplete="off" class="layui-input">
+					</div>
+					
+					<div class="layui-input-inline">
+						<button class="layui-btn layui-btn-sm" lay-submit lay-filter="formDemo">查询</button>
+					</div>
+					<div class="layui-input-inline">
+						<button class="layui-btn layui-btn-sm" lay-submit lay-filter="formKj">结算</button>
+					</div>
+					<div class="layui-inline">
+						<input type="text" name="code" placeholder="请输入开奖号码" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-inline">
+						<input type="text" name="dtOpen" placeholder="请输入开奖时间" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-input-inline">
+						<button class="layui-btn layui-btn-sm" lay-submit lay-filter="formBq">补期</button>
+					</div>
+					
 				</form>
 				<div class="uk-grid uk-margin-large-top">
 					<div class="uk-width-1-1">
@@ -109,6 +123,16 @@
 			return false;
 		});
 
+		form.on('submit(formKj)', function(data) {
+			Kj(data.field);
+			return false;
+		});
+
+		form.on('submit(formBq)', function(data) {
+			Bq(data.field);
+			return false;
+		});
+
 		form.on('select(changeGame)', function(data) {
 		    type = data.value;
 			refresh();
@@ -130,6 +154,51 @@
     			}
     		});
     	}
+
+		function Kj(data) {
+    		if (data.qihao == "") {
+    			alertSuc("请输入要结算的期号!");
+    			return false;
+    		}
+    		layer.confirm("确定将[" + data.qihao + "]进行手动结算吗?", function(index) {
+				putAjax("{:url('history/getKj')}", {
+					"QiHao": data.qihao,
+					"type": data.type
+				}, function(res) {
+					if(res.data==1){
+						refresh();
+						alertSuc('结算成功！');
+					}else{
+						alertSuc(res.msg);
+					}
+				});
+				layer.close(index);
+			});
+    	}
+
+		function Bq(data) {
+    		if (data.qihao == ""||data.code == "") {
+    			alertSuc("请输入要补的期号和开奖号码!");
+    			return false;
+    		}
+    		layer.confirm("确定要增加[" + data.qihao + "]期吗?", function(index) {
+				putAjax("{:url('history/getBq')}", {
+					"QiHao": data.qihao,
+					"type": data.type,
+					"code":data.code,
+					"dtOpen": data.dtOpen
+				}, function(res) {
+					if(res.data==1){
+						refresh();
+						alertSuc('增加成功！');
+					}else{
+						alertSuc(res.msg);
+					}
+				});
+				layer.close(index);
+			});
+    	}
+
 	});
 
 	function refresh() {
